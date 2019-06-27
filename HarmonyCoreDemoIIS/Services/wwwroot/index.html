@@ -1,0 +1,375 @@
+<html>
+<head>
+    <title>Harmony Core Service</title>
+
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+
+    <style>
+        body {
+            font-family: "Helvetica";
+            background-color: lightsteelblue;
+            margin-top: 40px;
+            margin-bottom: 40px;
+            margin-left: 80px;
+            margin-right: 80px;
+        }
+
+        h1 {
+            color: navy;
+        }
+
+        h2 {
+            color: navy;
+        }
+
+        a:link {
+            color: blue;
+            text-decoration: none;
+        }
+
+        a:visited {
+            color: blue;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: red;
+            text-decoration: none;
+        }
+
+        a:active {
+            color: red;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <img src="HarmonyCoreLogo.png" style="width: 600px; height: auto" />
+
+    <h1> Welcome to your RESTful Web Service</h1>
+    <ul>
+        <li><a href="/odata">OData exposed entities</a></li>
+        <li><a href="/odata/$metadata">OData metadata</a></li>
+        <li><a href="/api-docs">API documentation</a></li>
+    </ul>
+
+    <!------------------------------------------------------------------------------->
+    <hr noshade>
+
+    <p>
+        When you create a new Harmony Core project we provide a sample repository and
+        data set, and we pre-configure the environment with sample endpoints that provide
+        examples of how those endpoints can be used. The entities in the sample data set
+        are as follows:
+    </p>
+
+    <ul>
+        <li>CUSTOMERS</li>
+        <li>ITEMS</li>
+        <li>ORDERS</li>
+        <li>ORDER_ITEMS</li>
+        <li>VENDORS</li>
+    </ul>
+
+    <p>
+        Each customer can have zero or more orders, each order has one or more order items,
+        each order item is associated with an item (inventory) and each item is supplied by
+        a vendor.
+    </p>
+
+    <p>
+        The links below can be used to explore various capabilities of the sample API. 
+        Once you are ready to remove the sample content and add your own, follow the
+        instructions <a href="#customization">here</a>.
+    </p>
+
+    <!------------------------------------------------------------------------------->
+    <hr noshade>
+    <h2>Customers</h2>
+
+    <ul>
+        <li><a href="odata/Customers">All customers</a></li>
+        <li><a href="odata/Customers/$count">How many customers</a></li>
+    </ul>
+
+    <h3>Primary Key Access</h3>
+
+    <ul>
+        <li><a href="odata/Customers(1)">Single customer</a></li>
+    </ul>
+
+    <p>All properties except primary key segments are available individually. Below are three examples:</p>
+
+    <ul>
+        <li><a href="odata/Customers(8)/Name">Customer 8 name</a></li>
+        <li><a href="odata/Customers(8)/Phone">Customer 8 phone number</a></li>
+        <li><a href="odata/Customers(8)/CreditLimit">Customer 8 credit limit</a></li>
+    </ul>
+
+    <h3>Alternate Key Access</h3>
+
+    <ul>
+        <li><a href="odata/Customers(State='WA')">Customers in Washington state</a></li>
+        <li><a href="odata/Customers(ZipCode=97813)">Customers in zip code 97813</a></li>
+        <li><a href="odata/Customers(PaymentTermsCode='01')">Customers with payment terms code 01</a></li>
+    </ul>
+
+    <h3>Directly Related Entities</h3>
+
+    <ul>
+        <li><a href="odata/Customers?$expand=REL_Orders">All customers and their orders</a> (large result set)</li>
+        <li><a href="odata/Customers(8)?$expand=REL_Orders">Single customer and their orders</a></li>
+    </ul>
+
+    <h3>Example Queries</h3>
+
+    <ul>
+        <li><a href="odata/Customers?$select=CustomerNumber,Name">All customers, customer number and name</a></li>
+        <li><a href="odata/Customers(8)?$select=CustomerNumber,Name">Single customer, customer number and name</a></li>
+        <li><a href="odata/Customers(8)?$select=CustomerNumber,Name&$expand=REL_Orders($select=OrderNumber,DateOrdered;$expand=REL_OrderItems($select=ItemNumber,ItemOrdered,QuantityOrdered,UnitPrice;$expand=REL_Item($select=CommonName,Size;$expand=REL_Vendor($select=Name))))">A customer, thier orders, the order items, the item ordered, and the vendor of the item, with selected properties all the way down</a></li>
+        <li><a href="odata/Customers?$select=CustomerNumber,Name&$filter=CreditLimit gt 7000">All customers with credit limit over $7000, customer number and name</a></li>
+    </ul>
+
+    <!------------------------------------------------------------------------------->
+    <hr noshade>
+    <h2>Items</h2>
+
+    <ul>
+        <li><a href="odata/Items">All items</a></li>
+        <li><a href="odata/Items/$count">How many items</a></li>
+    </ul>
+
+    <h3>Primary Key Access</h3>
+
+    <ul>
+        <li><a href="odata/Items(1)">Single item</a></li>
+    </ul>
+
+    <p>All properties except primary key segments are available individually. Below are three examples:</p>
+
+    <ul>
+        <li><a href="odata/Items(1)/VendorNumber">Item 1 vendor number</a></li>
+        <li><a href="odata/Items(1)/LatinName">Item 1 latin name</a></li>
+        <li><a href="odata/Items(1)/UnitPrice">Item 1 unit price</a></li>
+    </ul>
+
+    <h3>Alternate Key Access</h3>
+
+    <ul>
+        <li><a href="odata/Items(VendorNumber=40)">Items from vendor 40</a></li>
+        <li><a href="odata/Items(FlowerColor='white')">Items with white plants</a></li>
+        <li><a href="odata/Items(Size=10)">Items of size 10</a></li>
+    </ul>
+
+    <h3>Directly Related Entities</h3>
+
+    <ul>
+        <li><a href="odata/Items?$expand=REL_Vendor">All items and their vendors</a></li>
+        <li><a href="odata/Items(1)?$expand=REL_Vendor">Single item and its vendor</a></li>
+
+        <li><a href="odata/Items?$expand=REL_OrderItems">All items and orders for the item</a> (large result set)</li>
+        <li><a href="odata/Items(6)?$expand=REL_OrderItems">Single item and orders for the item</a></li>
+
+        <li><a href="odata/Items?$expand=REL_Vendor,REL_OrderItems">All items, the item vendor, and orders for the item.</a> (large result set)</li>
+        <li><a href="odata/Items(6)?$expand=REL_Vendor,REL_OrderItems">Single item, the item vendor, and orders for the item.</a></li>
+    </ul>
+
+    <h3>Example Queries</h3>
+
+    <ul>
+        <li><a href="odata/Items?$select=ItemNumber,CommonName,CostPrice,UnitPrice">All items, item number, common name, cost price and unit price.</a></li>
+        <li><a href="odata/Items?$select=ItemNumber,CommonName,CostPrice&$filter=CostPrice gt 10">All items, item number, common name, cost price, cost price over $10.</a></li>
+        <li><a href="odata/Items?$orderby=UnitPrice desc&$top=5&$select=ItemNumber,CommonName,UnitPrice">Five most expensive items, item number, common name and unit price</a></li>
+    </ul>
+
+    <!------------------------------------------------------------------------------->
+    <hr noshade>
+    <h2>Orders</h2>
+
+    <ul>
+        <li><a href="odata/Orders">All orders</a> (large result set)</li>
+        <li><a href="odata/Orders/$count">How many orders</a></li>
+    </ul>
+
+    <h3>Primary Key Access</h3>
+
+    <ul>
+        <li><a href="odata/Orders(3)">Single order</a></li>
+    </ul>
+
+    <p>All properties except primary key segments are available individually. Below are three examples:</p>
+
+    <ul>
+        <li><a href="odata/Orders(3)/PlacedBy">Order 3 placed by</a></li>
+        <li><a href="odata/Orders(3)/DateOrdered">Order 3 date ordered</a></li>
+        <li><a href="odata/Orders(3)/CustomerReference">Order 3 customer customer reference</a></li>
+    </ul>
+
+    <h3>Alternate Key Access</h3>
+
+    <ul>
+        <li><a href="odata/Orders(CustomerNumber=8)">Orders for customer 8</a></li>
+        <li><a href="odata/Orders(DateCompleted=2018-03-26)">Orders placed March 26th 2018</a></li>
+    </ul>
+
+    <h3>Directly Related Entities</h3>
+
+    <ul>
+        <li><a href="odata/Orders?$expand=REL_OrderItems">All orders and the order line items</a> (large result set)</li>
+        <li><a href="odata/Orders(3)?$expand=REL_OrderItems">Single order and its line items</a></li>
+
+        <li><a href="odata/Orders?$expand=REL_Customer">All orders and the customer ordering</a> (large result set)</li>
+        <li><a href="odata/Orders(3)?$expand=REL_Customer">Single order and the customer ordering</a></li>
+
+        <li><a href="odata/Orders?$expand=REL_OrderItems,REL_Customer">All orders, the order items, and the customer ordering</a> (large result set)</li>
+        <li><a href="odata/Orders(3)?$expand=REL_OrderItems,REL_Customer">Single order, the order items and the customer ordering</a></li>
+
+    </ul>
+
+    <h3>Example Queries</h3>
+
+    <ul>
+        <li><a href="odata/Orders?$filter=PlacedBy eq 'Max Henry'&$select=OrderNumber,PlacedBy">Orders placed my Max Henry, order number and placed by only.</a></li>
+    </ul>
+
+    <!------------------------------------------------------------------------------->
+    <hr noshade>
+    <h2>OrderItems</h2>
+
+    <ul>
+        <li><a href="odata/OrderItems">All order items</a> (large result set)</li>
+        <li><a href="odata/OrderItems/$count">How many order items</a></li>
+    </ul>
+
+    <h3>Primary Key Access</h3>
+
+    <ul>
+        <li><a href="odata/OrderItems(3,1)">Single order item</a></li>
+    </ul>
+
+    <p>All properties except primary key segments are available individually. Below are three examples:</p>
+
+    <ul>
+        <li><a href="odata/OrderItems(3,1)/ItemOrdered">Order 3, item 1, item ordered</a></li>
+        <li><a href="odata/OrderItems(3,1)/QuantityOrdered">Order 3, item 1, quantity ordered</a></li>
+        <li><a href="odata/OrderItems(3,1)/UnitPrice">Order 3, item 1, unit price</a></li>
+    </ul>
+
+    <h3>Alternate Key Access</h3>
+
+    <ul>
+        <li><a href="odata/OrderItems(ItemOrdered=7)">Order items for item 7</a></li>
+        <li><a href="odata/OrderItems(DateShipped=2018-03-03)">Order items shipped March 3rd 2018</a></li>
+        <li><a href="odata/OrderItems(InvoiceNumber=1589)">Order items shipped on invoice number 1589</a></li>
+    </ul>
+
+    <h3>Directly Related Entities</h3>
+
+    <ul>
+        <li><a href="odata/OrderItems?$expand=REL_Order">All orders items and the related order</a> (large result set)</li>
+        <li><a href="odata/OrderItems(3,1)?$expand=REL_Order">Single order item and the related order</a></li>
+
+        <li><a href="odata/OrderItems?$expand=REL_Item">All order items and the item ordered</a> (large result set)</li>
+        <li><a href="odata/OrderItems(3,1)?$expand=REL_Item">Single order item and the item ordered</a></li>
+
+        <li><a href="odata/OrderItems?$expand=REL_Order,REL_Item">All orders items, the related order and the item ordered</a> (large result set)</li>
+        <li><a href="odata/OrderItems(3,1)?$expand=REL_Order,REL_Item">Single order item, the related order and the item ordered</a></li>
+    </ul>
+
+    <h3>Example Queries</h3>
+
+    <ul>
+        <li><a href="odata/OrderItems?$filter=QuantityOrdered gt 7&$orderby=QuantityOrdered desc&$select=OrderNumber,ItemNumber,ItemOrdered,QuantityOrdered">All order items where quantity ordered > 7, highest quantity first, order number, item number, item ordered and quantity.</a> (BIG)</li>
+    </ul>
+
+    <!------------------------------------------------------------------------------->
+    <hr noshade>
+    <h2>Vendors</h2>
+
+    <ul>
+        <li><a href="odata/Vendors">All vendors</a></li>
+        <li><a href="odata/Vendors/$count">How many vendors</a></li>
+    </ul>
+
+    <h3>Primary Key Access</h3>
+
+    <ul>
+        <li><a href="odata/Vendors(38)">Single vendor</a></li>
+    </ul>
+
+    <p>All properties except primary key segments are available individually. Below are three examples:</p>
+
+    <ul>
+        <li><a href="odata/Vendors(38)/Name">Vendor 38 name</a></li>
+        <li><a href="odata/Vendors(38)/Phone">Vendor 38 phone number</a></li>
+        <li><a href="odata/Vendors(38)/City">Vendor 38 city</a></li>
+    </ul>
+
+
+    <h3>Alternate Key Access</h3>
+
+    <ul>
+        <li><a href="odata/Vendors(State='MA')">Vendors in state Massachusetts</a></li>
+        <li><a href="odata/Vendors(ZipCode=01000)">Vendors in zip code 01000</a></li>
+        <li><a href="odata/Vendors(PaymentTermsCode='30')">Vendors with payment terms code 30</a></li>
+    </ul>
+
+    <h3>Directly Related Entities</h3>
+
+    <ul>
+        <li><a href="odata/Vendors?$expand=REL_Items">All vendors and the items they supply</a></li>
+        <li><a href="odata/Vendors(40)?$expand=REL_Items">Single vendor and the items they supply</a></li>
+    </ul>
+
+    <h3>Example Queries</h3>
+
+    <ul>
+        <li><a href="odata/Vendors?$orderby=State,City&$select=VendorNumber,Name,City,State">All vendors ordered by city within state, vendor number, name, city and state.</a></li>
+    </ul>
+
+    <!------------------------------------------------------------------------------->
+    <hr noshade>
+    <a name="customization"><h2>Getting Started with your own data structures</h2></a>
+
+    <p>
+        When you are ready to get started with your own data files and structures, the basic
+        procedure that you will need to follow is:
+    </p>
+
+    <ul>
+        <li>In the Repository project, replace the content of the schema file (repository.scm) with your own repository schema.</li>
+        <li>In the Services.Controllers project, delete the source files related to the sample data (CustomersController.dbl, ItemsController.dbl, OrderItemsController.dbl, OrdersController.dbl and VendorsController.dbl).</li>
+        <li>In the Services.Models project, delete the source files related to the sample data (Customer.dbl, CustomerMetaData.dbl, Item.dbl, ItemMetaData.dbl, Order.dbl, OrderItem.dbl, OrderItemMetaData.dbl, OrderMetaData.dbl, Vendor.dbl and VendorMetaData.dbl).</li>
+        <li>
+            Edit regen.bat and
+            <ul>
+                <li>Change the content of the DATA_STRUCTURES environment variable so that it lists the structures you wish to expose.</li>
+                <li>Remove the value SYSPARAMS from the value of the environment variable PARAMSTR.</li>
+                <li>Review which of the ENABLE_ options are commented in and out to define the options that you wish to use.</li>
+            </ul>
+        </li>
+        <li>Execute the regen.bat file to generate code for your environment.</li>
+        <li>Add the newly generated source files into the Services.Controllers and Services.Models projects as necessary.</li>
+        <li>If you wish to maintain the use of a static home page (this page) then edit the content of index.html which you will find in the wwwroot folder of the Services project.</li>
+    </ul>
+
+
+</body>
+</html>

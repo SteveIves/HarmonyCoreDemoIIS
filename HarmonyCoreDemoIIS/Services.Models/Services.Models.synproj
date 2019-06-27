@@ -1,0 +1,42 @@
+<Project Sdk="Microsoft.NET.Sdk" DefaultTargets="restore;Build">
+  <Import Project="..\Common.props" />
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <DefaultLanguageSourceExtension>.dbl</DefaultLanguageSourceExtension>
+    <EnableDefaultItems>false</EnableDefaultItems>
+    <Name>Services.Models</Name>
+    <ProjectGuid>{2CAF952A-D748-4FB3-AF11-78B8EABF6178}</ProjectGuid>
+    <EnableCommonProperties>True</EnableCommonProperties>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Harmony.Core">
+      <Version>1.0.53</Version>
+    </PackageReference>
+    <PackageReference Include="Harmony.Core.EF">
+      <Version>1.0.53</Version>
+    </PackageReference>
+    <PackageReference Include="Synergex.SynergyDE.Build" Version="11.0.1001.2586" />
+    <PackageReference Include="Synergex.SynergyDE.synrnt" Version="10.3.3072" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Customer.dbl" />
+    <Compile Include="CustomerMetaData.dbl" />
+    <Compile Include="DbContext.dbl" />
+    <Compile Include="Item.dbl" />
+    <Compile Include="ItemMetaData.dbl" />
+    <Compile Include="Order.dbl" />
+    <Compile Include="OrderItem.dbl" />
+    <Compile Include="OrderItemMetaData.dbl" />
+    <Compile Include="OrderMetaData.dbl" />
+    <Compile Include="Vendor.dbl" />
+    <Compile Include="VendorMetaData.dbl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Repository\Repository.synproj">
+      <Name>Repository</Name>
+      <Project>{cc6c33fb-c46c-4484-972c-c454743f8add}</Project>
+      <Private>True</Private>
+      <ReferenceOutputAssembly>False</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemGroup>
+</Project>

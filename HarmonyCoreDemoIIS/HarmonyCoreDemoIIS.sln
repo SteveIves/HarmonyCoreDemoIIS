@@ -1,0 +1,110 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2003
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{BBD0F5D1-1CC4-42FD-BA4C-A96779C64378}") = "Services", "Services\Services.synproj", "{8FA7F4B7-9F7E-4FD2-BFC3-BED1828E5533}"
+EndProject
+Project("{BBD0F5D1-1CC4-42FD-BA4C-A96779C64378}") = "Services.Host", "Services.Host\Services.Host.synproj", "{653B4D96-61A1-4056-A511-72DD05F42E59}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{6C9AD151-7DA4-477B-A52C-FB883D9D1057}"
+	ProjectSection(SolutionItems) = preProject
+		Templates\ODataClientModel.tpl = Templates\ODataClientModel.tpl
+		Templates\ODataController.tpl = Templates\ODataController.tpl
+		Templates\ODataDbContext.tpl = Templates\ODataDbContext.tpl
+		Templates\ODataEdmBuilder.tpl = Templates\ODataEdmBuilder.tpl
+		Templates\ODataMetaData.tpl = Templates\ODataMetaData.tpl
+		Templates\ODataModel.tpl = Templates\ODataModel.tpl
+		Templates\ODataPostManTests.tpl = Templates\ODataPostManTests.tpl
+		Templates\ODataSelfHost.tpl = Templates\ODataSelfHost.tpl
+		Templates\ODataSelfHostEnvironment.tpl = Templates\ODataSelfHostEnvironment.tpl
+		Templates\ODataStartup.tpl = Templates\ODataStartup.tpl
+		Templates\ODataSwaggerType.tpl = Templates\ODataSwaggerType.tpl
+		Templates\ODataSwaggerYaml.tpl = Templates\ODataSwaggerYaml.tpl
+		Templates\ODataTestConstantsProperties.tpl = Templates\ODataTestConstantsProperties.tpl
+		Templates\ODataTestConstantsValues.tpl = Templates\ODataTestConstantsValues.tpl
+		Templates\ODataTestDataLoader.tpl = Templates\ODataTestDataLoader.tpl
+		Templates\ODataTestEnvironment.tpl = Templates\ODataTestEnvironment.tpl
+		Templates\ODataUnitTestEnvironment.tpl = Templates\ODataUnitTestEnvironment.tpl
+		Templates\ODataUnitTestHost.tpl = Templates\ODataUnitTestHost.tpl
+		Templates\ODataUnitTests.tpl = Templates\ODataUnitTests.tpl
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{29AEA4C4-62B2-4F46-9B80-5F061D950BE1}"
+	ProjectSection(SolutionItems) = preProject
+		regen.bat = regen.bat
+		UserDefinedTokens.tkn = UserDefinedTokens.tkn
+	EndProjectSection
+EndProject
+Project("{BBD0F5D1-1CC4-42FD-BA4C-A96779C64378}") = "Services.Isolated", "Services.Isolated\Services.Isolated.synproj", "{66D2F18B-9C4D-4B96-83B6-484E68593DF9}"
+EndProject
+Project("{BBD0F5D1-1CC4-42FD-BA4C-A96779C64378}") = "Services.Models", "Services.Models\Services.Models.synproj", "{2CAF952A-D748-4FB3-AF11-78B8EABF6178}"
+EndProject
+Project("{BBD0F5D1-1CC4-42FD-BA4C-A96779C64378}") = "Services.Controllers", "Services.Controllers\Services.Controllers.synproj", "{1F4FE11B-ADD6-4C98-A243-C197484A6897}"
+EndProject
+Project("{BBD0F5D1-1CC4-42FD-BA4C-A96779C64378}") = "Repository", "Repository\Repository.synproj", "{1CADEA38-4D7C-452F-85BA-1AB18BF76B77}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8FA7F4B7-9F7E-4FD2-BFC3-BED1828E5533}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8FA7F4B7-9F7E-4FD2-BFC3-BED1828E5533}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8FA7F4B7-9F7E-4FD2-BFC3-BED1828E5533}.Debug|x86.ActiveCfg = Debug|x86
+		{8FA7F4B7-9F7E-4FD2-BFC3-BED1828E5533}.Debug|x86.Build.0 = Debug|x86
+		{8FA7F4B7-9F7E-4FD2-BFC3-BED1828E5533}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8FA7F4B7-9F7E-4FD2-BFC3-BED1828E5533}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8FA7F4B7-9F7E-4FD2-BFC3-BED1828E5533}.Release|x86.ActiveCfg = Release|x86
+		{8FA7F4B7-9F7E-4FD2-BFC3-BED1828E5533}.Release|x86.Build.0 = Release|x86
+		{653B4D96-61A1-4056-A511-72DD05F42E59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{653B4D96-61A1-4056-A511-72DD05F42E59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{653B4D96-61A1-4056-A511-72DD05F42E59}.Debug|x86.ActiveCfg = Debug|x86
+		{653B4D96-61A1-4056-A511-72DD05F42E59}.Debug|x86.Build.0 = Debug|x86
+		{653B4D96-61A1-4056-A511-72DD05F42E59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{653B4D96-61A1-4056-A511-72DD05F42E59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{653B4D96-61A1-4056-A511-72DD05F42E59}.Release|x86.ActiveCfg = Release|x86
+		{653B4D96-61A1-4056-A511-72DD05F42E59}.Release|x86.Build.0 = Release|x86
+		{66D2F18B-9C4D-4B96-83B6-484E68593DF9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66D2F18B-9C4D-4B96-83B6-484E68593DF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66D2F18B-9C4D-4B96-83B6-484E68593DF9}.Debug|x86.ActiveCfg = Debug|x86
+		{66D2F18B-9C4D-4B96-83B6-484E68593DF9}.Debug|x86.Build.0 = Debug|x86
+		{66D2F18B-9C4D-4B96-83B6-484E68593DF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66D2F18B-9C4D-4B96-83B6-484E68593DF9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66D2F18B-9C4D-4B96-83B6-484E68593DF9}.Release|x86.ActiveCfg = Release|x86
+		{66D2F18B-9C4D-4B96-83B6-484E68593DF9}.Release|x86.Build.0 = Release|x86
+		{2CAF952A-D748-4FB3-AF11-78B8EABF6178}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CAF952A-D748-4FB3-AF11-78B8EABF6178}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CAF952A-D748-4FB3-AF11-78B8EABF6178}.Debug|x86.ActiveCfg = Debug|x86
+		{2CAF952A-D748-4FB3-AF11-78B8EABF6178}.Debug|x86.Build.0 = Debug|x86
+		{2CAF952A-D748-4FB3-AF11-78B8EABF6178}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CAF952A-D748-4FB3-AF11-78B8EABF6178}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2CAF952A-D748-4FB3-AF11-78B8EABF6178}.Release|x86.ActiveCfg = Release|x86
+		{2CAF952A-D748-4FB3-AF11-78B8EABF6178}.Release|x86.Build.0 = Release|x86
+		{1F4FE11B-ADD6-4C98-A243-C197484A6897}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F4FE11B-ADD6-4C98-A243-C197484A6897}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F4FE11B-ADD6-4C98-A243-C197484A6897}.Debug|x86.ActiveCfg = Debug|x86
+		{1F4FE11B-ADD6-4C98-A243-C197484A6897}.Debug|x86.Build.0 = Debug|x86
+		{1F4FE11B-ADD6-4C98-A243-C197484A6897}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F4FE11B-ADD6-4C98-A243-C197484A6897}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F4FE11B-ADD6-4C98-A243-C197484A6897}.Release|x86.ActiveCfg = Release|x86
+		{1F4FE11B-ADD6-4C98-A243-C197484A6897}.Release|x86.Build.0 = Release|x86
+		{1CADEA38-4D7C-452F-85BA-1AB18BF76B77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1CADEA38-4D7C-452F-85BA-1AB18BF76B77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1CADEA38-4D7C-452F-85BA-1AB18BF76B77}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1CADEA38-4D7C-452F-85BA-1AB18BF76B77}.Debug|x86.Build.0 = Debug|Any CPU
+		{1CADEA38-4D7C-452F-85BA-1AB18BF76B77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1CADEA38-4D7C-452F-85BA-1AB18BF76B77}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1CADEA38-4D7C-452F-85BA-1AB18BF76B77}.Release|x86.ActiveCfg = Release|Any CPU
+		{1CADEA38-4D7C-452F-85BA-1AB18BF76B77}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {106E1B48-B44B-4FEB-A840-E026BC3676EE}
+	EndGlobalSection
+EndGlobal
