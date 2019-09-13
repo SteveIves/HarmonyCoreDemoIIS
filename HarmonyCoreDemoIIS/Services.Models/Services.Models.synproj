@@ -5,20 +5,22 @@
     <DefaultLanguageSourceExtension>.dbl</DefaultLanguageSourceExtension>
     <EnableDefaultItems>false</EnableDefaultItems>
     <Name>Services.Models</Name>
-    <ProjectGuid>{2CAF952A-D748-4FB3-AF11-78B8EABF6178}</ProjectGuid>
+    <ProjectGuid>{34B28205-9BD9-4238-84F0-6959C1F0AF5C}</ProjectGuid>
     <EnableCommonProperties>True</EnableCommonProperties>
+    <Prefer32Bit>False</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Harmony.Core">
-      <Version>1.0.53</Version>
+      <Version>1.0.77</Version>
     </PackageReference>
     <PackageReference Include="Harmony.Core.EF">
-      <Version>1.0.53</Version>
+      <Version>1.0.77</Version>
     </PackageReference>
     <PackageReference Include="Synergex.SynergyDE.Build" Version="11.0.1001.2586" />
     <PackageReference Include="Synergex.SynergyDE.synrnt" Version="10.3.3072" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppSettings.dbl" />
     <Compile Include="Customer.dbl" />
     <Compile Include="CustomerMetaData.dbl" />
     <Compile Include="DbContext.dbl" />

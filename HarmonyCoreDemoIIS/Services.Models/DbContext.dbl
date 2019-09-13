@@ -41,14 +41,14 @@ namespace Services.Models
         public readwrite property Customers, @DbSet<Customer>
 
         ;;; <summary>
-        ;;; Exposes Order data.
-        ;;; </summary>
-        public readwrite property Orders, @DbSet<Order>
-
-        ;;; <summary>
         ;;; Exposes Item data.
         ;;; </summary>
         public readwrite property Items, @DbSet<Item>
+
+        ;;; <summary>
+        ;;; Exposes Order data.
+        ;;; </summary>
+        public readwrite property Orders, @DbSet<Order>
 
         ;;; <summary>
         ;;; Exposes OrderItem data.
@@ -104,21 +104,6 @@ namespace Services.Models
 
             parm.AddOneToOneRelation<Customer, Item>("REL_Item", "KEY_FAVORITE_ITEM", "KEY_ITEM_NUMBER")
             ;;--------------------------------------
-            ;; Relationships from ORDER
-
-            ;; ORDER.ORDER_NUMBER (one) --> (many) --> (one) ORDER_ITEM.ORDER_NUMBER_AND_LINE_ITEM
-            ;;    Type          : D
-            ;;    From segments : ORDER_NUMBER(D6) 
-            ;;    To segments   : ORDER_NUMBER(D6) 
-
-            parm.AddOneToManyToOneRelation<Order, OrderItem>("REL_OrderItems", "KEY_ORDER_NUMBER", "REL_Order", "KEY_ORDER_NUMBER_AND_LINE_ITEM")
-             ;; ORDER.CUSTOMER_NUMBER (many) --> (one) --> (many) CUSTOMER.CUSTOMER_NUMBER
-             ;;    Type          : A
-             ;;    From segments : CUSTOMER_NUMBER(D6) 
-             ;;    To segments   : CUSTOMER_NUMBER(D6) 
-
-             parm.AddOneToOneToManyRelation<Order, Customer>("REL_Customer", "KEY_CUSTOMER_NUMBER", "REL_Orders", "KEY_CUSTOMER_NUMBER")
-            ;;--------------------------------------
             ;; Relationships from ITEM
 
              ;; ITEM.VENDOR_NUMBER (many) --> (one) --> (many) VENDOR.VENDOR_NUMBER
@@ -133,6 +118,21 @@ namespace Services.Models
             ;;    To segments   : ITEM_ORDERED(D6) 
 
             parm.AddOneToManyToOneRelation<Item, OrderItem>("REL_OrderItems", "KEY_ITEM_NUMBER", "REL_Item", "KEY_ITEM_ORDERED")
+            ;;--------------------------------------
+            ;; Relationships from ORDER
+
+            ;; ORDER.ORDER_NUMBER (one) --> (many) --> (one) ORDER_ITEM.ORDER_NUMBER_AND_LINE_ITEM
+            ;;    Type          : D
+            ;;    From segments : ORDER_NUMBER(D6) 
+            ;;    To segments   : ORDER_NUMBER(D6) 
+
+            parm.AddOneToManyToOneRelation<Order, OrderItem>("REL_OrderItems", "KEY_ORDER_NUMBER", "REL_Order", "KEY_ORDER_NUMBER_AND_LINE_ITEM")
+             ;; ORDER.CUSTOMER_NUMBER (many) --> (one) --> (many) CUSTOMER.CUSTOMER_NUMBER
+             ;;    Type          : A
+             ;;    From segments : CUSTOMER_NUMBER(D6) 
+             ;;    To segments   : CUSTOMER_NUMBER(D6) 
+
+             parm.AddOneToOneToManyRelation<Order, Customer>("REL_Customer", "KEY_CUSTOMER_NUMBER", "REL_Orders", "KEY_CUSTOMER_NUMBER")
             ;;--------------------------------------
             ;; Relationships from ORDER_ITEM
 

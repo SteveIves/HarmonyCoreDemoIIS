@@ -14,6 +14,9 @@ popd
 if not exist %DeployDir%\SampleData\. mkdir %DeployDir%\SampleData
 copy SampleData\*.* %DeployDir%\SampleData
 
+copy TraditionalBridge\bin\Debug\x64\launch.bat %DeployDir%
+copy TraditionalBridge\bin\Debug\x64\TraditionalBridgeHost.dbr %DeployDir%
+
 popd
 endlocal
 pause

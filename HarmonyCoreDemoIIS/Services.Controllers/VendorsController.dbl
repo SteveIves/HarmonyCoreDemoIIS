@@ -16,6 +16,8 @@ import Microsoft.AspNet.OData
 import Microsoft.AspNet.OData.Routing
 import Microsoft.EntityFrameworkCore
 import Microsoft.EntityFrameworkCore.Infrastructure
+import Microsoft.Extensions.Options
+import System.ComponentModel.DataAnnotations
 import Harmony.Core.EF.Extensions
 import Harmony.Core.Interface
 import Harmony.OData
@@ -24,25 +26,31 @@ import Services.Models
 
 namespace Services.Controllers
 
+    {ApiVersion("1")}
     ;;; <summary>
     ;;; OData controller for Vendors
     ;;; </summary>
     public partial class VendorsController extends ODataController
     
-        public readwrite property DBContext, @Services.Models.DBContext
-        public readwrite property ServiceProvider, @IServiceProvider
+        ;;Services provided via dependency injection
+        private _DbContext, @Services.Models.DBContext
+        private _ServiceProvider, @IServiceProvider
+        private _AppSettings, @IOptions<AppSettings>
 
         ;;; <summary>
         ;;; Constructs a new instance of VendorsController
         ;;; </summary>
         ;;; <param name="aDbContext">Database context instance (DI)</param>
         ;;; <param name="aServiceProvider">Service provider instance (DI)</param>
+        ;;; <param name="aAppSettings">Application settings</param>
         public method VendorsController
             aDbContext, @Services.Models.DBContext
             aServiceProvider, @IServiceProvider
+            aAppSettings, @IOptions<AppSettings>
         proc
-            this.DBContext = aDbContext
-            this.ServiceProvider = aServiceProvider
+            this._DbContext = aDbContext
+            this._ServiceProvider = aServiceProvider
+            this._AppSettings = aAppSettings
         endmethod
 
         {ODataRoute("Vendors")}
@@ -53,7 +61,7 @@ namespace Services.Controllers
         ;;; <returns>Returns an IActionResult indicating the status of the operation and containing any data that was returned.</returns>
         public method GetVendors, @IActionResult
         proc
-            mreturn Ok(DBContext.Vendors.AsNoTracking())
+            mreturn Ok(_DbContext.Vendors.AsNoTracking())
         endmethod
 
         {ODataRoute("Vendors(VendorNumber={aVendorNumber})")}
@@ -67,7 +75,7 @@ namespace Services.Controllers
             {FromODataUri}
             required in aVendorNumber, int
         proc
-            mreturn new SingleResult<Vendor>(DBContext.Vendors.AsNoTracking().FindQuery<Vendor>(DBContext, aVendorNumber))
+            mreturn new SingleResult<Vendor>(_DbContext.Vendors.AsNoTracking().FindQuery<Vendor>(_DbContext, aVendorNumber))
         endmethod
 
         {ODataRoute("Vendors(State={aState})")}
@@ -81,7 +89,7 @@ namespace Services.Controllers
             {FromODataUri}
             required in aState, String
         proc
-            data result = DBContext.Vendors.AsNoTracking().FindAlternate("State",aState)
+            data result = _DbContext.Vendors.AsNoTracking().FindAlternate("State",aState)
             if (result == ^null)
                 mreturn NotFound()
             mreturn Ok(result)
@@ -98,7 +106,7 @@ namespace Services.Controllers
             {FromODataUri}
             required in aZipCode, int
         proc
-            data result = DBContext.Vendors.AsNoTracking().FindAlternate("ZipCode",aZipCode)
+            data result = _DbContext.Vendors.AsNoTracking().FindAlternate("ZipCode",aZipCode)
             if (result == ^null)
                 mreturn NotFound()
             mreturn Ok(result)
@@ -115,7 +123,7 @@ namespace Services.Controllers
             {FromODataUri}
             required in aPaymentTermsCode, String
         proc
-            data result = DBContext.Vendors.AsNoTracking().FindAlternate("PaymentTermsCode",aPaymentTermsCode)
+            data result = _DbContext.Vendors.AsNoTracking().FindAlternate("PaymentTermsCode",aPaymentTermsCode)
             if (result == ^null)
                 mreturn NotFound()
             mreturn Ok(result)
@@ -134,7 +142,7 @@ namespace Services.Controllers
             {FromODataUri}
             required in key, int
         proc
-            data result = DBContext.Vendors.Find(key)
+            data result = _DbContext.Vendors.Find(key)
             if (result==^null)
                 mreturn NotFound()
             mreturn OK(result.Name)
@@ -152,7 +160,7 @@ namespace Services.Controllers
             {FromODataUri}
             required in key, int
         proc
-            data result = DBContext.Vendors.Find(key)
+            data result = _DbContext.Vendors.Find(key)
             if (result==^null)
                 mreturn NotFound()
             mreturn OK(result.Street)
@@ -170,7 +178,7 @@ namespace Services.Controllers
             {FromODataUri}
             required in key, int
         proc
-            data result = DBContext.Vendors.Find(key)
+            data result = _DbContext.Vendors.Find(key)
             if (result==^null)
                 mreturn NotFound()
             mreturn OK(result.City)
@@ -188,7 +196,7 @@ namespace Services.Controllers
             {FromODataUri}
             required in key, int
         proc
-            data result = DBContext.Vendors.Find(key)
+            data result = _DbContext.Vendors.Find(key)
             if (result==^null)
                 mreturn NotFound()
             mreturn OK(result.State)
@@ -206,7 +214,7 @@ namespace Services.Controllers
             {FromODataUri}
             required in key, int
         proc
-            data result = DBContext.Vendors.Find(key)
+            data result = _DbContext.Vendors.Find(key)
             if (result==^null)
                 mreturn NotFound()
             mreturn OK(result.ZipCode)
@@ -224,7 +232,7 @@ namespace Services.Controllers
             {FromODataUri}
             required in key, int
         proc
-            data result = DBContext.Vendors.Find(key)
+            data result = _DbContext.Vendors.Find(key)
             if (result==^null)
                 mreturn NotFound()
             mreturn OK(result.Contact)
@@ -242,7 +250,7 @@ namespace Services.Controllers
             {FromODataUri}
             required in key, int
         proc
-            data result = DBContext.Vendors.Find(key)
+            data result = _DbContext.Vendors.Find(key)
             if (result==^null)
                 mreturn NotFound()
             mreturn OK(result.Phone)
@@ -260,7 +268,7 @@ namespace Services.Controllers
             {FromODataUri}
             required in key, int
         proc
-            data result = DBContext.Vendors.Find(key)
+            data result = _DbContext.Vendors.Find(key)
             if (result==^null)
                 mreturn NotFound()
             mreturn OK(result.Fax)
@@ -278,10 +286,47 @@ namespace Services.Controllers
             {FromODataUri}
             required in key, int
         proc
-            data result = DBContext.Vendors.Find(key)
+            data result = _DbContext.Vendors.Find(key)
             if (result==^null)
                 mreturn NotFound()
             mreturn OK(result.PaymentTermsCode)
+        endmethod
+
+        {ODataRoute("Vendors")}
+        ;;; <summary>
+        ;;; Create a new vendor (automatically assigned primary key).
+        ;;; </summary>
+        ;;; <returns>Returns an IActionResult indicating the status of the operation and containing any data that was returned.</returns>
+        public method PostVendor, @IActionResult
+            {FromBody}
+            required in aVendor, @Vendor
+        proc
+            ;;Remove the primary key fields from ModelState
+            ModelState.Remove("VendorNumber")
+
+            ;; Validate inbound data
+            if (!ModelState.IsValid)
+                mreturn BadRequest(ModelState)
+
+            ;;Get the next available primary key value
+            disposable data keyFactory = (@IPrimaryKeyFactory)_ServiceProvider.GetService(^typeof(IPrimaryKeyFactory))
+            KeyFactory.AssignPrimaryKey(aVendor)
+
+            ;;Add the new vendor
+            try
+            begin
+                _DbContext.Vendors.Add(aVendor)
+                _DbContext.SaveChanges(keyFactory)
+            end
+            catch (e, @ValidationException)
+            begin
+                ModelState.AddModelError("RelationValidation",e.Message)
+                mreturn BadRequest(ModelState)
+            end
+            endtry
+
+            mreturn Created(aVendor)
+
         endmethod
 
         {ODataRoute("Vendors(VendorNumber={aVendorNumber})")}
@@ -306,23 +351,28 @@ namespace Services.Controllers
             try
             begin
                 ;;Add and commit
-                data existing = DBContext.Vendors.Find(aVendorNumber)
+                data existing = _DbContext.Vendors.Find(aVendorNumber)
                 if(existing == ^null) then
                 begin
-                    DBContext.Vendors.Add(aVendor)
-                    DBContext.SaveChanges()
+                    _DbContext.Vendors.Add(aVendor)
+                    _DbContext.SaveChanges()
                     mreturn Created(aVendor)
                 end
                 else
                 begin
                     aVendor.CopyTo(existing)
-                    DBContext.SaveChanges()
+                    _DbContext.SaveChanges()
                     mreturn NoContent()
                 end
             end
             catch (e, @InvalidOperationException)
             begin
                 mreturn BadRequest(e)
+            end
+            catch (e, @ValidationException)
+            begin
+                ModelState.AddModelError("RelationValidation",e.Message)
+                mreturn BadRequest(ModelState)
             end
             endtry
 
@@ -348,7 +398,7 @@ namespace Services.Controllers
             try
             begin
                 ;;Get the vendor to be updated
-                data vendorToUpdate = DBContext.Vendors.Find(aVendorNumber)
+                data vendorToUpdate = _DbContext.Vendors.Find(aVendorNumber)
                 data patchError, @JsonPatchError, ^null
                 ;;Did we find it?
                 if(vendorToUpdate == ^null)
@@ -361,12 +411,17 @@ namespace Services.Controllers
                     mreturn BadRequest(string.Format("Error applying patch document: error message {0}, caused by {1}", patchError.ErrorMessage, JsonConvert.SerializeObject(patchError.Operation)))
 
                 ;;Update and commit
-                DBContext.Vendors.Update(vendorToUpdate)
-                DBContext.SaveChanges()
+                _DbContext.Vendors.Update(vendorToUpdate)
+                _DbContext.SaveChanges()
             end
             catch (e, @InvalidOperationException)
             begin
                 mreturn BadRequest(e)
+            end
+            catch (e, @ValidationException)
+            begin
+                ModelState.AddModelError("RelationValidation",e.Message)
+                mreturn BadRequest(ModelState)
             end
             endtry
 
@@ -385,15 +440,15 @@ namespace Services.Controllers
             required in aVendorNumber, int
         proc
             ;;Get the vendor to be deleted
-            data vendorToRemove = DBContext.Vendors.Find(aVendorNumber)
+            data vendorToRemove = _DbContext.Vendors.Find(aVendorNumber)
 
             ;;Did we find it?
             if (vendorToRemove == ^null)
                 mreturn NotFound()
 
             ;;Delete and commit
-            DBContext.Vendors.Remove(vendorToRemove)
-            DBContext.SaveChanges()
+            _DbContext.Vendors.Remove(vendorToRemove)
+            _DbContext.SaveChanges()
 
             mreturn NoContent()
 

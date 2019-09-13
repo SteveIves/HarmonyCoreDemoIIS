@@ -6,62 +6,83 @@
     <EnableDefaultItems>false</EnableDefaultItems>
     <Name>Services</Name>
     <EnableCommonProperties>True</EnableCommonProperties>
-    <ProjectGuid>{8FA7F4B7-9F7E-4FD2-BFC3-BED1828E5533}</ProjectGuid>
+    <ProjectGuid>{4D167CF2-92F6-407A-BB04-EFDBB35D47FE}</ProjectGuid>
+    <Prefer32Bit>False</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Harmony.Core">
-      <Version>1.0.53</Version>
+      <Version>1.0.77</Version>
     </PackageReference>
     <PackageReference Include="Harmony.Core.AspNetCore">
-      <Version>1.0.53</Version>
+      <Version>1.0.77</Version>
     </PackageReference>
     <PackageReference Include="Harmony.Core.EF">
-      <Version>1.0.53</Version>
+      <Version>1.0.77</Version>
     </PackageReference>
     <PackageReference Include="Harmony.Core.OData">
-      <Version>1.0.53</Version>
+      <Version>1.0.77</Version>
     </PackageReference>
     <PackageReference Include="IdentityServer4.AccessTokenValidation">
-      <Version>2.6.0</Version>
+      <Version>2.7.0</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.AspNetCore.Cors">
-      <Version>2.1.1</Version>
+      <Version>2.2.0</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.AspNetCore.HttpsPolicy">
-      <Version>2.1.1</Version>
+      <Version>2.2.0</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.AspNetCore.Mvc">
-      <Version>2.1.2</Version>
+      <Version>2.2.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core">
+      <Version>2.2.5</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning">
+      <Version>3.1.6</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AspNetCore.OData.Versioning.ApiExplorer">
+      <Version>3.2.3</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AspNetCore.SignalR">
+      <Version>1.1.0</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory">
-      <Version>2.1.2</Version>
+      <Version>2.2.6</Version>
     </PackageReference>
     <PackageReference Include="Swashbuckle.AspNetCore">
-      <Version>3.0.0</Version>
+      <Version>4.0.1</Version>
     </PackageReference>
     <PackageReference Include="Synergex.SynergyDE.Build" Version="11.0.1001.2586" />
     <PackageReference Include="Synergex.SynergyDE.synrnt" Version="10.3.3072" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Repository\Repository.synproj">
+      <Name>Repository</Name>
+      <Project>{cc6c33fb-c46c-4484-972c-c454743f8add}</Project>
+      <Private>True</Private>
+      <ReferenceOutputAssembly>False</ReferenceOutputAssembly>
+    </ProjectReference>
     <ProjectReference Include="..\Services.Controllers\Services.Controllers.synproj">
       <Name>Services.Controllers</Name>
-      <Project>{1F4FE11B-ADD6-4C98-A243-C197484A6897}</Project>
+      <Project>{1BD1F1A5-C3BE-4E9C-AC55-ABE12BFB118E}</Project>
       <Private>True</Private>
     </ProjectReference>
     <ProjectReference Include="..\Services.Isolated\Services.Isolated.synproj">
       <Name>Services.Isolated</Name>
-      <Project>{66D2F18B-9C4D-4B96-83B6-484E68593DF9}</Project>
+      <Project>{15223F07-0941-46E8-9C2F-9924D7FFA678}</Project>
       <Private>True</Private>
     </ProjectReference>
     <ProjectReference Include="..\Services.Models\Services.Models.synproj">
       <Name>Services.Models</Name>
-      <Project>{2CAF952A-D748-4FB3-AF11-78B8EABF6178}</Project>
+      <Project>{34B28205-9BD9-4238-84F0-6959C1F0AF5C}</Project>
       <Private>True</Private>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="StartupCustom.dbl" />
     <Folder Include="wwwroot" />
     <Compile Include="EdmBuilder.dbl" />
+    <Compile Include="PrimaryKeyGenerator.dbl" />
     <Compile Include="Startup.dbl" />
     <Folder Include="wwwroot" />
   </ItemGroup>
@@ -70,35 +91,11 @@
       <SubType>Content</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="wwwroot\CustomerTypes.yaml">
-      <SubType>Content</SubType>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="wwwroot\index.html">
       <SubType>Content</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="wwwroot\ItemTypes.yaml">
-      <SubType>Content</SubType>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="wwwroot\manifest.json">
-      <SubType>Content</SubType>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="wwwroot\OrderItemTypes.yaml">
-      <SubType>Content</SubType>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="wwwroot\OrderTypes.yaml">
-      <SubType>Content</SubType>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="wwwroot\SwaggerFile.yaml">
-      <SubType>Content</SubType>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="wwwroot\VendorTypes.yaml">
       <SubType>Content</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

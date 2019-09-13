@@ -1,5 +1,5 @@
 <CODEGEN_FILENAME><StructurePlural>Controller.dbl</CODEGEN_FILENAME>
-<REQUIRES_CODEGEN_VERSION>5.3.15</REQUIRES_CODEGEN_VERSION>
+<REQUIRES_CODEGEN_VERSION>5.4.2</REQUIRES_CODEGEN_VERSION>
 <REQUIRES_USERTOKEN>MODELS_NAMESPACE</REQUIRES_USERTOKEN>
 <REQUIRES_USERTOKEN>SERVICES_NAMESPACE</REQUIRES_USERTOKEN>
 <REQUIRES_USERTOKEN>API_ENABLE_QUERY_PARAMS</REQUIRES_USERTOKEN>
@@ -56,6 +56,8 @@ import Microsoft.AspNet.OData
 import Microsoft.AspNet.OData.Routing
 import Microsoft.EntityFrameworkCore
 import Microsoft.EntityFrameworkCore.Infrastructure
+import Microsoft.Extensions.Options
+import System.ComponentModel.DataAnnotations
 import Harmony.Core.EF.Extensions
 import Harmony.Core.Interface
 import Harmony.OData
@@ -67,25 +69,33 @@ namespace <NAMESPACE>
 <IF DEFINED_ENABLE_AUTHENTICATION>
     {Authorize}
 </IF DEFINED_ENABLE_AUTHENTICATION>
+<IF DEFINED_ENABLE_API_VERSIONING>
+    {ApiVersion("<API_VERSION>")}
+</IF DEFINED_ENABLE_API_VERSIONING>
     ;;; <summary>
     ;;; OData controller for <StructurePlural>
     ;;; </summary>
     public partial class <StructurePlural>Controller extends ODataController
     
-        public readwrite property DBContext, @<MODELS_NAMESPACE>.DBContext
-        public readwrite property ServiceProvider, @IServiceProvider
+        ;;Services provided via dependency injection
+        private _DbContext, @<MODELS_NAMESPACE>.DBContext
+        private _ServiceProvider, @IServiceProvider
+        private _AppSettings, @IOptions<AppSettings>
 
         ;;; <summary>
         ;;; Constructs a new instance of <StructurePlural>Controller
         ;;; </summary>
         ;;; <param name="aDbContext">Database context instance (DI)</param>
         ;;; <param name="aServiceProvider">Service provider instance (DI)</param>
+        ;;; <param name="aAppSettings">Application settings</param>
         public method <StructurePlural>Controller
             aDbContext, @<MODELS_NAMESPACE>.DBContext
             aServiceProvider, @IServiceProvider
+            aAppSettings, @IOptions<AppSettings>
         proc
-            this.DBContext = aDbContext
-            this.ServiceProvider = aServiceProvider
+            this._DbContext = aDbContext
+            this._ServiceProvider = aServiceProvider
+            this._AppSettings = aAppSettings
         endmethod
 
 ;//
@@ -110,7 +120,7 @@ namespace <NAMESPACE>
         ;;; <returns>Returns an IActionResult indicating the status of the operation and containing any data that was returned.</returns>
         public method Get<StructurePlural>, @IActionResult
         proc
-            mreturn Ok(DBContext.<StructurePlural>.AsNoTracking())
+            mreturn Ok(_DbContext.<StructurePlural>.AsNoTracking())
         endmethod
 
 </IF GET_ALL_ENDPOINT>
@@ -138,7 +148,7 @@ namespace <NAMESPACE>
   <PRIMARY_KEY>
     <SEGMENT_LOOP>
       <IF SEG_TAG_EQUAL>
-	  <ELSE>
+      <ELSE>
         ;;; <param name="a<FieldSqlName>"><FIELD_DESC></param>
       </IF SEG_TAG_EQUAL>
     </SEGMENT_LOOP>
@@ -153,7 +163,7 @@ namespace <NAMESPACE>
   <PRIMARY_KEY>
     <SEGMENT_LOOP>
       <IF SEG_TAG_EQUAL>
-	  <ELSE>
+      <ELSE>
             {FromODataUri}
             <IF CUSTOM_HARMONY_AS_STRING>
             required in a<FieldSqlName>, string
@@ -170,7 +180,7 @@ namespace <NAMESPACE>
 </IF STRUCTURE_RELATIVE>
         proc
 ;//Shouldn't really need the generic type arg on FindQuery. Compiler issue?
-            mreturn new SingleResult<<StructureNoplural>>(DBContext.<StructurePlural>.AsNoTracking().FindQuery<<StructureNoplural>>(DBContext, <IF STRUCTURE_ISAM><PRIMARY_KEY><SEGMENT_LOOP><IF SEG_TAG_EQUAL><SEGMENT_TAG_VALUE><ELSE>a<FieldSqlName><IF ALPHA>.PadRight(<FIELD_SIZE>)</IF ALPHA></IF SEG_TAG_EQUAL><,></SEGMENT_LOOP></PRIMARY_KEY></IF STRUCTURE_ISAM><IF STRUCTURE_RELATIVE>aRecordNumber</IF STRUCTURE_RELATIVE>))
+            mreturn new SingleResult<<StructureNoplural>>(_DbContext.<StructurePlural>.AsNoTracking().FindQuery<<StructureNoplural>>(_DbContext, <IF STRUCTURE_ISAM><PRIMARY_KEY><SEGMENT_LOOP><IF SEG_TAG_EQUAL><SEGMENT_TAG_VALUE><ELSE>a<FieldSqlName><IF ALPHA>.PadRight(<FIELD_SIZE>)</IF ALPHA></IF SEG_TAG_EQUAL><,></SEGMENT_LOOP></PRIMARY_KEY></IF STRUCTURE_ISAM><IF STRUCTURE_RELATIVE>aRecordNumber</IF STRUCTURE_RELATIVE>))
         endmethod
 
 </IF GET_ENDPOINT>
@@ -198,26 +208,26 @@ namespace <NAMESPACE>
         ;;; Get <structurePlural> by alternate key key <KeyName>.
         ;;; </summary>
         <SEGMENT_LOOP>
-		<IF SEG_TAG_EQUAL>
-		<ELSE>
+        <IF SEG_TAG_EQUAL>
+        <ELSE>
         ;;; <param name="a<FieldSqlName>"><FIELD_DESC></param>
-		</IF SEG_TAG_EQUAL>
+        </IF SEG_TAG_EQUAL>
         </SEGMENT_LOOP>
         ;;; <returns>Returns an IActionResult indicating the status of the operation and containing any data that was returned.</returns>
         public method Get<StructurePlural>By<KeyName>, @IActionResult
             <SEGMENT_LOOP>
-			<IF SEG_TAG_EQUAL>
-			<ELSE>
+            <IF SEG_TAG_EQUAL>
+            <ELSE>
             {FromODataUri}
             <IF CUSTOM_HARMONY_AS_STRING>
             required in a<FieldSqlName>, string
             <ELSE>
             required in a<FieldSqlName>, <SEGMENT_SNTYPE>
             </IF CUSTOM_HARMONY_AS_STRING>
-			</IF SEG_TAG_EQUAL>
+            </IF SEG_TAG_EQUAL>
             </SEGMENT_LOOP>
         proc
-            data result = DBContext.<StructurePlural>.AsNoTracking().FindAlternate(<SEGMENT_LOOP>"<FieldSqlName>",<IF SEG_TAG_EQUAL><SEGMENT_TAG_VALUE><ELSE>a<FieldSqlName></IF SEG_TAG_EQUAL><,></SEGMENT_LOOP>)
+            data result = _DbContext.<StructurePlural>.AsNoTracking().FindAlternate(<SEGMENT_LOOP>"<FieldSqlName>",<IF SEG_TAG_EQUAL><SEGMENT_TAG_VALUE><ELSE>a<FieldSqlName></IF SEG_TAG_EQUAL><,></SEGMENT_LOOP>)
             if (result == ^null)
                 mreturn NotFound()
             mreturn Ok(result)
@@ -238,26 +248,26 @@ namespace <NAMESPACE>
         ;;; Get <structureNoplural> by alternate key <KeyName>.
         ;;; </summary>
         <SEGMENT_LOOP>
-		<IF SEG_TAG_EQUAL>
-		<ELSE>
+        <IF SEG_TAG_EQUAL>
+        <ELSE>
         ;;; <param name="a<FieldSqlName>"><FIELD_DESC></param>
-		</IF SEG_TAG_EQUAL>
+        </IF SEG_TAG_EQUAL>
         </SEGMENT_LOOP>
         ;;; <returns>Returns a SingleResult indicating the status of the operation and containing any data that was returned.</returns>
         public method Get<StructureNoplural>By<KeyName>, @SingleResult<<StructureNoplural>>
             <SEGMENT_LOOP>
-			<IF SEG_TAG_EQUAL>
-			<ELSE>
+            <IF SEG_TAG_EQUAL>
+            <ELSE>
             {FromODataUri}
             <IF CUSTOM_HARMONY_AS_STRING>
             required in a<FieldSqlName>, string
             <ELSE>
             required in a<FieldSqlName>, <SEGMENT_SNTYPE>
             </IF CUSTOM_HARMONY_AS_STRING>
-			</IF SEG_TAG_EQUAL>
+            </IF SEG_TAG_EQUAL>
             </SEGMENT_LOOP>
         proc
-            mreturn new SingleResult<<StructureNoplural>>(DBContext.<StructurePlural>.AsNoTracking().FindAlternate(<SEGMENT_LOOP>"<FieldSqlName>",<IF SEG_TAG_EQUAL><SEGMENT_TAG_VALUE><ELSE>a<FieldSqlName><IF ALPHA>.PadRight(<FIELD_SIZE>)</IF ALPHA></IF SEG_TAG_EQUAL><,></SEGMENT_LOOP>))
+            mreturn new SingleResult<<StructureNoplural>>(_DbContext.<StructurePlural>.AsNoTracking().FindAlternate(<SEGMENT_LOOP>"<FieldSqlName>",<IF SEG_TAG_EQUAL><SEGMENT_TAG_VALUE><ELSE>a<FieldSqlName><IF ALPHA>.PadRight(<FIELD_SIZE>)</IF ALPHA></IF SEG_TAG_EQUAL><,></SEGMENT_LOOP>))
         endmethod
       </IF DUPLICATES>
 
@@ -275,8 +285,8 @@ namespace <NAMESPACE>
 ;// the name of a single key segment MUST be "key"!!! Likely doesn't work with segmented keys.
 ;//
   <FIELD_LOOP>
-	<IF USER>
-	<ELSE>
+    <IF USER>
+    <ELSE>
     <IF CUSTOM_NOT_HARMONY_EXCLUDE>
       <IF STRUCTURE_ISAM>
         <IF NOTPKSEGMENT>
@@ -294,10 +304,10 @@ namespace <NAMESPACE>
         ;;; <param name="key"><FIELD_DESC></param>
         <ELSE>
         <SEGMENT_LOOP>
-		  <IF SEG_TAG_EQUAL>
-		  <ELSE>
+          <IF SEG_TAG_EQUAL>
+          <ELSE>
         ;;; <param name="a<FieldSqlName>"><FIELD_DESC></param>
-		  </IF SEG_TAG_EQUAL>
+          </IF SEG_TAG_EQUAL>
         </SEGMENT_LOOP>
         </IF SINGLE_SEGMENT>
         ;;; <returns>
@@ -314,7 +324,7 @@ namespace <NAMESPACE>
             </IF CUSTOM_HARMONY_AS_STRING>
             <ELSE>
               <IF SEG_TAG_EQUAL>
-		      <ELSE>
+              <ELSE>
             {FromODataUri}
             <IF CUSTOM_HARMONY_AS_STRING>
             required in a<FieldSqlName>, string
@@ -325,7 +335,7 @@ namespace <NAMESPACE>
             </IF SINGLE_SEGMENT>
         </SEGMENT_LOOP>
         proc
-            data result = DBContext.<StructurePlural>.Find(<IF SINGLE_SEGMENT>key<ELSE><SEGMENT_LOOP><IF SEG_TAG_EQUAL><SEGMENT_TAG_VALUE><ELSE>a<FieldSqlName><IF ALPHA>.PadRight(<FIELD_SIZE>)</IF ALPHA></IF SEG_TAG_EQUAL><,></SEGMENT_LOOP></IF SINGLE_SEGMENT>)
+            data result = _DbContext.<StructurePlural>.Find(<IF SINGLE_SEGMENT>key<ELSE><SEGMENT_LOOP><IF SEG_TAG_EQUAL><SEGMENT_TAG_VALUE><ELSE>a<FieldSqlName><IF ALPHA>.PadRight(<FIELD_SIZE>)</IF ALPHA></IF SEG_TAG_EQUAL><,></SEGMENT_LOOP></IF SINGLE_SEGMENT>)
             if (result==^null)
                 mreturn NotFound()
             mreturn OK(result.<FieldSqlName>)
@@ -351,7 +361,7 @@ namespace <NAMESPACE>
             {FromODataUri}
             required in key, int
         proc
-            data result = DBContext.<StructurePlural>.Find(key)
+            data result = _DbContext.<StructurePlural>.Find(key)
             if (result==^null)
                 mreturn NotFound()
             mreturn OK(result.<FieldSqlName>)
@@ -359,7 +369,7 @@ namespace <NAMESPACE>
       </IF STRUCTURE_RELATIVE>
 
     </IF CUSTOM_NOT_HARMONY_EXCLUDE>
-	</IF USER>
+    </IF USER>
   </FIELD_LOOP>
 </IF PROPERTY_ENDPOINTS>
 </IF DEFINED_ENABLE_PROPERTY_ENDPOINTS>
@@ -397,13 +407,23 @@ namespace <NAMESPACE>
             ;; Validate inbound data
             if (!ModelState.IsValid)
                 mreturn BadRequest(ModelState)
-            disposable data keyFactory = (@IPrimaryKeyFactory)ServiceProvider.GetService(^typeof(IPrimaryKeyFactory))
+
             ;;Get the next available primary key value
+            disposable data keyFactory = (@IPrimaryKeyFactory)_ServiceProvider.GetService(^typeof(IPrimaryKeyFactory))
             KeyFactory.AssignPrimaryKey(a<StructureNoplural>)
 
             ;;Add the new <structureNoplural>
-            DBContext.<StructurePlural>.Add(a<StructureNoplural>)
-            DBContext.SaveChanges(keyFactory)
+            try
+            begin
+                _DbContext.<StructurePlural>.Add(a<StructureNoplural>)
+                _DbContext.SaveChanges(keyFactory)
+            end
+            catch (e, @ValidationException)
+            begin
+                ModelState.AddModelError("RelationValidation",e.Message)
+                mreturn BadRequest(ModelState)
+            end
+            endtry
 
             mreturn Created(a<StructureNoplural>)
 
@@ -428,10 +448,10 @@ namespace <NAMESPACE>
   <IF STRUCTURE_ISAM>
     <PRIMARY_KEY>
       <SEGMENT_LOOP>
-	    <IF SEG_TAG_EQUAL>
-		<ELSE>
+        <IF SEG_TAG_EQUAL>
+        <ELSE>
         ;;; <param name="a<FieldSqlName>"><FIELD_DESC></param>
-	    </IF SEG_TAG_EQUAL>
+        </IF SEG_TAG_EQUAL>
       </SEGMENT_LOOP>
     </PRIMARY_KEY>
   </IF STRUCTURE_ISAM>
@@ -443,15 +463,15 @@ namespace <NAMESPACE>
   <IF STRUCTURE_ISAM>
     <PRIMARY_KEY>
       <SEGMENT_LOOP>
-	    <IF SEG_TAG_EQUAL>
-		<ELSE>
+        <IF SEG_TAG_EQUAL>
+        <ELSE>
             {FromODataUri}
         <IF CUSTOM_HARMONY_AS_STRING>
             required in a<FieldSqlName>, string
         <ELSE>
             required in a<FieldSqlName>, <SEGMENT_SNTYPE>
         </IF CUSTOM_HARMONY_AS_STRING>
-	    </IF SEG_TAG_EQUAL>
+        </IF SEG_TAG_EQUAL>
       </SEGMENT_LOOP>
     </PRIMARY_KEY>
   </IF STRUCTURE_ISAM>
@@ -470,11 +490,11 @@ namespace <NAMESPACE>
   <IF STRUCTURE_ISAM>
     <PRIMARY_KEY>
       <SEGMENT_LOOP>
-	    <IF SEG_TAG_EQUAL>
+        <IF SEG_TAG_EQUAL>
             a<StructureNoplural>.<FieldSqlname> = <SEGMENT_TAG_VALUE>
-		<ELSE>
+        <ELSE>
             a<StructureNoplural>.<FieldSqlname> = a<FieldSqlName>
-	    </IF SEG_TAG_EQUAL>
+        </IF SEG_TAG_EQUAL>
       </SEGMENT_LOOP>
     </PRIMARY_KEY>
   </IF STRUCTURE_ISAM>
@@ -485,23 +505,28 @@ namespace <NAMESPACE>
             try
             begin
                 ;;Add and commit
-                data existing = DBContext.<StructurePlural>.Find(<IF STRUCTURE_ISAM><PRIMARY_KEY><SEGMENT_LOOP><IF SEG_TAG_EQUAL><SEGMENT_TAG_VALUE><ELSE>a<FieldSqlName><IF ALPHA>.PadRight(<FIELD_SIZE>)</IF ALPHA></IF SEG_TAG_EQUAL><,></SEGMENT_LOOP></PRIMARY_KEY></IF STRUCTURE_ISAM><IF STRUCTURE_RELATIVE>aRecordNumber</IF STRUCTURE_RELATIVE>)
+                data existing = _DbContext.<StructurePlural>.Find(<IF STRUCTURE_ISAM><PRIMARY_KEY><SEGMENT_LOOP><IF SEG_TAG_EQUAL><SEGMENT_TAG_VALUE><ELSE>a<FieldSqlName><IF ALPHA>.PadRight(<FIELD_SIZE>)</IF ALPHA></IF SEG_TAG_EQUAL><,></SEGMENT_LOOP></PRIMARY_KEY></IF STRUCTURE_ISAM><IF STRUCTURE_RELATIVE>aRecordNumber</IF STRUCTURE_RELATIVE>)
                 if(existing == ^null) then
                 begin
-                    DBContext.<StructurePlural>.Add(a<StructureNoplural>)
-                    DBContext.SaveChanges()
+                    _DbContext.<StructurePlural>.Add(a<StructureNoplural>)
+                    _DbContext.SaveChanges()
                     mreturn Created(a<StructureNoplural>)
                 end
                 else
                 begin
                     a<StructureNoplural>.CopyTo(existing)
-                    DBContext.SaveChanges()
+                    _DbContext.SaveChanges()
                     mreturn NoContent()
                 end
             end
             catch (e, @InvalidOperationException)
             begin
                 mreturn BadRequest(e)
+            end
+            catch (e, @ValidationException)
+            begin
+                ModelState.AddModelError("RelationValidation",e.Message)
+                mreturn BadRequest(ModelState)
             end
             endtry
 
@@ -526,10 +551,10 @@ namespace <NAMESPACE>
   <IF STRUCTURE_ISAM>
     <PRIMARY_KEY>
       <SEGMENT_LOOP>
-	    <IF SEG_TAG_EQUAL>
-		<ELSE>
+        <IF SEG_TAG_EQUAL>
+        <ELSE>
         ;;; <param name="a<FieldSqlName>"><FIELD_DESC></param>
-	    </IF SEG_TAG_EQUAL>
+        </IF SEG_TAG_EQUAL>
       </SEGMENT_LOOP>
     </PRIMARY_KEY>
   </IF STRUCTURE_ISAM>
@@ -541,15 +566,15 @@ namespace <NAMESPACE>
   <IF STRUCTURE_ISAM>
     <PRIMARY_KEY>
       <SEGMENT_LOOP>
-	    <IF SEG_TAG_EQUAL>
-		<ELSE>
+        <IF SEG_TAG_EQUAL>
+        <ELSE>
             {FromODataUri}
           <IF CUSTOM_HARMONY_AS_STRING>
             required in a<FieldSqlName>, string
           <ELSE>
             required in a<FieldSqlName>, <SEGMENT_SNTYPE>
           </IF CUSTOM_HARMONY_AS_STRING>
-	    </IF SEG_TAG_EQUAL>
+        </IF SEG_TAG_EQUAL>
       </SEGMENT_LOOP>
     </PRIMARY_KEY>
   </IF STRUCTURE_ISAM>
@@ -568,7 +593,7 @@ namespace <NAMESPACE>
             try
             begin
                 ;;Get the <structureNoplural> to be updated
-                data <structureNoplural>ToUpdate = DBContext.<StructurePlural>.Find(<IF STRUCTURE_ISAM><PRIMARY_KEY><SEGMENT_LOOP><IF SEG_TAG_EQUAL><SEGMENT_TAG_VALUE><ELSE>a<FieldSqlName><IF ALPHA>.PadRight(<FIELD_SIZE>)</IF ALPHA></IF SEG_TAG_EQUAL><,></SEGMENT_LOOP></PRIMARY_KEY></IF STRUCTURE_ISAM><IF STRUCTURE_RELATIVE>aRecordNumber</IF STRUCTURE_RELATIVE>)
+                data <structureNoplural>ToUpdate = _DbContext.<StructurePlural>.Find(<IF STRUCTURE_ISAM><PRIMARY_KEY><SEGMENT_LOOP><IF SEG_TAG_EQUAL><SEGMENT_TAG_VALUE><ELSE>a<FieldSqlName><IF ALPHA>.PadRight(<FIELD_SIZE>)</IF ALPHA></IF SEG_TAG_EQUAL><,></SEGMENT_LOOP></PRIMARY_KEY></IF STRUCTURE_ISAM><IF STRUCTURE_RELATIVE>aRecordNumber</IF STRUCTURE_RELATIVE>)
                 data patchError, @JsonPatchError, ^null
                 ;;Did we find it?
                 if(<structureNoplural>ToUpdate == ^null)
@@ -581,12 +606,17 @@ namespace <NAMESPACE>
                     mreturn BadRequest(string.Format("Error applying patch document: error message {0}, caused by {1}", patchError.ErrorMessage, JsonConvert.SerializeObject(patchError.Operation)))
 
                 ;;Update and commit
-                DBContext.<StructurePlural>.Update(<structureNoplural>ToUpdate)
-                DBContext.SaveChanges()
+                _DbContext.<StructurePlural>.Update(<structureNoplural>ToUpdate)
+                _DbContext.SaveChanges()
             end
             catch (e, @InvalidOperationException)
             begin
                 mreturn BadRequest(e)
+            end
+            catch (e, @ValidationException)
+            begin
+                ModelState.AddModelError("RelationValidation",e.Message)
+                mreturn BadRequest(ModelState)
             end
             endtry
 
@@ -613,10 +643,10 @@ namespace <NAMESPACE>
   <IF STRUCTURE_ISAM>
     <PRIMARY_KEY>
       <SEGMENT_LOOP>
-	    <IF SEG_TAG_EQUAL>
-		<ELSE>
+        <IF SEG_TAG_EQUAL>
+        <ELSE>
         ;;; <param name="a<FieldSqlName>"><FIELD_DESC></param>
-		</IF SEG_TAG_EQUAL>
+        </IF SEG_TAG_EQUAL>
       </SEGMENT_LOOP>
     </PRIMARY_KEY>
   </IF STRUCTURE_ISAM>
@@ -628,15 +658,15 @@ namespace <NAMESPACE>
   <IF STRUCTURE_ISAM>
     <PRIMARY_KEY>
       <SEGMENT_LOOP>
-	    <IF SEG_TAG_EQUAL>
-		<ELSE>
+        <IF SEG_TAG_EQUAL>
+        <ELSE>
             {FromODataUri}
           <IF CUSTOM_HARMONY_AS_STRING>
             required in a<FieldSqlName>, string
           <ELSE>
             required in a<FieldSqlName>, <SEGMENT_SNTYPE>
           </IF CUSTOM_HARMONY_AS_STRING>
-	    </IF SEG_TAG_EQUAL>
+        </IF SEG_TAG_EQUAL>
       </SEGMENT_LOOP>
     </PRIMARY_KEY>
   </IF STRUCTURE_ISAM>
@@ -646,15 +676,15 @@ namespace <NAMESPACE>
   </IF STRUCTURE_RELATIVE>
         proc
             ;;Get the <structureNoplural> to be deleted
-            data <structureNoplural>ToRemove = DBContext.<StructurePlural>.Find(<IF STRUCTURE_ISAM><PRIMARY_KEY><SEGMENT_LOOP><IF SEG_TAG_EQUAL><SEGMENT_TAG_VALUE><ELSE>a<FieldSqlName><IF ALPHA>.PadRight(<FIELD_SIZE>)</IF ALPHA></IF SEG_TAG_EQUAL><,></SEGMENT_LOOP></PRIMARY_KEY></IF STRUCTURE_ISAM><IF STRUCTURE_RELATIVE>aRecordNumber</IF STRUCTURE_RELATIVE>)
+            data <structureNoplural>ToRemove = _DbContext.<StructurePlural>.Find(<IF STRUCTURE_ISAM><PRIMARY_KEY><SEGMENT_LOOP><IF SEG_TAG_EQUAL><SEGMENT_TAG_VALUE><ELSE>a<FieldSqlName><IF ALPHA>.PadRight(<FIELD_SIZE>)</IF ALPHA></IF SEG_TAG_EQUAL><,></SEGMENT_LOOP></PRIMARY_KEY></IF STRUCTURE_ISAM><IF STRUCTURE_RELATIVE>aRecordNumber</IF STRUCTURE_RELATIVE>)
 
             ;;Did we find it?
             if (<structureNoplural>ToRemove == ^null)
                 mreturn NotFound()
 
             ;;Delete and commit
-            DBContext.<StructurePlural>.Remove(<structureNoplural>ToRemove)
-            DBContext.SaveChanges()
+            _DbContext.<StructurePlural>.Remove(<structureNoplural>ToRemove)
+            _DbContext.SaveChanges()
 
             mreturn NoContent()
 

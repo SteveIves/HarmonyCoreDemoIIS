@@ -1,9 +1,10 @@
  
 ;  SYNERGY DATA LANGUAGE OUTPUT
 ;
-;  GENERATED      : 13-SEP-2018, 14:10:23
-;                 : Version 10.3.3e
+;  GENERATED      : 23-JUL-2019, 16:20:07
+;                 : Version 10.3.3g
 ;  EXPORT OPTIONS : [ALL] 
+ 
  
 Format PHONE   Type NUMERIC   "(XXX) XXX-XXXX"   Justify RIGHT
  
@@ -28,32 +29,38 @@ Field CUSTOMER_NUMBER   Type DECIMAL   Size 6
    Long Description
       "SAMPLE_DATA=355232;"
    Report Just LEFT   Input Just LEFT
+   Required
  
 Field NAME   Type ALPHA   Size 30
    Description "Customer name"
    Long Description
       "SAMPLE_DATA=Abe's Nursery;"
+   Required
  
 Field STREET   Type ALPHA   Size 25
    Description "Street address"
    Long Description
       "SAMPLE_DATA=1032 Main Street;"
+   Required
  
 Field CITY   Type ALPHA   Size 20
    Description "City"
    Long Description
       "SAMPLE_DATA=Springfield;"
+   Required
  
 Field STATE   Type ALPHA   Size 2
    Description "State"
    Long Description
       "SAMPLE_DATA=MO;"
+   Required
  
 Field ZIP_CODE   Type DECIMAL   Size 9
    Description "Zip code"
    Long Description
       "SAMPLE_DATA=64127;"
    Report Just LEFT   Input Just LEFT
+   Required
  
 Field CONTACT   Type ALPHA   Size 25
    Description "Contact name"
@@ -64,6 +71,7 @@ Field PHONE   Template PHONE
    Description "Phone number"
    Long Description
       "SAMPLE_DATA=(555) 123-4567;"
+   Required
  
 Field FAX   Template PHONE
    Description "Fax number"
@@ -75,11 +83,13 @@ Field FAVORITE_ITEM   Type DECIMAL   Size 6
    Long Description
       "SAMPLE_DATA=7;"
    Report Just LEFT   Input Just LEFT
+   Required
  
 Field PAYMENT_TERMS_CODE   Type ALPHA   Size 2
    Description "Payment terms code"
    Long Description
       "SAMPLE_DATA=30;"
+   Required
    Selection List 0 0 0  Entries "CA", "30", "60", "90"
  
 Field TAX_ID   Type DECIMAL   Size 9
@@ -92,6 +102,7 @@ Field CREDIT_LIMIT   Type DECIMAL   Size 7   Precision 2
    Description "Credit limit"
    Long Description
       "SAMPLE_DATA=5000;"
+   Required
  
 Key CUSTOMER_NUMBER   ACCESS   Order ASCENDING   Dups NO
    Segment FIELD   CUSTOMER_NUMBER  SegType DECIMAL

@@ -15,9 +15,8 @@ import Microsoft.AspNetCore.Hosting
 import System.Collections.Generic
 import System.IO
 import System.Text
+import Services
 import Services.Models
-
-.Array 0
 
 namespace Services.Host
 
@@ -67,71 +66,101 @@ namespace Services.Host
         ;;Declare the SetLogicalsCustom partial method
         ;;This method can be implemented in a partial class to provide custom code to define logical names
         partial static method SetLogicalsCustom, void
-            required in logicals, @List<string>
+
         endmethod
 
         private static method setLogicals, void
         proc
             data sampleDataFolder = findRelativeFolderForAssembly("SampleData")
-            data logicals = new List<string>()
+            Startup.LogicalNames = new List<string>()
             data logical = String.Empty
             data fileSpec = String.Empty
 
             fileSpec = "DAT:customers.ism"
-            if (fileSpec.Contains(":"))
+            if (fileSpec.Contains(":")) then
             begin
-                logical = fileSpec.Split(":")[0].ToUpper()
-                if (!logicals.Contains(logical))
-                    logicals.Add(logical)
+                logical = fileSpec.Split(":")[1].ToUpper()
+                if (!Startup.LogicalNames.Contains(logical))
+                    Startup.LogicalNames.Add(logical)
             end
-
-            fileSpec = "DAT:orders.ism"
-            if (fileSpec.Contains(":"))
+            else if (!fileSpec.Contains("."))
             begin
-                logical = fileSpec.Split(":")[0].ToUpper()
-                if (!logicals.Contains(logical))
-                    logicals.Add(logical)
+                if (!Startup.LogicalNames.Contains(fileSpec))
+                    Startup.LogicalNames.Add(fileSpec)
             end
 
             fileSpec = "DAT:items.ism"
-            if (fileSpec.Contains(":"))
+            if (fileSpec.Contains(":")) then
             begin
-                logical = fileSpec.Split(":")[0].ToUpper()
-                if (!logicals.Contains(logical))
-                    logicals.Add(logical)
+                logical = fileSpec.Split(":")[1].ToUpper()
+                if (!Startup.LogicalNames.Contains(logical))
+                    Startup.LogicalNames.Add(logical)
+            end
+            else if (!fileSpec.Contains("."))
+            begin
+                if (!Startup.LogicalNames.Contains(fileSpec))
+                    Startup.LogicalNames.Add(fileSpec)
+            end
+
+            fileSpec = "DAT:orders.ism"
+            if (fileSpec.Contains(":")) then
+            begin
+                logical = fileSpec.Split(":")[1].ToUpper()
+                if (!Startup.LogicalNames.Contains(logical))
+                    Startup.LogicalNames.Add(logical)
+            end
+            else if (!fileSpec.Contains("."))
+            begin
+                if (!Startup.LogicalNames.Contains(fileSpec))
+                    Startup.LogicalNames.Add(fileSpec)
             end
 
             fileSpec = "DAT:order_items.ism"
-            if (fileSpec.Contains(":"))
+            if (fileSpec.Contains(":")) then
             begin
-                logical = fileSpec.Split(":")[0].ToUpper()
-                if (!logicals.Contains(logical))
-                    logicals.Add(logical)
+                logical = fileSpec.Split(":")[1].ToUpper()
+                if (!Startup.LogicalNames.Contains(logical))
+                    Startup.LogicalNames.Add(logical)
+            end
+            else if (!fileSpec.Contains("."))
+            begin
+                if (!Startup.LogicalNames.Contains(fileSpec))
+                    Startup.LogicalNames.Add(fileSpec)
             end
 
             fileSpec = "DAT:vendors.ism"
-            if (fileSpec.Contains(":"))
+            if (fileSpec.Contains(":")) then
             begin
-                logical = fileSpec.Split(":")[0].ToUpper()
-                if (!logicals.Contains(logical))
-                    logicals.Add(logical)
+                logical = fileSpec.Split(":")[1].ToUpper()
+                if (!Startup.LogicalNames.Contains(logical))
+                    Startup.LogicalNames.Add(logical)
+            end
+            else if (!fileSpec.Contains("."))
+            begin
+                if (!Startup.LogicalNames.Contains(fileSpec))
+                    Startup.LogicalNames.Add(fileSpec)
             end
 
             fileSpec = "DAT:sysparams.ddf"
-            if (fileSpec.Contains(":"))
+            if (fileSpec.Contains(":")) then
             begin
-                logical = fileSpec.Split(":")[0].ToUpper()
-                if (!logicals.Contains(logical))
-                    logicals.Add(logical)
+                logical = fileSpec.Split(":")[1].ToUpper()
+                if (!Startup.LogicalNames.Contains(logical))
+                    Startup.LogicalNames.Add(logical)
+            end
+            else if (!fileSpec.Contains("."))
+            begin
+                if (!Startup.LogicalNames.Contains(fileSpec))
+                    Startup.LogicalNames.Add(fileSpec)
             end
 
             ;;If we have a SetLogicalsCustom method, call it
-            SetLogicalsCustom(logicals)
+            SetLogicalsCustom()
 
             ;;Now we'll check each logical. If it already has a value we'll do nothing, otherwise
             ;;we'll set the logical to point to the local folder whose name is identified by the
             ;;user-defined token DATA_FOLDER
-            foreach logical in logicals
+            foreach logical in Startup.LogicalNames
             begin
                 data sts, int
                 data translation, a80
@@ -153,8 +182,8 @@ namespace Services.Host
             data xdlFile, string
 
             data customers = loadCustomers()
-            data orders = loadOrders()
             data items = loadItems()
+            data orders = loadOrders()
             data orderItems = loadOrderItems()
             data vendors = loadVendors()
 
@@ -169,17 +198,6 @@ namespace Services.Host
                 store(chout,customer.SynergyRecord)
             close chout
 
-            ;;Create and load the orders file
-
-            dataFile = "DAT:orders.ism"
-            xdlFile = "@" + dataFile.ToLower().Replace(".ism",".xdl")
-
-            data order, @Order
-            open(chout=0,o:i,dataFile,FDL:xdlFile)
-            foreach order in orders
-                store(chout,order.SynergyRecord)
-            close chout
-
             ;;Create and load the items file
 
             dataFile = "DAT:items.ism"
@@ -189,6 +207,17 @@ namespace Services.Host
             open(chout=0,o:i,dataFile,FDL:xdlFile)
             foreach item in items
                 store(chout,item.SynergyRecord)
+            close chout
+
+            ;;Create and load the orders file
+
+            dataFile = "DAT:orders.ism"
+            xdlFile = "@" + dataFile.ToLower().Replace(".ism",".xdl")
+
+            data order, @Order
+            open(chout=0,o:i,dataFile,FDL:xdlFile)
+            foreach order in orders
+                store(chout,order.SynergyRecord)
             close chout
 
             ;;Create and load the orderItems file
@@ -234,10 +263,10 @@ namespace Services.Host
             end
             endtry
 
-            ;;Delete the orders file
+            ;;Delete the items file
             try
             begin
-                xcall delet("DAT:orders.ism")
+                xcall delet("DAT:items.ism")
             end
             catch (e, @NoFileFoundException)
             begin
@@ -245,10 +274,10 @@ namespace Services.Host
             end
             endtry
 
-            ;;Delete the items file
+            ;;Delete the orders file
             try
             begin
-                xcall delet("DAT:items.ism")
+                xcall delet("DAT:orders.ism")
             end
             catch (e, @NoFileFoundException)
             begin
@@ -310,25 +339,6 @@ namespace Services.Host
             mreturn customers
         endmethod
 
-        public static method loadOrders, @List<Order>
-        proc
-            data dataFile = "DAT:orders.ism"
-            data textFile = dataFile.ToLower().Replace(".ism",".txt")
-            data orderCh, int, 0
-            data orderRec, strOrder
-            data orders = new List<Order>()
-            data grfa, a10
-            open(orderCh,i:s,textFile)
-            repeat
-            begin
-                reads(orderCh,orderRec,eof)
-                orders.Add(new Order(orderRec, grfa))
-            end
-        eof,
-            close orderCh
-            mreturn orders
-        endmethod
-
         public static method loadItems, @List<Item>
         proc
             data dataFile = "DAT:items.ism"
@@ -346,6 +356,25 @@ namespace Services.Host
         eof,
             close itemCh
             mreturn items
+        endmethod
+
+        public static method loadOrders, @List<Order>
+        proc
+            data dataFile = "DAT:orders.ism"
+            data textFile = dataFile.ToLower().Replace(".ism",".txt")
+            data orderCh, int, 0
+            data orderRec, strOrder
+            data orders = new List<Order>()
+            data grfa, a10
+            open(orderCh,i:s,textFile)
+            repeat
+            begin
+                reads(orderCh,orderRec,eof)
+                orders.Add(new Order(orderRec, grfa))
+            end
+        eof,
+            close orderCh
+            mreturn orders
         endmethod
 
         public static method loadOrderItems, @List<OrderItem>
