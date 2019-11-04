@@ -82,4 +82,7 @@
       <SubType>Content</SubType>
     </Content>
   </ItemGroup>
+  <Target Name="CreateLogsFolder" AfterTargets="Publish">
+    <MakeDir Directories="$(PublishDir)logs" Condition="!Exists('$(PublishDir)logs')" />
+  </Target>
 </Project>

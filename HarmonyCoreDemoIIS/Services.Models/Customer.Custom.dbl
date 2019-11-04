@@ -1,0 +1,24 @@
+import System
+import System.Collections.Generic
+import System.Text
+
+
+namespace Services.Models
+
+    public partial class Customer
+
+        private myVar, int
+        public property MyProperty, int
+            method get
+            proc
+                mreturn myVar
+            endmethod
+            method set
+            proc
+                myVar = value
+            endmethod
+        endproperty
+	
+	endclass
+
+endnamespace

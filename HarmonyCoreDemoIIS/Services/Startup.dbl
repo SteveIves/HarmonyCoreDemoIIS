@@ -189,7 +189,7 @@ namespace Services
                     &    Contact = new Contact() { Name = "Jodah Veloper", Email = "jodah.veloper@synergexpsg.com" },
                     &    TermsOfService = "Open Source",
                     &    License = new License() { Name = "BSD 2-Clause", Url = "https://opensource.org/licenses/BSD-2-Clause" }
-                    & }
+                    &    }
 
                     options.SwaggerDoc( description.GroupName, info )
                 end
@@ -236,6 +236,11 @@ namespace Services
 
             services.Configure<IISOptions>(iisOptions)
             
+            ;;-------------------------------------------------------
+            ;;Add "Cross Origin Resource Sharing" (CORS) support
+
+            services.AddCors()
+
             ;;If there is a ConfigureServicesCustom method, call it
             ConfigureServicesCustom(services)
 
@@ -356,6 +361,18 @@ namespace Services
                 builder.MaxTop(100)
 
             end
+
+            ;;-------------------------------------------------------
+            ;;Add "Cross Origin Resource Sharing" (CORS) support
+
+            lambda corsOptions(builder)
+            begin
+                builder.AllowAnyOrigin()
+                &    .AllowAnyMethod()
+                &    .AllowAnyHeader()
+            end
+
+            app.UseCors(corsOptions)
 
             ;;-------------------------------------------------------
             ;;Enable MVC

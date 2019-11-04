@@ -21,6 +21,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppSettings.dbl" />
+    <Compile Include="Customer.Custom.dbl" />
     <Compile Include="Customer.dbl" />
     <Compile Include="CustomerMetaData.dbl" />
     <Compile Include="DbContext.dbl" />
