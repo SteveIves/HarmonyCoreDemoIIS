@@ -9,6 +9,7 @@ Project("{BBD0F5D1-1CC4-42FD-BA4C-A96779C64378}") = "Services.Host", "Services.H
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{6C9AD151-7DA4-477B-A52C-FB883D9D1057}"
 	ProjectSection(SolutionItems) = preProject
+		Templates\HarmonyCoreCustomization.json = Templates\HarmonyCoreCustomization.json
 		Templates\ODataClientModel.tpl = Templates\ODataClientModel.tpl
 		Templates\ODataController.tpl = Templates\ODataController.tpl
 		Templates\ODataDbContext.tpl = Templates\ODataDbContext.tpl
