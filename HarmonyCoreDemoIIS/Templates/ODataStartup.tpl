@@ -1,5 +1,5 @@
 <CODEGEN_FILENAME>Startup.dbl</CODEGEN_FILENAME>
-<REQUIRES_CODEGEN_VERSION>5.4.2</REQUIRES_CODEGEN_VERSION>
+<REQUIRES_CODEGEN_VERSION>5.4.6</REQUIRES_CODEGEN_VERSION>
 <REQUIRES_USERTOKEN>API_DOCS_PATH</REQUIRES_USERTOKEN>
 <REQUIRES_USERTOKEN>API_TITLE</REQUIRES_USERTOKEN>
 <REQUIRES_USERTOKEN>MODELS_NAMESPACE</REQUIRES_USERTOKEN>
@@ -199,7 +199,7 @@ namespace <NAMESPACE>
                 vOptions.ReportApiVersions = true
                 ;vOptions.AssumeDefaultVersionWhenUnspecified = true
                 vOptions.RouteConstraintName = "apiVersion"
-                vOptions.DefaultApiVersion = new ApiVersion(1, 0)
+                vOptions.DefaultApiVersion = ApiVersion.Parse("1")
             end
 
             services.AddApiVersioning(APIVersionConfig)
@@ -240,7 +240,7 @@ namespace <NAMESPACE>
             begin
                 ;; resolve the IApiVersionDescriptionProvider service
                 ;; note: that we have to build a temporary service provider here because one has not been created yet
-                data provider = services.BuildServiceProvider().GetRequiredService<IApiVersionDescriptionProvider>()
+                data provider, @IApiVersionDescriptionProvider, (@IApiVersionDescriptionProvider)services.BuildServiceProvider().GetRequiredService(^typeof(IApiVersionDescriptionProvider))
                 data description, @ApiVersionDescription
 
                 ;; add a swagger document for each discovered API version
@@ -252,9 +252,9 @@ namespace <NAMESPACE>
                     &    Title = "<API_TITLE> " + description.ApiVersion.ToString(),
                     &    Version = description.ApiVersion.ToString(),
                     &    Description = "<API_DESCRIPTION>",
-                    &    Contact = new Contact() { Name = "<API_CONTACT_NAME>", Email = "<API_CONTACT_EMAIL>" },
+                    &    Contact = new Swashbuckle.AspNetCore.Swagger.Contact() { Name = "<API_CONTACT_NAME>", Email = "<API_CONTACT_EMAIL>" },
                     &    TermsOfService = "<API_TERMS>",
-                    &    License = new License() { Name = "<API_LICENSE_NAME>", Url = "<API_LICENSE_URL>" }
+                    &    License = new Swashbuckle.AspNetCore.Swagger.License() { Name = "<API_LICENSE_NAME>", Url = "<API_LICENSE_URL>" }
                     &    }
 
                     options.SwaggerDoc( description.GroupName, info )
