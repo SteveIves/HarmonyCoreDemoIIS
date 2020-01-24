@@ -10,6 +10,8 @@
 ;; Any changes you make will be lost of the file is re-generated.
 ;;*****************************************************************************
 
+import Microsoft.AspNetCore.Http
+import Microsoft.OData
 import Microsoft.AspNetCore.JsonPatch
 import Microsoft.AspNetCore.Mvc
 import Microsoft.AspNet.OData
@@ -17,16 +19,19 @@ import Microsoft.AspNet.OData.Routing
 import Microsoft.EntityFrameworkCore
 import Microsoft.EntityFrameworkCore.Infrastructure
 import Microsoft.Extensions.Options
+import System.Collections.Generic
 import System.ComponentModel.DataAnnotations
 import Harmony.Core.EF.Extensions
 import Harmony.Core.Interface
 import Harmony.OData
+import Harmony.AspNetCore
 import Newtonsoft.Json
 import Services.Models
 
 namespace Services.Controllers
 
     {ApiVersion("1")}
+    {ODataRoutePrefix("Items")}
     ;;; <summary>
     ;;; OData controller for Items
     ;;; </summary>
@@ -53,7 +58,9 @@ namespace Services.Controllers
             this._AppSettings = aAppSettings
         endmethod
 
-        {ODataRoute("Items")}
+        {ODataRoute}
+        {Produces("application/json")}
+        {ProducesResponseType(^typeof(ODataValue<IEnumerable<Item>>),StatusCodes.Status200OK)}
         {EnableQuery(MaxExpansionDepth=4)}
         ;;; <summary>
         ;;; Get all Items
@@ -64,7 +71,10 @@ namespace Services.Controllers
             mreturn Ok(_DbContext.Items.AsNoTracking())
         endmethod
 
-        {ODataRoute("Items(ItemNumber={aItemNumber})")}
+        {ODataRoute("(ItemNumber={aItemNumber})")}
+        {Produces("application/json")}
+        {ProducesResponseType(^typeof(Item),StatusCodes.Status200OK)}
+        {ProducesResponseType(StatusCodes.Status404NotFound)}
         {EnableQuery(MaxExpansionDepth=4)}
         ;;; <summary>
         ;;; Get a single Item by primary key.
@@ -78,7 +88,10 @@ namespace Services.Controllers
             mreturn new SingleResult<Item>(_DbContext.Items.AsNoTracking().FindQuery<Item>(_DbContext, aItemNumber))
         endmethod
 
-        {ODataRoute("Items(VendorNumber={aVendorNumber})")}
+        {ODataRoute("(VendorNumber={aVendorNumber})")}
+        {Produces("application/json")}
+        {ProducesResponseType(^typeof(ODataValue<IEnumerable<Item>>),StatusCodes.Status200OK)}
+        {ProducesResponseType(StatusCodes.Status404NotFound)}
         {EnableQuery(MaxExpansionDepth=4)}
         ;;; <summary>
         ;;; Get items by alternate key key VendorNumber.
@@ -95,7 +108,10 @@ namespace Services.Controllers
             mreturn Ok(result)
         endmethod
 
-        {ODataRoute("Items(FlowerColor={aFlowerColor})")}
+        {ODataRoute("(FlowerColor={aFlowerColor})")}
+        {Produces("application/json")}
+        {ProducesResponseType(^typeof(ODataValue<IEnumerable<Item>>),StatusCodes.Status200OK)}
+        {ProducesResponseType(StatusCodes.Status404NotFound)}
         {EnableQuery(MaxExpansionDepth=4)}
         ;;; <summary>
         ;;; Get items by alternate key key Color.
@@ -112,7 +128,10 @@ namespace Services.Controllers
             mreturn Ok(result)
         endmethod
 
-        {ODataRoute("Items(Size={aSize})")}
+        {ODataRoute("(Size={aSize})")}
+        {Produces("application/json")}
+        {ProducesResponseType(^typeof(ODataValue<IEnumerable<Item>>),StatusCodes.Status200OK)}
+        {ProducesResponseType(StatusCodes.Status404NotFound)}
         {EnableQuery(MaxExpansionDepth=4)}
         ;;; <summary>
         ;;; Get items by alternate key key Size.
@@ -129,7 +148,10 @@ namespace Services.Controllers
             mreturn Ok(result)
         endmethod
 
-        {ODataRoute("Items(CommonName={aCommonName})")}
+        {ODataRoute("(CommonName={aCommonName})")}
+        {Produces("application/json")}
+        {ProducesResponseType(^typeof(ODataValue<IEnumerable<Item>>),StatusCodes.Status200OK)}
+        {ProducesResponseType(StatusCodes.Status404NotFound)}
         {EnableQuery(MaxExpansionDepth=4)}
         ;;; <summary>
         ;;; Get items by alternate key key Name.
@@ -146,7 +168,10 @@ namespace Services.Controllers
             mreturn Ok(result)
         endmethod
 
-        {ODataRoute("Items")}
+        {ODataRoute}
+        {Produces("application/json")}
+        {ProducesResponseType(^typeof(Item),StatusCodes.Status200OK)}
+        {ProducesResponseType(StatusCodes.Status400BadRequest)}
         ;;; <summary>
         ;;; Create a new item (automatically assigned primary key).
         ;;; </summary>
@@ -160,7 +185,7 @@ namespace Services.Controllers
 
             ;; Validate inbound data
             if (!ModelState.IsValid)
-                mreturn BadRequest(ModelState)
+                mreturn ValidationHelper.ReturnValidationError(ModelState)
 
             ;;Get the next available primary key value
             disposable data keyFactory = (@IPrimaryKeyFactory)_ServiceProvider.GetService(^typeof(IPrimaryKeyFactory))
@@ -175,7 +200,7 @@ namespace Services.Controllers
             catch (e, @ValidationException)
             begin
                 ModelState.AddModelError("RelationValidation",e.Message)
-                mreturn BadRequest(ModelState)
+                mreturn ValidationHelper.ReturnValidationError(ModelState)
             end
             endtry
 
@@ -183,7 +208,11 @@ namespace Services.Controllers
 
         endmethod
 
-        {ODataRoute("Items(ItemNumber={aItemNumber})")}
+        {ODataRoute("(ItemNumber={aItemNumber})")}
+        {Produces("application/json")}
+        {ProducesResponseType(StatusCodes.Status201Created)}
+        {ProducesResponseType(StatusCodes.Status400BadRequest)}
+        {ProducesResponseType(StatusCodes.Status404NotFound)}
         ;;; <summary>
         ;;; Create (with a client-supplied primary key) or replace a item.
         ;;; </summary>
@@ -197,7 +226,7 @@ namespace Services.Controllers
         proc
             ;; Validate inbound data
             if (!ModelState.IsValid)
-                mreturn BadRequest(ModelState)
+                mreturn ValidationHelper.ReturnValidationError(ModelState)
 
             ;;Ensure that the key values in the URI win over any data that may be in the model object
             aItem.ItemNumber = aItemNumber
@@ -226,13 +255,17 @@ namespace Services.Controllers
             catch (e, @ValidationException)
             begin
                 ModelState.AddModelError("RelationValidation",e.Message)
-                mreturn BadRequest(ModelState)
+                mreturn ValidationHelper.ReturnValidationError(ModelState)
             end
             endtry
 
         endmethod
 
-        {ODataRoute("Items(ItemNumber={aItemNumber})")}
+        {ODataRoute("(ItemNumber={aItemNumber})")}
+        {Produces("application/json")}
+        {ProducesResponseType(StatusCodes.Status204NoContent)}
+        {ProducesResponseType(StatusCodes.Status400BadRequest)}
+        {ProducesResponseType(StatusCodes.Status404NotFound)}
         ;;; <summary>
         ;;; Patch  (partial update) a item.
         ;;; </summary>
@@ -246,7 +279,7 @@ namespace Services.Controllers
         proc
             ;; Validate inbound data
             if (!ModelState.IsValid)
-                mreturn BadRequest(ModelState)
+                mreturn ValidationHelper.ReturnValidationError(ModelState)
 
             ;;Patch the existing item
             try
@@ -275,7 +308,7 @@ namespace Services.Controllers
             catch (e, @ValidationException)
             begin
                 ModelState.AddModelError("RelationValidation",e.Message)
-                mreturn BadRequest(ModelState)
+                mreturn ValidationHelper.ReturnValidationError(ModelState)
             end
             endtry
 
@@ -283,7 +316,9 @@ namespace Services.Controllers
 
         endmethod
 
-        {ODataRoute("Items(ItemNumber={aItemNumber})")}
+        {ODataRoute("(ItemNumber={aItemNumber})")}
+        {ProducesResponseType(StatusCodes.Status204NoContent)}
+        {ProducesResponseType(StatusCodes.Status404NotFound)}
         ;;; <summary>
         ;;; Delete a item.
         ;;; </summary>

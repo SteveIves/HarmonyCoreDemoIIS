@@ -50,6 +50,10 @@
 <IF DEFINED_ENABLE_AUTHENTICATION>
 import Microsoft.AspNetCore.Authorization
 </IF DEFINED_ENABLE_AUTHENTICATION>
+<IF DEFINED_ENABLE_API_VERSIONING>
+import Microsoft.AspNetCore.Http
+import Microsoft.OData
+</IF DEFINED_ENABLE_API_VERSIONING>
 import Microsoft.AspNetCore.JsonPatch
 import Microsoft.AspNetCore.Mvc
 import Microsoft.AspNet.OData
@@ -57,10 +61,12 @@ import Microsoft.AspNet.OData.Routing
 import Microsoft.EntityFrameworkCore
 import Microsoft.EntityFrameworkCore.Infrastructure
 import Microsoft.Extensions.Options
+import System.Collections.Generic
 import System.ComponentModel.DataAnnotations
 import Harmony.Core.EF.Extensions
 import Harmony.Core.Interface
 import Harmony.OData
+import Harmony.AspNetCore
 import Newtonsoft.Json
 import <MODELS_NAMESPACE>
 
@@ -72,6 +78,7 @@ namespace <NAMESPACE>
 <IF DEFINED_ENABLE_API_VERSIONING>
     {ApiVersion("<API_VERSION>")}
 </IF DEFINED_ENABLE_API_VERSIONING>
+    {ODataRoutePrefix("<StructurePlural>")}
     ;;; <summary>
     ;;; OData controller for <StructurePlural>
     ;;; </summary>
@@ -103,7 +110,11 @@ namespace <NAMESPACE>
 ;//
 <IF DEFINED_ENABLE_GET_ALL>
 <IF GET_ALL_ENDPOINT>
-        {ODataRoute("<StructurePlural>")}
+        {ODataRoute}
+  <IF DEFINED_ENABLE_API_VERSIONING>
+        {Produces("application/json")}
+        {ProducesResponseType(^typeof(ODataValue<IEnumerable<<StructureNoplural>>>),StatusCodes.Status200OK)}
+  </IF DEFINED_ENABLE_API_VERSIONING>
   <IF DEFINED_ENABLE_AUTHENTICATION>
     <IF USERTOKEN_ROLES_GET>
         {Authorize(Roles="<ROLES_GET>")}
@@ -130,7 +141,12 @@ namespace <NAMESPACE>
 ;//
 <IF DEFINED_ENABLE_GET_ONE>
 <IF GET_ENDPOINT>
-        {ODataRoute("<StructurePlural>(<IF STRUCTURE_ISAM><PRIMARY_KEY><SEGMENT_LOOP><IF SEG_TAG_EQUAL><ELSE><FieldSqlName>={a<FieldSqlName>}<,></IF SEG_TAG_EQUAL></SEGMENT_LOOP></PRIMARY_KEY></IF STRUCTURE_ISAM><IF STRUCTURE_RELATIVE>aRecordNumber</IF STRUCTURE_RELATIVE>)")}
+        {ODataRoute("(<IF STRUCTURE_ISAM><PRIMARY_KEY><SEGMENT_LOOP><IF SEG_TAG_EQUAL><ELSE><FieldSqlName>={a<FieldSqlName>}<,></IF SEG_TAG_EQUAL></SEGMENT_LOOP></PRIMARY_KEY></IF STRUCTURE_ISAM><IF STRUCTURE_RELATIVE>aRecordNumber</IF STRUCTURE_RELATIVE>)")}
+  <IF DEFINED_ENABLE_API_VERSIONING>
+        {Produces("application/json")}
+        {ProducesResponseType(^typeof(<StructureNoplural>),StatusCodes.Status200OK)}
+        {ProducesResponseType(StatusCodes.Status404NotFound)}
+  </IF DEFINED_ENABLE_API_VERSIONING>
   <IF DEFINED_ENABLE_AUTHENTICATION>
     <IF USERTOKEN_ROLES_GET>
         {Authorize(Roles="<ROLES_GET>")}
@@ -193,7 +209,12 @@ namespace <NAMESPACE>
     <IF ALTERNATE_KEY_ENDPOINTS>
       <ALTERNATE_KEY_LOOP>
         <IF DUPLICATES>
-        {ODataRoute("<StructurePlural>(<SEGMENT_LOOP><IF SEG_TAG_EQUAL><ELSE><FieldSqlName>={a<FieldSqlName>}<,></IF SEG_TAG_EQUAL></SEGMENT_LOOP>)")}
+        {ODataRoute("(<SEGMENT_LOOP><IF SEG_TAG_EQUAL><ELSE><FieldSqlName>={a<FieldSqlName>}<,></IF SEG_TAG_EQUAL></SEGMENT_LOOP>)")}
+          <IF DEFINED_ENABLE_API_VERSIONING>
+        {Produces("application/json")}
+        {ProducesResponseType(^typeof(ODataValue<IEnumerable<<StructureNoplural>>>),StatusCodes.Status200OK)}
+        {ProducesResponseType(StatusCodes.Status404NotFound)}
+          </IF DEFINED_ENABLE_API_VERSIONING>
           <IF DEFINED_ENABLE_AUTHENTICATION>
             <IF USERTOKEN_ROLES_GET>
         {Authorize(Roles="<ROLES_GET>")}
@@ -233,7 +254,12 @@ namespace <NAMESPACE>
             mreturn Ok(result)
         endmethod
         <ELSE>
-        {ODataRoute("<StructurePlural>(<SEGMENT_LOOP><IF SEG_TAG_EQUAL><ELSE><FieldSqlName>={a<FieldSqlName>}<,></IF SEG_TAG_EQUAL></SEGMENT_LOOP>)")}
+        {ODataRoute("(<SEGMENT_LOOP><IF SEG_TAG_EQUAL><ELSE><FieldSqlName>={a<FieldSqlName>}<,></IF SEG_TAG_EQUAL></SEGMENT_LOOP>)")}
+          <IF DEFINED_ENABLE_API_VERSIONING>
+        {Produces("application/json")}
+        {ProducesResponseType(^typeof(<StructureNoplural>),StatusCodes.Status200OK)}
+        {ProducesResponseType(StatusCodes.Status404NotFound)}
+          </IF DEFINED_ENABLE_API_VERSIONING>
           <IF DEFINED_ENABLE_AUTHENTICATION>
             <IF USERTOKEN_ROLES_GET>
         {Authorize(Roles="<ROLES_GET>")}
@@ -294,7 +320,11 @@ namespace <NAMESPACE>
           <IF STRUCTURE_ISAM>
             <IF NOTPKSEGMENT>
               <PRIMARY_KEY>
-        {ODataRoute("<StructurePlural>(<IF SINGLE_SEGMENT>{key}<ELSE><SEGMENT_LOOP><IF SEG_TAG_EQUAL><ELSE><FieldSqlName>={a<FieldSqlName>}<,></IF SEG_TAG_EQUAL></SEGMENT_LOOP></IF SINGLE_SEGMENT>)/<FieldSqlName>")}
+        {ODataRoute("(<IF SINGLE_SEGMENT>{key}<ELSE><SEGMENT_LOOP><IF SEG_TAG_EQUAL><ELSE><FieldSqlName>={a<FieldSqlName>}<,></IF SEG_TAG_EQUAL></SEGMENT_LOOP></IF SINGLE_SEGMENT>)/<FieldSqlName>")}
+                <IF DEFINED_ENABLE_API_VERSIONING>
+        {ProducesResponseType(StatusCodes.Status200OK)}
+        {ProducesResponseType(StatusCodes.Status404NotFound)}
+                </IF DEFINED_ENABLE_API_VERSIONING>
                 <IF DEFINED_ENABLE_AUTHENTICATION>
                   <IF USERTOKEN_ROLES_GET>
         {Authorize(Roles="<ROLES_GET>")}
@@ -350,7 +380,7 @@ namespace <NAMESPACE>
 ;// RELATIVE
 ;//
           <IF STRUCTURE_RELATIVE>
-        {ODataRoute("<StructurePlural>({key})}
+        {ODataRoute("({key})}
             <IF DEFINED_ENABLE_AUTHENTICATION>
               <IF USERTOKEN_ROLES_GET>
         {Authorize(Roles="<ROLES_GET>")}
@@ -389,7 +419,12 @@ namespace <NAMESPACE>
         {Authorize(Roles="<ROLES_POST>")}
       </IF USERTOKEN_ROLES_POST>
     </IF DEFINED_ENABLE_AUTHENTICATION>
-        {ODataRoute("<StructurePlural>")}
+        {ODataRoute}
+    <IF DEFINED_ENABLE_API_VERSIONING>
+        {Produces("application/json")}
+        {ProducesResponseType(^typeof(<StructureNoplural>),StatusCodes.Status200OK)}
+        {ProducesResponseType(StatusCodes.Status400BadRequest)}
+    </IF DEFINED_ENABLE_API_VERSIONING>
         ;;; <summary>
         ;;; Create a new <structureNoplural> (automatically assigned primary key).
         ;;; </summary>
@@ -421,7 +456,7 @@ namespace <NAMESPACE>
 
             ;; Validate inbound data
             if (!ModelState.IsValid)
-                mreturn BadRequest(ModelState)
+                mreturn ValidationHelper.ReturnValidationError(ModelState)
 
             ;;Get the next available primary key value
             disposable data keyFactory = (@IPrimaryKeyFactory)_ServiceProvider.GetService(^typeof(IPrimaryKeyFactory))
@@ -436,7 +471,7 @@ namespace <NAMESPACE>
             catch (e, @ValidationException)
             begin
                 ModelState.AddModelError("RelationValidation",e.Message)
-                mreturn BadRequest(ModelState)
+                mreturn ValidationHelper.ReturnValidationError(ModelState)
             end
             endtry
 
@@ -456,7 +491,13 @@ namespace <NAMESPACE>
         {Authorize(Roles="<ROLES_PUT>")}
       </IF USERTOKEN_ROLES_PUT>
     </IF DEFINED_ENABLE_AUTHENTICATION>
-        {ODataRoute("<StructurePlural>(<IF STRUCTURE_ISAM><PRIMARY_KEY><SEGMENT_LOOP><IF SEG_TAG_EQUAL><ELSE><FieldSqlName>={a<FieldSqlName>}<,></IF SEG_TAG_EQUAL></SEGMENT_LOOP></PRIMARY_KEY></IF STRUCTURE_ISAM><IF STRUCTURE_RELATIVE>aRecordNumber</IF STRUCTURE_RELATIVE>)")}
+        {ODataRoute("(<IF STRUCTURE_ISAM><PRIMARY_KEY><SEGMENT_LOOP><IF SEG_TAG_EQUAL><ELSE><FieldSqlName>={a<FieldSqlName>}<,></IF SEG_TAG_EQUAL></SEGMENT_LOOP></PRIMARY_KEY></IF STRUCTURE_ISAM><IF STRUCTURE_RELATIVE>aRecordNumber</IF STRUCTURE_RELATIVE>)")}
+    <IF DEFINED_ENABLE_API_VERSIONING>
+        {Produces("application/json")}
+        {ProducesResponseType(StatusCodes.Status201Created)}
+        {ProducesResponseType(StatusCodes.Status400BadRequest)}
+        {ProducesResponseType(StatusCodes.Status404NotFound)}
+    </IF DEFINED_ENABLE_API_VERSIONING>
         ;;; <summary>
         ;;; Create (with a client-supplied primary key) or replace a <structureNoplural>.
         ;;; </summary>
@@ -499,7 +540,7 @@ namespace <NAMESPACE>
         proc
             ;; Validate inbound data
             if (!ModelState.IsValid)
-                mreturn BadRequest(ModelState)
+                mreturn ValidationHelper.ReturnValidationError(ModelState)
 
             ;;Ensure that the key values in the URI win over any data that may be in the model object
     <IF STRUCTURE_ISAM>
@@ -541,7 +582,7 @@ namespace <NAMESPACE>
             catch (e, @ValidationException)
             begin
                 ModelState.AddModelError("RelationValidation",e.Message)
-                mreturn BadRequest(ModelState)
+                mreturn ValidationHelper.ReturnValidationError(ModelState)
             end
             endtry
 
@@ -559,7 +600,13 @@ namespace <NAMESPACE>
         {Authorize(Roles="<ROLES_PATCH>")}
       </IF USERTOKEN_ROLES_PATCH>
     </IF DEFINED_ENABLE_AUTHENTICATION>
-        {ODataRoute("<StructurePlural>(<IF STRUCTURE_ISAM><PRIMARY_KEY><SEGMENT_LOOP><IF SEG_TAG_EQUAL><ELSE><FieldSqlName>={a<FieldSqlName>}<,></IF SEG_TAG_EQUAL></SEGMENT_LOOP></PRIMARY_KEY></IF STRUCTURE_ISAM><IF STRUCTURE_RELATIVE>RecordNumber={aRecordNumber}</IF STRUCTURE_RELATIVE>)")}
+        {ODataRoute("(<IF STRUCTURE_ISAM><PRIMARY_KEY><SEGMENT_LOOP><IF SEG_TAG_EQUAL><ELSE><FieldSqlName>={a<FieldSqlName>}<,></IF SEG_TAG_EQUAL></SEGMENT_LOOP></PRIMARY_KEY></IF STRUCTURE_ISAM><IF STRUCTURE_RELATIVE>RecordNumber={aRecordNumber}</IF STRUCTURE_RELATIVE>)")}
+    <IF DEFINED_ENABLE_API_VERSIONING>
+        {Produces("application/json")}
+        {ProducesResponseType(StatusCodes.Status204NoContent)}
+        {ProducesResponseType(StatusCodes.Status400BadRequest)}
+        {ProducesResponseType(StatusCodes.Status404NotFound)}
+    </IF DEFINED_ENABLE_API_VERSIONING>
         ;;; <summary>
         ;;; Patch  (partial update) a <structureNoplural>.
         ;;; </summary>
@@ -602,7 +649,7 @@ namespace <NAMESPACE>
         proc
             ;; Validate inbound data
             if (!ModelState.IsValid)
-                mreturn BadRequest(ModelState)
+                mreturn ValidationHelper.ReturnValidationError(ModelState)
 
             ;;Patch the existing <structureNoplural>
             try
@@ -631,7 +678,7 @@ namespace <NAMESPACE>
             catch (e, @ValidationException)
             begin
                 ModelState.AddModelError("RelationValidation",e.Message)
-                mreturn BadRequest(ModelState)
+                mreturn ValidationHelper.ReturnValidationError(ModelState)
             end
             endtry
 
@@ -651,7 +698,11 @@ namespace <NAMESPACE>
         {Authorize(Roles="<ROLES_DELETE>")}
       </IF USERTOKEN_ROLES_DELETE>
     </IF DEFINED_ENABLE_AUTHENTICATION>
-        {ODataRoute("<StructurePlural>(<IF STRUCTURE_ISAM><PRIMARY_KEY><SEGMENT_LOOP><IF SEG_TAG_EQUAL><ELSE><FieldSqlName>={a<FieldSqlName>}<,></IF SEG_TAG_EQUAL></SEGMENT_LOOP></PRIMARY_KEY></IF STRUCTURE_ISAM><IF STRUCTURE_RELATIVE>RecordNumber={aRecordNumber}</IF STRUCTURE_RELATIVE>)")}
+        {ODataRoute("(<IF STRUCTURE_ISAM><PRIMARY_KEY><SEGMENT_LOOP><IF SEG_TAG_EQUAL><ELSE><FieldSqlName>={a<FieldSqlName>}<,></IF SEG_TAG_EQUAL></SEGMENT_LOOP></PRIMARY_KEY></IF STRUCTURE_ISAM><IF STRUCTURE_RELATIVE>RecordNumber={aRecordNumber}</IF STRUCTURE_RELATIVE>)")}
+    <IF DEFINED_ENABLE_API_VERSIONING>
+        {ProducesResponseType(StatusCodes.Status204NoContent)}
+        {ProducesResponseType(StatusCodes.Status404NotFound)}
+    </IF DEFINED_ENABLE_API_VERSIONING>
         ;;; <summary>
         ;;; Delete a <structureNoplural>.
         ;;; </summary>

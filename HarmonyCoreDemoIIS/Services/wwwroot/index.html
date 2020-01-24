@@ -69,9 +69,9 @@
         <li><a href="/odata/v1/$metadata">OData metadata</a></li>
         <li><a href="/api-docs">API documentation</a></li>
         <li><a href="#data-centric">Data-Centric Service Examples (OData)</a></li>
-        <li><a href="#code-centric">Data-Centric Service Examples (Traditional Bridge)</a></li>
+        <li><a href="#code-centric">Code-Centric Service Examples (Traditional Bridge)</a></li>
         <li><a href="#customization">Customizing the Services</a></li>
-        
+
     </ul>
 
     <!------------------------------------------------------------------------------->
@@ -130,34 +130,47 @@
 
     <h3>OData Queries</h3>
 
-    <table><tr><td><h4>$select</h4></td><td> constrains returned properties</td></tr></table>
+    <!--$select-->
+
+    <table><tr><td valign="middle"><h4>$select</h4></td><td valign="middle"> constrains returned properties</td></tr></table>
+
     <ul>
         <li><a href="odata/v1/Customers?$select=CustomerNumber,Name">All customers, customer number and name.</a></li>
         <li><a href="odata/v1/Customers(8)?$select=Name,Phone,CreditLimit">Customer 8, name, phone number and credit limit.</a></li>
     </ul>
 
-    <table><tr><td><h4>$filter</h4></td><td> constrains returned entities</td></tr></table>
+    <!--$filter-->
+
+    <table><tr><td valign="middle"><h4>$filter</h4></td><td valign="middle"> constrains returned entities</td></tr></table>
     <ul>
         <li><a href="odata/v1/Customers?$filter=CreditLimit+ge+9000">Customers with credit limit $9000 or higher.</a></li>
     </ul>
 
-    <table><tr><td><h4>$orderby</h4></td><td> alters entity sequence</td></tr></table>
+    <!--$orderby-->
+
+    <table><tr><td valign="middle"><h4>$orderby</h4></td><td valign="middle"> alters entity sequence</td></tr></table>
     <ul>
         <li><a href="odata/v1/Customers?$orderby=CreditLimit+desc">Customers in descending order of credit limit.</a></li>
     </ul>
 
-    <table><tr><td><h4>$top</h4></td><td> determines how many entities are returned</td></tr></table>
+    <!--$top-->
+
+    <table><tr><td valign="middle"><h4>$top</h4></td><td valign="middle"> determines how many entities are returned</td></tr></table>
     <ul>
         <li><a href="odata/v1/Customers?$top=3">First three customers.</a></li>
     </ul>
 
-    <table><tr><td><h4>$expand</h4></td><td> joins to related entities</td></tr></table>
+    <!--$expand-->
+
+    <table><tr><td valign="middle"><h4>$expand</h4></td><td valign="middle"> joins to related entities</td></tr></table>
     <ul>
         <li><a href="odata/v1/Customers(8)?$expand=REL_Orders">Customer 8 with orders.</a></li>
         <li><a href="odata/v1/Customers?$expand=REL_Orders">All customers and their orders.</a> (large result set)</li>
     </ul>
 
-    <table><tr><td><h4>Complex Queries</h4></td><td> combine $select, $filter, $orderby and $expand</td></tr></table>
+    <!--Complex Queries-->
+
+    <table><tr><td valign="middle"><h4>Complex Queries</h4></td><td valign="middle"> combine $select, $filter, $orderby and $expand</td></tr></table>
     <ul>
         <li><a href="odata/v1/Customers(8)?$select=CustomerNumber,Name&$expand=REL_Orders($select=OrderNumber,DateOrdered;$expand=REL_OrderItems($select=ItemNumber,ItemOrdered,QuantityOrdered,UnitPrice;$expand=REL_Item($select=CommonName,Size;$expand=REL_Vendor($select=Name))))">A customer, thier orders, the order items, the item ordered, and the vendor of the item, with selected properties all the way down</a></li>
     </ul>
@@ -187,28 +200,38 @@
 
     <h3>OData Queries</h3>
 
-    <table><tr><td><h4>$select</h4></td><td> constrains returned properties</td></tr></table>
+    <!--$select-->
+
+    <table><tr><td valign="middle"><h4>$select</h4></td><td valign="middle"> constrains returned properties</td></tr></table>
     <ul>
         <li><a href="odata/v1/Items(1)?$select=LatinName,VendorNumber,UnitPrice">Item 1, latin name, vendor number and price.</a></li>
         <li><a href="odata/v1/Items?$select=ItemNumber,CommonName,CostPrice,UnitPrice">All items, item number, common name, cost price and unit price.</a></li>
     </ul>
 
-    <table><tr><td><h4>$filter</h4></td><td> constrains returned entities</td></tr></table>
+    <!--$filter-->
+
+    <table><tr><td valign="middle"><h4>$filter</h4></td><td valign="middle"> constrains returned entities</td></tr></table>
     <ul>
         <li><a href="odata/v1/Items?$filter=CostPrice+ge+10">All items with cost price $10 or more.</a></li>
     </ul>
 
-    <table><tr><td><h4>$orderby</h4></td><td> alters entity sequence</td></tr></table>
+    <!--$orderby-->
+
+    <table><tr><td valign="middle"><h4>$orderby</h4></td><td valign="middle"> alters entity sequence</td></tr></table>
     <ul>
         <li><a href="odata/v1/Items?$orderby=UnitPrice+desc">All items by price, highest to lowest.</a></li>
     </ul>
 
-    <table><tr><td><h4>$top</h4></td><td> determines how many entities are returned</td></tr></table>
+    <!--$top-->
+
+    <table><tr><td valign="middle"><h4>$top</h4></td><td valign="middle"> determines how many entities are returned</td></tr></table>
     <ul>
         <li><a href="odata/v1/Items?$top=2">First two items.</a></li>
     </ul>
 
-    <table><tr><td><h4>$expand</h4></td><td> joins to related entities</td></tr></table>
+    <!--$expand-->
+
+    <table><tr><td valign="middle"><h4>$expand</h4></td><td valign="middle"> joins to related entities</td></tr></table>
     <ul>
         <li><a href="odata/v1/Items(1)?$expand=REL_Vendor">Single item and its vendor.</a></li>
         <li><a href="odata/v1/Items?$expand=REL_Vendor">All items and their vendors.</a></li>
@@ -218,7 +241,9 @@
         <li><a href="odata/v1/Items?$expand=REL_Vendor,REL_OrderItems">All items, the item vendor, and orders for the item.</a> (large result set)</li>
     </ul>
 
-    <table><tr><td><h4>Complex Queries</h4></td><td> combine $select, $filter, $orderby and $expand</td></tr></table>
+    <!--Complex Queries-->
+
+    <table><tr><td valign="middle"><h4>Complex Queries</h4></td><td valign="middle"> combine $select, $filter, $orderby and $expand</td></tr></table>
     <ul>
         <li><a href="odata/v1/Items?$orderby=UnitPrice+desc&$top=5&$select=ItemNumber,CommonName,UnitPrice">Five most expensive items, item number, common name and unit price</a></li>
     </ul>
@@ -247,29 +272,39 @@
 
     <h3>OData Queries</h3>
 
-    <table><tr><td><h4>$select</h4></td><td> constrains returned properties</td></tr></table>
+    <!--$select-->
+
+    <table><tr><td valign="middle"><h4>$select</h4></td><td valign="middle"> constrains returned properties</td></tr></table>
     <ul>
         <li><a href="odata/v1/Orders(3)?$select=CustomerReference,DateOrdered,PlacedBy">Order 3, customer reference, date ordered and order placed by.</a></li>
     </ul>
 
-    <table><tr><td><h4>$filter</h4></td><td> constrains returned entities</td></tr></table>
+    <!--$filter-->
+
+    <table><tr><td valign="middle"><h4>$filter</h4></td><td valign="middle"> constrains returned entities</td></tr></table>
     <ul>
         <li><a href="odata/v1/Orders?$filter=CustomerNumber+eq+15">Orders from customer 15.</a></li>
         <li><a href="odata/v1/Orders?$filter=PlacedBy+eq+'Drake+Davis'+and+PaymentTermsCode+eq+'60'">Orders placed by Drake Davis with a payment terms code of 60.</a></li>
     </ul>
 
-    <table><tr><td><h4>$orderby</h4></td><td> alters entity sequence</td></tr></table>
+    <!--$orderby-->
+
+    <table><tr><td valign="middle"><h4>$orderby</h4></td><td valign="middle"> alters entity sequence</td></tr></table>
     <ul>
         <li><a href="odata/v1/Orders?$select=OrderNumber,CustomerNumber,CustomerReference&$orderby=CustomerReference">Orders by customer reference.</a></li>
         <li><a href="odata/v1/Orders?$filter=CustomerNumber+eq+15&$orderby=DateOrdered+desc">Orders from customer 15, most recent first.</a></li>
     </ul>
 
-    <table><tr><td><h4>$top</h4></td><td> determines how many entities are returned</td></tr></table>
+    <!--$top-->
+
+    <table><tr><td valign="middle"><h4>$top</h4></td><td valign="middle"> determines how many entities are returned</td></tr></table>
     <ul>
         <li><a href="odata/v1/Orders?$orderby=DateCompleted+desc&$top=3">Three most recently completed orders.</a></li>
     </ul>
 
-    <table><tr><td><h4>$expand</h4></td><td> joins to related entities</td></tr></table>
+    <!--$expand-->
+
+    <table><tr><td valign="middle"><h4>$expand</h4></td><td valign="middle"> joins to related entities</td></tr></table>
     <ul>
         <li><a href="odata/v1/Orders(3)?$expand=REL_OrderItems">Single order and its line items.</a></li>
         <li><a href="odata/v1/Orders?$expand=REL_OrderItems">All orders and the order line items.</a> (large result set)</li>
@@ -279,7 +314,9 @@
         <li><a href="odata/v1/Orders?$expand=REL_OrderItems,REL_Customer">All orders, the order items, and the customer ordering.</a> (large result set)</li>
     </ul>
 
-    <table><tr><td><h4>Complex Queries</h4></td><td> combine $select, $filter, $orderby and $expand</td></tr></table>
+    <!--Complex Queries-->
+
+    <table><tr><td valign="middle"><h4>Complex Queries</h4></td><td valign="middle"> combine $select, $filter, $orderby and $expand</td></tr></table>
     <ul>
         <li><a href="odata/v1/Orders?$filter=PlacedBy+eq+'Max+Henry'&$select=OrderNumber,PlacedBy">Orders placed my Max Henry, order number and placed by only.</a></li>
     </ul>
@@ -309,26 +346,36 @@
 
     <h3>OData Queries</h3>
 
-    <table><tr><td><h4>$select</h4></td><td> constrains returned properties</td></tr></table>
+    <!--$select-->
+
+    <table><tr><td valign="middle"><h4>$select</h4></td><td valign="middle"> constrains returned properties</td></tr></table>
     <ul>
         <li><a href="odata/v1/OrderItems(3,1)?$select=ItemOrdered,QuantityOrdered,UnitPrice">Order 3, item 1, item ordered, quantity ordered and unit price.</a></li>
     </ul>
 
-    <table><tr><td><h4>$filter</h4></td><td> constrains returned entities</td></tr></table>
+    <!--$filter-->
+
+    <table><tr><td valign="middle"><h4>$filter</h4></td><td valign="middle"> constrains returned entities</td></tr></table>
     <ul>
         <li><a href="odata/v1/OrderItems?$filter=QuantityOrdered+ge+10">Order items for 10 or more units.</a></li>
     </ul>
 
-    <table><tr><td><h4>$orderby</h4></td><td> alters entity sequence</td></tr></table>
+    <!--$orderby-->
+
+    <table><tr><td valign="middle"><h4>$orderby</h4></td><td valign="middle"> alters entity sequence</td></tr></table>
     <ul>
         <li><a href="odata/v1/OrderItems?$filter=ItemNumber+ge+1+and+ItemNumber+le+5&$orderby=ItemNumber">Order items for items 1 thru 5, ordered by item number.</a></li>
     </ul>
-    
-    <table><tr><td><h4>$top</h4></td><td> determines how many entities are returned</td></tr></table>
+
+    <!--$top-->
+
+    <table><tr><td valign="middle"><h4>$top</h4></td><td valign="middle"> determines how many entities are returned</td></tr></table>
     <ul>
     </ul>
 
-    <table><tr><td><h4>$expand</h4></td><td> joins to related entities</td></tr></table>
+    <!--$expand-->
+
+    <table><tr><td valign="middle"><h4>$expand</h4></td><td valign="middle"> joins to related entities</td></tr></table>
     <ul>
         <li><a href="odata/v1/OrderItems(3,1)?$expand=REL_Order">Single order item and the related order.</a></li>
         <li><a href="odata/v1/OrderItems?$expand=REL_Order">All orders items and the related order.</a> (large result set)</li>
@@ -338,7 +385,9 @@
         <li><a href="odata/v1/OrderItems?$expand=REL_Order,REL_Item">All orders items, the related order and the item ordered.</a> (large result set)</li>
     </ul>
 
-    <table><tr><td><h4>Complex Queries</h4></td><td> combine $select, $filter, $orderby and $expand</td></tr></table>
+    <!--Complex Queries-->
+
+    <table><tr><td valign="middle"><h4>Complex Queries</h4></td><td valign="middle"> combine $select, $filter, $orderby and $expand</td></tr></table>
     <ul>
         <li><a href="odata/v1/OrderItems?$filter=QuantityOrdered+gt+7&$orderby=QuantityOrdered+desc&$select=OrderNumber,ItemNumber,ItemOrdered,QuantityOrdered">All order items where quantity ordered > 7, highest quantity first, order number, item number, item ordered and quantity.</a> (BIG)</li>
     </ul>
@@ -368,30 +417,42 @@
 
     <h3>OData Queries</h3>
 
-    <table><tr><td><h4>$select</h4></td><td> constrains returned properties</td></tr></table>
+    <!--$select-->
+
+    <table><tr><td valign="middle"><h4>$select</h4></td><td valign="middle"> constrains returned properties</td></tr></table>
     <ul>
         <li><a href="odata/v1/Vendors(38)?$select=Name,Phone,City">Vendor 38 name, phone number and city.</a></li>
     </ul>
 
-    <table><tr><td><h4>$filter</h4></td><td> constrains returned entities</td></tr></table>
+    <!--$filter-->
+
+    <table><tr><td valign="middle"><h4>$filter</h4></td><td valign="middle"> constrains returned entities</td></tr></table>
     <ul>
     </ul>
 
-    <table><tr><td><h4>$orderby</h4></td><td> alters entity sequence</td></tr></table>
+    <!--$orderby-->
+
+    <table><tr><td valign="middle"><h4>$orderby</h4></td><td valign="middle"> alters entity sequence</td></tr></table>
     <ul>
     </ul>
 
-    <table><tr><td><h4>$top</h4></td><td> determines how many entities are returned</td></tr></table>
+    <!--$top-->
+
+    <table><tr><td valign="middle"><h4>$top</h4></td><td valign="middle"> determines how many entities are returned</td></tr></table>
     <ul>
     </ul>
 
-    <table><tr><td><h4>$expand</h4></td><td> joins to related entities</td></tr></table>
+    <!--$expand-->
+
+    <table><tr><td valign="middle"><h4>$expand</h4></td><td valign="middle"> joins to related entities</td></tr></table>
     <ul>
         <li><a href="odata/v1/Vendors(40)?$expand=REL_Items">Single vendor and the items they supply.</a></li>
         <li><a href="odata/v1/Vendors?$expand=REL_Items">All vendors and the items they supply.</a></li>
     </ul>
 
-    <table><tr><td><h4>Complex Queries</h4></td><td> combine $select, $filter, $orderby and $expand</td></tr></table>
+    <!--Complex Queries-->
+
+    <table><tr><td valign="middle"><h4>Complex Queries</h4></td><td valign="middle"> combine $select, $filter, $orderby and $expand</td></tr></table>
     <ul>
         <li><a href="odata/v1/Vendors?$orderby=State,City&$select=VendorNumber,Name,City,State">All vendors ordered by city within state, vendor number, name, city and state.</a></li>
     </ul>
