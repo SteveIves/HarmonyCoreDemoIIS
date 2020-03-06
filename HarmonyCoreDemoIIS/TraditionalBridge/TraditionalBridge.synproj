@@ -62,6 +62,7 @@
     <Compile Include="Bridge\Logger.dbl" />
     <Compile Include="Bridge\RoutineDispatcher.dbl" />
     <Compile Include="Bridge\Serializer.dbl" />
+    <Compile Include="Bridge\Serializer.V11.dbl" />
     <Compile Include="Bridge\StringDictionary.dbl" />
     <Compile Include="Dispatchers\AddTwoNumbersDispatcher.dbl" />
     <Compile Include="Dispatchers\GetEnvironmentDispatcher.dbl" />

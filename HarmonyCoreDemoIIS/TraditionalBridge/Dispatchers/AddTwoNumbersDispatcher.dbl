@@ -11,6 +11,13 @@ import Json
 import System
 import System.Collections
 
+.ifdef DBLV11
+import System.Text.Json
+.define JSON_ELEMENT @JsonElement
+.else
+.define JSON_ELEMENT @JsonValue
+.endc
+
 namespace TraditionalBridge.Dispatchers
 
     ;;; <summary>
@@ -27,13 +34,13 @@ namespace TraditionalBridge.Dispatchers
         ;;; <param name="dispatcher"></param>
         protected override method DispatchInternal, void
             required in name,       string
-            required in callFrame,  @JsonObject
+            required in callFrame,  JSON_ELEMENT
             required in serializer, @DispatchSerializer
             required in dispatcher, @RoutineDispatcher
 
             ;;Declare data for any parameters and/or return value
             record
-                arguments,          @JsonArray
+                arguments,          JSON_ELEMENT
                 arg1,               decimal
                 arg2,               decimal
                 arg3,               decimal
@@ -42,11 +49,11 @@ namespace TraditionalBridge.Dispatchers
             ;;------------------------------------------------------------
             ;;Process inbound arguments
 
-            arguments = (@JsonArray)callFrame.GetProperty("params")
+            arguments = callFrame.GetProperty("params")
 
             ;;Arguiments 1 and 2 are passed
-            arg1 = dispatcher.GetImplied((@JsonObject)arguments.arrayValues[1])
-            arg2 = dispatcher.GetImplied((@JsonObject)arguments.arrayValues[2])
+            arg1 = dispatcher.GetImplied(arguments[1])
+            arg2 = dispatcher.GetImplied(arguments[2])
 
             ;;------------------------------------------------------------
             ;; Call the underlying routine

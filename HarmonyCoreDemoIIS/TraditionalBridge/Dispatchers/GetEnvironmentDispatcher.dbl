@@ -11,6 +11,13 @@ import Json
 import System
 import System.Collections
 
+.ifdef DBLV11
+import System.Text.Json
+.define JSON_ELEMENT @JsonElement
+.else
+.define JSON_ELEMENT @JsonValue
+.endc
+
 namespace TraditionalBridge.Dispatchers
 
     ;;; <summary>
@@ -27,7 +34,7 @@ namespace TraditionalBridge.Dispatchers
         ;;; <param name="dispatcher"></param>
         protected override method DispatchInternal, void
             required in name,       string
-            required in callFrame,  @JsonObject
+            required in callFrame,  JSON_ELEMENT
             required in serializer, @DispatchSerializer
             required in dispatcher, @RoutineDispatcher
 

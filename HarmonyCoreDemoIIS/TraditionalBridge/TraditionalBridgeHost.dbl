@@ -26,7 +26,7 @@ main TraditionalBridgeHost
 proc
     try
     begin
-        ;;Configure the environment and open the terminal chanel.
+        ;;Configure the environment and open the terminal channel.
         ;;Remember this (STDIN) is the mechanism by which Harmony Core will send
         ;;us requests, and is the mechanism by which we will issue responses.
 
