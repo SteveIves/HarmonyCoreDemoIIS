@@ -338,11 +338,37 @@ if DEFINED ENABLE_BRIDGE_OPTIONAL_PARAMETERS (
 )
 
 if DEFINED ENABLE_XFSERVERPLUS_MIGRATION (
+  call :GenerateCodeForInterface %SMC_INTERFACE%
+)
+
+rem ================================================================================
+rem Generate code for the Traditional Bridge SignalR sample environment
+
+if DEFINED ENABLE_SIGNALR (
+  call :GenerateCodeForSignalR %SMC_INTERFACE%
+)
+
+echo.
+echo DONE!
+echo.
+goto done
+
+:error
+echo *** CODE GENERATION INCOMPLETE ***
+
+:done
+popd
+endlocal
+exit
+
+:GenerateCodeForInterface
+
+  echo Generating Traditional Bridge code for interface %1...
 
   rem Generate dispatcher classes for all methods in in interface (TRADITIONAL SIDE)
 
   codegen -smc %SMC_XML_FILE% ^
-          -interface %SMC_INTERFACE% ^
+          -interface %1 ^
           -t %BRIDGE_DISPATCHER_TEMPLATE% ^
           -i %SolutionDir%Templates\TraditionalBridge ^
           -o %SolutionDir%%TraditionalBridgeProject%\Dispatchers ^
@@ -354,7 +380,7 @@ if DEFINED ENABLE_XFSERVERPLUS_MIGRATION (
   rem Generate the main dispatcher class (TRADITIONAL SIDE)
   
   codegen -smc %SMC_XML_FILE% ^
-          -interface %SMC_INTERFACE% ^
+          -interface %1 ^
           -t InterfaceDispatcher ^
           -i %SolutionDir%Templates\TraditionalBridge ^
           -o %SolutionDir%%TraditionalBridgeProject%\Dispatchers ^
@@ -366,7 +392,7 @@ if DEFINED ENABLE_XFSERVERPLUS_MIGRATION (
   rem Generate model classes (TRADITIONAL SIDE)
 
   codegen -smcstrs %SMC_XML_FILE% ^
-          -interface %SMC_INTERFACE% ^
+          -interface %1 ^
           -t TraditionalModel TraditionalMetadata ^
           -i %SolutionDir%Templates\TraditionalBridge ^
           -o %SolutionDir%%TraditionalBridgeProject%\Models ^
@@ -388,10 +414,10 @@ if DEFINED ENABLE_XFSERVERPLUS_MIGRATION (
             %STDOPTS%
   )
 
-  rem Generate the request and response models for the service class methods (.NET side)
+  rem Generate request and response models for the service class methods (.NET side)
 
   codegen -smc %SMC_XML_FILE% ^
-          -interface %SMC_INTERFACE% ^
+          -interface %1 ^
           -t InterfaceServiceModels ^
           -i %SolutionDir%Templates\TraditionalBridge ^
           -o %SolutionDir%%ModelsProject% ^
@@ -402,7 +428,7 @@ if DEFINED ENABLE_XFSERVERPLUS_MIGRATION (
   rem Generate the service class (.NET side)
 
   codegen -smc %SMC_XML_FILE% ^
-          -interface %SMC_INTERFACE% ^
+          -interface %1 ^
           -t InterfaceService ^
           -i %SolutionDir%Templates\TraditionalBridge ^
           -o %SolutionDir%%ControllersProject% ^
@@ -414,7 +440,7 @@ if DEFINED ENABLE_XFSERVERPLUS_MIGRATION (
   rem Generate the Web API controller (.NET side)
 
   codegen -smc %SMC_XML_FILE% ^
-          -interface %SMC_INTERFACE% ^
+          -interface %1 ^
           -t InterfaceController ^
           -i %SolutionDir%Templates\TraditionalBridge ^
           -o %SolutionDir%%ControllersProject% ^
@@ -426,22 +452,21 @@ if DEFINED ENABLE_XFSERVERPLUS_MIGRATION (
   rem Generate the Postman tests for the Interface
 
   codegen -smc %SMC_XML_FILE% ^
-          -interface %SMC_INTERFACE% ^
+          -interface %1 ^
           -t InterfacePostmanTests ^
           -i %SolutionDir%Templates\TraditionalBridge ^
           -o %SolutionDir% ^
           %STDOPTS%
   if ERRORLEVEL 1 goto error
 
-)
+GOTO:eof
 
-rem ================================================================================
-rem Generate code for the Traditional Bridge SignalR sample environment
+:GenerateCodeForSignalR
 
-if DEFINED ENABLE_SIGNALR (
+  echo Generating SignalR code for interface %1...
 
   codegen -smc %SMC_XML_FILE% ^
-          -interface %SMC_INTERFACE% ^
+          -interface %1 ^
           -t SignalRHub ^
           -i %SolutionDir%Templates\SignalR ^
           -o %SolutionDir%%ControllersProject% ^
@@ -450,16 +475,4 @@ if DEFINED ENABLE_SIGNALR (
           %STDOPTS%
   if ERRORLEVEL 1 goto error  
 
-)
-
-echo.
-echo DONE!
-echo.
-goto done
-
-:error
-echo *** CODE GENERATION INCOMPLETE ***
-
-:done
-popd
-endlocal
+GOTO:eof
