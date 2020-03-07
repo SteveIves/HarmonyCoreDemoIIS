@@ -195,7 +195,7 @@ rem Self hosting
 
 if DEFINED ENABLE_SELF_HOST_GENERATION (
 
-  codegen -s  %FILE_STRUCTURES% %PARAMSTR% -ms ^
+  codegen -s  %FILE_STRUCTURES% -ms ^
           -a  %FILE_ALIASES% ^
 		  -fo %FILE_FILES% ^
           -t  ODataSelfHost ODataSelfHostEnvironment ^
@@ -262,7 +262,7 @@ if DEFINED ENABLE_UNIT_TEST_GENERATION (
   if ERRORLEVEL 1 goto error
 
   rem Generate the test environment
-  codegen -s  %FILE_STRUCTURES% %PARAMSTR% -ms ^
+  codegen -s  %FILE_STRUCTURES% -ms ^
           -a  %FILE_ALIASES% ^
 		  -fo %FILE_FILES% ^
           -t  ODataTestEnvironment ^
