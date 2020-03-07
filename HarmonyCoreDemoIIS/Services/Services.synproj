@@ -25,6 +25,14 @@
     <PublishUrl>publish\</PublishUrl>
     <PublishWizardCompleted>True</PublishWizardCompleted>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>$(EXE)</OutputPath>
+    <UnevaluatedOutputPath>$(EXE)</UnevaluatedOutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <UnevaluatedOutputPath>$(EXE)</UnevaluatedOutputPath>
+    <OutputPath>$(EXE)</OutputPath>
+  </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Harmony.Core">
       <Version>1.1.59</Version>

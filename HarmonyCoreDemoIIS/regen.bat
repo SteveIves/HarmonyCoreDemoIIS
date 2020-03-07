@@ -124,7 +124,9 @@ rem set ENABLE_OVERLAYS=-f o
 rem set ENABLE_ALTERNATE_FIELD_NAMES=-af
 rem set ENABLE_READ_ONLY_PROPERTIES=-define ENABLE_READ_ONLY_PROPERTIES
 rem set ENABLE_TRADITIONAL_BRIDGE_GENERATION=YES
-rem set ENABLE_XFSERVERPLUS_MIGRATION=YES
+set ENABLE_XFSERVERPLUS_MIGRATION=YES
+rem set ENABLE_XFSERVERPLUS_MODEL_GENERATION=YES
+set ENABLE_BRIDGE_SAMPLE_DISPATCHERS=-define ENABLE_BRIDGE_SAMPLE_DISPATCHERS
 rem set ENABLE_BRIDGE_OPTIONAL_PARAMETERS=YES
 
 if not "NONE%ENABLE_SELECT%%ENABLE_FILTER%%ENABLE_ORDERBY%%ENABLE_TOP%%ENABLE_SKIP%%ENABLE_RELATIONS%"=="NONE" (
@@ -323,11 +325,11 @@ if DEFINED ENABLE_TRADITIONAL_BRIDGE_GENERATION (
 rem ================================================================================
 rem Generate code for the TraditionalBridge sample environment
 
-set SMC_XML_FILE=
-set SMC_INTERFACE=
+set SMC_XML_FILE=xfplMethods\smc.xml
+set SMC_INTERFACE=MyApi
 rem set BRIDGE_DISPATCHER_TEMPLATE=InterfaceMethodDispatchers
 set XFPL_SMCPATH=
-set STDOPTS=-e -lf -rps %RPSMFIL% %RPSTFIL% -r %ENABLE_AUTHENTICATION%
+set STDOPTS=-e -lf -rps %RPSMFIL% %RPSTFIL% -r %ENABLE_AUTHENTICATION% %ENABLE_BRIDGE_SAMPLE_DISPATCHERS%
 
 if DEFINED ENABLE_BRIDGE_OPTIONAL_PARAMETERS (
   set BRIDGE_DISPATCHER_TEMPLATE=OptionalParameterMethodDispatchers
@@ -361,17 +363,31 @@ if DEFINED ENABLE_XFSERVERPLUS_MIGRATION (
           %STDOPTS%
   if ERRORLEVEL 1 goto error
 
-    rem Generate a class with methods that generate sample data for OUT and inout params and return value (TRADITIONAL SIDE)
+  rem Generate model classes (TRADITIONAL SIDE)
 
-  codegen -smc %SMC_XML_FILE% ^
+  codegen -smcstrs %SMC_XML_FILE% ^
           -interface %SMC_INTERFACE% ^
-          -t InterfaceTestResponses ^
+          -t TraditionalModel TraditionalMetadata ^
           -i %SolutionDir%Templates\TraditionalBridge ^
-          -o %SolutionDir%%TraditionalBridgeProject%\Methods ^
-          -n %TraditionalBridgeProject%.Methods ^
+          -o %SolutionDir%%TraditionalBridgeProject%\Models ^
+          -n %TraditionalBridgeProject%.Models ^
           %STDOPTS%
-  if ERRORLEVEL 1 goto error
-  
+
+  rem Generate model classes (.NET side)
+  rem Ideally the same data classes are shared between OData and Traditional Bridge
+  rem environments. But if OData is not being used, enable this to generate Models
+  rem in the web service based on SMC content.
+
+  if defined ENABLE_XFSERVERPLUS_MODEL_GENERATION (
+    codegen -smcstrs %SMC_XML_FILE% ^
+            -interface %SMC_INTERFACE% ^
+            -t ODataModel ODataMetaData ^
+            -i %SolutionDir%Templates\TraditionalBridge ^
+            -o %SolutionDir%%ModelsProject% ^
+            -n %ModelsProject% ^
+            %STDOPTS%
+  )
+
   rem Generate the request and response models for the service class methods (.NET side)
 
   codegen -smc %SMC_XML_FILE% ^

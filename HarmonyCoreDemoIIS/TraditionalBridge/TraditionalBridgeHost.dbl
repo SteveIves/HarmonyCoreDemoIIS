@@ -21,7 +21,7 @@ main TraditionalBridgeHost
         tmpa,           a10                 ;;Temporary alpha variable
         logLevel,       int, 2              ;;Logging level. 2 is normal logging, 6 is highest logging.
         logFileName,    string              ;;Log file name
-        dispatcher,     @MethodDispatcher   ;;Message dispatcher instance
+        dispatcher,     @MyApiDispatcher   ;;Message dispatcher instance
     endrecord
 proc
     try
@@ -45,7 +45,7 @@ proc
         Logger.Instance = new Logger(logFileName, logLevel, false)
         
         ;;Create a new instance of the main "dispather" class
-        dispatcher = new MethodDispatcher()
+        dispatcher = new MyApiDispatcher()
         
         ;;Issue the "READY" message.
         ;;Harmony Core looks for this and considers the connection active when it sees it

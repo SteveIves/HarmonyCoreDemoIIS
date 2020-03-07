@@ -22,32 +22,32 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <IncludeDebugInformation>true</IncludeDebugInformation>
-    <OutputPath>bin\$(Configuration)\$(Platform)</OutputPath>
-    <UnevaluatedOutputPath>bin\$(Configuration)\$(Platform)</UnevaluatedOutputPath>
+    <OutputPath>$(SolutionDir)EXE</OutputPath>
+    <UnevaluatedOutputPath>EXE:</UnevaluatedOutputPath>
     <PlatformTarget>x86</PlatformTarget>
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
     <DebugOptimize>Debug</DebugOptimize>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
     <IncludeDebugInformation>true</IncludeDebugInformation>
-    <OutputPath>bin\$(Configuration)\$(Platform)</OutputPath>
-    <UnevaluatedOutputPath>bin\$(Configuration)\$(Platform)</UnevaluatedOutputPath>
+    <OutputPath>$(SolutionDir)EXE</OutputPath>
+    <UnevaluatedOutputPath>EXE:</UnevaluatedOutputPath>
     <PlatformTarget>x64</PlatformTarget>
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
     <DebugOptimize>Debug</DebugOptimize>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <IncludeDebugInformation>False</IncludeDebugInformation>
-    <OutputPath>bin\$(Configuration)\$(Platform)</OutputPath>
-    <UnevaluatedOutputPath>bin\$(Configuration)\$(Platform)</UnevaluatedOutputPath>
+    <OutputPath>$(SolutionDir)EXE</OutputPath>
+    <UnevaluatedOutputPath>EXE:</UnevaluatedOutputPath>
     <PlatformTarget>x86</PlatformTarget>
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
     <DebugOptimize>Optimize</DebugOptimize>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
-    <IncludeDebugInformation>true</IncludeDebugInformation>
-    <OutputPath>bin\$(Configuration)\$(Platform)</OutputPath>
-    <UnevaluatedOutputPath>bin\$(Configuration)\$(Platform)</UnevaluatedOutputPath>
+    <IncludeDebugInformation>False</IncludeDebugInformation>
+    <OutputPath>$(SolutionDir)EXE</OutputPath>
+    <UnevaluatedOutputPath>EXE:</UnevaluatedOutputPath>
     <PlatformTarget>x64</PlatformTarget>
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
     <DebugOptimize>Optimize</DebugOptimize>
@@ -68,10 +68,22 @@
     <Compile Include="Dispatchers\GetEnvironmentDispatcher.dbl" />
     <Compile Include="Dispatchers\GetLogicalNameDispatcher.dbl" />
     <Compile Include="Dispatchers\MethodDispatcher.dbl" />
+    <Compile Include="Dispatchers\MyApiDispatcher.dbl" />
+    <Compile Include="Dispatchers\MyApiMethodDispachers.dbl" />
     <Compile Include="Methods\AddTwoNumbers.dbl" />
     <Compile Include="Methods\GetEnvironment.dbl" />
     <Compile Include="Methods\GetLogicalName.dbl" />
     <Compile Include="Models\AaaDummyModel.dbl" />
+    <Compile Include="Models\Customer.dbl" />
+    <Compile Include="Models\CustomerMetaData.dbl" />
+    <Compile Include="Models\Item.dbl" />
+    <Compile Include="Models\ItemMetaData.dbl" />
+    <Compile Include="Models\Order.dbl" />
+    <Compile Include="Models\OrderItem.dbl" />
+    <Compile Include="Models\OrderItemMetaData.dbl" />
+    <Compile Include="Models\OrderMetaData.dbl" />
+    <Compile Include="Models\Vendor.dbl" />
+    <Compile Include="Models\VendorMetaData.dbl" />
     <Compile Include="TraditionalBridgeHost.dbl" />
   </ItemGroup>
   <ItemGroup>
@@ -85,6 +97,11 @@
       <Name>Repository</Name>
       <Project>{cc6c33fb-c46c-4484-972c-c454743f8add}</Project>
       <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\xfplMethods\xfplMethods.synproj">
+      <Name>xfplMethods</Name>
+      <Project>{d155b547-9757-4874-8721-4ae3d19ea435}</Project>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

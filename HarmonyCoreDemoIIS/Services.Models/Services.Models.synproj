@@ -9,6 +9,14 @@
     <EnableCommonProperties>True</EnableCommonProperties>
     <Prefer32Bit>False</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>$(EXE)</OutputPath>
+    <UnevaluatedOutputPath>$(EXE)</UnevaluatedOutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <UnevaluatedOutputPath>$(EXE)</UnevaluatedOutputPath>
+    <OutputPath>$(EXE)</OutputPath>
+  </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Harmony.Core">
       <Version>1.1.59</Version>
@@ -27,6 +35,7 @@
     <Compile Include="DbContext.dbl" />
     <Compile Include="Item.dbl" />
     <Compile Include="ItemMetaData.dbl" />
+    <Compile Include="MyApiServiceModels.dbl" />
     <Compile Include="Order.dbl" />
     <Compile Include="OrderItem.dbl" />
     <Compile Include="OrderItemMetaData.dbl" />
