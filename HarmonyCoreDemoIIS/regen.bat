@@ -359,7 +359,7 @@ echo *** CODE GENERATION INCOMPLETE ***
 :done
 popd
 endlocal
-exit
+goto :eof
 
 :GenerateCodeForInterface
 
