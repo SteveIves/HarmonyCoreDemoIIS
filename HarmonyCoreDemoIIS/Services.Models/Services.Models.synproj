@@ -19,10 +19,10 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Harmony.Core">
-      <Version>3.1.37</Version>
+      <Version>3.1.42</Version>
     </PackageReference>
     <PackageReference Include="Harmony.Core.EF">
-      <Version>3.1.37</Version>
+      <Version>3.1.42</Version>
     </PackageReference>
     <PackageReference Include="Synergex.SynergyDE.Build" Version="11.1.1030.2704" />
     <PackageReference Include="Synergex.SynergyDE.synrnt" Version="11.1.1031" />
@@ -34,7 +34,6 @@
     <Compile Include="DbContext.dbl" />
     <Compile Include="Item.dbl" />
     <Compile Include="ItemMetaData.dbl" />
-    <Compile Include="MyApiServiceModels.dbl" />
     <Compile Include="Order.dbl" />
     <Compile Include="OrderItem.dbl" />
     <Compile Include="OrderItemMetaData.dbl" />

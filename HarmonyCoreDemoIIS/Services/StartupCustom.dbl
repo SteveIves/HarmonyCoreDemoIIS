@@ -152,20 +152,6 @@ namespace Services
             services.AddSingleton<IContextFactory<TraditionalBridgeService>>(contextPool1)
             services.AddContextPool<TraditionalBridgeService>()
 
-            ;Create a context pool for 'MyApiService'
-            data contextPool2, @ExternalContextPool<MyApiService>, new ExternalContextPool<MyApiService>
-            &    (
-            &    launchCommand,
-            &    "optional_command_parameters",
-            &    traditionalBridgeDirectory,
-            &    environmentVariables,
-            &    4
-            &    ) 
-
-            ;; Make 'MyApiService' available as a DI service
-            services.AddSingleton<IContextFactory<MyApiService>>(contextPool2)
-            services.AddContextPool<MyApiService>()
-
 ;            ;;-----------------------------------------------------------------
 ;            ;; Enable "SignalR" support
 ;

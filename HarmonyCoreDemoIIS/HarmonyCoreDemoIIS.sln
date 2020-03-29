@@ -13,7 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{
 		Templates\HarmonyCoreCustomization.tpl = Templates\HarmonyCoreCustomization.tpl
 		Templates\ODataClientModel.tpl = Templates\ODataClientModel.tpl
 		Templates\ODataController.tpl = Templates\ODataController.tpl
-		Templates\ODataControllerV2.tpl = Templates\ODataControllerV2.tpl
+		Templates\ODataControllerPropertyEndpoints.tpl = Templates\ODataControllerPropertyEndpoints.tpl
 		Templates\ODataDbContext.tpl = Templates\ODataDbContext.tpl
 		Templates\ODataEdmBuilder.tpl = Templates\ODataEdmBuilder.tpl
 		Templates\ODataMetaData.tpl = Templates\ODataMetaData.tpl
@@ -75,8 +75,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SignalR", "SignalR", "{F11D
 	EndProjectSection
 EndProject
 Project("{BBD0F5D1-1CC4-42FD-BA4C-A96779C64378}") = "TraditionalBridge", "TraditionalBridge\TraditionalBridge.synproj", "{3BA88C80-BA85-4063-AE3B-9005A1B568BC}"
-EndProject
-Project("{BBD0F5D1-1CC4-42FD-BA4C-A96779C64378}") = "xfplMethods", "xfplMethods\xfplMethods.synproj", "{D155B547-9757-4874-8721-4AE3D19EA435}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -172,18 +170,6 @@ Global
 		{3BA88C80-BA85-4063-AE3B-9005A1B568BC}.Release|x64.Build.0 = Release|x64
 		{3BA88C80-BA85-4063-AE3B-9005A1B568BC}.Release|x86.ActiveCfg = Release|x86
 		{3BA88C80-BA85-4063-AE3B-9005A1B568BC}.Release|x86.Build.0 = Release|x86
-		{D155B547-9757-4874-8721-4AE3D19EA435}.Debug|Any CPU.ActiveCfg = Debug|x64
-		{D155B547-9757-4874-8721-4AE3D19EA435}.Debug|Any CPU.Build.0 = Debug|x64
-		{D155B547-9757-4874-8721-4AE3D19EA435}.Debug|x64.ActiveCfg = Debug|x64
-		{D155B547-9757-4874-8721-4AE3D19EA435}.Debug|x64.Build.0 = Debug|x64
-		{D155B547-9757-4874-8721-4AE3D19EA435}.Debug|x86.ActiveCfg = Debug|x86
-		{D155B547-9757-4874-8721-4AE3D19EA435}.Debug|x86.Build.0 = Debug|x86
-		{D155B547-9757-4874-8721-4AE3D19EA435}.Release|Any CPU.ActiveCfg = Release|x64
-		{D155B547-9757-4874-8721-4AE3D19EA435}.Release|Any CPU.Build.0 = Release|x64
-		{D155B547-9757-4874-8721-4AE3D19EA435}.Release|x64.ActiveCfg = Release|x64
-		{D155B547-9757-4874-8721-4AE3D19EA435}.Release|x64.Build.0 = Release|x64
-		{D155B547-9757-4874-8721-4AE3D19EA435}.Release|x86.ActiveCfg = Release|x86
-		{D155B547-9757-4874-8721-4AE3D19EA435}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

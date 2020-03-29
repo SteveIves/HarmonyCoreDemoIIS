@@ -68,22 +68,10 @@
     <Compile Include="Dispatchers\GetEnvironmentDispatcher.dbl" />
     <Compile Include="Dispatchers\GetLogicalNameDispatcher.dbl" />
     <Compile Include="Dispatchers\MethodDispatcher.dbl" />
-    <Compile Include="Dispatchers\MyApiDispatcher.dbl" />
-    <Compile Include="Dispatchers\MyApiMethodDispachers.dbl" />
     <Compile Include="Methods\AddTwoNumbers.dbl" />
     <Compile Include="Methods\GetEnvironment.dbl" />
     <Compile Include="Methods\GetLogicalName.dbl" />
     <Compile Include="Models\AaaDummyModel.dbl" />
-    <Compile Include="Models\Customer.dbl" />
-    <Compile Include="Models\CustomerMetaData.dbl" />
-    <Compile Include="Models\Item.dbl" />
-    <Compile Include="Models\ItemMetaData.dbl" />
-    <Compile Include="Models\Order.dbl" />
-    <Compile Include="Models\OrderItem.dbl" />
-    <Compile Include="Models\OrderItemMetaData.dbl" />
-    <Compile Include="Models\OrderMetaData.dbl" />
-    <Compile Include="Models\Vendor.dbl" />
-    <Compile Include="Models\VendorMetaData.dbl" />
     <Compile Include="TraditionalBridgeHost.dbl" />
   </ItemGroup>
   <ItemGroup>
@@ -97,11 +85,6 @@
       <Name>Repository</Name>
       <Project>{cc6c33fb-c46c-4484-972c-c454743f8add}</Project>
       <Private>True</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\xfplMethods\xfplMethods.synproj">
-      <Name>xfplMethods</Name>
-      <Project>{d155b547-9757-4874-8721-4ae3d19ea435}</Project>
-      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

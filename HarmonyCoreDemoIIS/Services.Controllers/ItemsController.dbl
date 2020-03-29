@@ -172,6 +172,7 @@ namespace Services.Controllers
         {Produces("application/json")}
         {ProducesResponseType(^typeof(Item),StatusCodes.Status200OK)}
         {ProducesResponseType(StatusCodes.Status400BadRequest)}
+        {HttpPost}
         ;;; <summary>
         ;;; Create a new item (automatically assigned primary key).
         ;;; </summary>
@@ -213,9 +214,11 @@ namespace Services.Controllers
         {ProducesResponseType(StatusCodes.Status201Created)}
         {ProducesResponseType(StatusCodes.Status400BadRequest)}
         {ProducesResponseType(StatusCodes.Status404NotFound)}
+        {HttpPut}
         ;;; <summary>
         ;;; Create (with a client-supplied primary key) or replace a item.
         ;;; </summary>
+
         ;;; <param name="aItemNumber">Item number</param>
         ;;; <returns>Returns an IActionResult indicating the status of the operation and containing any data that was returned.</returns>
         public method PutItem, @IActionResult
@@ -260,12 +263,12 @@ namespace Services.Controllers
             endtry
 
         endmethod
-
         {ODataRoute("(ItemNumber={aItemNumber})")}
         {Produces("application/json")}
         {ProducesResponseType(StatusCodes.Status204NoContent)}
         {ProducesResponseType(StatusCodes.Status400BadRequest)}
         {ProducesResponseType(StatusCodes.Status404NotFound)}
+        {HttpPatch}
         ;;; <summary>
         ;;; Patch  (partial update) a item.
         ;;; </summary>
@@ -315,10 +318,10 @@ namespace Services.Controllers
             mreturn NoContent()
 
         endmethod
-
         {ODataRoute("(ItemNumber={aItemNumber})")}
         {ProducesResponseType(StatusCodes.Status204NoContent)}
         {ProducesResponseType(StatusCodes.Status404NotFound)}
+        {HttpDelete}
         ;;; <summary>
         ;;; Delete a item.
         ;;; </summary>
@@ -342,7 +345,6 @@ namespace Services.Controllers
             mreturn NoContent()
 
         endmethod
-
     endclass
 
 endnamespace
