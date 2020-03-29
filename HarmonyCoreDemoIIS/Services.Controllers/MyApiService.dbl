@@ -47,11 +47,11 @@ namespace Services.Controllers
         ;;; <summary>
         ;;; No description found in method catalog
         ;;; </summary>
-        public async method AddCustomer, @Task<AddCustomer_Response>
-            required in args, @Services.Models.AddCustomer_Request
+        public async method AddCustomer, @Task<MyApi.AddCustomer_Response>
+            required in args, @MyApi.AddCustomer_Request
         proc
             ;;Prepare the response object
-            data response = new AddCustomer_Response()
+            data response = new MyApi.AddCustomer_Response()
 
             ;;Make the JSON-RPC call the traditional Synergy routine
             data resultTuple = await CallMethod("AddCustomer"
@@ -72,11 +72,11 @@ namespace Services.Controllers
         ;;; <summary>
         ;;; No description found in method catalog
         ;;; </summary>
-        public async method AddItem, @Task<AddItem_Response>
-            required in args, @Services.Models.AddItem_Request
+        public async method AddItem, @Task<MyApi.AddItem_Response>
+            required in args, @MyApi.AddItem_Request
         proc
             ;;Prepare the response object
-            data response = new AddItem_Response()
+            data response = new MyApi.AddItem_Response()
 
             ;;Make the JSON-RPC call the traditional Synergy routine
             data resultTuple = await CallMethod("AddItem"
@@ -97,11 +97,11 @@ namespace Services.Controllers
         ;;; <summary>
         ;;; No description found in method catalog
         ;;; </summary>
-        public async method AddOrder, @Task<AddOrder_Response>
-            required in args, @Services.Models.AddOrder_Request
+        public async method AddOrder, @Task<MyApi.AddOrder_Response>
+            required in args, @MyApi.AddOrder_Request
         proc
             ;;Prepare the response object
-            data response = new AddOrder_Response()
+            data response = new MyApi.AddOrder_Response()
 
             ;;Make the JSON-RPC call the traditional Synergy routine
             data resultTuple = await CallMethod("AddOrder"
@@ -122,11 +122,11 @@ namespace Services.Controllers
         ;;; <summary>
         ;;; No description found in method catalog
         ;;; </summary>
-        public async method AddOrderItem, @Task<AddOrderItem_Response>
-            required in args, @Services.Models.AddOrderItem_Request
+        public async method AddOrderItem, @Task<MyApi.AddOrderItem_Response>
+            required in args, @MyApi.AddOrderItem_Request
         proc
             ;;Prepare the response object
-            data response = new AddOrderItem_Response()
+            data response = new MyApi.AddOrderItem_Response()
 
             ;;Make the JSON-RPC call the traditional Synergy routine
             data resultTuple = await CallMethod("AddOrderItem"
@@ -147,11 +147,11 @@ namespace Services.Controllers
         ;;; <summary>
         ;;; No description found in method catalog
         ;;; </summary>
-        public async method AddVendor, @Task<AddVendor_Response>
-            required in args, @Services.Models.AddVendor_Request
+        public async method AddVendor, @Task<MyApi.AddVendor_Response>
+            required in args, @MyApi.AddVendor_Request
         proc
             ;;Prepare the response object
-            data response = new AddVendor_Response()
+            data response = new MyApi.AddVendor_Response()
 
             ;;Make the JSON-RPC call the traditional Synergy routine
             data resultTuple = await CallMethod("AddVendor"
@@ -172,11 +172,11 @@ namespace Services.Controllers
         ;;; <summary>
         ;;; No description found in method catalog
         ;;; </summary>
-        public async method CanDeleteCustomer, @Task<CanDeleteCustomer_Response>
-            required in args, @Services.Models.CanDeleteCustomer_Request
+        public async method CanDeleteCustomer, @Task<MyApi.CanDeleteCustomer_Response>
+            required in args, @MyApi.CanDeleteCustomer_Request
         proc
             ;;Prepare the response object
-            data response = new CanDeleteCustomer_Response()
+            data response = new MyApi.CanDeleteCustomer_Response()
 
             ;;Make the JSON-RPC call the traditional Synergy routine
             data resultTuple = await CallMethod("CanDeleteCustomer"
@@ -197,11 +197,11 @@ namespace Services.Controllers
         ;;; <summary>
         ;;; No description found in method catalog
         ;;; </summary>
-        public async method CanDeleteItem, @Task<CanDeleteItem_Response>
-            required in args, @Services.Models.CanDeleteItem_Request
+        public async method CanDeleteItem, @Task<MyApi.CanDeleteItem_Response>
+            required in args, @MyApi.CanDeleteItem_Request
         proc
             ;;Prepare the response object
-            data response = new CanDeleteItem_Response()
+            data response = new MyApi.CanDeleteItem_Response()
 
             ;;Make the JSON-RPC call the traditional Synergy routine
             data resultTuple = await CallMethod("CanDeleteItem"
@@ -222,11 +222,11 @@ namespace Services.Controllers
         ;;; <summary>
         ;;; No description found in method catalog
         ;;; </summary>
-        public async method CanDeleteOrder, @Task<CanDeleteOrder_Response>
-            required in args, @Services.Models.CanDeleteOrder_Request
+        public async method CanDeleteOrder, @Task<MyApi.CanDeleteOrder_Response>
+            required in args, @MyApi.CanDeleteOrder_Request
         proc
             ;;Prepare the response object
-            data response = new CanDeleteOrder_Response()
+            data response = new MyApi.CanDeleteOrder_Response()
 
             ;;Make the JSON-RPC call the traditional Synergy routine
             data resultTuple = await CallMethod("CanDeleteOrder"
@@ -247,11 +247,11 @@ namespace Services.Controllers
         ;;; <summary>
         ;;; No description found in method catalog
         ;;; </summary>
-        public async method CanDeleteOrderItem, @Task<CanDeleteOrderItem_Response>
-            required in args, @Services.Models.CanDeleteOrderItem_Request
+        public async method CanDeleteOrderItem, @Task<MyApi.CanDeleteOrderItem_Response>
+            required in args, @MyApi.CanDeleteOrderItem_Request
         proc
             ;;Prepare the response object
-            data response = new CanDeleteOrderItem_Response()
+            data response = new MyApi.CanDeleteOrderItem_Response()
 
             ;;Make the JSON-RPC call the traditional Synergy routine
             data resultTuple = await CallMethod("CanDeleteOrderItem"
@@ -273,11 +273,11 @@ namespace Services.Controllers
         ;;; <summary>
         ;;; No description found in method catalog
         ;;; </summary>
-        public async method CanDeleteVendor, @Task<CanDeleteVendor_Response>
-            required in args, @Services.Models.CanDeleteVendor_Request
+        public async method CanDeleteVendor, @Task<MyApi.CanDeleteVendor_Response>
+            required in args, @MyApi.CanDeleteVendor_Request
         proc
             ;;Prepare the response object
-            data response = new CanDeleteVendor_Response()
+            data response = new MyApi.CanDeleteVendor_Response()
 
             ;;Make the JSON-RPC call the traditional Synergy routine
             data resultTuple = await CallMethod("CanDeleteVendor"
@@ -298,11 +298,11 @@ namespace Services.Controllers
         ;;; <summary>
         ;;; No description found in method catalog
         ;;; </summary>
-        public async method DeleteCustomer, @Task<DeleteCustomer_Response>
-            required in args, @Services.Models.DeleteCustomer_Request
+        public async method DeleteCustomer, @Task<MyApi.DeleteCustomer_Response>
+            required in args, @MyApi.DeleteCustomer_Request
         proc
             ;;Prepare the response object
-            data response = new DeleteCustomer_Response()
+            data response = new MyApi.DeleteCustomer_Response()
 
             ;;Make the JSON-RPC call the traditional Synergy routine
             data resultTuple = await CallMethod("DeleteCustomer"
@@ -323,11 +323,11 @@ namespace Services.Controllers
         ;;; <summary>
         ;;; No description found in method catalog
         ;;; </summary>
-        public async method DeleteItem, @Task<DeleteItem_Response>
-            required in args, @Services.Models.DeleteItem_Request
+        public async method DeleteItem, @Task<MyApi.DeleteItem_Response>
+            required in args, @MyApi.DeleteItem_Request
         proc
             ;;Prepare the response object
-            data response = new DeleteItem_Response()
+            data response = new MyApi.DeleteItem_Response()
 
             ;;Make the JSON-RPC call the traditional Synergy routine
             data resultTuple = await CallMethod("DeleteItem"
@@ -348,11 +348,11 @@ namespace Services.Controllers
         ;;; <summary>
         ;;; No description found in method catalog
         ;;; </summary>
-        public async method DeleteOrder, @Task<DeleteOrder_Response>
-            required in args, @Services.Models.DeleteOrder_Request
+        public async method DeleteOrder, @Task<MyApi.DeleteOrder_Response>
+            required in args, @MyApi.DeleteOrder_Request
         proc
             ;;Prepare the response object
-            data response = new DeleteOrder_Response()
+            data response = new MyApi.DeleteOrder_Response()
 
             ;;Make the JSON-RPC call the traditional Synergy routine
             data resultTuple = await CallMethod("DeleteOrder"
@@ -373,11 +373,11 @@ namespace Services.Controllers
         ;;; <summary>
         ;;; No description found in method catalog
         ;;; </summary>
-        public async method DeleteOrderItem, @Task<DeleteOrderItem_Response>
-            required in args, @Services.Models.DeleteOrderItem_Request
+        public async method DeleteOrderItem, @Task<MyApi.DeleteOrderItem_Response>
+            required in args, @MyApi.DeleteOrderItem_Request
         proc
             ;;Prepare the response object
-            data response = new DeleteOrderItem_Response()
+            data response = new MyApi.DeleteOrderItem_Response()
 
             ;;Make the JSON-RPC call the traditional Synergy routine
             data resultTuple = await CallMethod("DeleteOrderItem"
@@ -399,11 +399,11 @@ namespace Services.Controllers
         ;;; <summary>
         ;;; No description found in method catalog
         ;;; </summary>
-        public async method DeleteVendor, @Task<DeleteVendor_Response>
-            required in args, @Services.Models.DeleteVendor_Request
+        public async method DeleteVendor, @Task<MyApi.DeleteVendor_Response>
+            required in args, @MyApi.DeleteVendor_Request
         proc
             ;;Prepare the response object
-            data response = new DeleteVendor_Response()
+            data response = new MyApi.DeleteVendor_Response()
 
             ;;Make the JSON-RPC call the traditional Synergy routine
             data resultTuple = await CallMethod("DeleteVendor"
@@ -424,10 +424,10 @@ namespace Services.Controllers
         ;;; <summary>
         ;;; No description found in method catalog
         ;;; </summary>
-        public async method GetAllCustomers, @Task<GetAllCustomers_Response>
+        public async method GetAllCustomers, @Task<MyApi.GetAllCustomers_Response>
         proc
             ;;Prepare the response object
-            data response = new GetAllCustomers_Response()
+            data response = new MyApi.GetAllCustomers_Response()
 
             ;;Make the JSON-RPC call the traditional Synergy routine
             data resultTuple = await CallMethod("GetAllCustomers"
@@ -452,10 +452,10 @@ namespace Services.Controllers
         ;;; <summary>
         ;;; No description found in method catalog
         ;;; </summary>
-        public async method GetAllItems, @Task<GetAllItems_Response>
+        public async method GetAllItems, @Task<MyApi.GetAllItems_Response>
         proc
             ;;Prepare the response object
-            data response = new GetAllItems_Response()
+            data response = new MyApi.GetAllItems_Response()
 
             ;;Make the JSON-RPC call the traditional Synergy routine
             data resultTuple = await CallMethod("GetAllItems"
@@ -480,11 +480,11 @@ namespace Services.Controllers
         ;;; <summary>
         ;;; No description found in method catalog
         ;;; </summary>
-        public async method GetAllOrderItems, @Task<GetAllOrderItems_Response>
-            required in args, @Services.Models.GetAllOrderItems_Request
+        public async method GetAllOrderItems, @Task<MyApi.GetAllOrderItems_Response>
+            required in args, @MyApi.GetAllOrderItems_Request
         proc
             ;;Prepare the response object
-            data response = new GetAllOrderItems_Response()
+            data response = new MyApi.GetAllOrderItems_Response()
 
             ;;Make the JSON-RPC call the traditional Synergy routine
             data resultTuple = await CallMethod("GetAllOrderItems"
@@ -510,10 +510,10 @@ namespace Services.Controllers
         ;;; <summary>
         ;;; No description found in method catalog
         ;;; </summary>
-        public async method GetAllOrders, @Task<GetAllOrders_Response>
+        public async method GetAllOrders, @Task<MyApi.GetAllOrders_Response>
         proc
             ;;Prepare the response object
-            data response = new GetAllOrders_Response()
+            data response = new MyApi.GetAllOrders_Response()
 
             ;;Make the JSON-RPC call the traditional Synergy routine
             data resultTuple = await CallMethod("GetAllOrders"
@@ -538,10 +538,10 @@ namespace Services.Controllers
         ;;; <summary>
         ;;; No description found in method catalog
         ;;; </summary>
-        public async method GetAllVendors, @Task<GetAllVendors_Response>
+        public async method GetAllVendors, @Task<MyApi.GetAllVendors_Response>
         proc
             ;;Prepare the response object
-            data response = new GetAllVendors_Response()
+            data response = new MyApi.GetAllVendors_Response()
 
             ;;Make the JSON-RPC call the traditional Synergy routine
             data resultTuple = await CallMethod("GetAllVendors"
@@ -566,11 +566,11 @@ namespace Services.Controllers
         ;;; <summary>
         ;;; No description found in method catalog
         ;;; </summary>
-        public async method GetCustomer, @Task<GetCustomer_Response>
-            required in args, @Services.Models.GetCustomer_Request
+        public async method GetCustomer, @Task<MyApi.GetCustomer_Response>
+            required in args, @MyApi.GetCustomer_Request
         proc
             ;;Prepare the response object
-            data response = new GetCustomer_Response()
+            data response = new MyApi.GetCustomer_Response()
 
             ;;Make the JSON-RPC call the traditional Synergy routine
             data resultTuple = await CallMethod("GetCustomer"
@@ -596,11 +596,11 @@ namespace Services.Controllers
         ;;; <summary>
         ;;; No description found in method catalog
         ;;; </summary>
-        public async method GetItem, @Task<GetItem_Response>
-            required in args, @Services.Models.GetItem_Request
+        public async method GetItem, @Task<MyApi.GetItem_Response>
+            required in args, @MyApi.GetItem_Request
         proc
             ;;Prepare the response object
-            data response = new GetItem_Response()
+            data response = new MyApi.GetItem_Response()
 
             ;;Make the JSON-RPC call the traditional Synergy routine
             data resultTuple = await CallMethod("GetItem"
@@ -626,11 +626,11 @@ namespace Services.Controllers
         ;;; <summary>
         ;;; No description found in method catalog
         ;;; </summary>
-        public async method GetOrder, @Task<GetOrder_Response>
-            required in args, @Services.Models.GetOrder_Request
+        public async method GetOrder, @Task<MyApi.GetOrder_Response>
+            required in args, @MyApi.GetOrder_Request
         proc
             ;;Prepare the response object
-            data response = new GetOrder_Response()
+            data response = new MyApi.GetOrder_Response()
 
             ;;Make the JSON-RPC call the traditional Synergy routine
             data resultTuple = await CallMethod("GetOrder"
@@ -656,11 +656,11 @@ namespace Services.Controllers
         ;;; <summary>
         ;;; No description found in method catalog
         ;;; </summary>
-        public async method GetOrderItem, @Task<GetOrderItem_Response>
-            required in args, @Services.Models.GetOrderItem_Request
+        public async method GetOrderItem, @Task<MyApi.GetOrderItem_Response>
+            required in args, @MyApi.GetOrderItem_Request
         proc
             ;;Prepare the response object
-            data response = new GetOrderItem_Response()
+            data response = new MyApi.GetOrderItem_Response()
 
             ;;Make the JSON-RPC call the traditional Synergy routine
             data resultTuple = await CallMethod("GetOrderItem"
@@ -687,11 +687,11 @@ namespace Services.Controllers
         ;;; <summary>
         ;;; No description found in method catalog
         ;;; </summary>
-        public async method GetVendor, @Task<GetVendor_Response>
-            required in args, @Services.Models.GetVendor_Request
+        public async method GetVendor, @Task<MyApi.GetVendor_Response>
+            required in args, @MyApi.GetVendor_Request
         proc
             ;;Prepare the response object
-            data response = new GetVendor_Response()
+            data response = new MyApi.GetVendor_Response()
 
             ;;Make the JSON-RPC call the traditional Synergy routine
             data resultTuple = await CallMethod("GetVendor"
@@ -717,11 +717,11 @@ namespace Services.Controllers
         ;;; <summary>
         ;;; No description found in method catalog
         ;;; </summary>
-        public async method UpdateCustomer, @Task<UpdateCustomer_Response>
-            required in args, @Services.Models.UpdateCustomer_Request
+        public async method UpdateCustomer, @Task<MyApi.UpdateCustomer_Response>
+            required in args, @MyApi.UpdateCustomer_Request
         proc
             ;;Prepare the response object
-            data response = new UpdateCustomer_Response()
+            data response = new MyApi.UpdateCustomer_Response()
 
             ;;Make the JSON-RPC call the traditional Synergy routine
             data resultTuple = await CallMethod("UpdateCustomer"
@@ -742,11 +742,11 @@ namespace Services.Controllers
         ;;; <summary>
         ;;; No description found in method catalog
         ;;; </summary>
-        public async method UpdateItem, @Task<UpdateItem_Response>
-            required in args, @Services.Models.UpdateItem_Request
+        public async method UpdateItem, @Task<MyApi.UpdateItem_Response>
+            required in args, @MyApi.UpdateItem_Request
         proc
             ;;Prepare the response object
-            data response = new UpdateItem_Response()
+            data response = new MyApi.UpdateItem_Response()
 
             ;;Make the JSON-RPC call the traditional Synergy routine
             data resultTuple = await CallMethod("UpdateItem"
@@ -767,11 +767,11 @@ namespace Services.Controllers
         ;;; <summary>
         ;;; No description found in method catalog
         ;;; </summary>
-        public async method UpdateOrder, @Task<UpdateOrder_Response>
-            required in args, @Services.Models.UpdateOrder_Request
+        public async method UpdateOrder, @Task<MyApi.UpdateOrder_Response>
+            required in args, @MyApi.UpdateOrder_Request
         proc
             ;;Prepare the response object
-            data response = new UpdateOrder_Response()
+            data response = new MyApi.UpdateOrder_Response()
 
             ;;Make the JSON-RPC call the traditional Synergy routine
             data resultTuple = await CallMethod("UpdateOrder"
@@ -792,11 +792,11 @@ namespace Services.Controllers
         ;;; <summary>
         ;;; No description found in method catalog
         ;;; </summary>
-        public async method UpdateOrderItem, @Task<UpdateOrderItem_Response>
-            required in args, @Services.Models.UpdateOrderItem_Request
+        public async method UpdateOrderItem, @Task<MyApi.UpdateOrderItem_Response>
+            required in args, @MyApi.UpdateOrderItem_Request
         proc
             ;;Prepare the response object
-            data response = new UpdateOrderItem_Response()
+            data response = new MyApi.UpdateOrderItem_Response()
 
             ;;Make the JSON-RPC call the traditional Synergy routine
             data resultTuple = await CallMethod("UpdateOrderItem"
@@ -817,11 +817,11 @@ namespace Services.Controllers
         ;;; <summary>
         ;;; No description found in method catalog
         ;;; </summary>
-        public async method UpdateVendor, @Task<UpdateVendor_Response>
-            required in args, @Services.Models.UpdateVendor_Request
+        public async method UpdateVendor, @Task<MyApi.UpdateVendor_Response>
+            required in args, @MyApi.UpdateVendor_Request
         proc
             ;;Prepare the response object
-            data response = new UpdateVendor_Response()
+            data response = new MyApi.UpdateVendor_Response()
 
             ;;Make the JSON-RPC call the traditional Synergy routine
             data resultTuple = await CallMethod("UpdateVendor"
@@ -842,11 +842,11 @@ namespace Services.Controllers
         ;;; <summary>
         ;;; No description found in method catalog
         ;;; </summary>
-        public async method ValidateCustomer, @Task<ValidateCustomer_Response>
-            required in args, @Services.Models.ValidateCustomer_Request
+        public async method ValidateCustomer, @Task<MyApi.ValidateCustomer_Response>
+            required in args, @MyApi.ValidateCustomer_Request
         proc
             ;;Prepare the response object
-            data response = new ValidateCustomer_Response()
+            data response = new MyApi.ValidateCustomer_Response()
 
             ;;Make the JSON-RPC call the traditional Synergy routine
             data resultTuple = await CallMethod("ValidateCustomer"
@@ -871,11 +871,11 @@ namespace Services.Controllers
         ;;; <summary>
         ;;; No description found in method catalog
         ;;; </summary>
-        public async method ValidateItem, @Task<ValidateItem_Response>
-            required in args, @Services.Models.ValidateItem_Request
+        public async method ValidateItem, @Task<MyApi.ValidateItem_Response>
+            required in args, @MyApi.ValidateItem_Request
         proc
             ;;Prepare the response object
-            data response = new ValidateItem_Response()
+            data response = new MyApi.ValidateItem_Response()
 
             ;;Make the JSON-RPC call the traditional Synergy routine
             data resultTuple = await CallMethod("ValidateItem"
@@ -900,11 +900,11 @@ namespace Services.Controllers
         ;;; <summary>
         ;;; No description found in method catalog
         ;;; </summary>
-        public async method ValidateOrder, @Task<ValidateOrder_Response>
-            required in args, @Services.Models.ValidateOrder_Request
+        public async method ValidateOrder, @Task<MyApi.ValidateOrder_Response>
+            required in args, @MyApi.ValidateOrder_Request
         proc
             ;;Prepare the response object
-            data response = new ValidateOrder_Response()
+            data response = new MyApi.ValidateOrder_Response()
 
             ;;Make the JSON-RPC call the traditional Synergy routine
             data resultTuple = await CallMethod("ValidateOrder"
@@ -929,11 +929,11 @@ namespace Services.Controllers
         ;;; <summary>
         ;;; No description found in method catalog
         ;;; </summary>
-        public async method ValidateOrderItem, @Task<ValidateOrderItem_Response>
-            required in args, @Services.Models.ValidateOrderItem_Request
+        public async method ValidateOrderItem, @Task<MyApi.ValidateOrderItem_Response>
+            required in args, @MyApi.ValidateOrderItem_Request
         proc
             ;;Prepare the response object
-            data response = new ValidateOrderItem_Response()
+            data response = new MyApi.ValidateOrderItem_Response()
 
             ;;Make the JSON-RPC call the traditional Synergy routine
             data resultTuple = await CallMethod("ValidateOrderItem"
@@ -958,11 +958,11 @@ namespace Services.Controllers
         ;;; <summary>
         ;;; No description found in method catalog
         ;;; </summary>
-        public async method ValidateVendor, @Task<ValidateVendor_Response>
-            required in args, @Services.Models.ValidateVendor_Request
+        public async method ValidateVendor, @Task<MyApi.ValidateVendor_Response>
+            required in args, @MyApi.ValidateVendor_Request
         proc
             ;;Prepare the response object
-            data response = new ValidateVendor_Response()
+            data response = new MyApi.ValidateVendor_Response()
 
             ;;Make the JSON-RPC call the traditional Synergy routine
             data resultTuple = await CallMethod("ValidateVendor"

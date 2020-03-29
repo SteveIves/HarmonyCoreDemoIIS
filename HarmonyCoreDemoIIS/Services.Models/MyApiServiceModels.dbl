@@ -14,7 +14,9 @@
 import System
 import System.ComponentModel.DataAnnotations
 
-namespace Services.Models
+import Services.Models
+
+namespace MyApi
 
 ;;--------------------------------------------------------------------------------
 ;; AddCustomer

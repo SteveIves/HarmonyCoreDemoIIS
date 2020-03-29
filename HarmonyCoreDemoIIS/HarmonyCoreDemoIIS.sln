@@ -10,8 +10,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{6C9AD151-7DA4-477B-A52C-FB883D9D1057}"
 	ProjectSection(SolutionItems) = preProject
 		Templates\HarmonyCoreCustomization.json = Templates\HarmonyCoreCustomization.json
+		Templates\HarmonyCoreCustomization.tpl = Templates\HarmonyCoreCustomization.tpl
 		Templates\ODataClientModel.tpl = Templates\ODataClientModel.tpl
 		Templates\ODataController.tpl = Templates\ODataController.tpl
+		Templates\ODataControllerV2.tpl = Templates\ODataControllerV2.tpl
 		Templates\ODataDbContext.tpl = Templates\ODataDbContext.tpl
 		Templates\ODataEdmBuilder.tpl = Templates\ODataEdmBuilder.tpl
 		Templates\ODataMetaData.tpl = Templates\ODataMetaData.tpl
@@ -64,7 +66,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TraditionalBridge", "Tradit
 		Templates\TraditionalBridge\OptionalParameterMethodDispatchers.tpl = Templates\TraditionalBridge\OptionalParameterMethodDispatchers.tpl
 		Templates\TraditionalBridge\TraditionalBridgeInterfaceServiceModels.tpl = Templates\TraditionalBridge\TraditionalBridgeInterfaceServiceModels.tpl
 		Templates\TraditionalBridge\TraditionalMetaData.tpl = Templates\TraditionalBridge\TraditionalMetaData.tpl
-		Templates\TraditionalBridge\TraditionalModel.tpl = Templates\TraditionalBridge\TraditionalModel.tpl
+		Services.Models\Templates\TraditionalBridge\TraditionalModel.tpl = Services.Models\Templates\TraditionalBridge\TraditionalModel.tpl
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SignalR", "SignalR", "{F11D78B0-4DF7-453C-854C-A87CA031EC84}"

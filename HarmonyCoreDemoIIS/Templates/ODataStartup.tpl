@@ -104,6 +104,7 @@ import Microsoft.AspNetCore.Mvc.ApiExplorer
 import Swashbuckle.AspNetCore.Swagger
 import Microsoft.AspNet.OData.Formatter
 import Microsoft.Net.Http.Headers
+import Microsoft.OpenApi.Models
 </IF DEFINED_ENABLE_API_VERSIONING>
 
 namespace <NAMESPACE>
@@ -277,14 +278,14 @@ namespace <NAMESPACE>
                 ;; note: you might choose to skip or document deprecated API versions differently
                 foreach description in provider.ApiVersionDescriptions
                 begin
-                    data info = new Info()
+                    data info = new OpenApiInfo()
                     &    {
                     &    Title = "<API_TITLE> " + description.ApiVersion.ToString(),
                     &    Version = description.ApiVersion.ToString(),
                     &    Description = "<API_DESCRIPTION>",
-                    &    Contact = new Swashbuckle.AspNetCore.Swagger.Contact() { Name = "<API_CONTACT_NAME>", Email = "<API_CONTACT_EMAIL>" },
-                    &    TermsOfService = "<API_TERMS>",
-                    &    License = new Swashbuckle.AspNetCore.Swagger.License() { Name = "<API_LICENSE_NAME>", Url = "<API_LICENSE_URL>" }
+                    &    Contact = new OpenApiContact() { Name = "<API_CONTACT_NAME>", Email = "<API_CONTACT_EMAIL>" },
+                    &    TermsOfService = new Uri("<API_LICENSE_URL>"),
+                    &    License = new OpenApiLicense() { Name = "<API_LICENSE_NAME>", Url = new Uri("<API_LICENSE_URL>") }
                     &    }
 
                     options.SwaggerDoc( description.GroupName, info )
@@ -320,12 +321,14 @@ namespace <NAMESPACE>
                 begin
                     iformatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue(sseg));
                 end
+                
+                op.MaxIAsyncEnumerableBufferLimit = int.MaxValue
             end
 
             data mvcBuilder = services.AddMvcCore(MvcCoreConfig)
             &    .SetCompatibilityVersion(CompatibilityVersion.Version_2_2 )
             &    .AddDataAnnotations()      ;;Enable data annotations
-            &    .AddJsonFormatters()       ;;For PATCH
+            &    .AddNewtonsoftJson()      ;;For PATCH
         <IF DEFINED_ENABLE_SWAGGER_DOCS>
             &    .AddApiExplorer()          ;;Swagger UI
         </IF DEFINED_ENABLE_SWAGGER_DOCS>
@@ -581,6 +584,8 @@ namespace <NAMESPACE>
                         versionedModel = versionedModelDescriptor.ImplementationFactory(app.ApplicationServices)
                     containerBuilder.AddService<IEdmModel>(Microsoft.OData.ServiceLifetime.Scoped, lambda(sp) { new RefEdmModel() { RealModel = ^as(versionedModel, @IEdmModel) }  })
                     containerBuilder.AddService<ODataUriResolver>(Microsoft.OData.ServiceLifetime.Singleton, lambda(sp) { new UnqualifiedAltKeyUriResolver(^as(versionedModel, @IEdmModel)) { EnableCaseInsensitive = true } })
+                    containerBuilder.AddService<IODataPathTemplateHandler, PathTemplateHandler>( Microsoft.OData.ServiceLifetime.Singleton)
+                    containerBuilder.AddService<IODataPathHandler, PathTemplateHandler>( Microsoft.OData.ServiceLifetime.Singleton)
                 end
             <ELSE>
                 lambda ConfigureRoute(containerBuilder)

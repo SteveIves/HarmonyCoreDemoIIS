@@ -421,7 +421,8 @@ goto :eof
           -t InterfaceServiceModels ^
           -i %SolutionDir%Templates\TraditionalBridge ^
           -o %SolutionDir%%ModelsProject% ^
-          -n %ModelsProject% ^
+          -n %SMC_INTERFACE% ^
+          -ut MODELS_NAMESPACE=%ModelsProject% ^
           %STDOPTS%
   if ERRORLEVEL 1 goto error
 
@@ -433,7 +434,7 @@ goto :eof
           -i %SolutionDir%Templates\TraditionalBridge ^
           -o %SolutionDir%%ControllersProject% ^
           -n %ControllersProject% ^
-          -ut MODELS_NAMESPACE=%ModelsProject% ^
+          -ut MODELS_NAMESPACE=%ModelsProject% DTOS_NAMESPACE=%SMC_INTERFACE% ^
           %STDOPTS%
   if ERRORLEVEL 1 goto error
 
@@ -445,7 +446,7 @@ goto :eof
           -i %SolutionDir%Templates\TraditionalBridge ^
           -o %SolutionDir%%ControllersProject% ^
           -n %ControllersProject% ^
-          -ut MODELS_NAMESPACE=%ModelsProject% ^
+          -ut MODELS_NAMESPACE=%ModelsProject% DTOS_NAMESPACE=%SMC_INTERFACE% ^
           %STDOPTS%
   if ERRORLEVEL 1 goto error
 
@@ -471,7 +472,7 @@ GOTO:eof
           -i %SolutionDir%Templates\SignalR ^
           -o %SolutionDir%%ControllersProject% ^
           -n %ControllersProject% ^
-          -ut MODELS_NAMESPACE=%ServicesProject%.Models ^
+          -ut MODELS_NAMESPACE=%ModelsProject% DTOS_NAMESPACE=%SMC_INTERFACE% ^
           %STDOPTS%
   if ERRORLEVEL 1 goto error  
 

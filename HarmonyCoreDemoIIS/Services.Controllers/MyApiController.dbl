@@ -23,7 +23,6 @@ import System.Text
 import System.Threading.Tasks
 
 import Services.Controllers
-import Services.Models
 
 namespace Services.Controllers
 
@@ -32,7 +31,7 @@ namespace Services.Controllers
 
         ;;Services provided via dependency injection
         private _MyApiService, @MyApiService
-        private _AppSettings, @IOptions<AppSettings>
+        private _AppSettings, @IOptions<Services.Models.AppSettings>
 
         ;;; <summary>
         ;;; Constructor
@@ -41,7 +40,7 @@ namespace Services.Controllers
         ;;; <param name="aAppSettings">Application settings</param>
         public method MyApiController
             aMyApiService, @MyApiService
-			aAppSettings, @IOptions<AppSettings>
+			aAppSettings, @IOptions<Services.Models.AppSettings>
         proc
             _MyApiService = aMyApiService
             _AppSettings = aAppSettings
@@ -52,9 +51,9 @@ namespace Services.Controllers
         ;;; 
         ;;; </summary>
         ;;; <returns></returns>
-        public async method Post_AddCustomer, @Task<ActionResult<AddCustomer_Response>>
+        public async method Post_AddCustomer, @Task<ActionResult<MyApi.AddCustomer_Response>>
             {FromBody}
-            required in aRequest, @AddCustomer_Request
+            required in aRequest, @MyApi.AddCustomer_Request
         proc
             if (!ModelState.IsValid)
                 mreturn BadRequest()
@@ -66,9 +65,9 @@ namespace Services.Controllers
         ;;; 
         ;;; </summary>
         ;;; <returns></returns>
-        public async method Post_AddItem, @Task<ActionResult<AddItem_Response>>
+        public async method Post_AddItem, @Task<ActionResult<MyApi.AddItem_Response>>
             {FromBody}
-            required in aRequest, @AddItem_Request
+            required in aRequest, @MyApi.AddItem_Request
         proc
             if (!ModelState.IsValid)
                 mreturn BadRequest()
@@ -80,9 +79,9 @@ namespace Services.Controllers
         ;;; 
         ;;; </summary>
         ;;; <returns></returns>
-        public async method Post_AddOrder, @Task<ActionResult<AddOrder_Response>>
+        public async method Post_AddOrder, @Task<ActionResult<MyApi.AddOrder_Response>>
             {FromBody}
-            required in aRequest, @AddOrder_Request
+            required in aRequest, @MyApi.AddOrder_Request
         proc
             if (!ModelState.IsValid)
                 mreturn BadRequest()
@@ -94,9 +93,9 @@ namespace Services.Controllers
         ;;; 
         ;;; </summary>
         ;;; <returns></returns>
-        public async method Post_AddOrderItem, @Task<ActionResult<AddOrderItem_Response>>
+        public async method Post_AddOrderItem, @Task<ActionResult<MyApi.AddOrderItem_Response>>
             {FromBody}
-            required in aRequest, @AddOrderItem_Request
+            required in aRequest, @MyApi.AddOrderItem_Request
         proc
             if (!ModelState.IsValid)
                 mreturn BadRequest()
@@ -108,9 +107,9 @@ namespace Services.Controllers
         ;;; 
         ;;; </summary>
         ;;; <returns></returns>
-        public async method Post_AddVendor, @Task<ActionResult<AddVendor_Response>>
+        public async method Post_AddVendor, @Task<ActionResult<MyApi.AddVendor_Response>>
             {FromBody}
-            required in aRequest, @AddVendor_Request
+            required in aRequest, @MyApi.AddVendor_Request
         proc
             if (!ModelState.IsValid)
                 mreturn BadRequest()
@@ -122,9 +121,9 @@ namespace Services.Controllers
         ;;; 
         ;;; </summary>
         ;;; <returns></returns>
-        public async method Post_CanDeleteCustomer, @Task<ActionResult<CanDeleteCustomer_Response>>
+        public async method Post_CanDeleteCustomer, @Task<ActionResult<MyApi.CanDeleteCustomer_Response>>
             {FromBody}
-            required in aRequest, @CanDeleteCustomer_Request
+            required in aRequest, @MyApi.CanDeleteCustomer_Request
         proc
             if (!ModelState.IsValid)
                 mreturn BadRequest()
@@ -136,9 +135,9 @@ namespace Services.Controllers
         ;;; 
         ;;; </summary>
         ;;; <returns></returns>
-        public async method Post_CanDeleteItem, @Task<ActionResult<CanDeleteItem_Response>>
+        public async method Post_CanDeleteItem, @Task<ActionResult<MyApi.CanDeleteItem_Response>>
             {FromBody}
-            required in aRequest, @CanDeleteItem_Request
+            required in aRequest, @MyApi.CanDeleteItem_Request
         proc
             if (!ModelState.IsValid)
                 mreturn BadRequest()
@@ -150,9 +149,9 @@ namespace Services.Controllers
         ;;; 
         ;;; </summary>
         ;;; <returns></returns>
-        public async method Post_CanDeleteOrder, @Task<ActionResult<CanDeleteOrder_Response>>
+        public async method Post_CanDeleteOrder, @Task<ActionResult<MyApi.CanDeleteOrder_Response>>
             {FromBody}
-            required in aRequest, @CanDeleteOrder_Request
+            required in aRequest, @MyApi.CanDeleteOrder_Request
         proc
             if (!ModelState.IsValid)
                 mreturn BadRequest()
@@ -164,9 +163,9 @@ namespace Services.Controllers
         ;;; 
         ;;; </summary>
         ;;; <returns></returns>
-        public async method Post_CanDeleteOrderItem, @Task<ActionResult<CanDeleteOrderItem_Response>>
+        public async method Post_CanDeleteOrderItem, @Task<ActionResult<MyApi.CanDeleteOrderItem_Response>>
             {FromBody}
-            required in aRequest, @CanDeleteOrderItem_Request
+            required in aRequest, @MyApi.CanDeleteOrderItem_Request
         proc
             if (!ModelState.IsValid)
                 mreturn BadRequest()
@@ -178,9 +177,9 @@ namespace Services.Controllers
         ;;; 
         ;;; </summary>
         ;;; <returns></returns>
-        public async method Post_CanDeleteVendor, @Task<ActionResult<CanDeleteVendor_Response>>
+        public async method Post_CanDeleteVendor, @Task<ActionResult<MyApi.CanDeleteVendor_Response>>
             {FromBody}
-            required in aRequest, @CanDeleteVendor_Request
+            required in aRequest, @MyApi.CanDeleteVendor_Request
         proc
             if (!ModelState.IsValid)
                 mreturn BadRequest()
@@ -192,9 +191,9 @@ namespace Services.Controllers
         ;;; 
         ;;; </summary>
         ;;; <returns></returns>
-        public async method Post_DeleteCustomer, @Task<ActionResult<DeleteCustomer_Response>>
+        public async method Post_DeleteCustomer, @Task<ActionResult<MyApi.DeleteCustomer_Response>>
             {FromBody}
-            required in aRequest, @DeleteCustomer_Request
+            required in aRequest, @MyApi.DeleteCustomer_Request
         proc
             if (!ModelState.IsValid)
                 mreturn BadRequest()
@@ -206,9 +205,9 @@ namespace Services.Controllers
         ;;; 
         ;;; </summary>
         ;;; <returns></returns>
-        public async method Post_DeleteItem, @Task<ActionResult<DeleteItem_Response>>
+        public async method Post_DeleteItem, @Task<ActionResult<MyApi.DeleteItem_Response>>
             {FromBody}
-            required in aRequest, @DeleteItem_Request
+            required in aRequest, @MyApi.DeleteItem_Request
         proc
             if (!ModelState.IsValid)
                 mreturn BadRequest()
@@ -220,9 +219,9 @@ namespace Services.Controllers
         ;;; 
         ;;; </summary>
         ;;; <returns></returns>
-        public async method Post_DeleteOrder, @Task<ActionResult<DeleteOrder_Response>>
+        public async method Post_DeleteOrder, @Task<ActionResult<MyApi.DeleteOrder_Response>>
             {FromBody}
-            required in aRequest, @DeleteOrder_Request
+            required in aRequest, @MyApi.DeleteOrder_Request
         proc
             if (!ModelState.IsValid)
                 mreturn BadRequest()
@@ -234,9 +233,9 @@ namespace Services.Controllers
         ;;; 
         ;;; </summary>
         ;;; <returns></returns>
-        public async method Post_DeleteOrderItem, @Task<ActionResult<DeleteOrderItem_Response>>
+        public async method Post_DeleteOrderItem, @Task<ActionResult<MyApi.DeleteOrderItem_Response>>
             {FromBody}
-            required in aRequest, @DeleteOrderItem_Request
+            required in aRequest, @MyApi.DeleteOrderItem_Request
         proc
             if (!ModelState.IsValid)
                 mreturn BadRequest()
@@ -248,9 +247,9 @@ namespace Services.Controllers
         ;;; 
         ;;; </summary>
         ;;; <returns></returns>
-        public async method Post_DeleteVendor, @Task<ActionResult<DeleteVendor_Response>>
+        public async method Post_DeleteVendor, @Task<ActionResult<MyApi.DeleteVendor_Response>>
             {FromBody}
-            required in aRequest, @DeleteVendor_Request
+            required in aRequest, @MyApi.DeleteVendor_Request
         proc
             if (!ModelState.IsValid)
                 mreturn BadRequest()
@@ -262,7 +261,7 @@ namespace Services.Controllers
         ;;; 
         ;;; </summary>
         ;;; <returns></returns>
-        public async method Get_GetAllCustomers, @Task<ActionResult<GetAllCustomers_Response>>
+        public async method Get_GetAllCustomers, @Task<ActionResult<MyApi.GetAllCustomers_Response>>
         proc
             mreturn ok(await _MyApiService.GetAllCustomers())
         endmethod
@@ -272,7 +271,7 @@ namespace Services.Controllers
         ;;; 
         ;;; </summary>
         ;;; <returns></returns>
-        public async method Get_GetAllItems, @Task<ActionResult<GetAllItems_Response>>
+        public async method Get_GetAllItems, @Task<ActionResult<MyApi.GetAllItems_Response>>
         proc
             mreturn ok(await _MyApiService.GetAllItems())
         endmethod
@@ -282,9 +281,9 @@ namespace Services.Controllers
         ;;; 
         ;;; </summary>
         ;;; <returns></returns>
-        public async method Post_GetAllOrderItems, @Task<ActionResult<GetAllOrderItems_Response>>
+        public async method Post_GetAllOrderItems, @Task<ActionResult<MyApi.GetAllOrderItems_Response>>
             {FromBody}
-            required in aRequest, @GetAllOrderItems_Request
+            required in aRequest, @MyApi.GetAllOrderItems_Request
         proc
             if (!ModelState.IsValid)
                 mreturn BadRequest()
@@ -296,7 +295,7 @@ namespace Services.Controllers
         ;;; 
         ;;; </summary>
         ;;; <returns></returns>
-        public async method Get_GetAllOrders, @Task<ActionResult<GetAllOrders_Response>>
+        public async method Get_GetAllOrders, @Task<ActionResult<MyApi.GetAllOrders_Response>>
         proc
             mreturn ok(await _MyApiService.GetAllOrders())
         endmethod
@@ -306,7 +305,7 @@ namespace Services.Controllers
         ;;; 
         ;;; </summary>
         ;;; <returns></returns>
-        public async method Get_GetAllVendors, @Task<ActionResult<GetAllVendors_Response>>
+        public async method Get_GetAllVendors, @Task<ActionResult<MyApi.GetAllVendors_Response>>
         proc
             mreturn ok(await _MyApiService.GetAllVendors())
         endmethod
@@ -316,9 +315,9 @@ namespace Services.Controllers
         ;;; 
         ;;; </summary>
         ;;; <returns></returns>
-        public async method Post_GetCustomer, @Task<ActionResult<GetCustomer_Response>>
+        public async method Post_GetCustomer, @Task<ActionResult<MyApi.GetCustomer_Response>>
             {FromBody}
-            required in aRequest, @GetCustomer_Request
+            required in aRequest, @MyApi.GetCustomer_Request
         proc
             if (!ModelState.IsValid)
                 mreturn BadRequest()
@@ -330,9 +329,9 @@ namespace Services.Controllers
         ;;; 
         ;;; </summary>
         ;;; <returns></returns>
-        public async method Post_GetItem, @Task<ActionResult<GetItem_Response>>
+        public async method Post_GetItem, @Task<ActionResult<MyApi.GetItem_Response>>
             {FromBody}
-            required in aRequest, @GetItem_Request
+            required in aRequest, @MyApi.GetItem_Request
         proc
             if (!ModelState.IsValid)
                 mreturn BadRequest()
@@ -344,9 +343,9 @@ namespace Services.Controllers
         ;;; 
         ;;; </summary>
         ;;; <returns></returns>
-        public async method Post_GetOrder, @Task<ActionResult<GetOrder_Response>>
+        public async method Post_GetOrder, @Task<ActionResult<MyApi.GetOrder_Response>>
             {FromBody}
-            required in aRequest, @GetOrder_Request
+            required in aRequest, @MyApi.GetOrder_Request
         proc
             if (!ModelState.IsValid)
                 mreturn BadRequest()
@@ -358,9 +357,9 @@ namespace Services.Controllers
         ;;; 
         ;;; </summary>
         ;;; <returns></returns>
-        public async method Post_GetOrderItem, @Task<ActionResult<GetOrderItem_Response>>
+        public async method Post_GetOrderItem, @Task<ActionResult<MyApi.GetOrderItem_Response>>
             {FromBody}
-            required in aRequest, @GetOrderItem_Request
+            required in aRequest, @MyApi.GetOrderItem_Request
         proc
             if (!ModelState.IsValid)
                 mreturn BadRequest()
@@ -372,9 +371,9 @@ namespace Services.Controllers
         ;;; 
         ;;; </summary>
         ;;; <returns></returns>
-        public async method Post_GetVendor, @Task<ActionResult<GetVendor_Response>>
+        public async method Post_GetVendor, @Task<ActionResult<MyApi.GetVendor_Response>>
             {FromBody}
-            required in aRequest, @GetVendor_Request
+            required in aRequest, @MyApi.GetVendor_Request
         proc
             if (!ModelState.IsValid)
                 mreturn BadRequest()
@@ -386,9 +385,9 @@ namespace Services.Controllers
         ;;; 
         ;;; </summary>
         ;;; <returns></returns>
-        public async method Post_UpdateCustomer, @Task<ActionResult<UpdateCustomer_Response>>
+        public async method Post_UpdateCustomer, @Task<ActionResult<MyApi.UpdateCustomer_Response>>
             {FromBody}
-            required in aRequest, @UpdateCustomer_Request
+            required in aRequest, @MyApi.UpdateCustomer_Request
         proc
             if (!ModelState.IsValid)
                 mreturn BadRequest()
@@ -400,9 +399,9 @@ namespace Services.Controllers
         ;;; 
         ;;; </summary>
         ;;; <returns></returns>
-        public async method Post_UpdateItem, @Task<ActionResult<UpdateItem_Response>>
+        public async method Post_UpdateItem, @Task<ActionResult<MyApi.UpdateItem_Response>>
             {FromBody}
-            required in aRequest, @UpdateItem_Request
+            required in aRequest, @MyApi.UpdateItem_Request
         proc
             if (!ModelState.IsValid)
                 mreturn BadRequest()
@@ -414,9 +413,9 @@ namespace Services.Controllers
         ;;; 
         ;;; </summary>
         ;;; <returns></returns>
-        public async method Post_UpdateOrder, @Task<ActionResult<UpdateOrder_Response>>
+        public async method Post_UpdateOrder, @Task<ActionResult<MyApi.UpdateOrder_Response>>
             {FromBody}
-            required in aRequest, @UpdateOrder_Request
+            required in aRequest, @MyApi.UpdateOrder_Request
         proc
             if (!ModelState.IsValid)
                 mreturn BadRequest()
@@ -428,9 +427,9 @@ namespace Services.Controllers
         ;;; 
         ;;; </summary>
         ;;; <returns></returns>
-        public async method Post_UpdateOrderItem, @Task<ActionResult<UpdateOrderItem_Response>>
+        public async method Post_UpdateOrderItem, @Task<ActionResult<MyApi.UpdateOrderItem_Response>>
             {FromBody}
-            required in aRequest, @UpdateOrderItem_Request
+            required in aRequest, @MyApi.UpdateOrderItem_Request
         proc
             if (!ModelState.IsValid)
                 mreturn BadRequest()
@@ -442,9 +441,9 @@ namespace Services.Controllers
         ;;; 
         ;;; </summary>
         ;;; <returns></returns>
-        public async method Post_UpdateVendor, @Task<ActionResult<UpdateVendor_Response>>
+        public async method Post_UpdateVendor, @Task<ActionResult<MyApi.UpdateVendor_Response>>
             {FromBody}
-            required in aRequest, @UpdateVendor_Request
+            required in aRequest, @MyApi.UpdateVendor_Request
         proc
             if (!ModelState.IsValid)
                 mreturn BadRequest()
@@ -456,9 +455,9 @@ namespace Services.Controllers
         ;;; 
         ;;; </summary>
         ;;; <returns></returns>
-        public async method Post_ValidateCustomer, @Task<ActionResult<ValidateCustomer_Response>>
+        public async method Post_ValidateCustomer, @Task<ActionResult<MyApi.ValidateCustomer_Response>>
             {FromBody}
-            required in aRequest, @ValidateCustomer_Request
+            required in aRequest, @MyApi.ValidateCustomer_Request
         proc
             if (!ModelState.IsValid)
                 mreturn BadRequest()
@@ -470,9 +469,9 @@ namespace Services.Controllers
         ;;; 
         ;;; </summary>
         ;;; <returns></returns>
-        public async method Post_ValidateItem, @Task<ActionResult<ValidateItem_Response>>
+        public async method Post_ValidateItem, @Task<ActionResult<MyApi.ValidateItem_Response>>
             {FromBody}
-            required in aRequest, @ValidateItem_Request
+            required in aRequest, @MyApi.ValidateItem_Request
         proc
             if (!ModelState.IsValid)
                 mreturn BadRequest()
@@ -484,9 +483,9 @@ namespace Services.Controllers
         ;;; 
         ;;; </summary>
         ;;; <returns></returns>
-        public async method Post_ValidateOrder, @Task<ActionResult<ValidateOrder_Response>>
+        public async method Post_ValidateOrder, @Task<ActionResult<MyApi.ValidateOrder_Response>>
             {FromBody}
-            required in aRequest, @ValidateOrder_Request
+            required in aRequest, @MyApi.ValidateOrder_Request
         proc
             if (!ModelState.IsValid)
                 mreturn BadRequest()
@@ -498,9 +497,9 @@ namespace Services.Controllers
         ;;; 
         ;;; </summary>
         ;;; <returns></returns>
-        public async method Post_ValidateOrderItem, @Task<ActionResult<ValidateOrderItem_Response>>
+        public async method Post_ValidateOrderItem, @Task<ActionResult<MyApi.ValidateOrderItem_Response>>
             {FromBody}
-            required in aRequest, @ValidateOrderItem_Request
+            required in aRequest, @MyApi.ValidateOrderItem_Request
         proc
             if (!ModelState.IsValid)
                 mreturn BadRequest()
@@ -512,9 +511,9 @@ namespace Services.Controllers
         ;;; 
         ;;; </summary>
         ;;; <returns></returns>
-        public async method Post_ValidateVendor, @Task<ActionResult<ValidateVendor_Response>>
+        public async method Post_ValidateVendor, @Task<ActionResult<MyApi.ValidateVendor_Response>>
             {FromBody}
-            required in aRequest, @ValidateVendor_Request
+            required in aRequest, @MyApi.ValidateVendor_Request
         proc
             if (!ModelState.IsValid)
                 mreturn BadRequest()
