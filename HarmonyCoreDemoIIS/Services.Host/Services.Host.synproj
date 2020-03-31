@@ -9,7 +9,7 @@
     <EnableCommonProperties>True</EnableCommonProperties>
     <ProjectGuid>{D382AB62-71F4-439D-9EE4-ECFCFFD29D9B}</ProjectGuid>
     <Prefer32Bit>False</Prefer32Bit>
-  </PropertyGroup>
+  <GenerateMvcApplicationPartsAssemblyAttributes>true</GenerateMvcApplicationPartsAssemblyAttributes></PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <OutputPath>$(EXE)</OutputPath>
     <UnevaluatedOutputPath>$(EXE)</UnevaluatedOutputPath>
