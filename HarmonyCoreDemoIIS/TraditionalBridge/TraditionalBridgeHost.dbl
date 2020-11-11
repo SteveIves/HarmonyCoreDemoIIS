@@ -35,9 +35,16 @@ proc
 
         ;;Does the environment define the logging level?
         getlog("HARMONY_LOG_LEVEL", tmpa, length)
-        if (length)
+        if (length) then
+        begin
             logLevel = %integer(tmpa)
-        
+        end
+        else
+        begin
+            ;Levels are 1 to 6, 2 is normal logging, 6 is highest logging
+            logLevel = 2
+        end
+     
         ;;Define the log file name
         logFileName = "BRIDGE_" + %string(%jbno) + ".LOG"
 
@@ -55,17 +62,21 @@ proc
         dispatcher.Dispatch(ttChan)
 
     end
-    catch(e, @Exception)
+    catch(ex, @Exception)
     begin
         ;;If anything failed, log an error if we can
         if (Logger.Instance != ^null)
-            Logger.Instance.Log("DISPATCHER EXITED with exception" + e.ToString())
+        begin
+            Logger.Instance.Log("DISPATCHER EXITED with exception" + ex.ToString())
+        end
     end
     endtry
     
     ;;Close the log
     if (Logger.Instance != ^null)
+    begin
         Logger.Instance.CloseLog()
+    end
 
     stop
 

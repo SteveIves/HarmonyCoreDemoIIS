@@ -14,6 +14,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{
 		Templates\ODataClientModel.tpl = Templates\ODataClientModel.tpl
 		Templates\ODataController.tpl = Templates\ODataController.tpl
 		Templates\ODataControllerPropertyEndpoints.tpl = Templates\ODataControllerPropertyEndpoints.tpl
+		Templates\ODataCustomAuthController.tpl = Templates\ODataCustomAuthController.tpl
+		Templates\ODataCustomAuthModels.tpl = Templates\ODataCustomAuthModels.tpl
+		Templates\ODataCustomAuthTools.tpl = Templates\ODataCustomAuthTools.tpl
 		Templates\ODataDbContext.tpl = Templates\ODataDbContext.tpl
 		Templates\ODataEdmBuilder.tpl = Templates\ODataEdmBuilder.tpl
 		Templates\ODataMetaData.tpl = Templates\ODataMetaData.tpl
@@ -60,6 +63,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TraditionalBridge", "Tradit
 		Templates\TraditionalBridge\InterfaceService.tpl = Templates\TraditionalBridge\InterfaceService.tpl
 		Templates\TraditionalBridge\InterfaceServiceModels.tpl = Templates\TraditionalBridge\InterfaceServiceModels.tpl
 		Templates\TraditionalBridge\InterfaceTestResponses.tpl = Templates\TraditionalBridge\InterfaceTestResponses.tpl
+		Templates\TraditionalBridge\InterfaceUnitTests.tpl = Templates\TraditionalBridge\InterfaceUnitTests.tpl
+		Templates\TraditionalBridge\InterfaceUnitTestValues.tpl = Templates\TraditionalBridge\InterfaceUnitTestValues.tpl
 		Templates\TraditionalBridge\ODataActionModels.tpl = Templates\TraditionalBridge\ODataActionModels.tpl
 		Templates\TraditionalBridge\ODataMetaData.tpl = Templates\TraditionalBridge\ODataMetaData.tpl
 		Templates\TraditionalBridge\ODataModel.tpl = Templates\TraditionalBridge\ODataModel.tpl
@@ -67,6 +72,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TraditionalBridge", "Tradit
 		Templates\TraditionalBridge\TraditionalBridgeInterfaceServiceModels.tpl = Templates\TraditionalBridge\TraditionalBridgeInterfaceServiceModels.tpl
 		Templates\TraditionalBridge\TraditionalMetaData.tpl = Templates\TraditionalBridge\TraditionalMetaData.tpl
 		Services.Models\Templates\TraditionalBridge\TraditionalModel.tpl = Services.Models\Templates\TraditionalBridge\TraditionalModel.tpl
+		Templates\TraditionalBridge\TraditionalModel.tpl = Templates\TraditionalBridge\TraditionalModel.tpl
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SignalR", "SignalR", "{F11D78B0-4DF7-453C-854C-A87CA031EC84}"
