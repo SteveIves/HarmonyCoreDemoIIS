@@ -137,19 +137,6 @@ set NOREPLACEOPTS=-e -lf -u %SolutionDir%UserDefinedTokens.tkn %ENABLE_GET_ALL% 
 set STDOPTS=%NOREPLACEOPTS% -r
 
 rem ================================================================================================================================
-rem TypeScript Test Stuff
-
-  codegen -s  %DATA_STRUCTURES% ^
-          -a  %DATA_ALIASES% ^
-		  -fo %DATA_FILES% ^
-          -t  SearchAndValidate ^
-          -i  %SolutionDir%Templates\TypeScript ^
-          -o  %SolutionDir%TypeScript ^
-              %STDOPTS%
-  if ERRORLEVEL 1 goto error
-
-
-rem ================================================================================================================================
 rem Generate a Web API / OData CRUD environment
 
 if DEFINED ENABLE_ODATA_ENVIRONMENT (

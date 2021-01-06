@@ -20,6 +20,7 @@ import Harmony.Core.Converters
 import Harmony.Core.Context
 import Harmony.Core.FileIO
 import Microsoft.Extensions.DependencyInjection
+import System.Runtime.Serialization
 
 namespace Services.Models
 
@@ -29,6 +30,7 @@ namespace Services.Models
         ;;make the record available and a copy
         private mSynergyData, strCustomer
         private mOriginalSynergyData, strCustomer
+        protected mGlobalRFA  ,a10
 
         private static sMetadata, @CustomerMetadata
 
@@ -316,6 +318,17 @@ namespace Services.Models
             endmethod
         endproperty
 
+        public override property GlobalRFA, [#]byte
+			method get
+			proc
+                mreturn mGlobalRFA
+			endmethod
+			method set
+			proc
+                mGlobalRFA = value
+			endmethod
+		endproperty
+
 .endregion
 
 .region "Public methods"
@@ -327,13 +340,6 @@ namespace Services.Models
             targetMethod, @AlphaAction
         proc
             targetMethod(mSynergyData, mGlobalRFA)
-        endmethod
-
-        ;;; <summary>
-        ;;; Allow the host to validate all fields. Each field will fire the validation method.
-        ;;; </summary>
-        public override method InitialValidateData, void
-        proc
         endmethod
 
         ;;; <summary>
@@ -391,22 +397,72 @@ namespace Services.Models
 
         ;;Access keys
 
-        private _KEY_CUSTOMER_NUMBER, string, ""
-        public readonly property KEY_CUSTOMER_NUMBER, string, ""
+        {IgnoreDataMember}
+        public property KEY_CUSTOMER_NUMBER, string
+            method get
+            proc
+                mreturn CustomerNumber.ToString()
+                
+            endmethod
+            method set
+            proc
+                
+            endmethod
+        endproperty
 
-        private _KEY_STATE, string, ""
-        public readonly property KEY_STATE, string, ""
+        {IgnoreDataMember}
+        public property KEY_STATE, string
+            method get
+            proc
+                mreturn State.ToString()
+                
+            endmethod
+            method set
+            proc
+                
+            endmethod
+        endproperty
 
-        private _KEY_ZIP, string, ""
-        public readonly property KEY_ZIP, string, ""
+        {IgnoreDataMember}
+        public property KEY_ZIP, string
+            method get
+            proc
+                mreturn ZipCode.ToString()
+                
+            endmethod
+            method set
+            proc
+                
+            endmethod
+        endproperty
 
-        private _KEY_PAYMENT_TERMS, string, ""
-        public readonly property KEY_PAYMENT_TERMS, string, ""
+        {IgnoreDataMember}
+        public property KEY_PAYMENT_TERMS, string
+            method get
+            proc
+                mreturn PaymentTermsCode.ToString()
+                
+            endmethod
+            method set
+            proc
+                
+            endmethod
+        endproperty
 
         ;;Foreign keys
 
-        private _KEY_FAVORITE_ITEM, string, ""
-        public readonly property KEY_FAVORITE_ITEM, string, ""
+        {IgnoreDataMember}
+        public property KEY_FAVORITE_ITEM, string
+            method get
+            proc
+                mreturn FavoriteItem.ToString()
+                
+            endmethod
+            method set
+            proc
+                
+            endmethod
+        endproperty
 
 .endregion
 

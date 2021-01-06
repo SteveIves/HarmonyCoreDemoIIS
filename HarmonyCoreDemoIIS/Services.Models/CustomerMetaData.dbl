@@ -123,19 +123,41 @@ namespace Services.Models
             required in joinedObjects, [#]KeyValuePair<String, Object>
         proc
             data newCustomer = new Customer(dataArea, grfa)
+            UpdateExistingJoin(newCustomer, joinedObjects)
+            mreturn newCustomer
+        endmethod
+        
+        public override method UpdateExistingJoin, void
+            required in existing, @DataObjectBase
+            required in joinedObjects, [#]KeyValuePair<String, Object>
+        proc
+            UpdateExistingJoin((@Customer)existing, joinedObjects)
+        endmethod
+
+        public method UpdateExistingJoin, void
+            required in existing, @Customer
+            required in joinedObjects, [#]KeyValuePair<String, Object>
+        proc
             data joinedObject, KeyValuePair<String, Object>
             foreach joinedObject in joinedObjects
             begin
                 using joinedObject.Key select
                 ("REL_Orders"),
-                    newCustomer.REL_Orders = (@ICollection<Order>)joinedObject.Value
+                begin
+                    if(existing.REL_Orders == ^null)
+                    begin
+                        existing.REL_Orders = (@ICollection<Order>)joinedObject.Value
+                    end
+                end
                 ("REL_Item"),
-                    newCustomer.REL_Item = (@Item)joinedObject.Value
+                begin
+                    if(existing.REL_Item == ^null)
+                    begin
+                        existing.REL_Item = (@Item)joinedObject.Value
+                    end
+                end
                 endusing
             end
-
-            mreturn newCustomer
-
         endmethod
 
         ;;; <summary>
