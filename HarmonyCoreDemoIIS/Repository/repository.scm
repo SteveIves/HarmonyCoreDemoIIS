@@ -1,8 +1,12 @@
  
 ;  SYNERGY DATA LANGUAGE OUTPUT
 ;
-;  GENERATED      : 23-JUL-2019, 16:20:07
-;                 : Version 10.3.3g
+;  REPOSITORY     : D:\HarmonyCoreDemoIIS\HarmonyCoreDemoIIS\Repository\bin\Debug\rpsmain.ism
+;                 : D:\HarmonyCoreDemoIIS\HarmonyCoreDemoIIS\Repository\bin\Debug\rpstext.ism
+;                 : Version 11.1.1f
+;
+;  GENERATED      : 06-JAN-2021, 17:56:28
+;                 : Version 11.1.1f
 ;  EXPORT OPTIONS : [ALL] 
  
  
@@ -307,13 +311,15 @@ Field PAYMENT_TERMS_CODE   Type ALPHA   Size 2
 Field DATE_ORDERED   Type DATE   Size 8   Stored YYYYMMDD
    Description "Date ordered"
    Long Description
-      "SAMPLE_DATA=2018-03-01T00:00:00-08:00;"
+      "HARMONY_AS_STRING"
+      "SAMPLE_DATA=2018-03;"
    Required
  
 Field DATE_COMPLETED   Type DATE   Size 8   Stored YYYYMMDD
    Description "Date order completed"
    Long Description
-      "SAMPLE_DATA=2018-03-12T00:00:00-08:00;"
+      "HARMONY_AS_STRING"
+      "SAMPLE_DATA=2018-03-12;"
  
 Field NONAME_001   Type ALPHA   Size 20   Report Noview   Nonamelink
    Description "Spare space"
@@ -379,7 +385,8 @@ Field UNIT_PRICE   Type DECIMAL   Size 7   Precision 2
 Field DATE_SHIPPED   Type DATE   Size 8   Stored YYYYMMDD
    Description "Date shipped"
    Long Description
-      "SAMPLE_DATA=2018-03-17T00:00:00-08:00;"
+      "HARMONY_AS_STRING"
+      "SAMPLE_DATA=2018-03-17;"
  
 Field INVOICE_NUMBER   Type DECIMAL   Size 7
    Description "Invoice number"

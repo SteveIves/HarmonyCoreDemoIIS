@@ -24,7 +24,8 @@
     <BootstrapperEnabled>True</BootstrapperEnabled>
     <PublishUrl>publish\</PublishUrl>
     <PublishWizardCompleted>True</PublishWizardCompleted>
-  <GenerateMvcApplicationPartsAssemblyAttributes>false</GenerateMvcApplicationPartsAssemblyAttributes></PropertyGroup>
+    <GenerateMvcApplicationPartsAssemblyAttributes>false</GenerateMvcApplicationPartsAssemblyAttributes>
+  </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <OutputPath>$(EXE)</OutputPath>
     <UnevaluatedOutputPath>$(EXE)</UnevaluatedOutputPath>

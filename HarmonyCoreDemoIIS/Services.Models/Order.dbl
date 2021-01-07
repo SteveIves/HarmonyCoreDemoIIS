@@ -156,16 +156,14 @@ namespace Services.Models
         ;;; </summary>
         {Required(ErrorMessage="Date ordered is required. ")}
         {Newtonsoft.Json.JsonProperty}
-        public property DateOrdered, DateTime
+        public property DateOrdered, String
             method get
             proc
-                data formatString = "YYYYMMDD"
-                mreturn (DateTime)SynergyDecimalDateConverter.Convert(mSynergyData.date_ordered, ^null, formatString, ^null)
+                mreturn %string(mSynergyData.date_ordered,"XXXX-XX-XX")
             endmethod
             method set
             proc
-                data formatString = "YYYYMMDD"
-                mSynergyData.date_ordered = (D)SynergyDecimalDateConverter.ConvertBack(value, ^null, formatString, ^null)
+                mSynergyData.date_ordered = SynergyDecimalConverter.ConvertBack(value,"XXXX-XX-XX")
             endmethod
         endproperty
 
@@ -173,16 +171,14 @@ namespace Services.Models
         ;;; Date order completed
         ;;; </summary>
         {Newtonsoft.Json.JsonProperty}
-        public property DateCompleted, DateTime
+        public property DateCompleted, String
             method get
             proc
-                data formatString = "YYYYMMDD"
-                mreturn (DateTime)SynergyDecimalDateConverter.Convert(mSynergyData.date_completed, ^null, formatString, ^null)
+                mreturn %string(mSynergyData.date_completed,"XXXX-XX-XX")
             endmethod
             method set
             proc
-                data formatString = "YYYYMMDD"
-                mSynergyData.date_completed = (D)SynergyDecimalDateConverter.ConvertBack(value, ^null, formatString, ^null)
+                mSynergyData.date_completed = SynergyDecimalConverter.ConvertBack(value,"XXXX-XX-XX")
             endmethod
         endproperty
 

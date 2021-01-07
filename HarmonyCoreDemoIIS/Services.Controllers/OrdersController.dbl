@@ -120,7 +120,7 @@ namespace Services.Controllers
         ;;; <returns>Returns an IActionResult indicating the status of the operation and containing any data that was returned.</returns>
         public method GetOrdersByDateOrdered, @IActionResult
             {FromODataUri}
-            required in aDateOrdered, DateTime
+            required in aDateOrdered, string
         proc
             data result = _DbContext.Orders.AsNoTracking().FindAlternate("DateOrdered",aDateOrdered)
             if (result == ^null)
@@ -140,7 +140,7 @@ namespace Services.Controllers
         ;;; <returns>Returns an IActionResult indicating the status of the operation and containing any data that was returned.</returns>
         public method GetOrdersByDateCompleted, @IActionResult
             {FromODataUri}
-            required in aDateCompleted, DateTime
+            required in aDateCompleted, string
         proc
             data result = _DbContext.Orders.AsNoTracking().FindAlternate("DateCompleted",aDateCompleted)
             if (result == ^null)

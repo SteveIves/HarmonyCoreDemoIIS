@@ -8,7 +8,8 @@
     <ProjectGuid>{1BD1F1A5-C3BE-4E9C-AC55-ABE12BFB118E}</ProjectGuid>
     <EnableCommonProperties>True</EnableCommonProperties>
     <Prefer32Bit>False</Prefer32Bit>
-  <GenerateMvcApplicationPartsAssemblyAttributes>false</GenerateMvcApplicationPartsAssemblyAttributes></PropertyGroup>
+    <GenerateMvcApplicationPartsAssemblyAttributes>false</GenerateMvcApplicationPartsAssemblyAttributes>
+  </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <OutputPath>$(EXE)</OutputPath>
     <UnevaluatedOutputPath>$(EXE)</UnevaluatedOutputPath>

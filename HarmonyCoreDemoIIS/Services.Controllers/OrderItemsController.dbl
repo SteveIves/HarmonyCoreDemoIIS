@@ -123,7 +123,7 @@ namespace Services.Controllers
         ;;; <returns>Returns an IActionResult indicating the status of the operation and containing any data that was returned.</returns>
         public method GetOrderItemsByDateShipped, @IActionResult
             {FromODataUri}
-            required in aDateShipped, DateTime
+            required in aDateShipped, string
         proc
             data result = _DbContext.OrderItems.AsNoTracking().FindAlternate("DateShipped",aDateShipped)
             if (result == ^null)

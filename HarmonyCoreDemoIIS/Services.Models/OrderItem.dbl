@@ -156,16 +156,14 @@ namespace Services.Models
         ;;; Date shipped
         ;;; </summary>
         {Newtonsoft.Json.JsonProperty}
-        public property DateShipped, DateTime
+        public property DateShipped, String
             method get
             proc
-                data formatString = "YYYYMMDD"
-                mreturn (DateTime)SynergyDecimalDateConverter.Convert(mSynergyData.date_shipped, ^null, formatString, ^null)
+                mreturn %string(mSynergyData.date_shipped,"XXXX-XX-XX")
             endmethod
             method set
             proc
-                data formatString = "YYYYMMDD"
-                mSynergyData.date_shipped = (D)SynergyDecimalDateConverter.ConvertBack(value, ^null, formatString, ^null)
+                mSynergyData.date_shipped = SynergyDecimalConverter.ConvertBack(value,"XXXX-XX-XX")
             endmethod
         endproperty
 
