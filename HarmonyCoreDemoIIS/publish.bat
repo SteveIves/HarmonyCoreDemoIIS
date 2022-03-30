@@ -1,22 +1,31 @@
 @echo off
 setlocal
 
-set SolutionDir=%~dp0
-pushd "%SolutionDir%"
+pushd %~dp0
 
-set rpsmfil=%SolutionDir%Repository\bin\Debug\rpsmain.ism
-set rpstfil=%SolutionDir%Repository\bin\Debug\rpstext.ism
+set SolutionDir=%CD%\
 
-set DeployDir=%SolutionDir%PUBLISH
+set DeployDir=.\PUBLISH
 if not exist %DeployDir%\. mkdir %DeployDir%
 
 pushd Services.Host
 dotnet publish -c Debug -r win7-x64 -o %DeployDir%
 popd
 
-rem Copy in the TraditionalBridge files
-copy TraditionalBridge\bin\Debug\x64\TraditionalBridgeHost.dbr  %DeployDir%
-copy TraditionalBridge\bin\Debug\x64\launch.bat                 %DeployDir%
+if not exist %DeployDir%\SampleData\. mkdir %DeployDir%\SampleData
+copy /y SampleData\*.* %DeployDir%\SampleData
+
+copy /y EXE\launch.bat %DeployDir%
+copy /y EXE\TraditionalBridgeHost.dbr %DeployDir%
+copy /y web.config %DeployDir%\web.config
 
 popd
+
+rem ----------------------------------------------------------------------------
+rem This appears to be necessary for now as Azure AppService does not appear to 
+rem currently support the VS2019 C++ runtimes!!!
+copy /y vcredistFiles\*.* %DeployDir%
+rem ----------------------------------------------------------------------------
+
 endlocal
+pause

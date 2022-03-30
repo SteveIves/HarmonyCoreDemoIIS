@@ -18,18 +18,12 @@ namespace Services.Models
     ;;; </summary>
     public partial class AppSettings implements IOptions<AppSettings>
 
-.region "Application settings"
-
         ;;; <summary>
         ;;; A collection of environment variables as required at runtime by the application.
         ;;; These environment variables will be established via the ProcessEnvironmentVariables
         ;;; method below.
         ;;; </summary>
-        public readwrite property EnvironmentVariables, @List<AppEnvironmentVariable>, new List<AppEnvironmentVariable>()
-
-.endregion
-
-.region "IOptions members"
+        public readwrite property EnvironmentVariables, @Dictionary<string,string>, new Dictionary<string, string>()
 
         public virtual property Value, @AppSettings
             method get
@@ -37,10 +31,6 @@ namespace Services.Models
                 mreturn this
             endmethod
         endproperty
-
-.endregion
-
-.region "Public methods"
 
         ;;; <summary>
         ;;; This method is called by the AppSettingsMonitor to initially set the emvironment variables,
@@ -51,33 +41,14 @@ namespace Services.Models
         proc
             if (EnvironmentVariables.Count > 0)
             begin
-                data ev, @AppEnvironmentVariable
+                data ev, @KeyValuePair<string,string>
                 foreach ev in EnvironmentVariables
                 begin
                     data sts, int
-                    xcall setlog(ev.Name,ev.Value,sts)
+                    xcall setlog(ev.Key,ev.Value,sts)
                 end
             end
         endmethod
-
-.endregion
-
-    endclass
-
-    ;;; <summary>
-    ;;; Represents a aingle environment variable.
-    ;;; </summary>
-    public class AppEnvironmentVariable
-
-        ;;; <summary>
-        ;;; The name of the environment variable.
-        ;;; </summary>
-        public readwrite property Name, string
-
-        ;;; <summary>
-        ;;; The value of the environment variable.
-        ;;; </summary>
-        public readwrite property Value, string
 
     endclass
 

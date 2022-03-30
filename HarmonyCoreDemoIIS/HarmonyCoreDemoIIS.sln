@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29418.71
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32319.34
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{BBD0F5D1-1CC4-42FD-BA4C-A96779C64378}") = "Services", "Services\Services.synproj", "{4D167CF2-92F6-407A-BB04-EFDBB35D47FE}"
 EndProject
@@ -39,9 +39,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{29AEA4C4-62B2-4F46-9B80-5F061D950BE1}"
 	ProjectSection(SolutionItems) = preProject
 		ODataService.codegen = ODataService.codegen
-		Services.Controllers\publish.bat = Services.Controllers\publish.bat
+		publish.bat = publish.bat
 		regen.bat = regen.bat
 		UserDefinedTokens.tkn = UserDefinedTokens.tkn
+		web.config = web.config
 	EndProjectSection
 EndProject
 Project("{BBD0F5D1-1CC4-42FD-BA4C-A96779C64378}") = "Services.Isolated", "Services.Isolated\Services.Isolated.synproj", "{15223F07-0941-46E8-9C2F-9924D7FFA678}"
