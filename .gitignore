@@ -36,3 +36,5 @@ OutputFiles
 /ftp.tmp
 /HarmonyCoreDemoIIS_PUBLISH
 /HarmonyCoreDemoIIS/EXE
+/EXE/*.dbr
+/EXE/*.elb

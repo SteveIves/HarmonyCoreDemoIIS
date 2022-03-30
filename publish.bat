@@ -4,8 +4,10 @@ setlocal
 pushd %~dp0
 
 set SolutionDir=%CD%\
+set RPSMFIL=%SolutionDir%Repository\rpsmain.ism
+set RPSTFIL=%SolutionDir%Repository\rpstext.ism
 
-set DeployDir=.\PUBLISH
+set DeployDir=%SolutionDir%PUBLISH
 if not exist %DeployDir%\. mkdir %DeployDir%
 
 pushd Services.Host
