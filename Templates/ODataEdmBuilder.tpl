@@ -50,11 +50,10 @@ import Harmony.Core.Context
 import Harmony.OData
 import Microsoft.EntityFrameworkCore
 import Microsoft.OData.Edm
-import Microsoft.AspNet.OData.Builder
 import Microsoft.AspNetCore.Mvc
-import Microsoft.AspNetCore.Mvc.Versioning.Conventions
 import System.Collections.Generic
 import <MODELS_NAMESPACE>
+import Microsoft.OData.ModelBuilder
 
 namespace <NAMESPACE>
 
@@ -98,8 +97,7 @@ namespace <NAMESPACE>
 
                 if(!mEdmModels.ContainsKey(versionNumber))
                 begin
-                    data madeModel = GetEdmModel(new ODataConventionModelBuilder(serviceProvider), serviceProvider)
-                    madeModel.SetAnnotationValue(madeModel, new ApiVersionAnnotation(ApiVersion.Parse(versionNumber.ToString())))
+                    data madeModel = GetEdmModel(new ODataConventionModelBuilder(), serviceProvider)
                     mEdmModels.Add(versionNumber, madeModel)
                 end
             end
@@ -174,7 +172,7 @@ namespace <NAMESPACE>
   <IF STRUCTURE_ISAM>
     <ALTERNATE_KEY_LOOP_UNIQUE>
       <IF COUNTER_1>
-            tempModel.AddAlternateKeyAnnotation(<structureNoplural>Type, new Dictionary<string, IEdmProperty>() {<SEGMENT_LOOP><IF SEG_TAG_EQUAL><ELSE>{"<FieldSqlName>",<structureNoplural>Type.FindProperty("<FieldSqlName>")}<SEGMENT_COMMA_NOT_LAST_NORMAL_FIELD></IF SEG_TAG_EQUAL></SEGMENT_LOOP>})
+            tempModel.AddAlternateKeyAnnotation(<structureNoplural>Type, new Dictionary<string, IEdmProperty>() {<SEGMENT_LOOP><IF SEG_TAG_EQUAL><ELSE>{"<FieldSqlName>",<structureNoplural>Type.FindProperty("<FieldSqlName>")}<,></IF SEG_TAG_EQUAL></SEGMENT_LOOP>})
       </IF NOT_COUNTER_1>
     </ALTERNATE_KEY_LOOP_UNIQUE>
     <IF DEFINED_ENABLE_PARTIAL_KEYS>
@@ -182,7 +180,7 @@ namespace <NAMESPACE>
         <IF (PRIMARY_KEY AND DEFINED_ENABLE_GET_ONE AND GET_ENDPOINT) OR ((NOT PRIMARY_KEY) AND DEFINED_ENABLE_ALTERNATE_KEYS AND ALTERNATE_KEY_ENDPOINTS)>
           <SEGMENT_LOOP>
             <IF NOT SEG_TAG_EQUAL>
-            tempModel.AddAlternateKeyAnnotation(<structureNoplural>Type, new Dictionary<string, IEdmProperty>() {<SEGMENT_LOOP><IF NOT SEG_TAG_EQUAL>{"<FieldSqlName>",<structureNoplural>Type.FindProperty("<FieldSqlName>")}<SEGMENT_COMMA_NOT_LAST_NORMAL_FIELD></IF></SEGMENT_LOOP>})
+            tempModel.AddAlternateKeyAnnotation(<structureNoplural>Type, new Dictionary<string, IEdmProperty>() {<SEGMENT_LOOP><IF NOT SEG_TAG_EQUAL>{"<FieldSqlName>",<structureNoplural>Type.FindProperty("<FieldSqlName>")}<,></IF></SEGMENT_LOOP>})
             </IF>
           </SEGMENT_LOOP>
         </IF>

@@ -160,12 +160,11 @@ namespace <NAMESPACE>
         proc
             data chout, int
             data dataFile, string
-            data fileExtension, a10
             data xdlFile, string
 
   <STRUCTURE_LOOP>
     <IF STRUCTURE_ISAM>
-            data <structurePlural>Data = load<StructurePlural>()
+            data <structurePlural> = load<StructurePlural>()
     </IF>
   </STRUCTURE_LOOP>
 
@@ -173,19 +172,18 @@ namespace <NAMESPACE>
             ;;Create and load the <structurePlural> file
 
             dataFile = "<FILE_NAME>"
-            xcall parse(dataFile.ToLower(),1,,,,,fileExtension)
     <IF STRUCTURE_ISAM>
-            xdlFile = "@" + dataFile.ToLower().Replace(%atrim(fileExtension),".xdl")
+            xdlFile = "@" + dataFile.ToLower().Replace(".ism",".xdl")
 
             data <structureNoplural>, @<StructureNoplural>
             open(chout=0,o:i,dataFile,FDL:xdlFile)
-            foreach <structureNoplural> in <structurePlural>Data
+            foreach <structureNoplural> in <structurePlural>
                 store(chout,<structureNoplural>.SynergyRecord)
             close chout
 
     </IF>
     <IF STRUCTURE_RELATIVE>
-            data sourceFile = dataFile.ToLower().Replace(%atrim(fileExtension),".txt")
+            data sourceFile = dataFile.ToLower().Replace(".ddf",".txt")
             xcall copy(sourceFile,dataFile,1)
 
     </IF>
@@ -214,22 +212,20 @@ namespace <NAMESPACE>
         public static method load<StructurePlural>, @List<<StructureNoplural>>
         proc
             data dataFile = "<FILE_NAME>"
-            data fileExtension, a10
-            xcall parse(dataFile.ToLower(),1,,,,,fileExtension)
-            data textFile = dataFile.ToLower().Replace(%atrim(fileExtension),".txt")
+            data textFile = dataFile.ToLower().Replace(".ism",".txt")
             data <structureNoplural>Ch, int, 0
             data <structureNoplural>Rec, str<StructureNoplural>
-            data <structurePlural>Data = new List<<StructureNoplural>>()
+            data <structurePlural> = new List<<StructureNoplural>>()
             data grfa, a10
             open(<structureNoplural>Ch,i:s,textFile)
             repeat
             begin
                 reads(<structureNoplural>Ch,<structureNoplural>Rec,eof)
-                <structurePlural>Data.Add(new <StructureNoplural>(<structureNoplural>Rec, grfa))
+                <structurePlural>.Add(new <StructureNoplural>(<structureNoplural>Rec, grfa))
             end
         eof,
             close <structureNoplural>Ch
-            mreturn <structurePlural>Data
+            mreturn <structurePlural>
         endmethod
 
     </IF>

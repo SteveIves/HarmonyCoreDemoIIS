@@ -1,6 +1,5 @@
 <CODEGEN_FILENAME><INTERFACE_NAME>MethodStubs.dbl</CODEGEN_FILENAME>
 <REQUIRES_USERTOKEN>MODELS_NAMESPACE</REQUIRES_USERTOKEN>
-<REQUIRES_CODEGEN_VERSION>5.7.8</REQUIRES_CODEGEN_VERSION>
 ;//****************************************************************************
 ;//
 ;// Title:       InterfaceMethodStubs.tpl
@@ -53,11 +52,6 @@ import <MODELS_NAMESPACE>
 ;;--------------------------------------------------------------------------------------------------
 ;; <METHOD_ROUTINE><IF COMMENT> (<METHOD_COMMENT>)</IF>
 ;;
-<IF CUSTOM_METHOD_NO_STUB>
-;; Stub generation has been disabled for this method.
-;;
-
-<ELSE>
 <METHOD_ATTRIBUTE>
 ;;; <summary>
 ;;; <METHOD_COMMENT>
@@ -87,5 +81,4 @@ proc
 </IF>
 end<method_type>
 
-</IF>
 </METHOD_LOOP>

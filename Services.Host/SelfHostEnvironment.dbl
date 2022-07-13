@@ -166,72 +166,66 @@ namespace Services.Host
         proc
             data chout, int
             data dataFile, string
-            data fileExtension, a10
             data xdlFile, string
 
-            data customersData = loadCustomers()
-            data itemsData = loadItems()
-            data ordersData = loadOrders()
-            data orderItemsData = loadOrderItems()
-            data vendorsData = loadVendors()
+            data customers = loadCustomers()
+            data items = loadItems()
+            data orders = loadOrders()
+            data orderItems = loadOrderItems()
+            data vendors = loadVendors()
 
             ;;Create and load the customers file
 
             dataFile = "DAT:customers.ism"
-            xcall parse(dataFile.ToLower(),1,,,,,fileExtension)
-            xdlFile = "@" + dataFile.ToLower().Replace(%atrim(fileExtension),".xdl")
+            xdlFile = "@" + dataFile.ToLower().Replace(".ism",".xdl")
 
             data customer, @Customer
             open(chout=0,o:i,dataFile,FDL:xdlFile)
-            foreach customer in customersData
+            foreach customer in customers
                 store(chout,customer.SynergyRecord)
             close chout
 
             ;;Create and load the items file
 
             dataFile = "DAT:items.ism"
-            xcall parse(dataFile.ToLower(),1,,,,,fileExtension)
-            xdlFile = "@" + dataFile.ToLower().Replace(%atrim(fileExtension),".xdl")
+            xdlFile = "@" + dataFile.ToLower().Replace(".ism",".xdl")
 
             data item, @Item
             open(chout=0,o:i,dataFile,FDL:xdlFile)
-            foreach item in itemsData
+            foreach item in items
                 store(chout,item.SynergyRecord)
             close chout
 
             ;;Create and load the orders file
 
             dataFile = "DAT:orders.ism"
-            xcall parse(dataFile.ToLower(),1,,,,,fileExtension)
-            xdlFile = "@" + dataFile.ToLower().Replace(%atrim(fileExtension),".xdl")
+            xdlFile = "@" + dataFile.ToLower().Replace(".ism",".xdl")
 
             data order, @Order
             open(chout=0,o:i,dataFile,FDL:xdlFile)
-            foreach order in ordersData
+            foreach order in orders
                 store(chout,order.SynergyRecord)
             close chout
 
             ;;Create and load the orderItems file
 
             dataFile = "DAT:order_items.ism"
-            xcall parse(dataFile.ToLower(),1,,,,,fileExtension)
-            xdlFile = "@" + dataFile.ToLower().Replace(%atrim(fileExtension),".xdl")
+            xdlFile = "@" + dataFile.ToLower().Replace(".ism",".xdl")
 
             data orderItem, @OrderItem
             open(chout=0,o:i,dataFile,FDL:xdlFile)
-            foreach orderItem in orderItemsData
+            foreach orderItem in orderItems
                 store(chout,orderItem.SynergyRecord)
             close chout
 
             ;;Create and load the vendors file
 
             dataFile = "DAT:vendors.ism"
-            xcall parse(dataFile.ToLower(),1,,,,,fileExtension)
-            xdlFile = "@" + dataFile.ToLower().Replace(%atrim(fileExtension),".xdl")
+            xdlFile = "@" + dataFile.ToLower().Replace(".ism",".xdl")
 
             data vendor, @Vendor
             open(chout=0,o:i,dataFile,FDL:xdlFile)
-            foreach vendor in vendorsData
+            foreach vendor in vendors
                 store(chout,vendor.SynergyRecord)
             close chout
 
@@ -299,106 +293,96 @@ namespace Services.Host
         public static method loadCustomers, @List<Customer>
         proc
             data dataFile = "DAT:customers.ism"
-            data fileExtension, a10
-            xcall parse(dataFile.ToLower(),1,,,,,fileExtension)
-            data textFile = dataFile.ToLower().Replace(%atrim(fileExtension),".txt")
+            data textFile = dataFile.ToLower().Replace(".ism",".txt")
             data customerCh, int, 0
             data customerRec, strCustomer
-            data customersData = new List<Customer>()
+            data customers = new List<Customer>()
             data grfa, a10
             open(customerCh,i:s,textFile)
             repeat
             begin
                 reads(customerCh,customerRec,eof)
-                customersData.Add(new Customer(customerRec, grfa))
+                customers.Add(new Customer(customerRec, grfa))
             end
         eof,
             close customerCh
-            mreturn customersData
+            mreturn customers
         endmethod
 
         public static method loadItems, @List<Item>
         proc
             data dataFile = "DAT:items.ism"
-            data fileExtension, a10
-            xcall parse(dataFile.ToLower(),1,,,,,fileExtension)
-            data textFile = dataFile.ToLower().Replace(%atrim(fileExtension),".txt")
+            data textFile = dataFile.ToLower().Replace(".ism",".txt")
             data itemCh, int, 0
             data itemRec, strItem
-            data itemsData = new List<Item>()
+            data items = new List<Item>()
             data grfa, a10
             open(itemCh,i:s,textFile)
             repeat
             begin
                 reads(itemCh,itemRec,eof)
-                itemsData.Add(new Item(itemRec, grfa))
+                items.Add(new Item(itemRec, grfa))
             end
         eof,
             close itemCh
-            mreturn itemsData
+            mreturn items
         endmethod
 
         public static method loadOrders, @List<Order>
         proc
             data dataFile = "DAT:orders.ism"
-            data fileExtension, a10
-            xcall parse(dataFile.ToLower(),1,,,,,fileExtension)
-            data textFile = dataFile.ToLower().Replace(%atrim(fileExtension),".txt")
+            data textFile = dataFile.ToLower().Replace(".ism",".txt")
             data orderCh, int, 0
             data orderRec, strOrder
-            data ordersData = new List<Order>()
+            data orders = new List<Order>()
             data grfa, a10
             open(orderCh,i:s,textFile)
             repeat
             begin
                 reads(orderCh,orderRec,eof)
-                ordersData.Add(new Order(orderRec, grfa))
+                orders.Add(new Order(orderRec, grfa))
             end
         eof,
             close orderCh
-            mreturn ordersData
+            mreturn orders
         endmethod
 
         public static method loadOrderItems, @List<OrderItem>
         proc
             data dataFile = "DAT:order_items.ism"
-            data fileExtension, a10
-            xcall parse(dataFile.ToLower(),1,,,,,fileExtension)
-            data textFile = dataFile.ToLower().Replace(%atrim(fileExtension),".txt")
+            data textFile = dataFile.ToLower().Replace(".ism",".txt")
             data orderItemCh, int, 0
             data orderItemRec, strOrderItem
-            data orderItemsData = new List<OrderItem>()
+            data orderItems = new List<OrderItem>()
             data grfa, a10
             open(orderItemCh,i:s,textFile)
             repeat
             begin
                 reads(orderItemCh,orderItemRec,eof)
-                orderItemsData.Add(new OrderItem(orderItemRec, grfa))
+                orderItems.Add(new OrderItem(orderItemRec, grfa))
             end
         eof,
             close orderItemCh
-            mreturn orderItemsData
+            mreturn orderItems
         endmethod
 
         public static method loadVendors, @List<Vendor>
         proc
             data dataFile = "DAT:vendors.ism"
-            data fileExtension, a10
-            xcall parse(dataFile.ToLower(),1,,,,,fileExtension)
-            data textFile = dataFile.ToLower().Replace(%atrim(fileExtension),".txt")
+            data textFile = dataFile.ToLower().Replace(".ism",".txt")
             data vendorCh, int, 0
             data vendorRec, strVendor
-            data vendorsData = new List<Vendor>()
+            data vendors = new List<Vendor>()
             data grfa, a10
             open(vendorCh,i:s,textFile)
             repeat
             begin
                 reads(vendorCh,vendorRec,eof)
-                vendorsData.Add(new Vendor(vendorRec, grfa))
+                vendors.Add(new Vendor(vendorRec, grfa))
             end
         eof,
             close vendorCh
-            mreturn vendorsData
+            mreturn vendors
         endmethod
 
         private static method findRelativeFolderForAssembly, string

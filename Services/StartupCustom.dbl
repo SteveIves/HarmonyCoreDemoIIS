@@ -24,11 +24,6 @@ import Microsoft.AspNetCore.Hosting
 import Microsoft.AspNetCore.Http
 import Microsoft.AspNetCore.Mvc.Abstractions
 import Microsoft.AspNetCore.StaticFiles
-import Microsoft.AspNet.OData
-import Microsoft.AspNet.OData.Extensions
-import Microsoft.AspNet.OData.Builder
-import Microsoft.AspNet.OData.Routing
-import Microsoft.AspNet.OData.Routing.Conventions
 import Microsoft.EntityFrameworkCore
 import Microsoft.Extensions.Configuration
 import Microsoft.Extensions.DependencyInjection

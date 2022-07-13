@@ -1,5 +1,5 @@
 <CODEGEN_FILENAME><StructurePlural>ControllerPropertyEndpoints.dbl</CODEGEN_FILENAME>
-<REQUIRES_CODEGEN_VERSION>5.7.5</REQUIRES_CODEGEN_VERSION>
+<REQUIRES_CODEGEN_VERSION>5.5.2</REQUIRES_CODEGEN_VERSION>
 ;//****************************************************************************
 ;//
 ;// Title:       ODataControllerPropertyEndpoints.tpl
@@ -45,8 +45,11 @@
 ;; Any changes you make will be lost of the file is re-generated.
 ;;*****************************************************************************
 
-import Microsoft.AspNet.OData
-import Microsoft.AspNet.OData.Routing
+import Microsoft.AspNetCore.OData.Routing.Controllers
+import Microsoft.AspNetCore.OData.Routing.Attributes
+import Microsoft.AspNetCore.OData.Query
+import Microsoft.AspNetCore.OData.Results
+import Microsoft.AspNetCore.OData.Formatter
 import Microsoft.AspNetCore.Http
 import Microsoft.AspNetCore.Mvc
 
@@ -66,7 +69,7 @@ namespace <NAMESPACE>
 ;//
         <IF STRUCTURE_ISAM AND STRUCTURE_HAS_UNIQUE_PK AND NOTPKSEGMENT>
           <PRIMARY_KEY>
-        {ODataRoute("(<IF SINGLE_SEGMENT>{key}<ELSE><SEGMENT_LOOP><IF NOT SEG_TAG_EQUAL><FieldSqlName>={a<FieldSqlName>}<SEGMENT_COMMA_NOT_LAST_NORMAL_FIELD></IF SEG_TAG_EQUAL></SEGMENT_LOOP></IF SINGLE_SEGMENT>)/<FieldSqlName>")}
+        {HttpGet("<StructurePlural>(<IF SINGLE_SEGMENT>{key}<ELSE><SEGMENT_LOOP><IF NOT SEG_TAG_EQUAL><FieldSqlName>={a<FieldSqlName>}<,></IF SEG_TAG_EQUAL></SEGMENT_LOOP></IF SINGLE_SEGMENT>)/<FieldSqlName>")}
         {Produces("application/json")}
         {ProducesResponseType(StatusCodes.Status200OK)}
             <IF DEFINED_ENABLE_AUTHENTICATION>
@@ -80,11 +83,11 @@ namespace <NAMESPACE>
         ;;; Get the <FieldSqlName> property of a single <StructureNoplural>, by primary key.
         ;;; </summary>
             <IF SINGLE_SEGMENT>
-        ;;; <param name="key"><FIELD_DESC_DOUBLE></param>
+        ;;; <param name="key"><FIELD_DESC></param>
             <ELSE>
               <SEGMENT_LOOP>
                 <IF NOT SEG_TAG_EQUAL>
-        ;;; <param name="a<FieldSqlName>"><FIELD_DESC_DOUBLE></param>
+        ;;; <param name="a<FieldSqlName>"><FIELD_DESC></param>
                 </IF SEG_TAG_EQUAL>
               </SEGMENT_LOOP>
             </IF SINGLE_SEGMENT>
@@ -123,7 +126,7 @@ namespace <NAMESPACE>
 ;// RELATIVE
 ;//
         <IF STRUCTURE_RELATIVE>
-        {ODataRoute("({key})}
+        {HttpGet("<StructurePlural>({key})}
         {Produces("application/json")}
         {ProducesResponseType(StatusCodes.Status200OK)}
           <IF DEFINED_ENABLE_AUTHENTICATION>

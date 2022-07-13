@@ -1,5 +1,5 @@
 <CODEGEN_FILENAME><StructureNoplural>.dbl</CODEGEN_FILENAME>
-<REQUIRES_CODEGEN_VERSION>5.7.5</REQUIRES_CODEGEN_VERSION>
+<REQUIRES_CODEGEN_VERSION>5.4.6</REQUIRES_CODEGEN_VERSION>
 <REQUIRES_OPTION>TF</REQUIRES_OPTION>
 <CODEGEN_FOLDER>Models</CODEGEN_FOLDER>
 ;//****************************************************************************
@@ -58,7 +58,7 @@ namespace <NAMESPACE>
 <FIELD_LOOP>
   <IF CUSTOM_NOT_HARMONY_EXCLUDE>
         ;;; <summary>
-        ;;; <FIELD_DESC_DOUBLE>
+        ;;; <FIELD_DESC>
         ;;; </summary>
     <IF CUSTOM_HARMONY_AS_STRING>
         public readwrite property <FieldSqlname>, String
@@ -131,7 +131,7 @@ namespace <NAMESPACE>
 
     endclass
 
-    public class OData<StructureNoplural>Single
+    public class OData<StructureNoplural>
         
         {JsonProperty("odata.metadata")}
         public readwrite property Metadata, string
@@ -141,7 +141,7 @@ namespace <NAMESPACE>
 
     endclass
 
-    public class OData<StructurePlural>Multiple
+    public class OData<StructurePlural>
         
         {JsonProperty("odata.metadata")}
         public readwrite property Metadata, string

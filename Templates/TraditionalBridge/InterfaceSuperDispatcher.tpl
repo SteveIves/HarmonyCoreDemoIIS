@@ -1,5 +1,5 @@
 <CODEGEN_FILENAME>MethodDispatcher.dbl</CODEGEN_FILENAME>
-<REQUIRES_CODEGEN_VERSION>5.8.5</REQUIRES_CODEGEN_VERSION>
+<REQUIRES_CODEGEN_VERSION>5.6.7</REQUIRES_CODEGEN_VERSION>
 ;//****************************************************************************
 ;//
 ;// Title:       InterfaceSuperDispatcher.tpl
