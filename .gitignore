@@ -8,6 +8,8 @@
 *.exe.config
 *.g.resources
 *.in
+*.ism
+*.is1
 *.log
 *.nupkg
 *.pdb
