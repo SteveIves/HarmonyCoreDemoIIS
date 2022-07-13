@@ -6,7 +6,7 @@
 ;//
 ;// Type:        CodeGen Template
 ;//
-;// Description: Generates a test context class with static values that can
+;// Description: Generates a test context class with values that can
 ;//              be used to feed data into unit tests.
 ;//
 ;// Copyright (c) 2018, Synergex International, Inc. All rights reserved.
@@ -37,7 +37,7 @@
 ;;
 ;; Title:       TestConstants.Properties.dbl
 ;;
-;; Description: Test context class with static values that can be used to feed
+;; Description: Test context class with values that can be used to feed
 ;;              data into unit tests.
 ;;
 ;;*****************************************************************************
@@ -47,31 +47,80 @@
 ;;*****************************************************************************
 
 import Microsoft.VisualStudio.TestTools.UnitTesting
-import Newtonsoft.Json
+import System.Text.Json
 import System.Collections.Generic
 import System.Net.Http
+import System.Threading
+import System.IO
 
 namespace <NAMESPACE>
 
-    public static partial class TestConstants
+    public sealed class TestConstants
+        private static readonly lockObject, @Object, new Object()
+
+        private static instance, @TestConstants, ^null
+        public static property Instance, @TestConstants
+            method get
+            proc
+                try
+                begin
+                    Monitor.Enter(lockObject)
+                    begin
+                        if (instance == ^null)
+                        begin
+                            try
+                            begin
+                                data filePath = Path.Combine(UnitTestEnvironment.FindRelativeFolderForAssembly("<NAMESPACE>"), "TestConstants.Values.json")
+                                if (File.Exists(filePath)) then
+                                    instance = JsonSerializer.Deserialize<TestConstants>(File.ReadAllText(filePath))
+                                else
+                                begin
+                                    Console.WriteLine("No JSON file found here: {0}{1}Creating a new JSON file", filePath, Environment.NewLine)
+                                    instance = new TestConstants()
+                                end
+                            end
+                            catch (e, @JsonException)
+                            begin
+                                Console.WriteLine(e)
+                                instance = new TestConstants()
+                            end
+                            endtry
+                        end
+                        mreturn instance
+                    end
+                end
+                finally
+                begin
+                    Monitor.Exit(lockObject)
+                end
+                endtry
+            endmethod
+        endproperty
+
+        private method TestConstants
+        proc
+        endmethod
+
 <STRUCTURE_LOOP>
   <IF STRUCTURE_ISAM>
 
         ;;------------------------------------------------------------
         ;;Test data for <StructureNoplural>
 ;//
-;// ENABLE_GET_ALL
+;// GET ALL
 ;//
-    <IF DEFINED_ENABLE_GET_ALL>
+    <IF DEFINED_ENABLE_GET_ALL AND GET_ALL_ENDPOINT>
         ;;
-        public static readwrite property Get<StructurePlural>_Count, int
+        public readwrite property Get<StructurePlural>_Count, int
+;//
+    </IF DEFINED_ENABLE_GET_ALL>
 ;//
 ;// ENABLE_GET_ONE
 ;//
     <IF DEFINED_ENABLE_GET_ONE>
       <PRIMARY_KEY>
         <SEGMENT_LOOP>
-        public static readwrite property Get<StructureNoplural>_<SegmentName>, <SEGMENT_SNTYPE>
+        public readwrite property Get<StructureNoplural>_<SegmentName>, <SEGMENT_SNTYPE>
         </SEGMENT_LOOP>
       </PRIMARY_KEY>
       <IF DEFINED_ENABLE_RELATIONS>
@@ -79,20 +128,18 @@ namespace <NAMESPACE>
           <RELATION_LOOP_RESTRICTED>
             <PRIMARY_KEY>
               <SEGMENT_LOOP>
-        public static readwrite property Get<StructureNoplural>_Expand_<HARMONYCORE_RELATION_NAME>_<SegmentName>, <SEGMENT_SNTYPE>
+        public readwrite property Get<StructureNoplural>_Expand_<HARMONYCORE_RELATION_NAME>_<SegmentName>, <SEGMENT_SNTYPE>
               </SEGMENT_LOOP>
             </PRIMARY_KEY>
           </RELATION_LOOP_RESTRICTED>
 ;//
           <PRIMARY_KEY>
             <SEGMENT_LOOP>
-        public static readwrite property Get<StructureNoplural>_Expand_All_<SegmentName>, <SEGMENT_SNTYPE>
+        public readwrite property Get<StructureNoplural>_Expand_All_<SegmentName>, <SEGMENT_SNTYPE>
             </SEGMENT_LOOP>
           </PRIMARY_KEY>
         </IF STRUCTURE_RELATIONS>
       </IF DEFINED_ENABLE_RELATIONS>
-;//
-    </IF DEFINED_ENABLE_GET_ALL>
 ;//
     </IF DEFINED_ENABLE_GET_ONE>
 ;//
@@ -100,16 +147,18 @@ namespace <NAMESPACE>
 ;//
 ;//
   <ALTERNATE_KEY_LOOP_UNIQUE>
+  <IF DUPLICATES>
     <SEGMENT_LOOP>
-        public static readwrite property Get<StructureNoplural>_ByAltKey_<KeyName>_<SegmentName>, <SEGMENT_SNTYPE>
+        public readwrite property Get<StructureNoplural>_ByAltKey_<KeyName>_<SegmentName>, <SEGMENT_SNTYPE>
     </SEGMENT_LOOP>
+  </IF DUPLICATES>
   </ALTERNATE_KEY_LOOP_UNIQUE>
 ;//
 ;//
 ;//
   <PRIMARY_KEY>
     <SEGMENT_LOOP>
-        public static readwrite property Update<StructureNoplural>_<SegmentName>, <SEGMENT_SNTYPE>
+        public readwrite property Update<StructureNoplural>_<SegmentName>, <SEGMENT_SNTYPE>
     </SEGMENT_LOOP>
   </PRIMARY_KEY>
   </IF STRUCTURE_ISAM>

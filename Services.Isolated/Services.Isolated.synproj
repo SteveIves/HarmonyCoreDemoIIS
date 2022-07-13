@@ -8,7 +8,7 @@
     <ProjectGuid>{15223F07-0941-46E8-9C2F-9924D7FFA678}</ProjectGuid>
     <EnableCommonProperties>True</EnableCommonProperties>
     <Prefer32Bit>False</Prefer32Bit>
-  </PropertyGroup>
+  <GenerateMvcApplicationPartsAssemblyAttributes>false</GenerateMvcApplicationPartsAssemblyAttributes></PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <OutputPath>$(EXE)</OutputPath>
     <UnevaluatedOutputPath>$(EXE)</UnevaluatedOutputPath>
@@ -19,10 +19,10 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Harmony.Core">
-      <Version>3.1.273</Version>
+      <Version>3.1.463</Version>
     </PackageReference>
-    <PackageReference Include="Synergex.SynergyDE.Build" Version="11.1.1060.2805" />
-    <PackageReference Include="Synergex.SynergyDE.synrnt" Version="11.1.1060" />
+    <PackageReference Include="Synergex.SynergyDE.Build" Version="11.1.1070.3107" />
+    <PackageReference Include="Synergex.SynergyDE.synrnt" Version="11.1.1070" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IsolatedMethods.dbl" />

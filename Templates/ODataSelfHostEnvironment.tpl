@@ -79,7 +79,7 @@ namespace <NAMESPACE>
             deleteFiles()
             createFiles()
 
-</IF DEFINED_ENABLE_CREATE_TEST_FILES>
+</IF>
             ;;If we have an InitializeCustom method, call it
             InitializeCustom()
 
@@ -98,7 +98,7 @@ namespace <NAMESPACE>
             ;;Delete the data files
             deleteFiles()
 
-</IF DEFINED_ENABLE_CREATE_TEST_FILES>
+</IF>
             ;;If we have a CleanupCustom method, call it
             CleanupCustom()
 
@@ -116,7 +116,7 @@ namespace <NAMESPACE>
             Startup.LogicalNames = new List<string>()
             data logical = String.Empty
             data fileSpec = String.Empty
-            <STRUCTURE_LOOP>
+<STRUCTURE_LOOP>
 
             fileSpec = "<FILE_NAME>"
             if (fileSpec.Contains(":")) then
@@ -130,12 +130,12 @@ namespace <NAMESPACE>
                 if (!Startup.LogicalNames.Contains(fileSpec))
                     Startup.LogicalNames.Add(fileSpec)
             end
-            </STRUCTURE_LOOP>
+</STRUCTURE_LOOP>
 
             ;;If we have a SetLogicalsCustom method, call it
             SetLogicalsCustom(Startup.LogicalNames)
 
-<IF NOT_DEFINED_DO_NOT_SET_FILE_LOGICALS>
+<IF NOT DEFINED_DO_NOT_SET_FILE_LOGICALS>
             ;;Now we'll check each logical. If it already has a value we'll do nothing, otherwise
             ;;we'll set the logical to point to the local folder whose name is identified by the
             ;;user-defined token DATA_FOLDER
@@ -152,7 +152,7 @@ namespace <NAMESPACE>
                 end
             end
 
-</IF NOT_DEFINED_DO_NOT_SET_FILE_LOGICALS>
+</IF>
         endmethod
 
 <IF DEFINED_ENABLE_CREATE_TEST_FILES>
@@ -160,39 +160,41 @@ namespace <NAMESPACE>
         proc
             data chout, int
             data dataFile, string
+            data fileExtension, a10
             data xdlFile, string
 
-            <STRUCTURE_LOOP>
-            <IF STRUCTURE_ISAM>
-            data <structurePlural> = load<StructurePlural>()
-            </IF STRUCTURE_ISAM>
-            </STRUCTURE_LOOP>
+  <STRUCTURE_LOOP>
+    <IF STRUCTURE_ISAM>
+            data <structurePlural>Data = load<StructurePlural>()
+    </IF>
+  </STRUCTURE_LOOP>
 
-            <STRUCTURE_LOOP>
+  <STRUCTURE_LOOP>
             ;;Create and load the <structurePlural> file
 
             dataFile = "<FILE_NAME>"
-<IF STRUCTURE_ISAM>
-            xdlFile = "@" + dataFile.ToLower().Replace(".ism",".xdl")
+            xcall parse(dataFile.ToLower(),1,,,,,fileExtension)
+    <IF STRUCTURE_ISAM>
+            xdlFile = "@" + dataFile.ToLower().Replace(%atrim(fileExtension),".xdl")
 
             data <structureNoplural>, @<StructureNoplural>
             open(chout=0,o:i,dataFile,FDL:xdlFile)
-            foreach <structureNoplural> in <structurePlural>
+            foreach <structureNoplural> in <structurePlural>Data
                 store(chout,<structureNoplural>.SynergyRecord)
             close chout
 
-</IF STRUCTURE_ISAM>
-<IF STRUCTURE_RELATIVE>
-            data sourceFile = dataFile.ToLower().Replace(".ddf",".txt")
+    </IF>
+    <IF STRUCTURE_RELATIVE>
+            data sourceFile = dataFile.ToLower().Replace(%atrim(fileExtension),".txt")
             xcall copy(sourceFile,dataFile,1)
 
-</IF STRUCTURE_RELATIVE>
-            </STRUCTURE_LOOP>
+    </IF>
+  </STRUCTURE_LOOP>
         endmethod
 
         private static method deleteFiles, void
         proc
-            <STRUCTURE_LOOP>
+  <STRUCTURE_LOOP>
             ;;Delete the <structurePlural> file
             try
             begin
@@ -204,33 +206,35 @@ namespace <NAMESPACE>
             end
             endtry
 
-            </STRUCTURE_LOOP>
+  </STRUCTURE_LOOP>
         endmethod
 
-        <STRUCTURE_LOOP>
-        <IF STRUCTURE_ISAM>
+  <STRUCTURE_LOOP>
+    <IF STRUCTURE_ISAM>
         public static method load<StructurePlural>, @List<<StructureNoplural>>
         proc
             data dataFile = "<FILE_NAME>"
-            data textFile = dataFile.ToLower().Replace(".ism",".txt")
+            data fileExtension, a10
+            xcall parse(dataFile.ToLower(),1,,,,,fileExtension)
+            data textFile = dataFile.ToLower().Replace(%atrim(fileExtension),".txt")
             data <structureNoplural>Ch, int, 0
             data <structureNoplural>Rec, str<StructureNoplural>
-            data <structurePlural> = new List<<StructureNoplural>>()
+            data <structurePlural>Data = new List<<StructureNoplural>>()
             data grfa, a10
             open(<structureNoplural>Ch,i:s,textFile)
             repeat
             begin
                 reads(<structureNoplural>Ch,<structureNoplural>Rec,eof)
-                <structurePlural>.Add(new <StructureNoplural>(<structureNoplural>Rec, grfa))
+                <structurePlural>Data.Add(new <StructureNoplural>(<structureNoplural>Rec, grfa))
             end
         eof,
             close <structureNoplural>Ch
-            mreturn <structurePlural>
+            mreturn <structurePlural>Data
         endmethod
 
-        </IF STRUCTURE_ISAM>
-        </STRUCTURE_LOOP>
-</IF DEFINED_ENABLE_CREATE_TEST_FILES>
+    </IF>
+  </STRUCTURE_LOOP>
+</IF>
         private static method findRelativeFolderForAssembly, string
             folderName, string
         proc

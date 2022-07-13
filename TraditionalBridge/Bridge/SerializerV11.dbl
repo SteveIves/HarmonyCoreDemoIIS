@@ -28,6 +28,14 @@ namespace Json
             jsonWriter = Utf8JsonWriter.CreateUtf8JsonWriter(buffer)
         endmethod
 
+        public method CurrentOutChannel, int
+        proc
+            if(outStream .is. @ChannelOutputStream) then
+                mreturn ((@ChannelOutputStream)outStream).Channel
+            else
+                mreturn -1
+        endmethod
+
 .region "Serialization methods"
         public method OutputScopeOpen, void
         proc
@@ -82,7 +90,7 @@ namespace Json
                 messageLength, int
             endrecord
         proc
-			
+            
             ;;clear and reset utf8jsonwriter
             jsonWriter.Flush()
             message = buffer.ToString()
@@ -103,10 +111,10 @@ namespace Json
             end
             else 
                 outStream.FlushData("Content-Length:" + %string(messageLength) + %char(13) + %char(10) + %char(13) + %char(10))
-			
+            
             MaybeLog(6, "Serializer: " + message)
             outStream.FlushData(message)
-			
+            
         endmethod
 
 .endregion
@@ -118,6 +126,11 @@ namespace Json
             stream, @OutputStream
             parent(stream)
         proc
+        endmethod
+
+        public method MakeRequestSerializer, @DispatchSerializer
+        proc
+            mreturn new DispatchSerializer(outStream)
         endmethod
 
         public method ArgumentData, void
@@ -207,7 +220,6 @@ namespace Json
             jsonWriter.WriteStartObject()
             jsonWriter.WriteNumber("Position", argPos)
             jsonWriter.WriteStartObject("Value")
-			
             jsonWriter.WriteNumber("DataType", (i)FieldDataType.DecimalField)
             jsonWriter.WriteNumber("PassedValue", ^d(value, 0))
             jsonWriter.WriteEndObject()
@@ -225,7 +237,7 @@ namespace Json
             jsonWriter.WriteStartObject()
             jsonWriter.WriteNumber("Position", argPos)
             jsonWriter.WriteStartObject("Value")
-			
+            
             jsonWriter.WriteNumber("DataType", (i)FieldDataType.ImpliedDecimal)
             jsonWriter.WriteNumber("ElementSize", size)
             jsonWriter.WriteNumber("DecimalPrecision", precision)
@@ -241,13 +253,21 @@ namespace Json
             optional in size, int
             optional in precision, int
             optional in hasBinaryData, boolean
+            record
+                typeOverride, i4
         proc
+            if(^passed(type)) then
+                typeOverride = (i)type
+            else
+                typeOverride = (i)FieldDataType.IntegerField
+
             jsonWriter.WriteStartObject()
             jsonWriter.WriteNumber("Position", argPos)
             jsonWriter.WriteStartObject("Value")
-			
-            jsonWriter.WriteNumber("DataType", (i)FieldDataType.IntegerField)
+            
+            jsonWriter.WriteNumber("DataType", typeOverride)
             jsonWriter.WriteNumber("PassedValue", value)
+            
             jsonWriter.WriteEndObject()
             jsonWriter.WriteEndObject()
         endmethod
@@ -513,7 +533,7 @@ namespace Json
             end
             else if (type == FieldDataType.DataObjectCollectionField) then
             begin
-				
+                
                 jsonWriter.WriteString("ElementType", structureName)
                 jsonWriter.WriteBoolean("ElementIsEncoded", binaryData)
 
@@ -532,7 +552,7 @@ namespace Json
                     end
                 end
                 jsonWriter.WriteEndArray()
-				
+                
             end
             else
                 throw new Exception("Invalid type for stucture")
@@ -601,7 +621,7 @@ namespace Json
 
         proc
             MaybeLog(4, "serializing argument handle data, elementSize was " + %string(elementSize) + " element count was " + %string(elementCount) + " handle length was " + %string(^size(^m(value))))
-			
+            
             jsonWriter.WriteStartObject()
             jsonWriter.WriteNumber("Position", argPos)
             jsonWriter.WriteStartObject("Value")
@@ -669,6 +689,33 @@ namespace Json
         endmethod
 
         public method ReportResponseEpilog, void
+        proc
+            ;;Terminate the "ReturnParameters" array
+            jsonWriter.WriteEndArray()
+
+            ;;Terminate the "Result" object
+            jsonWriter.WriteEndObject()
+        endmethod
+
+        public method ReportRequestProlog, void
+            hasId, boolean
+            requestId, i4
+            methodName, @string
+
+        proc
+            jsonWriter.WriteStartObject()
+            jsonWriter.WriteString("jsonrpc", "2.0")
+
+            if(hasId) then
+                jsonWriter.WriteNumber("id", requestId)
+            else
+                jsonWriter.WriteNull("id")
+
+            jsonWriter.WriteString("method", methodName)
+            jsonWriter.WriteStartArray("params")
+        endmethod
+
+        public method ReportRequestEpilog, void
         proc
             ;;Terminate the "ReturnParameters" array
             jsonWriter.WriteEndArray()

@@ -1,9 +1,9 @@
-<CODEGEN_FILENAME><INTERFACE_NAME>MethodDispachers.dbl</CODEGEN_FILENAME>
+<CODEGEN_FILENAME><INTERFACE_NAME>MethodDispatchers.dbl</CODEGEN_FILENAME>
 <REQUIRES_USERTOKEN>MODELS_NAMESPACE</REQUIRES_USERTOKEN>
-<REQUIRES_CODEGEN_VERSION>5.4.6</REQUIRES_CODEGEN_VERSION>
+<REQUIRES_CODEGEN_VERSION>5.8.5</REQUIRES_CODEGEN_VERSION>
 ;//****************************************************************************
 ;//
-;// Title:       MethodDispachers.tpl
+;// Title:       MethodDispatchers.tpl
 ;//
 ;// Type:        CodeGen Template
 ;//
@@ -35,7 +35,7 @@
 ;//
 ;;*****************************************************************************
 ;;
-;; Title:       <INTERFACE_NAME>MethodDispachers.dbl
+;; Title:       <INTERFACE_NAME>MethodDispatchers.dbl
 ;;
 ;; Description: Dispatcher classes for exposed methods
 ;;
@@ -81,7 +81,7 @@ namespace <NAMESPACE>.<INTERFACE_NAME>
             <PARAMETER_LOOP>
             <IF STRUCTURE>
             <IF FIRST_INSTANCE_OF_STRUCTURE>
-            m<ParameterStructureNoplural>Metadata = DataObjectMetadataBase.LookupType("<ParameterStructureNoplural>")
+            m<ParameterStructureNoplural>Metadata = DataObjectMetadataBase.LookupType("<HARMONYCORE_BRIDGE_PARAMETER_DATAOBJECT>")
             </IF FIRST_INSTANCE_OF_STRUCTURE>
             </IF STRUCTURE>
             </PARAMETER_LOOP>
@@ -104,7 +104,7 @@ namespace <NAMESPACE>.<INTERFACE_NAME>
 ;//=========================================================================================================================
 ;// Declare variables for arguments
 ;//
-                ;;Argument <COUNTER_1_VALUE> (<PARAMETER_REQUIRED> <PARAMETER_DIRECTION> <PARAMETER_NAME> <IF COLLECTION_ARRAY>[*]</IF COLLECTION_ARRAY><IF COLLECTION_HANDLE>memory handle collection of </IF COLLECTION_HANDLE><IF COLLECTION_ARRAYLIST>ArrayList collection of </IF COLLECTION_ARRAYLIST><IF STRUCTURE>structure </IF STRUCTURE><IF ENUM>enum </IF ENUM><IF STRUCTURE>@<ParameterStructureNoplural><ELSE><PARAMETER_DEFINITION></IF STRUCTURE><IF DATE> <PARAMETER_DATE_FORMAT> date</IF DATE><IF TIME> <PARAMETER_DATE_FORMAT> time</IF TIME><IF REFERENCE> passed by REFERENCE</IF REFERENCE><IF VALUE> passed by VALUE</IF VALUE><IF DATATABLE> returned as DataTable</IF DATATABLE>)
+                ;;Argument <COUNTER_1_VALUE> (<PARAMETER_REQUIRED> <PARAMETER_DIRECTION> <PARAMETER_NAME> <IF COLLECTION_HANDLE>memory handle collection of </IF COLLECTION_HANDLE><IF COLLECTION_ARRAYLIST>ArrayList collection of </IF COLLECTION_ARRAYLIST><IF STRUCTURE>structure </IF STRUCTURE><IF ENUM>enum </IF ENUM><IF STRUCTURE>@<ParameterStructureNoplural><ELSE><PARAMETER_DEFINITION></IF STRUCTURE><IF DATE> <PARAMETER_DATE_FORMAT> date</IF DATE><IF TIME> <PARAMETER_DATE_FORMAT> time</IF TIME><IF REFERENCE> passed by REFERENCE</IF REFERENCE><IF VALUE> passed by VALUE</IF VALUE><IF DATATABLE> returned as DataTable</IF DATATABLE>)
     <IF COLLECTION>
                 arg<COUNTER_1_VALUE>Array,          JSON_ELEMENT
         <IF COLLECTION_ARRAY>
@@ -121,10 +121,10 @@ namespace <NAMESPACE>.<INTERFACE_NAME>
     <ELSE>
         <IF STRUCTURE>
                 arg<COUNTER_1_VALUE>DataObject,     @DataObjectBase
-                arg<COUNTER_1_VALUE>,               str<ParameterStructureNoplural>
+                arg<COUNTER_1_VALUE>,               <ParameterStructureNoplural>
         <ELSE HANDLE OR BINARY_HANDLE>
                 arg<COUNTER_1_VALUE>Array,          JSON_ELEMENT
-                arg<COUNTER_1_VALUE>Handle,         <parameter_definition>
+                arg<COUNTER_1_VALUE>Handle,         <PARAMETER_DEFINITION>
         <ELSE>
                 arg<COUNTER_1_VALUE>,               <HARMONYCORE_BRIDGE_PARAMETER_DEFINITION>
         </IF>
@@ -146,7 +146,7 @@ namespace <NAMESPACE>.<INTERFACE_NAME>
             <IF COLLECTION_ARRAY>
             ;;Temp structure tempstr<COUNTER_1_VALUE>
             structure tempstr<COUNTER_1_VALUE>
-                arry, <IF STRUCTURE>@<ParameterStructureNoplural><ELSE>[1]<PARAMETER_DEFINITION></IF STRUCTURE>
+                arry, <IF STRUCTURE>@<ParameterStructureNoplural><ELSE><PARAMETER_DEFINITION_NOARRAY></IF STRUCTURE>
             endstructure
 
             </IF COLLECTION_ARRAY>
@@ -164,7 +164,7 @@ namespace <NAMESPACE>.<INTERFACE_NAME>
 ;//
 
             ;;------------------------------------------------------------
-            ;;Process inbound arguments
+            ;;Prepare variables for arguments
 
 <IF COUNTER_1>
             arguments = callFrame.GetProperty("params")
@@ -252,11 +252,9 @@ namespace <NAMESPACE>.<INTERFACE_NAME>
             arg<COUNTER_1_VALUE>Handle = %mem_proc(DM_ALLOC,4)
         <ELSE COLLECTION>
             <IF COLLECTION_HANDLE OR COLLECTION_ARRAY>
-            <IF STRUCTURE>
             arg<COUNTER_1_VALUE>Handle = %mem_proc(DM_ALLOC,<PARAMETER_SIZE>)
-            <ELSE>
-            arg<COUNTER_1_VALUE>Handle = %mem_proc(DM_ALLOC,1)
-            </IF>
+            <ELSE COLLECTION_ARRAYLIST>
+            arg<COUNTER_1_VALUE> = new ArrayList()
             </IF>
         </IF>
     </IF IN_OR_INOUT>
@@ -269,7 +267,7 @@ namespace <NAMESPACE>.<INTERFACE_NAME>
             ;;------------------------------------------------------------
             ;; Call the underlying routine
 
-            <IF SUBROUTINE>xcall <ELSE>returnValue = %</IF SUBROUTINE><METHOD_ROUTINE>(<COUNTER_1_RESET><PARAMETER_LOOP><COUNTER_1_INCREMENT><IF HANDLE OR BINARY_HANDLE>arg<COUNTER_1_VALUE>Handle<,><ELSE><IF COLLECTION><IF COLLECTION_ARRAY>^m(<IF STRUCTURE>str<ParameterStructureNoplural><ELSE>tempstr<COUNTER_1_VALUE>.arry</IF STRUCTURE>,arg<COUNTER_1_VALUE>Handle)<,></IF COLLECTION_ARRAY><IF COLLECTION_HANDLE>arg<COUNTER_1_VALUE>Handle<,></IF COLLECTION_HANDLE><IF COLLECTION_ARRAYLIST>arg<COUNTER_1_VALUE><,></IF COLLECTION_ARRAYLIST><ELSE>arg<COUNTER_1_VALUE><,></IF COLLECTION></IF></PARAMETER_LOOP>)
+            <IF SUBROUTINE>xcall <ELSE>returnValue = %</IF SUBROUTINE><METHOD_ROUTINE>(<COUNTER_1_RESET><PARAMETER_LOOP><COUNTER_1_INCREMENT><IF HANDLE OR BINARY_HANDLE>arg<COUNTER_1_VALUE>Handle<,><ELSE><IF COLLECTION><IF COLLECTION_ARRAY>^marray(<IF STRUCTURE><ParameterStructureNoplural><ELSE>tempstr<COUNTER_1_VALUE>.arry</IF STRUCTURE>,arg<COUNTER_1_VALUE>Handle)<,></IF COLLECTION_ARRAY><IF COLLECTION_HANDLE>arg<COUNTER_1_VALUE>Handle<,></IF COLLECTION_HANDLE><IF COLLECTION_ARRAYLIST>arg<COUNTER_1_VALUE><,></IF COLLECTION_ARRAYLIST><ELSE>arg<COUNTER_1_VALUE><,></IF COLLECTION></IF></PARAMETER_LOOP>)
 ;//
 ;//=========================================================================================================================
 ;// Build the JSON response
@@ -435,19 +433,19 @@ namespace <NAMESPACE>.<INTERFACE_NAME>
 ;//Structure array processing
 ;//
         <IF COLLECTION_ARRAY>
-            serializer.ArgumentHandleData(<COUNTER_1_VALUE>,arg<COUNTER_1_VALUE>Handle,FieldDataType.DataObjectCollectionField,<PARAMETER_SIZE>,"<PARAMETER_STRUCTURE>",%mem_proc(DM_GETSIZE,arg<COUNTER_1_VALUE>Handle)/<PARAMETER_SIZE>,true)
+            serializer.ArgumentHandleData(<COUNTER_1_VALUE>,arg<COUNTER_1_VALUE>Handle,FieldDataType.DataObjectCollectionField,<PARAMETER_SIZE>,"<STRUCTURE_NOALIAS>",%mem_proc(DM_GETSIZE,arg<COUNTER_1_VALUE>Handle)/<PARAMETER_SIZE>,true)
         </IF COLLECTION_ARRAY>
 ;//
 ;//Structure memory handle collection processing
 ;//
         <IF COLLECTION_HANDLE>
-            serializer.ArgumentHandleData(<COUNTER_1_VALUE>,arg<COUNTER_1_VALUE>Handle,FieldDataType.DataObjectCollectionField,<PARAMETER_SIZE>,"<PARAMETER_STRUCTURE>",%mem_proc(DM_GETSIZE,arg<COUNTER_1_VALUE>Handle)/<PARAMETER_SIZE>,true)
+            serializer.ArgumentHandleData(<COUNTER_1_VALUE>,arg<COUNTER_1_VALUE>Handle,FieldDataType.DataObjectCollectionField,<PARAMETER_SIZE>,"<STRUCTURE_NOALIAS>",%mem_proc(DM_GETSIZE,arg<COUNTER_1_VALUE>Handle)/<PARAMETER_SIZE>,true)
         </IF COLLECTION_HANDLE>
 ;//
 ;//Structure ArrayList processing
 ;//
         <IF COLLECTION_ARRAYLIST>
-            serializer.ArgumentData(<COUNTER_1_VALUE>,arg<COUNTER_1_VALUE>,FieldDataType.DataObjectCollectionField,<PARAMETER_SIZE>,"<PARAMETER_STRUCTURE>",true)
+            serializer.ArgumentData(<COUNTER_1_VALUE>,arg<COUNTER_1_VALUE>,FieldDataType.DataObjectCollectionField,<PARAMETER_SIZE>,"<STRUCTURE_NOALIAS>",true)
         </IF COLLECTION_ARRAYLIST>
 ;//
 ;//End of structure collection processing
@@ -457,7 +455,7 @@ namespace <NAMESPACE>.<INTERFACE_NAME>
 ;//Single structure processing
 ;//
             ;;Argument <COUNTER_1_VALUE>: Single <ParameterStructureNoplural> record
-            serializer.ArgumentData(<COUNTER_1_VALUE>,arg<COUNTER_1_VALUE>,FieldDataType.DataObjectField,<PARAMETER_SIZE>,"<PARAMETER_STRUCTURE>",true)
+            serializer.ArgumentData(<COUNTER_1_VALUE>,arg<COUNTER_1_VALUE>,FieldDataType.DataObjectField,<PARAMETER_SIZE>,"<STRUCTURE_NOALIAS>",true)
         </IF COLLECTION>
 ;//
     </IF STRUCTURE>
@@ -469,3 +467,12 @@ namespace <NAMESPACE>.<INTERFACE_NAME>
 </METHOD_LOOP>
 
 endnamespace
+
+;; This is here to ensure that the <MODELS_NAMESPACE> namespace exists.
+;; If the Synergy methods don't expsoe any structure or collection of structure
+;; parameters then there won't be anything in the Models folder, and the import above will fail.
+namespace <MODELS_NAMESPACE>
+    public class <INTERFACE_NAME>DummyModel
+    endclass
+endnamespace
+

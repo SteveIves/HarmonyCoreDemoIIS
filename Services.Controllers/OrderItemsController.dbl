@@ -108,6 +108,7 @@ namespace Services.Controllers
             data result = _DbContext.OrderItems.AsNoTracking().FindAlternate("ItemOrdered",aItemOrdered)
             if (result == ^null)
                 mreturn NotFound()
+
             mreturn Ok(result)
         endmethod
 
@@ -128,6 +129,7 @@ namespace Services.Controllers
             data result = _DbContext.OrderItems.AsNoTracking().FindAlternate("DateShipped",aDateShipped)
             if (result == ^null)
                 mreturn NotFound()
+
             mreturn Ok(result)
         endmethod
 
@@ -148,6 +150,7 @@ namespace Services.Controllers
             data result = _DbContext.OrderItems.AsNoTracking().FindAlternate("InvoiceNumber",aInvoiceNumber)
             if (result == ^null)
                 mreturn NotFound()
+
             mreturn Ok(result)
         endmethod
 
@@ -202,7 +205,6 @@ namespace Services.Controllers
         ;;; <summary>
         ;;; Create (with a client-supplied primary key) or replace a orderItem.
         ;;; </summary>
-
         ;;; <param name="aOrderNumber">Order number</param>
         ;;; <param name="aItemNumber">Line item number</param>
         ;;; <returns>Returns an IActionResult indicating the status of the operation and containing any data that was returned.</returns>
@@ -214,6 +216,7 @@ namespace Services.Controllers
             {FromBody}
             required in aOrderItem, @OrderItem
         proc
+
             ;; Validate inbound data
             if (!ModelState.IsValid)
                 mreturn ValidationHelper.ReturnValidationError(ModelState)

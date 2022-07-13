@@ -105,6 +105,7 @@ namespace Services.Controllers
             data result = _DbContext.Items.AsNoTracking().FindAlternate("VendorNumber",aVendorNumber)
             if (result == ^null)
                 mreturn NotFound()
+
             mreturn Ok(result)
         endmethod
 
@@ -125,6 +126,7 @@ namespace Services.Controllers
             data result = _DbContext.Items.AsNoTracking().FindAlternate("FlowerColor",aFlowerColor)
             if (result == ^null)
                 mreturn NotFound()
+
             mreturn Ok(result)
         endmethod
 
@@ -145,6 +147,7 @@ namespace Services.Controllers
             data result = _DbContext.Items.AsNoTracking().FindAlternate("Size",aSize)
             if (result == ^null)
                 mreturn NotFound()
+
             mreturn Ok(result)
         endmethod
 
@@ -165,6 +168,7 @@ namespace Services.Controllers
             data result = _DbContext.Items.AsNoTracking().FindAlternate("CommonName",aCommonName)
             if (result == ^null)
                 mreturn NotFound()
+
             mreturn Ok(result)
         endmethod
 
@@ -218,7 +222,6 @@ namespace Services.Controllers
         ;;; <summary>
         ;;; Create (with a client-supplied primary key) or replace a item.
         ;;; </summary>
-
         ;;; <param name="aItemNumber">Item number</param>
         ;;; <returns>Returns an IActionResult indicating the status of the operation and containing any data that was returned.</returns>
         public method PutItem, @IActionResult
@@ -227,6 +230,7 @@ namespace Services.Controllers
             {FromBody}
             required in aItem, @Item
         proc
+
             ;; Validate inbound data
             if (!ModelState.IsValid)
                 mreturn ValidationHelper.ReturnValidationError(ModelState)

@@ -1,16 +1,14 @@
 {
     "info": {
-        "_postman_id": "b75ca05e-5a66-4f05-b953-a1a686c6da4c",
+        "_postman_id": "3e042ada-38ba-464f-bb47-c8a90ca7c3a9",
         "name": "Harmony Core Sample API",
         "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
     },
     "item": [
         {
-            "_postman_id": "5ea39c21-62bc-41da-9cc9-262817962c69",
             "name": "Customer Tests",
             "item": [
                 {
-                    "_postman_id": "943a7cff-4cb0-4bb9-9d37-3040b1fa2999",
                     "name": "Read customers",
                     "request": {
                         "method": "GET",
@@ -25,17 +23,21 @@
                                 "type": "text"
                             }
                         ],
-                        "body": {
-                            "mode": "raw",
-                            "raw": ""
-                        },
                         "url": {
-                            "raw": "{{ServerBaseUri}}/Customers",
+                            "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/Customers?$top=3",
                             "host": [
                                 "{{ServerBaseUri}}"
                             ],
                             "path": [
+                                "{{ODataPath}}",
+                                "v{{ApiVersion}}",
                                 "Customers"
+                            ],
+                            "query": [
+                                {
+                                    "key": "$top",
+                                    "value": "3"
+                                }
                             ]
                         }
                     },
@@ -43,7 +45,6 @@
                 }
                 ,
                 {
-                    "_postman_id": "286b8e0e-241e-4d2f-855e-37a1e7eacef1",
                     "name": "Count customers",
                     "request": {
                         "method": "GET",
@@ -58,16 +59,14 @@
                                 "type": "text"
                             }
                         ],
-                        "body": {
-                            "mode": "raw",
-                            "raw": ""
-                        },
                         "url": {
-                            "raw": "{{ServerBaseUri}}/Customers/$count",
+                            "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/Customers/$count",
                             "host": [
                                 "{{ServerBaseUri}}"
                             ],
                             "path": [
+                                "{{ODataPath}}",
+                                "v{{ApiVersion}}",
                                 "Customers",
                                 "$count"
                             ]
@@ -77,7 +76,6 @@
                 }
                 ,
                 {
-                    "_postman_id": "a9ffea39-d281-4a9b-8be7-3a36c9d23a11",
                     "name": "Read customer",
                     "request": {
                     "method": "GET",
@@ -92,16 +90,14 @@
                             "type": "text"
                         }
                     ],
-                    "body": {
-                        "mode": "raw",
-                        "raw": ""
-                    },
                     "url": {
-                        "raw": "{{ServerBaseUri}}/Customers(CustomerNumber=123)",
+                        "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/Customers(CustomerNumber=123)",
                         "host": [
                             "{{ServerBaseUri}}"
                         ],
                         "path": [
+                            "{{ODataPath}}",
+                            "v{{ApiVersion}}",
                             "Customers(CustomerNumber=123)"
                         ]
                     }
@@ -110,7 +106,6 @@
                 }
                 ,
                 {
-                    "_postman_id": "d585d405-b2c4-4ff6-825f-ee7fd0531c19",
                     "name": "Read customers by State",
                     "request": {
                     "method": "GET",
@@ -125,16 +120,14 @@
                             "type": "text"
                         }
                     ],
-                    "body": {
-                        "mode": "raw",
-                        "raw": ""
-                    },
                     "url": {
-                        "raw": "{{ServerBaseUri}}/Customers(State='ABC')",
+                        "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/Customers(State='ABC')",
                         "host": [
                             "{{ServerBaseUri}}"
                         ],
                         "path": [
+                            "{{ODataPath}}",
+                            "v{{ApiVersion}}",
                             "Customers(State='ABC')"
                         ]
                     }
@@ -143,7 +136,6 @@
                 }
                 ,
                 {
-                    "_postman_id": "1e9da1fc-883a-491e-8a00-fa6ba0ba7dfd",
                     "name": "Count customers by State",
                     "request": {
                     "method": "GET",
@@ -158,16 +150,14 @@
                             "type": "text"
                         }
                     ],
-                    "body": {
-                        "mode": "raw",
-                        "raw": ""
-                    },
                     "url": {
-                        "raw": "{{ServerBaseUri}}/Customers(State='ABC')/$count",
+                        "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/Customers(State='ABC')/$count",
                         "host": [
                             "{{ServerBaseUri}}"
                         ],
                         "path": [
+                            "{{ODataPath}}",
+                            "v{{ApiVersion}}",
                             "Customers(State='ABC')",
                             "$count"
                         ]
@@ -177,7 +167,6 @@
                 }
                 ,
                 {
-                    "_postman_id": "0bbd48d7-1987-4278-b5b2-6e8555afc8f6",
                     "name": "Read customers by Zip",
                     "request": {
                     "method": "GET",
@@ -192,16 +181,14 @@
                             "type": "text"
                         }
                     ],
-                    "body": {
-                        "mode": "raw",
-                        "raw": ""
-                    },
                     "url": {
-                        "raw": "{{ServerBaseUri}}/Customers(ZipCode=123)",
+                        "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/Customers(ZipCode=123)",
                         "host": [
                             "{{ServerBaseUri}}"
                         ],
                         "path": [
+                            "{{ODataPath}}",
+                            "v{{ApiVersion}}",
                             "Customers(ZipCode=123)"
                         ]
                     }
@@ -210,7 +197,6 @@
                 }
                 ,
                 {
-                    "_postman_id": "d6c00ca5-3072-40c9-9b4d-bf093e6f67d9",
                     "name": "Count customers by Zip",
                     "request": {
                     "method": "GET",
@@ -225,16 +211,14 @@
                             "type": "text"
                         }
                     ],
-                    "body": {
-                        "mode": "raw",
-                        "raw": ""
-                    },
                     "url": {
-                        "raw": "{{ServerBaseUri}}/Customers(ZipCode=123)/$count",
+                        "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/Customers(ZipCode=123)/$count",
                         "host": [
                             "{{ServerBaseUri}}"
                         ],
                         "path": [
+                            "{{ODataPath}}",
+                            "v{{ApiVersion}}",
                             "Customers(ZipCode=123)",
                             "$count"
                         ]
@@ -244,7 +228,6 @@
                 }
                 ,
                 {
-                    "_postman_id": "5a4fbab6-c054-4aec-a040-0c7d71364157",
                     "name": "Read customers by PaymentTerms",
                     "request": {
                     "method": "GET",
@@ -259,16 +242,14 @@
                             "type": "text"
                         }
                     ],
-                    "body": {
-                        "mode": "raw",
-                        "raw": ""
-                    },
                     "url": {
-                        "raw": "{{ServerBaseUri}}/Customers(PaymentTermsCode='ABC')",
+                        "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/Customers(PaymentTermsCode='ABC')",
                         "host": [
                             "{{ServerBaseUri}}"
                         ],
                         "path": [
+                            "{{ODataPath}}",
+                            "v{{ApiVersion}}",
                             "Customers(PaymentTermsCode='ABC')"
                         ]
                     }
@@ -277,7 +258,6 @@
                 }
                 ,
                 {
-                    "_postman_id": "1c34b974-cf22-480b-a027-2927fd41d2e2",
                     "name": "Count customers by PaymentTerms",
                     "request": {
                     "method": "GET",
@@ -292,16 +272,14 @@
                             "type": "text"
                         }
                     ],
-                    "body": {
-                        "mode": "raw",
-                        "raw": ""
-                    },
                     "url": {
-                        "raw": "{{ServerBaseUri}}/Customers(PaymentTermsCode='ABC')/$count",
+                        "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/Customers(PaymentTermsCode='ABC')/$count",
                         "host": [
                             "{{ServerBaseUri}}"
                         ],
                         "path": [
+                            "{{ODataPath}}",
+                            "v{{ApiVersion}}",
                             "Customers(PaymentTermsCode='ABC')",
                             "$count"
                         ]
@@ -311,7 +289,6 @@
                 }
                 ,
                 {
-                    "_postman_id": "0bae3bd9-b60e-4296-9820-19fca25522b5",
                     "name": "Create customer (auto assign key)",
                     "request": {
                     "method": "POST",
@@ -331,8 +308,10 @@
                          "raw": "{\n    \"CustomerNumber\": 355232,\n    \"Name\": \"Abe's Nursery\",\n    \"Street\": \"1032 Main Street\",\n    \"City\": \"Springfield\",\n    \"State\": \"MO\",\n    \"ZipCode\": 64127,\n    \"Contact\": \"Abe Albright\",\n    \"Phone\": \"(555) 123-4567\",\n    \"Fax\": \"(555) 987-6543\",\n    \"FavoriteItem\": 7,\n    \"PaymentTermsCode\": \"30\",\n    \"TaxId\": 546874521,\n    \"CreditLimit\": 5000\n}"
                     },
                     "url": {
-                        "raw": "{{ServerBaseUri}}/Customers",
+                        "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/Customers",
                         "host": [
+                            "{{ODataPath}}",
+                            "v{{ApiVersion}}",
                             "{{ServerBaseUri}}"
                         ],
                         "path": [
@@ -344,7 +323,6 @@
                 }
                 ,
                 {
-                    "_postman_id": "482ceb21-bc7e-48e7-b9ee-70b888209c88",
                     "name": "Create or update customer",
                     "request": {
                     "method": "PUT",
@@ -364,11 +342,13 @@
                          "raw": "{\n    \"CustomerNumber\": 355232,\n    \"Name\": \"Abe's Nursery\",\n    \"Street\": \"1032 Main Street\",\n    \"City\": \"Springfield\",\n    \"State\": \"MO\",\n    \"ZipCode\": 64127,\n    \"Contact\": \"Abe Albright\",\n    \"Phone\": \"(555) 123-4567\",\n    \"Fax\": \"(555) 987-6543\",\n    \"FavoriteItem\": 7,\n    \"PaymentTermsCode\": \"30\",\n    \"TaxId\": 546874521,\n    \"CreditLimit\": 5000\n}"
                     },
                     "url": {
-                        "raw": "{{ServerBaseUri}}/Customers(CustomerNumber=123)",
+                        "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/Customers(CustomerNumber=123)",
                         "host": [
                             "{{ServerBaseUri}}"
                         ],
                         "path": [
+                            "{{ODataPath}}",
+                            "v{{ApiVersion}}",
                             "Customers(CustomerNumber=123)"
                         ]
                     }
@@ -396,11 +376,13 @@
                             "raw": "[\r\n  {\r\n    \"op\": \"replace\",\r\n    \"path\": \"PropertyName\",\r\n    \"value\": \"PropertyValue\"\r\n  }\r\n]"
                         },
                     "url": {
-                        "raw": "/Customers(CustomerNumber=123)",
+                        "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/Customers(CustomerNumber=123)",
                         "host": [
                             "{{ServerBaseUri}}"
                         ],
                         "path": [
+                            "{{ODataPath}}",
+                            "v{{ApiVersion}}",
                             "Customers(CustomerNumber=123)"
                         ]
                     }
@@ -409,7 +391,6 @@
                 }
                 ,
                 {
-                    "_postman_id": "31aead51-40e6-4f9d-9a17-1bab153a0d75",
                     "name": "Delete customer",
                     "request": {
                     "method": "DELETE",
@@ -429,11 +410,13 @@
                         "raw": ""
                     },
                     "url": {
-                        "raw": "{{ServerBaseUri}}/Customers(CustomerNumber=123)",
+                        "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/Customers(CustomerNumber=123)",
                         "host": [
                             "{{ServerBaseUri}}"
                         ],
                         "path": [
+                            "{{ODataPath}}",
+                            "v{{ApiVersion}}",
                             "Customers(CustomerNumber=123)"
                         ]
                     }
@@ -443,11 +426,9 @@
             ]
         },
         {
-            "_postman_id": "ad0bebe9-f2a3-46bd-a02c-946ce1980a2f",
             "name": "Item Tests",
             "item": [
                 {
-                    "_postman_id": "122f9007-d2e9-4115-8614-9e3ea107024b",
                     "name": "Read items",
                     "request": {
                         "method": "GET",
@@ -462,17 +443,21 @@
                                 "type": "text"
                             }
                         ],
-                        "body": {
-                            "mode": "raw",
-                            "raw": ""
-                        },
                         "url": {
-                            "raw": "{{ServerBaseUri}}/Items",
+                            "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/Items?$top=3",
                             "host": [
                                 "{{ServerBaseUri}}"
                             ],
                             "path": [
+                                "{{ODataPath}}",
+                                "v{{ApiVersion}}",
                                 "Items"
+                            ],
+                            "query": [
+                                {
+                                    "key": "$top",
+                                    "value": "3"
+                                }
                             ]
                         }
                     },
@@ -480,7 +465,6 @@
                 }
                 ,
                 {
-                    "_postman_id": "56d930a1-0897-46bd-9084-5685899f7e1e",
                     "name": "Count items",
                     "request": {
                         "method": "GET",
@@ -495,16 +479,14 @@
                                 "type": "text"
                             }
                         ],
-                        "body": {
-                            "mode": "raw",
-                            "raw": ""
-                        },
                         "url": {
-                            "raw": "{{ServerBaseUri}}/Items/$count",
+                            "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/Items/$count",
                             "host": [
                                 "{{ServerBaseUri}}"
                             ],
                             "path": [
+                                "{{ODataPath}}",
+                                "v{{ApiVersion}}",
                                 "Items",
                                 "$count"
                             ]
@@ -514,7 +496,6 @@
                 }
                 ,
                 {
-                    "_postman_id": "5f07d23d-1f54-4cfe-af19-b74819b25365",
                     "name": "Read item",
                     "request": {
                     "method": "GET",
@@ -529,16 +510,14 @@
                             "type": "text"
                         }
                     ],
-                    "body": {
-                        "mode": "raw",
-                        "raw": ""
-                    },
                     "url": {
-                        "raw": "{{ServerBaseUri}}/Items(ItemNumber=123)",
+                        "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/Items(ItemNumber=123)",
                         "host": [
                             "{{ServerBaseUri}}"
                         ],
                         "path": [
+                            "{{ODataPath}}",
+                            "v{{ApiVersion}}",
                             "Items(ItemNumber=123)"
                         ]
                     }
@@ -547,7 +526,6 @@
                 }
                 ,
                 {
-                    "_postman_id": "f9d2260a-cc13-43a9-9dfe-6453e096ae99",
                     "name": "Read items by VendorNumber",
                     "request": {
                     "method": "GET",
@@ -562,16 +540,14 @@
                             "type": "text"
                         }
                     ],
-                    "body": {
-                        "mode": "raw",
-                        "raw": ""
-                    },
                     "url": {
-                        "raw": "{{ServerBaseUri}}/Items(VendorNumber=123)",
+                        "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/Items(VendorNumber=123)",
                         "host": [
                             "{{ServerBaseUri}}"
                         ],
                         "path": [
+                            "{{ODataPath}}",
+                            "v{{ApiVersion}}",
                             "Items(VendorNumber=123)"
                         ]
                     }
@@ -580,7 +556,6 @@
                 }
                 ,
                 {
-                    "_postman_id": "1e007dfe-80c8-4a97-9a4a-15d6e84b11a7",
                     "name": "Count items by VendorNumber",
                     "request": {
                     "method": "GET",
@@ -595,16 +570,14 @@
                             "type": "text"
                         }
                     ],
-                    "body": {
-                        "mode": "raw",
-                        "raw": ""
-                    },
                     "url": {
-                        "raw": "{{ServerBaseUri}}/Items(VendorNumber=123)/$count",
+                        "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/Items(VendorNumber=123)/$count",
                         "host": [
                             "{{ServerBaseUri}}"
                         ],
                         "path": [
+                            "{{ODataPath}}",
+                            "v{{ApiVersion}}",
                             "Items(VendorNumber=123)",
                             "$count"
                         ]
@@ -614,7 +587,6 @@
                 }
                 ,
                 {
-                    "_postman_id": "0555c874-0c0b-4661-9838-981e0d1c3bdd",
                     "name": "Read items by Color",
                     "request": {
                     "method": "GET",
@@ -629,16 +601,14 @@
                             "type": "text"
                         }
                     ],
-                    "body": {
-                        "mode": "raw",
-                        "raw": ""
-                    },
                     "url": {
-                        "raw": "{{ServerBaseUri}}/Items(FlowerColor='ABC')",
+                        "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/Items(FlowerColor='ABC')",
                         "host": [
                             "{{ServerBaseUri}}"
                         ],
                         "path": [
+                            "{{ODataPath}}",
+                            "v{{ApiVersion}}",
                             "Items(FlowerColor='ABC')"
                         ]
                     }
@@ -647,7 +617,6 @@
                 }
                 ,
                 {
-                    "_postman_id": "212ee3c4-aad7-49b9-ae4f-b5cdc045e554",
                     "name": "Count items by Color",
                     "request": {
                     "method": "GET",
@@ -662,16 +631,14 @@
                             "type": "text"
                         }
                     ],
-                    "body": {
-                        "mode": "raw",
-                        "raw": ""
-                    },
                     "url": {
-                        "raw": "{{ServerBaseUri}}/Items(FlowerColor='ABC')/$count",
+                        "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/Items(FlowerColor='ABC')/$count",
                         "host": [
                             "{{ServerBaseUri}}"
                         ],
                         "path": [
+                            "{{ODataPath}}",
+                            "v{{ApiVersion}}",
                             "Items(FlowerColor='ABC')",
                             "$count"
                         ]
@@ -681,7 +648,6 @@
                 }
                 ,
                 {
-                    "_postman_id": "1dadae71-27b7-4b5c-8b10-f7d3317e1694",
                     "name": "Read items by Size",
                     "request": {
                     "method": "GET",
@@ -696,16 +662,14 @@
                             "type": "text"
                         }
                     ],
-                    "body": {
-                        "mode": "raw",
-                        "raw": ""
-                    },
                     "url": {
-                        "raw": "{{ServerBaseUri}}/Items(Size=123)",
+                        "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/Items(Size=123)",
                         "host": [
                             "{{ServerBaseUri}}"
                         ],
                         "path": [
+                            "{{ODataPath}}",
+                            "v{{ApiVersion}}",
                             "Items(Size=123)"
                         ]
                     }
@@ -714,7 +678,6 @@
                 }
                 ,
                 {
-                    "_postman_id": "bc30b5f3-3590-4c61-8065-da634de6b271",
                     "name": "Count items by Size",
                     "request": {
                     "method": "GET",
@@ -729,16 +692,14 @@
                             "type": "text"
                         }
                     ],
-                    "body": {
-                        "mode": "raw",
-                        "raw": ""
-                    },
                     "url": {
-                        "raw": "{{ServerBaseUri}}/Items(Size=123)/$count",
+                        "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/Items(Size=123)/$count",
                         "host": [
                             "{{ServerBaseUri}}"
                         ],
                         "path": [
+                            "{{ODataPath}}",
+                            "v{{ApiVersion}}",
                             "Items(Size=123)",
                             "$count"
                         ]
@@ -748,7 +709,6 @@
                 }
                 ,
                 {
-                    "_postman_id": "2eba89d2-4578-409c-8817-a6994ed139ad",
                     "name": "Read items by Name",
                     "request": {
                     "method": "GET",
@@ -763,16 +723,14 @@
                             "type": "text"
                         }
                     ],
-                    "body": {
-                        "mode": "raw",
-                        "raw": ""
-                    },
                     "url": {
-                        "raw": "{{ServerBaseUri}}/Items(CommonName='ABC')",
+                        "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/Items(CommonName='ABC')",
                         "host": [
                             "{{ServerBaseUri}}"
                         ],
                         "path": [
+                            "{{ODataPath}}",
+                            "v{{ApiVersion}}",
                             "Items(CommonName='ABC')"
                         ]
                     }
@@ -781,7 +739,6 @@
                 }
                 ,
                 {
-                    "_postman_id": "d94e3cc4-645b-4329-9d68-091876473178",
                     "name": "Count items by Name",
                     "request": {
                     "method": "GET",
@@ -796,16 +753,14 @@
                             "type": "text"
                         }
                     ],
-                    "body": {
-                        "mode": "raw",
-                        "raw": ""
-                    },
                     "url": {
-                        "raw": "{{ServerBaseUri}}/Items(CommonName='ABC')/$count",
+                        "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/Items(CommonName='ABC')/$count",
                         "host": [
                             "{{ServerBaseUri}}"
                         ],
                         "path": [
+                            "{{ODataPath}}",
+                            "v{{ApiVersion}}",
                             "Items(CommonName='ABC')",
                             "$count"
                         ]
@@ -815,7 +770,6 @@
                 }
                 ,
                 {
-                    "_postman_id": "952784ec-43c5-49e0-80d5-6a6f93c4bd2c",
                     "name": "Create item (auto assign key)",
                     "request": {
                     "method": "POST",
@@ -835,8 +789,10 @@
                          "raw": "{\n    \"ItemNumber\": 19,\n    \"VendorNumber\": 41,\n    \"Size\": 5,\n    \"CommonName\": \"European Hackberry\",\n    \"LatinName\": \"Celtis australis\",\n    \"ZoneCode\": 2,\n    \"Type\": 1,\n    \"Flowering\": \"Y\",\n    \"FlowerColor\": \"Red\",\n    \"Shape\": \"1\",\n    \"MaxHeight\": 24,\n    \"MaxWidth\": 30,\n    \"WaterRequirement\": \"Low\",\n    \"SunRequirement\": \"Part\",\n    \"BinLocation\": \"B06\",\n    \"QtyOnHand\": 17,\n    \"QtyAllocated\": 2,\n    \"QtyOnOrder\": 10,\n    \"ReorderLevel\": 20,\n    \"UnitPrice\": 15.99,\n    \"CostPrice\": 9.99\n}"
                     },
                     "url": {
-                        "raw": "{{ServerBaseUri}}/Items",
+                        "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/Items",
                         "host": [
+                            "{{ODataPath}}",
+                            "v{{ApiVersion}}",
                             "{{ServerBaseUri}}"
                         ],
                         "path": [
@@ -848,7 +804,6 @@
                 }
                 ,
                 {
-                    "_postman_id": "cddc732c-0f06-40f0-9259-4542c3e27e19",
                     "name": "Create or update item",
                     "request": {
                     "method": "PUT",
@@ -868,11 +823,13 @@
                          "raw": "{\n    \"ItemNumber\": 19,\n    \"VendorNumber\": 41,\n    \"Size\": 5,\n    \"CommonName\": \"European Hackberry\",\n    \"LatinName\": \"Celtis australis\",\n    \"ZoneCode\": 2,\n    \"Type\": 1,\n    \"Flowering\": \"Y\",\n    \"FlowerColor\": \"Red\",\n    \"Shape\": \"1\",\n    \"MaxHeight\": 24,\n    \"MaxWidth\": 30,\n    \"WaterRequirement\": \"Low\",\n    \"SunRequirement\": \"Part\",\n    \"BinLocation\": \"B06\",\n    \"QtyOnHand\": 17,\n    \"QtyAllocated\": 2,\n    \"QtyOnOrder\": 10,\n    \"ReorderLevel\": 20,\n    \"UnitPrice\": 15.99,\n    \"CostPrice\": 9.99\n}"
                     },
                     "url": {
-                        "raw": "{{ServerBaseUri}}/Items(ItemNumber=123)",
+                        "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/Items(ItemNumber=123)",
                         "host": [
                             "{{ServerBaseUri}}"
                         ],
                         "path": [
+                            "{{ODataPath}}",
+                            "v{{ApiVersion}}",
                             "Items(ItemNumber=123)"
                         ]
                     }
@@ -900,11 +857,13 @@
                             "raw": "[\r\n  {\r\n    \"op\": \"replace\",\r\n    \"path\": \"PropertyName\",\r\n    \"value\": \"PropertyValue\"\r\n  }\r\n]"
                         },
                     "url": {
-                        "raw": "/Items(ItemNumber=123)",
+                        "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/Items(ItemNumber=123)",
                         "host": [
                             "{{ServerBaseUri}}"
                         ],
                         "path": [
+                            "{{ODataPath}}",
+                            "v{{ApiVersion}}",
                             "Items(ItemNumber=123)"
                         ]
                     }
@@ -913,7 +872,6 @@
                 }
                 ,
                 {
-                    "_postman_id": "19eb0e29-718c-4fa1-bd6c-c5f89d9a8a72",
                     "name": "Delete item",
                     "request": {
                     "method": "DELETE",
@@ -933,11 +891,13 @@
                         "raw": ""
                     },
                     "url": {
-                        "raw": "{{ServerBaseUri}}/Items(ItemNumber=123)",
+                        "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/Items(ItemNumber=123)",
                         "host": [
                             "{{ServerBaseUri}}"
                         ],
                         "path": [
+                            "{{ODataPath}}",
+                            "v{{ApiVersion}}",
                             "Items(ItemNumber=123)"
                         ]
                     }
@@ -947,11 +907,9 @@
             ]
         },
         {
-            "_postman_id": "c3e5fe21-6306-4c71-9794-5a2fedee9a76",
             "name": "Order Tests",
             "item": [
                 {
-                    "_postman_id": "285689aa-a4db-43aa-a75c-6253404c50a7",
                     "name": "Read orders",
                     "request": {
                         "method": "GET",
@@ -966,17 +924,21 @@
                                 "type": "text"
                             }
                         ],
-                        "body": {
-                            "mode": "raw",
-                            "raw": ""
-                        },
                         "url": {
-                            "raw": "{{ServerBaseUri}}/Orders",
+                            "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/Orders?$top=3",
                             "host": [
                                 "{{ServerBaseUri}}"
                             ],
                             "path": [
+                                "{{ODataPath}}",
+                                "v{{ApiVersion}}",
                                 "Orders"
+                            ],
+                            "query": [
+                                {
+                                    "key": "$top",
+                                    "value": "3"
+                                }
                             ]
                         }
                     },
@@ -984,7 +946,6 @@
                 }
                 ,
                 {
-                    "_postman_id": "5473231b-398f-4edc-948c-e27bda5afdc9",
                     "name": "Count orders",
                     "request": {
                         "method": "GET",
@@ -999,16 +960,14 @@
                                 "type": "text"
                             }
                         ],
-                        "body": {
-                            "mode": "raw",
-                            "raw": ""
-                        },
                         "url": {
-                            "raw": "{{ServerBaseUri}}/Orders/$count",
+                            "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/Orders/$count",
                             "host": [
                                 "{{ServerBaseUri}}"
                             ],
                             "path": [
+                                "{{ODataPath}}",
+                                "v{{ApiVersion}}",
                                 "Orders",
                                 "$count"
                             ]
@@ -1018,7 +977,6 @@
                 }
                 ,
                 {
-                    "_postman_id": "38ed9006-46f5-4303-b8a0-b23b96ce5728",
                     "name": "Read order",
                     "request": {
                     "method": "GET",
@@ -1033,16 +991,14 @@
                             "type": "text"
                         }
                     ],
-                    "body": {
-                        "mode": "raw",
-                        "raw": ""
-                    },
                     "url": {
-                        "raw": "{{ServerBaseUri}}/Orders(OrderNumber=123)",
+                        "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/Orders(OrderNumber=123)",
                         "host": [
                             "{{ServerBaseUri}}"
                         ],
                         "path": [
+                            "{{ODataPath}}",
+                            "v{{ApiVersion}}",
                             "Orders(OrderNumber=123)"
                         ]
                     }
@@ -1051,7 +1007,6 @@
                 }
                 ,
                 {
-                    "_postman_id": "dbe0d388-1df9-449e-811e-558448b1ca2e",
                     "name": "Read orders by CustomerNumber",
                     "request": {
                     "method": "GET",
@@ -1066,16 +1021,14 @@
                             "type": "text"
                         }
                     ],
-                    "body": {
-                        "mode": "raw",
-                        "raw": ""
-                    },
                     "url": {
-                        "raw": "{{ServerBaseUri}}/Orders(CustomerNumber=123)",
+                        "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/Orders(CustomerNumber=123)",
                         "host": [
                             "{{ServerBaseUri}}"
                         ],
                         "path": [
+                            "{{ODataPath}}",
+                            "v{{ApiVersion}}",
                             "Orders(CustomerNumber=123)"
                         ]
                     }
@@ -1084,7 +1037,6 @@
                 }
                 ,
                 {
-                    "_postman_id": "1b39e8fc-ffd1-4beb-9806-62a4025f4e10",
                     "name": "Count orders by CustomerNumber",
                     "request": {
                     "method": "GET",
@@ -1099,16 +1051,14 @@
                             "type": "text"
                         }
                     ],
-                    "body": {
-                        "mode": "raw",
-                        "raw": ""
-                    },
                     "url": {
-                        "raw": "{{ServerBaseUri}}/Orders(CustomerNumber=123)/$count",
+                        "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/Orders(CustomerNumber=123)/$count",
                         "host": [
                             "{{ServerBaseUri}}"
                         ],
                         "path": [
+                            "{{ODataPath}}",
+                            "v{{ApiVersion}}",
                             "Orders(CustomerNumber=123)",
                             "$count"
                         ]
@@ -1118,7 +1068,6 @@
                 }
                 ,
                 {
-                    "_postman_id": "5c5ab3d5-be7a-4951-9f6f-a85beae1c650",
                     "name": "Read orders by DateOrdered",
                     "request": {
                     "method": "GET",
@@ -1133,17 +1082,15 @@
                             "type": "text"
                         }
                     ],
-                    "body": {
-                        "mode": "raw",
-                        "raw": ""
-                    },
                     "url": {
-                        "raw": "{{ServerBaseUri}}/Orders(DateOrdered=2021-01-06)",
+                        "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/Orders(DateOrdered=2022-07-12)",
                         "host": [
                             "{{ServerBaseUri}}"
                         ],
                         "path": [
-                            "Orders(DateOrdered=2021-01-06)"
+                            "{{ODataPath}}",
+                            "v{{ApiVersion}}",
+                            "Orders(DateOrdered=2022-07-12)"
                         ]
                     }
                     },
@@ -1151,7 +1098,6 @@
                 }
                 ,
                 {
-                    "_postman_id": "e6b7a66f-2936-4977-992e-59b5ff049ffb",
                     "name": "Count orders by DateOrdered",
                     "request": {
                     "method": "GET",
@@ -1166,17 +1112,15 @@
                             "type": "text"
                         }
                     ],
-                    "body": {
-                        "mode": "raw",
-                        "raw": ""
-                    },
                     "url": {
-                        "raw": "{{ServerBaseUri}}/Orders(DateOrdered=2021-01-06)/$count",
+                        "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/Orders(DateOrdered=2022-07-12)/$count",
                         "host": [
                             "{{ServerBaseUri}}"
                         ],
                         "path": [
-                            "Orders(DateOrdered=2021-01-06)",
+                            "{{ODataPath}}",
+                            "v{{ApiVersion}}",
+                            "Orders(DateOrdered=2022-07-12)",
                             "$count"
                         ]
                     }
@@ -1185,7 +1129,6 @@
                 }
                 ,
                 {
-                    "_postman_id": "1c156b9a-df18-4f4f-8ab2-7cd074409c92",
                     "name": "Read orders by DateCompleted",
                     "request": {
                     "method": "GET",
@@ -1200,17 +1143,15 @@
                             "type": "text"
                         }
                     ],
-                    "body": {
-                        "mode": "raw",
-                        "raw": ""
-                    },
                     "url": {
-                        "raw": "{{ServerBaseUri}}/Orders(DateCompleted=2021-01-06)",
+                        "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/Orders(DateCompleted=2022-07-12)",
                         "host": [
                             "{{ServerBaseUri}}"
                         ],
                         "path": [
-                            "Orders(DateCompleted=2021-01-06)"
+                            "{{ODataPath}}",
+                            "v{{ApiVersion}}",
+                            "Orders(DateCompleted=2022-07-12)"
                         ]
                     }
                     },
@@ -1218,7 +1159,6 @@
                 }
                 ,
                 {
-                    "_postman_id": "90deef91-baa8-4431-ae95-c85a46c0e9b1",
                     "name": "Count orders by DateCompleted",
                     "request": {
                     "method": "GET",
@@ -1233,17 +1173,15 @@
                             "type": "text"
                         }
                     ],
-                    "body": {
-                        "mode": "raw",
-                        "raw": ""
-                    },
                     "url": {
-                        "raw": "{{ServerBaseUri}}/Orders(DateCompleted=2021-01-06)/$count",
+                        "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/Orders(DateCompleted=2022-07-12)/$count",
                         "host": [
                             "{{ServerBaseUri}}"
                         ],
                         "path": [
-                            "Orders(DateCompleted=2021-01-06)",
+                            "{{ODataPath}}",
+                            "v{{ApiVersion}}",
+                            "Orders(DateCompleted=2022-07-12)",
                             "$count"
                         ]
                     }
@@ -1252,7 +1190,6 @@
                 }
                 ,
                 {
-                    "_postman_id": "8e712408-3bff-4be3-846e-6d9f69876cf3",
                     "name": "Create order (auto assign key)",
                     "request": {
                     "method": "POST",
@@ -1272,8 +1209,10 @@
                          "raw": "{\n    \"OrderNumber\": 162512,\n    \"CustomerNumber\": 622822,\n    \"PlacedBy\": \"John Doe\",\n    \"CustomerReference\": \"PO12345\",\n    \"PaymentTermsCode\": \"30\",\n    \"DateOrdered\": \"2018-03\",\n    \"DateCompleted\": \"2018-03-12\",\n}"
                     },
                     "url": {
-                        "raw": "{{ServerBaseUri}}/Orders",
+                        "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/Orders",
                         "host": [
+                            "{{ODataPath}}",
+                            "v{{ApiVersion}}",
                             "{{ServerBaseUri}}"
                         ],
                         "path": [
@@ -1285,7 +1224,6 @@
                 }
                 ,
                 {
-                    "_postman_id": "fda64c96-319e-4614-9afa-aa1ab611c25d",
                     "name": "Create or update order",
                     "request": {
                     "method": "PUT",
@@ -1305,11 +1243,13 @@
                          "raw": "{\n    \"OrderNumber\": 162512,\n    \"CustomerNumber\": 622822,\n    \"PlacedBy\": \"John Doe\",\n    \"CustomerReference\": \"PO12345\",\n    \"PaymentTermsCode\": \"30\",\n    \"DateOrdered\": \"2018-03\",\n    \"DateCompleted\": \"2018-03-12\",\n}"
                     },
                     "url": {
-                        "raw": "{{ServerBaseUri}}/Orders(OrderNumber=123)",
+                        "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/Orders(OrderNumber=123)",
                         "host": [
                             "{{ServerBaseUri}}"
                         ],
                         "path": [
+                            "{{ODataPath}}",
+                            "v{{ApiVersion}}",
                             "Orders(OrderNumber=123)"
                         ]
                     }
@@ -1337,11 +1277,13 @@
                             "raw": "[\r\n  {\r\n    \"op\": \"replace\",\r\n    \"path\": \"PropertyName\",\r\n    \"value\": \"PropertyValue\"\r\n  }\r\n]"
                         },
                     "url": {
-                        "raw": "/Orders(OrderNumber=123)",
+                        "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/Orders(OrderNumber=123)",
                         "host": [
                             "{{ServerBaseUri}}"
                         ],
                         "path": [
+                            "{{ODataPath}}",
+                            "v{{ApiVersion}}",
                             "Orders(OrderNumber=123)"
                         ]
                     }
@@ -1350,7 +1292,6 @@
                 }
                 ,
                 {
-                    "_postman_id": "e49fc490-a936-466a-b2d9-6f26f2f38835",
                     "name": "Delete order",
                     "request": {
                     "method": "DELETE",
@@ -1370,11 +1311,13 @@
                         "raw": ""
                     },
                     "url": {
-                        "raw": "{{ServerBaseUri}}/Orders(OrderNumber=123)",
+                        "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/Orders(OrderNumber=123)",
                         "host": [
                             "{{ServerBaseUri}}"
                         ],
                         "path": [
+                            "{{ODataPath}}",
+                            "v{{ApiVersion}}",
                             "Orders(OrderNumber=123)"
                         ]
                     }
@@ -1384,11 +1327,9 @@
             ]
         },
         {
-            "_postman_id": "f4620877-3336-4ab7-a547-6d942891418e",
             "name": "OrderItem Tests",
             "item": [
                 {
-                    "_postman_id": "0b6a8d9d-61cb-464c-9806-65f0e17086e7",
                     "name": "Read orderItems",
                     "request": {
                         "method": "GET",
@@ -1403,17 +1344,21 @@
                                 "type": "text"
                             }
                         ],
-                        "body": {
-                            "mode": "raw",
-                            "raw": ""
-                        },
                         "url": {
-                            "raw": "{{ServerBaseUri}}/OrderItems",
+                            "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/OrderItems?$top=3",
                             "host": [
                                 "{{ServerBaseUri}}"
                             ],
                             "path": [
+                                "{{ODataPath}}",
+                                "v{{ApiVersion}}",
                                 "OrderItems"
+                            ],
+                            "query": [
+                                {
+                                    "key": "$top",
+                                    "value": "3"
+                                }
                             ]
                         }
                     },
@@ -1421,7 +1366,6 @@
                 }
                 ,
                 {
-                    "_postman_id": "1f02683f-fb6a-458b-af30-eecef0f992ee",
                     "name": "Count orderItems",
                     "request": {
                         "method": "GET",
@@ -1436,16 +1380,14 @@
                                 "type": "text"
                             }
                         ],
-                        "body": {
-                            "mode": "raw",
-                            "raw": ""
-                        },
                         "url": {
-                            "raw": "{{ServerBaseUri}}/OrderItems/$count",
+                            "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/OrderItems/$count",
                             "host": [
                                 "{{ServerBaseUri}}"
                             ],
                             "path": [
+                                "{{ODataPath}}",
+                                "v{{ApiVersion}}",
                                 "OrderItems",
                                 "$count"
                             ]
@@ -1455,7 +1397,6 @@
                 }
                 ,
                 {
-                    "_postman_id": "76de0cdd-6e76-45ea-950b-1d7977c404d9",
                     "name": "Read orderItem",
                     "request": {
                     "method": "GET",
@@ -1470,16 +1411,14 @@
                             "type": "text"
                         }
                     ],
-                    "body": {
-                        "mode": "raw",
-                        "raw": ""
-                    },
                     "url": {
-                        "raw": "{{ServerBaseUri}}/OrderItems(OrderNumber=123,ItemNumber=123)",
+                        "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/OrderItems(OrderNumber=123,ItemNumber=123)",
                         "host": [
                             "{{ServerBaseUri}}"
                         ],
                         "path": [
+                            "{{ODataPath}}",
+                            "v{{ApiVersion}}",
                             "OrderItems(OrderNumber=123,ItemNumber=123)"
                         ]
                     }
@@ -1488,7 +1427,6 @@
                 }
                 ,
                 {
-                    "_postman_id": "5f2ee67b-8d17-4f18-9b25-8ef2d2843c80",
                     "name": "Read orderItems by ItemOrdered",
                     "request": {
                     "method": "GET",
@@ -1503,16 +1441,14 @@
                             "type": "text"
                         }
                     ],
-                    "body": {
-                        "mode": "raw",
-                        "raw": ""
-                    },
                     "url": {
-                        "raw": "{{ServerBaseUri}}/OrderItems(ItemOrdered=123)",
+                        "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/OrderItems(ItemOrdered=123)",
                         "host": [
                             "{{ServerBaseUri}}"
                         ],
                         "path": [
+                            "{{ODataPath}}",
+                            "v{{ApiVersion}}",
                             "OrderItems(ItemOrdered=123)"
                         ]
                     }
@@ -1521,7 +1457,6 @@
                 }
                 ,
                 {
-                    "_postman_id": "5e126c38-66e1-4123-9bf6-358438d60f5d",
                     "name": "Count orderItems by ItemOrdered",
                     "request": {
                     "method": "GET",
@@ -1536,16 +1471,14 @@
                             "type": "text"
                         }
                     ],
-                    "body": {
-                        "mode": "raw",
-                        "raw": ""
-                    },
                     "url": {
-                        "raw": "{{ServerBaseUri}}/OrderItems(ItemOrdered=123)/$count",
+                        "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/OrderItems(ItemOrdered=123)/$count",
                         "host": [
                             "{{ServerBaseUri}}"
                         ],
                         "path": [
+                            "{{ODataPath}}",
+                            "v{{ApiVersion}}",
                             "OrderItems(ItemOrdered=123)",
                             "$count"
                         ]
@@ -1555,7 +1488,6 @@
                 }
                 ,
                 {
-                    "_postman_id": "f798d4c4-dcd4-45f4-ae2e-57fb896c1b14",
                     "name": "Read orderItems by DateShipped",
                     "request": {
                     "method": "GET",
@@ -1570,17 +1502,15 @@
                             "type": "text"
                         }
                     ],
-                    "body": {
-                        "mode": "raw",
-                        "raw": ""
-                    },
                     "url": {
-                        "raw": "{{ServerBaseUri}}/OrderItems(DateShipped=2021-01-06)",
+                        "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/OrderItems(DateShipped=2022-07-12)",
                         "host": [
                             "{{ServerBaseUri}}"
                         ],
                         "path": [
-                            "OrderItems(DateShipped=2021-01-06)"
+                            "{{ODataPath}}",
+                            "v{{ApiVersion}}",
+                            "OrderItems(DateShipped=2022-07-12)"
                         ]
                     }
                     },
@@ -1588,7 +1518,6 @@
                 }
                 ,
                 {
-                    "_postman_id": "ff76adb7-9920-4818-bb59-141d6eaa1068",
                     "name": "Count orderItems by DateShipped",
                     "request": {
                     "method": "GET",
@@ -1603,17 +1532,15 @@
                             "type": "text"
                         }
                     ],
-                    "body": {
-                        "mode": "raw",
-                        "raw": ""
-                    },
                     "url": {
-                        "raw": "{{ServerBaseUri}}/OrderItems(DateShipped=2021-01-06)/$count",
+                        "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/OrderItems(DateShipped=2022-07-12)/$count",
                         "host": [
                             "{{ServerBaseUri}}"
                         ],
                         "path": [
-                            "OrderItems(DateShipped=2021-01-06)",
+                            "{{ODataPath}}",
+                            "v{{ApiVersion}}",
+                            "OrderItems(DateShipped=2022-07-12)",
                             "$count"
                         ]
                     }
@@ -1622,7 +1549,6 @@
                 }
                 ,
                 {
-                    "_postman_id": "f906db2e-f011-4453-a17d-5e7ac5583b54",
                     "name": "Read orderItems by InvoiceNumber",
                     "request": {
                     "method": "GET",
@@ -1637,16 +1563,14 @@
                             "type": "text"
                         }
                     ],
-                    "body": {
-                        "mode": "raw",
-                        "raw": ""
-                    },
                     "url": {
-                        "raw": "{{ServerBaseUri}}/OrderItems(InvoiceNumber=123)",
+                        "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/OrderItems(InvoiceNumber=123)",
                         "host": [
                             "{{ServerBaseUri}}"
                         ],
                         "path": [
+                            "{{ODataPath}}",
+                            "v{{ApiVersion}}",
                             "OrderItems(InvoiceNumber=123)"
                         ]
                     }
@@ -1655,7 +1579,6 @@
                 }
                 ,
                 {
-                    "_postman_id": "d5559ee6-d64a-4c19-a791-7c32cf54a24c",
                     "name": "Count orderItems by InvoiceNumber",
                     "request": {
                     "method": "GET",
@@ -1670,16 +1593,14 @@
                             "type": "text"
                         }
                     ],
-                    "body": {
-                        "mode": "raw",
-                        "raw": ""
-                    },
                     "url": {
-                        "raw": "{{ServerBaseUri}}/OrderItems(InvoiceNumber=123)/$count",
+                        "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/OrderItems(InvoiceNumber=123)/$count",
                         "host": [
                             "{{ServerBaseUri}}"
                         ],
                         "path": [
+                            "{{ODataPath}}",
+                            "v{{ApiVersion}}",
                             "OrderItems(InvoiceNumber=123)",
                             "$count"
                         ]
@@ -1689,7 +1610,6 @@
                 }
                 ,
                 {
-                    "_postman_id": "38f85649-a3b4-4538-ae63-78cb30850273",
                     "name": "Create orderItem (auto assign key)",
                     "request": {
                     "method": "POST",
@@ -1709,8 +1629,10 @@
                          "raw": "{\n    \"OrderNumber\": 5238,\n    \"ItemNumber\": 1,\n    \"ItemOrdered\": 21,\n    \"QuantityOrdered\": 3,\n    \"UnitPrice\": 15.99,\n    \"DateShipped\": \"2018-03-17\",\n    \"InvoiceNumber\": 166825\n}"
                     },
                     "url": {
-                        "raw": "{{ServerBaseUri}}/OrderItems",
+                        "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/OrderItems",
                         "host": [
+                            "{{ODataPath}}",
+                            "v{{ApiVersion}}",
                             "{{ServerBaseUri}}"
                         ],
                         "path": [
@@ -1722,7 +1644,6 @@
                 }
                 ,
                 {
-                    "_postman_id": "6d01af8e-7441-407f-9a16-c56bb3b94e1f",
                     "name": "Create or update orderItem",
                     "request": {
                     "method": "PUT",
@@ -1742,11 +1663,13 @@
                          "raw": "{\n    \"OrderNumber\": 5238,\n    \"ItemNumber\": 1,\n    \"ItemOrdered\": 21,\n    \"QuantityOrdered\": 3,\n    \"UnitPrice\": 15.99,\n    \"DateShipped\": \"2018-03-17\",\n    \"InvoiceNumber\": 166825\n}"
                     },
                     "url": {
-                        "raw": "{{ServerBaseUri}}/OrderItems(OrderNumber=123,ItemNumber=123)",
+                        "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/OrderItems(OrderNumber=123,ItemNumber=123)",
                         "host": [
                             "{{ServerBaseUri}}"
                         ],
                         "path": [
+                            "{{ODataPath}}",
+                            "v{{ApiVersion}}",
                             "OrderItems(OrderNumber=123,ItemNumber=123)"
                         ]
                     }
@@ -1774,11 +1697,13 @@
                             "raw": "[\r\n  {\r\n    \"op\": \"replace\",\r\n    \"path\": \"PropertyName\",\r\n    \"value\": \"PropertyValue\"\r\n  }\r\n]"
                         },
                     "url": {
-                        "raw": "/OrderItems(OrderNumber=123,ItemNumber=123)",
+                        "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/OrderItems(OrderNumber=123,ItemNumber=123)",
                         "host": [
                             "{{ServerBaseUri}}"
                         ],
                         "path": [
+                            "{{ODataPath}}",
+                            "v{{ApiVersion}}",
                             "OrderItems(OrderNumber=123,ItemNumber=123)"
                         ]
                     }
@@ -1787,7 +1712,6 @@
                 }
                 ,
                 {
-                    "_postman_id": "5984985c-72ce-4208-b1cd-05acb4eee476",
                     "name": "Delete orderItem",
                     "request": {
                     "method": "DELETE",
@@ -1807,11 +1731,13 @@
                         "raw": ""
                     },
                     "url": {
-                        "raw": "{{ServerBaseUri}}/OrderItems(OrderNumber=123,ItemNumber=123)",
+                        "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/OrderItems(OrderNumber=123,ItemNumber=123)",
                         "host": [
                             "{{ServerBaseUri}}"
                         ],
                         "path": [
+                            "{{ODataPath}}",
+                            "v{{ApiVersion}}",
                             "OrderItems(OrderNumber=123,ItemNumber=123)"
                         ]
                     }
@@ -1821,11 +1747,9 @@
             ]
         },
         {
-            "_postman_id": "390c3620-56c5-462e-9373-cd17eb5ee669",
             "name": "Vendor Tests",
             "item": [
                 {
-                    "_postman_id": "e43d6d9b-96ea-413b-ac4f-45b4d10d592a",
                     "name": "Read vendors",
                     "request": {
                         "method": "GET",
@@ -1840,17 +1764,21 @@
                                 "type": "text"
                             }
                         ],
-                        "body": {
-                            "mode": "raw",
-                            "raw": ""
-                        },
                         "url": {
-                            "raw": "{{ServerBaseUri}}/Vendors",
+                            "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/Vendors?$top=3",
                             "host": [
                                 "{{ServerBaseUri}}"
                             ],
                             "path": [
+                                "{{ODataPath}}",
+                                "v{{ApiVersion}}",
                                 "Vendors"
+                            ],
+                            "query": [
+                                {
+                                    "key": "$top",
+                                    "value": "3"
+                                }
                             ]
                         }
                     },
@@ -1858,7 +1786,6 @@
                 }
                 ,
                 {
-                    "_postman_id": "cf04d84d-2d01-4270-a09a-25106ca7c4bf",
                     "name": "Count vendors",
                     "request": {
                         "method": "GET",
@@ -1873,16 +1800,14 @@
                                 "type": "text"
                             }
                         ],
-                        "body": {
-                            "mode": "raw",
-                            "raw": ""
-                        },
                         "url": {
-                            "raw": "{{ServerBaseUri}}/Vendors/$count",
+                            "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/Vendors/$count",
                             "host": [
                                 "{{ServerBaseUri}}"
                             ],
                             "path": [
+                                "{{ODataPath}}",
+                                "v{{ApiVersion}}",
                                 "Vendors",
                                 "$count"
                             ]
@@ -1892,7 +1817,6 @@
                 }
                 ,
                 {
-                    "_postman_id": "144805ce-9cf5-4362-b16d-ba9b1ab7e293",
                     "name": "Read vendor",
                     "request": {
                     "method": "GET",
@@ -1907,16 +1831,14 @@
                             "type": "text"
                         }
                     ],
-                    "body": {
-                        "mode": "raw",
-                        "raw": ""
-                    },
                     "url": {
-                        "raw": "{{ServerBaseUri}}/Vendors(VendorNumber=123)",
+                        "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/Vendors(VendorNumber=123)",
                         "host": [
                             "{{ServerBaseUri}}"
                         ],
                         "path": [
+                            "{{ODataPath}}",
+                            "v{{ApiVersion}}",
                             "Vendors(VendorNumber=123)"
                         ]
                     }
@@ -1925,7 +1847,6 @@
                 }
                 ,
                 {
-                    "_postman_id": "4e01ab84-9fab-405c-b177-389d1f5ca4ec",
                     "name": "Read vendors by State",
                     "request": {
                     "method": "GET",
@@ -1940,16 +1861,14 @@
                             "type": "text"
                         }
                     ],
-                    "body": {
-                        "mode": "raw",
-                        "raw": ""
-                    },
                     "url": {
-                        "raw": "{{ServerBaseUri}}/Vendors(State='ABC')",
+                        "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/Vendors(State='ABC')",
                         "host": [
                             "{{ServerBaseUri}}"
                         ],
                         "path": [
+                            "{{ODataPath}}",
+                            "v{{ApiVersion}}",
                             "Vendors(State='ABC')"
                         ]
                     }
@@ -1958,7 +1877,6 @@
                 }
                 ,
                 {
-                    "_postman_id": "ab47c401-230b-4ed5-8f58-5fdaaaa2b6e9",
                     "name": "Count vendors by State",
                     "request": {
                     "method": "GET",
@@ -1973,16 +1891,14 @@
                             "type": "text"
                         }
                     ],
-                    "body": {
-                        "mode": "raw",
-                        "raw": ""
-                    },
                     "url": {
-                        "raw": "{{ServerBaseUri}}/Vendors(State='ABC')/$count",
+                        "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/Vendors(State='ABC')/$count",
                         "host": [
                             "{{ServerBaseUri}}"
                         ],
                         "path": [
+                            "{{ODataPath}}",
+                            "v{{ApiVersion}}",
                             "Vendors(State='ABC')",
                             "$count"
                         ]
@@ -1992,7 +1908,6 @@
                 }
                 ,
                 {
-                    "_postman_id": "69887355-c6a6-4b73-baf9-2504f7e24fa5",
                     "name": "Read vendors by Zip",
                     "request": {
                     "method": "GET",
@@ -2007,16 +1922,14 @@
                             "type": "text"
                         }
                     ],
-                    "body": {
-                        "mode": "raw",
-                        "raw": ""
-                    },
                     "url": {
-                        "raw": "{{ServerBaseUri}}/Vendors(ZipCode=123)",
+                        "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/Vendors(ZipCode=123)",
                         "host": [
                             "{{ServerBaseUri}}"
                         ],
                         "path": [
+                            "{{ODataPath}}",
+                            "v{{ApiVersion}}",
                             "Vendors(ZipCode=123)"
                         ]
                     }
@@ -2025,7 +1938,6 @@
                 }
                 ,
                 {
-                    "_postman_id": "4de742b5-342e-4ca9-9318-bf069f922666",
                     "name": "Count vendors by Zip",
                     "request": {
                     "method": "GET",
@@ -2040,16 +1952,14 @@
                             "type": "text"
                         }
                     ],
-                    "body": {
-                        "mode": "raw",
-                        "raw": ""
-                    },
                     "url": {
-                        "raw": "{{ServerBaseUri}}/Vendors(ZipCode=123)/$count",
+                        "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/Vendors(ZipCode=123)/$count",
                         "host": [
                             "{{ServerBaseUri}}"
                         ],
                         "path": [
+                            "{{ODataPath}}",
+                            "v{{ApiVersion}}",
                             "Vendors(ZipCode=123)",
                             "$count"
                         ]
@@ -2059,7 +1969,6 @@
                 }
                 ,
                 {
-                    "_postman_id": "44dc43ea-8a42-4009-bd81-99367bb2e203",
                     "name": "Read vendors by PaymentTerms",
                     "request": {
                     "method": "GET",
@@ -2074,16 +1983,14 @@
                             "type": "text"
                         }
                     ],
-                    "body": {
-                        "mode": "raw",
-                        "raw": ""
-                    },
                     "url": {
-                        "raw": "{{ServerBaseUri}}/Vendors(PaymentTermsCode='ABC')",
+                        "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/Vendors(PaymentTermsCode='ABC')",
                         "host": [
                             "{{ServerBaseUri}}"
                         ],
                         "path": [
+                            "{{ODataPath}}",
+                            "v{{ApiVersion}}",
                             "Vendors(PaymentTermsCode='ABC')"
                         ]
                     }
@@ -2092,7 +1999,6 @@
                 }
                 ,
                 {
-                    "_postman_id": "aaa3476f-daf9-4e5c-9afd-644891756860",
                     "name": "Count vendors by PaymentTerms",
                     "request": {
                     "method": "GET",
@@ -2107,16 +2013,14 @@
                             "type": "text"
                         }
                     ],
-                    "body": {
-                        "mode": "raw",
-                        "raw": ""
-                    },
                     "url": {
-                        "raw": "{{ServerBaseUri}}/Vendors(PaymentTermsCode='ABC')/$count",
+                        "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/Vendors(PaymentTermsCode='ABC')/$count",
                         "host": [
                             "{{ServerBaseUri}}"
                         ],
                         "path": [
+                            "{{ODataPath}}",
+                            "v{{ApiVersion}}",
                             "Vendors(PaymentTermsCode='ABC')",
                             "$count"
                         ]
@@ -2126,7 +2030,6 @@
                 }
                 ,
                 {
-                    "_postman_id": "870e2567-cd39-41bb-82cb-5126c37318ff",
                     "name": "Create vendor (auto assign key)",
                     "request": {
                     "method": "POST",
@@ -2146,8 +2049,10 @@
                          "raw": "{\n    \"VendorNumber\": 39,\n    \"Name\": \"Gardens R Us\",\n    \"Street\": \"97 Main St\",\n    \"City\": \"Concord\",\n    \"State\": \"NH\",\n    \"ZipCode\": 03214,\n    \"Contact\": \"Jeremiah Johnson\",\n    \"Phone\": \"(555) 627-2663\",\n    \"Fax\": \"(555) 627-6382\",\n    \"PaymentTermsCode\": \"60\"\n}"
                     },
                     "url": {
-                        "raw": "{{ServerBaseUri}}/Vendors",
+                        "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/Vendors",
                         "host": [
+                            "{{ODataPath}}",
+                            "v{{ApiVersion}}",
                             "{{ServerBaseUri}}"
                         ],
                         "path": [
@@ -2159,7 +2064,6 @@
                 }
                 ,
                 {
-                    "_postman_id": "e5e02bb5-1a71-43e6-84a3-bbc0b99ae64d",
                     "name": "Create or update vendor",
                     "request": {
                     "method": "PUT",
@@ -2179,11 +2083,13 @@
                          "raw": "{\n    \"VendorNumber\": 39,\n    \"Name\": \"Gardens R Us\",\n    \"Street\": \"97 Main St\",\n    \"City\": \"Concord\",\n    \"State\": \"NH\",\n    \"ZipCode\": 03214,\n    \"Contact\": \"Jeremiah Johnson\",\n    \"Phone\": \"(555) 627-2663\",\n    \"Fax\": \"(555) 627-6382\",\n    \"PaymentTermsCode\": \"60\"\n}"
                     },
                     "url": {
-                        "raw": "{{ServerBaseUri}}/Vendors(VendorNumber=123)",
+                        "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/Vendors(VendorNumber=123)",
                         "host": [
                             "{{ServerBaseUri}}"
                         ],
                         "path": [
+                            "{{ODataPath}}",
+                            "v{{ApiVersion}}",
                             "Vendors(VendorNumber=123)"
                         ]
                     }
@@ -2211,11 +2117,13 @@
                             "raw": "[\r\n  {\r\n    \"op\": \"replace\",\r\n    \"path\": \"PropertyName\",\r\n    \"value\": \"PropertyValue\"\r\n  }\r\n]"
                         },
                     "url": {
-                        "raw": "/Vendors(VendorNumber=123)",
+                        "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/Vendors(VendorNumber=123)",
                         "host": [
                             "{{ServerBaseUri}}"
                         ],
                         "path": [
+                            "{{ODataPath}}",
+                            "v{{ApiVersion}}",
                             "Vendors(VendorNumber=123)"
                         ]
                     }
@@ -2224,7 +2132,6 @@
                 }
                 ,
                 {
-                    "_postman_id": "9afaa812-d3f0-477a-9976-61a8bc918c2a",
                     "name": "Delete vendor",
                     "request": {
                     "method": "DELETE",
@@ -2244,11 +2151,13 @@
                         "raw": ""
                     },
                     "url": {
-                        "raw": "{{ServerBaseUri}}/Vendors(VendorNumber=123)",
+                        "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/Vendors(VendorNumber=123)",
                         "host": [
                             "{{ServerBaseUri}}"
                         ],
                         "path": [
+                            "{{ODataPath}}",
+                            "v{{ApiVersion}}",
                             "Vendors(VendorNumber=123)"
                         ]
                     }
@@ -2262,7 +2171,6 @@
         {
             "listen": "prerequest",
             "script": {
-                "id": "a2e50be4-31b3-4885-8234-02684c846311",
                 "type": "text/javascript",
                 "exec": [
                     ""
@@ -2272,7 +2180,6 @@
         {
             "listen": "test",
             "script": {
-                "id": "0b1190ad-3576-4358-bf41-57fac11fa00b",
                 "type": "text/javascript",
                 "exec": [
                     ""
@@ -2282,21 +2189,18 @@
     ],
     "variable": [
         {
-            "id": "b5ee64f4-b2b6-4183-ab2e-b63344bded93",
             "key": "TenantID",
             "value": "",
             "type": "string"
         },
         {
-            "id": "33dc04bd-4c87-4006-98d6-ef5d38f9d1ce",
             "key": "ServerBaseUri",
             "value": "https://localhost:8086/odata/v1",
             "type": "string"
         },
         {
-            "id": "3c3c1194-6bd2-45f1-9857-61f7b5c6db4a",
             "key": "ServerAuthUri",
-            "value": "https://localhost:8086",
+            "value": "https://localhost:8086/<CUSTOM_AUTH_CONTROLLER_PATH>/<CUSTOM_AUTH_ENDPOINT_PATH>",
             "type": "string"
         }
     ]

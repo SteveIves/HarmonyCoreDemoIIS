@@ -105,6 +105,7 @@ namespace Services.Controllers
             data result = _DbContext.Vendors.AsNoTracking().FindAlternate("State",aState)
             if (result == ^null)
                 mreturn NotFound()
+
             mreturn Ok(result)
         endmethod
 
@@ -125,6 +126,7 @@ namespace Services.Controllers
             data result = _DbContext.Vendors.AsNoTracking().FindAlternate("ZipCode",aZipCode)
             if (result == ^null)
                 mreturn NotFound()
+
             mreturn Ok(result)
         endmethod
 
@@ -145,6 +147,7 @@ namespace Services.Controllers
             data result = _DbContext.Vendors.AsNoTracking().FindAlternate("PaymentTermsCode",aPaymentTermsCode)
             if (result == ^null)
                 mreturn NotFound()
+
             mreturn Ok(result)
         endmethod
 
@@ -198,7 +201,6 @@ namespace Services.Controllers
         ;;; <summary>
         ;;; Create (with a client-supplied primary key) or replace a vendor.
         ;;; </summary>
-
         ;;; <param name="aVendorNumber">Vendor number</param>
         ;;; <returns>Returns an IActionResult indicating the status of the operation and containing any data that was returned.</returns>
         public method PutVendor, @IActionResult
@@ -207,6 +209,7 @@ namespace Services.Controllers
             {FromBody}
             required in aVendor, @Vendor
         proc
+
             ;; Validate inbound data
             if (!ModelState.IsValid)
                 mreturn ValidationHelper.ReturnValidationError(ModelState)

@@ -54,6 +54,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Bridge\ArgumentDataDefinition.dbl" />
+    <Compile Include="Bridge\CallbackDispatcher.dbl" />
     <Compile Include="Bridge\Convert.dbl" />
     <Compile Include="Bridge\DataObjectBase.dbl" />
     <Compile Include="Bridge\DataObjectMetadataBase.dbl" />

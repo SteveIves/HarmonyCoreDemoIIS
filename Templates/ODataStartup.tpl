@@ -1,5 +1,5 @@
 <CODEGEN_FILENAME>Startup.dbl</CODEGEN_FILENAME>
-<REQUIRES_CODEGEN_VERSION>5.4.6</REQUIRES_CODEGEN_VERSION>
+<REQUIRES_CODEGEN_VERSION>5.8.5</REQUIRES_CODEGEN_VERSION>
 <REQUIRES_USERTOKEN>API_DOCS_PATH</REQUIRES_USERTOKEN>
 <REQUIRES_USERTOKEN>API_TITLE</REQUIRES_USERTOKEN>
 <REQUIRES_USERTOKEN>MODELS_NAMESPACE</REQUIRES_USERTOKEN>
@@ -178,7 +178,13 @@ namespace <NAMESPACE>
                 endusing
             end
 
-            services.AddLogging(lambda(builder) { builder.SetMinimumLevel(log_level) })
+            lambda configureLogging(builder)
+            begin
+                builder.SetMinimumLevel(log_level)
+                builder.AddConsole(lambda(con) { con.TimestampFormat = "[HH:mm:ss] " })
+            end
+
+            services.AddLogging(configureLogging)
 
             ;;-------------------------------------------------------
             ;;Make AppSettings available as a service
@@ -204,6 +210,10 @@ namespace <NAMESPACE>
                 <STRUCTURE_LOOP>
                 objectProvider.AddDataObjectMapping<<StructureNoplural>>("<FILE_NAME>", <IF STRUCTURE_ISAM>FileOpenMode.UpdateIndexed</IF STRUCTURE_ISAM><IF STRUCTURE_RELATIVE>FileOpenMode.UpdateRelative</IF STRUCTURE_RELATIVE>)
                 </STRUCTURE_LOOP>
+
+                ;;If we have an AddDataObjectMappingsCustom method, call it
+                AddDataObjectMappingsCustom(objectProvider)
+
                 mreturn objectProvider
             end
 
@@ -301,12 +311,15 @@ namespace <NAMESPACE>
                 end
                 
                 op.MaxIAsyncEnumerableBufferLimit = int.MaxValue
+
+                ;;If there is a MvcConfigCustom method, call it
+                MvcConfigCustom(op)
             end
 
             data mvcBuilder = services.AddMvcCore(MvcCoreConfig)
             &    .SetCompatibilityVersion(CompatibilityVersion.Version_2_2 )
             &    .AddDataAnnotations()      ;;Enable data annotations
-            &    .AddNewtonsoftJson()      ;;For PATCH
+            &    .AddNewtonsoftJson(<IF DEFINED_ENABLE_NEWTONSOFT>lambda (opts) { opts.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.DefaultContractResolver()<IF TWEAK_SMC_CAMEL_CASE> {NamingStrategy = new Newtonsoft.Json.Serialization.CamelCaseNamingStrategy()}</IF>}</IF>)
             &    .AddApplicationPart(^typeof(IsolatedMethodsBase).Assembly)
 
         <IF DEFINED_ENABLE_AUTHENTICATION>
@@ -419,6 +432,14 @@ namespace <NAMESPACE>
             services.AddCors()
 
         </IF DEFINED_ENABLE_CORS>
+        <IF DEFINED_ENABLE_SIGNALR>
+            ;; -------------------------------------------------------------------------------
+            ;;Add SignalR support
+            services.AddSignalR().AddNewtonsoftJsonProtocol()
+            services.AddDistributedMemoryCache()
+            services.AddSession()
+
+        </IF DEFINED_ENABLE_SIGNALR>
             ;;If there is a ConfigureServicesCustom method, call it
             ConfigureServicesCustom(services)
 
@@ -446,48 +467,46 @@ namespace <NAMESPACE>
             ;;-------------------------------------------------------
             ;;Configure development and production specific components
 
-            if (env.IsDevelopment()) then
+            data loggerFactory = app.ApplicationServices.GetRequiredService<ILoggerFactory>()
+            app.UseDeveloperExceptionPage()
+
+            data hc_log_level ,Harmony.Core.Interface.LogLevel ,Harmony.Core.Interface.LogLevel.Debug
+            data logical ,a40
+            data logLen ,int ,0
+            xcall getlog('HARMONY_CORE_LOG_LEVEL',logical,logLen)
+            if (logLen)
             begin
-                data loggerFactory = app.ApplicationServices.GetRequiredService<ILoggerFactory>()
-                app.UseDeveloperExceptionPage()
-
-                data hc_log_level ,Harmony.Core.Interface.LogLevel ,Harmony.Core.Interface.LogLevel.Debug
-                data logical ,a40
-                data logLen ,int ,0
-                xcall getlog('HARMONY_CORE_LOG_LEVEL',logical,logLen)
-                if (logLen)
-                begin
-                    locase logical
-                    using logical(1:loglen)+' ' select
-                    ('0 ','trace '),
-                        hc_log_level = Harmony.Core.Interface.LogLevel.Trace
-                    ('1 ','debug '),
-                        hc_log_level = Harmony.Core.Interface.LogLevel.Debug
-                    ('2 ','information '),
-                        hc_log_level = Harmony.Core.Interface.LogLevel.Info
-                    ('3 ','warning '),
-                        hc_log_level = Harmony.Core.Interface.LogLevel.Warning
-                    ('4 ','error '),
-                        hc_log_level = Harmony.Core.Interface.LogLevel.Error
-                    ('5 ','critical '),
-                        hc_log_level = Harmony.Core.Interface.LogLevel.Critical
-                    (),
-                        throw new Exception("Invalid value for logical HARMONY_CORE_LOG_LEVEL="+logical(1:loglen))
-                    endusing
-                end
-
-                DebugLogSession.Logging = new AspNetCoreDebugLogger(loggerFactory.CreateLogger("HarmonyCore")) { Level = hc_log_level }
-                app.UseLogging(DebugLogSession.Logging)
+                locase logical
+                using logical(1:loglen)+' ' select
+                ('0 ','trace '),
+                    hc_log_level = Harmony.Core.Interface.LogLevel.Trace
+                ('1 ','debug '),
+                    hc_log_level = Harmony.Core.Interface.LogLevel.Debug
+                ('2 ','information '),
+                    hc_log_level = Harmony.Core.Interface.LogLevel.Info
+                ('3 ','warning '),
+                    hc_log_level = Harmony.Core.Interface.LogLevel.Warning
+                ('4 ','error '),
+                    hc_log_level = Harmony.Core.Interface.LogLevel.Error
+                ('5 ','critical '),
+                    hc_log_level = Harmony.Core.Interface.LogLevel.Critical
+                (),
+                    throw new Exception("Invalid value for logical HARMONY_CORE_LOG_LEVEL="+logical(1:loglen))
+                endusing
             end
-            else
-            begin
+
+            DebugLogSession.Logging = new AspNetCoreDebugLogger(loggerFactory.CreateLogger("HarmonyCore")) { Level = hc_log_level }
+            app.UseLogging(DebugLogSession.Logging)
+
+            ;if (!env.IsDevelopment())
+            ;begin
                 ;;Enable HTTP Strict Transport Security Protocol (HSTS)
                 ;
                 ;You need to research this and know what you are doing with this. Here's a starting point:
                 ;https://docs.microsoft.com/en-us/aspnet/core/security/enforcing-ssl?view=aspnetcore-2.1&tabs=visual-studio
                 ;
                 ;app.UseHsts()
-            end
+            ;end
 
             ;;-------------------------------------------------------
             ;;Enable HTTP redirection to HTTPS
@@ -593,9 +612,11 @@ namespace <NAMESPACE>
 
             lambda corsOptions(builder)
             begin
-                builder.AllowAnyOrigin()
+                builder
+                &   .AllowCredentials()
                 &    .AllowAnyMethod()
                 &    .AllowAnyHeader()
+                &   .SetIsOriginAllowed(lambda(p) { true } )
             end
 
             app.UseCors(corsOptions)
@@ -640,7 +661,7 @@ namespace <NAMESPACE>
 
         endmethod
 
-        .region "Partial method extensibility points"
+.region "Partial method extensibility points"
 
         ;;; <summary>
         ;;; Declare the ConfigueServicesCustom partial method.
@@ -648,7 +669,7 @@ namespace <NAMESPACE>
         ;;; </summary>
         ;;; <param name="services"></param>
         partial method ConfigureServicesCustom, void
-            services, @IServiceCollection
+            required in services, @IServiceCollection
         endmethod
 
         ;;; <summary>
@@ -679,10 +700,19 @@ namespace <NAMESPACE>
         ;;; </summary>
         ;;; <param name="options">MVC options</param>
         partial method MvcConfigCustom, void
-            options, @MvcOptions
+            required in options, @MvcOptions
         endmethod
 
-        .endregion
+        ;;; <summary>
+        ;;; Declare the AddDataObjectMappingsCustom partial method
+        ;;; Developers can use this to inject additional data object mappings
+        ;;; </summary>
+        ;;; <param name="serviceProvider">Data object provider</param>
+        partial method AddDataObjectMappingsCustom, void
+            required in provider, @DataObjectProvider
+        endmethod
+
+.endregion
 
     endclass
 

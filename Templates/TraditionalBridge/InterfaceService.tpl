@@ -1,5 +1,5 @@
 <CODEGEN_FILENAME><INTERFACE_NAME>Service.dbl</CODEGEN_FILENAME>
-<REQUIRES_CODEGEN_VERSION>5.4.6</REQUIRES_CODEGEN_VERSION>
+<REQUIRES_CODEGEN_VERSION>5.8.5</REQUIRES_CODEGEN_VERSION>
 <REQUIRES_USERTOKEN>MODELS_NAMESPACE</REQUIRES_USERTOKEN>
 <REQUIRES_USERTOKEN>DTOS_NAMESPACE</REQUIRES_USERTOKEN>
 ;//****************************************************************************
@@ -112,14 +112,14 @@ namespace <NAMESPACE>
             ;;Make the JSON-RPC call the traditional Synergy routine
             data resultTuple = await CallMethod("<METHOD_NAME>"
     <PARAMETER_LOOP>
-            &   ,<IF OPTIONAL>ArgumentHelper.MayBeOptional(</IF OPTIONAL><IF IN_OR_INOUT>args.<PARAMETER_NAME><ELSE STRUCTURE>ArgumentHelper.MaybeNull(response.<PARAMETER_NAME>)<ELSE>response.<PARAMETER_NAME></IF IN_OR_INOUT><IF OPTIONAL>)</IF OPTIONAL>
+            &   ,<IF OPTIONAL>ArgumentHelper.MayBeOptional(</IF OPTIONAL><IF IN_OR_INOUT>args.<PARAMETER_NAME><ELSE (STRUCTURE OR COLLECTION OR ALPHA OR STRING) AND NOT OPTIONAL>ArgumentHelper.MaybeNull(response.<PARAMETER_NAME>)<ELSE>response.<PARAMETER_NAME></IF IN_OR_INOUT><IF OPTIONAL>)</IF OPTIONAL>
     </PARAMETER_LOOP>
             &   )
   <IF RETURNS_DATA>
     <IF FUNCTION>
 
              ;;Set the return value in the return data
-            ArgumentHelper.Argument(0, resultTuple, response.ReturnValue)
+            ArgumentHelper.Argument(0, resultTuple, response.<IF TWEAK_SMC_CAMEL_CASE>returnValue<ELSE>ReturnValue</IF>)
     </IF FUNCTION>
 ;//
     <COUNTER_1_RESET>
@@ -134,7 +134,7 @@ namespace <NAMESPACE>
     <PARAMETER_LOOP>
       <IF OUT_OR_INOUT>
       <IF OPTIONAL>
-            response.<PARAMETER_NAME> = ^as(resultList[<PARAMETER_NUMBER> - 1],<HARMONYCORE_BRIDGE_PARAMETER_TYPE>)
+            response.<PARAMETER_NAME> = ^as(resultList[<PARAMETER_NUMBER> - 1],<IF COLLECTION>[#]</IF COLLECTION><HARMONYCORE_BRIDGE_PARAMETER_TYPE>)
       <ELSE>
             ArgumentHelper.Argument(<PARAMETER_NUMBER>, resultTuple, response.<PARAMETER_NAME>)
       </IF>

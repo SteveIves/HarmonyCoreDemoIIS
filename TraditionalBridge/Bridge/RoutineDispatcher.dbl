@@ -32,6 +32,7 @@ namespace Harmony.TraditionalBridge
     ;;; </summary>
     public abstract class RoutineDispatcher
 
+        public MaxRequestId, int
         ;;dummy structure for ^m operations on the mReadBuffer
         private structure MemStruct
             fld, a1
@@ -48,6 +49,7 @@ namespace Harmony.TraditionalBridge
         ;;; </summary>
         public method RoutineDispatcher
         proc
+            MaxRequestId = 0
             ;;setchars(mActivationMask, 3, 4, 25, 26)
             mDispatchStubs = new StringDictionary()
             mReadBufferSize = 0
@@ -206,9 +208,15 @@ namespace Harmony.TraditionalBridge
             record
                 result, @ArrayList
                 buffer, a65535
+                typeTemp, FieldDataType
             endrecord
         proc
-            UnwrapObjectCollection(jsonArray, arrayList, dataDef.ElementIsEncoded, ^null, buffer, ^passed(desiredType) ? desiredType : FieldDataType.AlphaField, dataDef.ElementSize, dataDef.DecimalPrecision)
+            if(^passed(desiredType)) then
+                typeTemp = desiredType
+            else
+                typeTemp = FieldDataType.AlphaField
+
+            UnwrapObjectCollection(jsonArray, arrayList, dataDef.ElementIsEncoded, ^null, buffer, typeTemp, dataDef.ElementSize, dataDef.DecimalPrecision)
         endmethod
 
         ;;this needs to take an expected type parameter of some kind so we can do basic conversions int -> decimal vs int -> int
@@ -689,6 +697,17 @@ namespace Harmony.TraditionalBridge
             mreturn value.GetProperty("PassedValue").GetInt64()
         endmethod
 
+        ;;; <summary>
+        ;;; 
+        ;;; </summary>
+        ;;; <param name="value"></param>
+        ;;; <returns></returns>
+        public method GetBoolean, boolean
+            value, JSON_ELEMENT
+        proc
+            mreturn value.GetProperty("PassedValue").GetBoolean()
+        endmethod
+
         public method GetArray, JSON_ELEMENT
             value, JSON_ELEMENT
         proc
@@ -815,25 +834,11 @@ namespace Harmony.TraditionalBridge
 
         endmethod
 
-        ;;; <summary>
-        ;;; 
-        ;;; </summary>
-        ;;; <param name="ttChannel"></param>
-        ;;; <param name="frameHeader"></param>
-        ;;; <returns></returns>
-        private method ReadCallBlock, boolean
-            messageReader, @HeaderDelimitedMessageReader
-            serializer, @DispatchSerializer
+        private method ReadContent, void
             header, ContentHeader
-            record
-.ifdef DBLV11  
-                jsonDoc, @JsonDocument
-.else
-                jsonDoc, @object
-.endc
-                parsedJson, JSON_ELEMENT
-                result, boolean
-            endrecord
+            messageReader, @HeaderDelimitedMessageReader
+            out jsonDoc, @object
+            out parsedJson, JSON_ELEMENT
         proc
             ;;reuse the same buffer if possible
             if(mReadBufferSize < header.length)
@@ -853,6 +858,24 @@ namespace Harmony.TraditionalBridge
             end
 
             messageReader.ReadContent(header, mReadBuffer, mReadBufferSize, jsonDoc, parsedJson) 
+        endmethod
+        ;;; <summary>
+        ;;; 
+        ;;; </summary>
+        ;;; <param name="ttChannel"></param>
+        ;;; <param name="frameHeader"></param>
+        ;;; <returns></returns>
+        private method ReadCallBlock, boolean
+            messageReader, @HeaderDelimitedMessageReader
+            serializer, @DispatchSerializer
+            header, ContentHeader
+            record
+                jsonDoc, @object
+                parsedJson, JSON_ELEMENT
+                result, boolean
+            endrecord
+        proc
+            ReadContent(header, messageReader, jsonDoc, parsedJson)
             
             if (!(IS_OBJ(parsedJson)) && !(IS_ARRAY(parsedJson)))
             begin
@@ -912,11 +935,16 @@ namespace Harmony.TraditionalBridge
                 while(running)
                 begin
                     messageReader.ReadHeader(header)
+                    if(header.endOfConnection) then
+                        running = false
+                    else
+                    begin
+                        MaybeLog(5, "Dispatcher: starting callblock processing with ContentLength " + %string(header.length) + " ContentType " + %atrim(header.contentTypeBuffer))
 
-                    MaybeLog(5, "Dispatcher: starting callblock processing with ContentLength " + %string(header.length) + " ContentType " + %atrim(header.contentTypeBuffer))
+                        running = ReadCallBlock(messageReader, serializer, header)
+                        Logger.Instance.FinishMemoryLog()
+                    end
 
-                    running = ReadCallBlock(messageReader, serializer, header)
-                    Logger.Instance.FinishMemoryLog()
                 end
                 MaybeLog(1, "Shutting down due to running == false")
             end
@@ -935,8 +963,74 @@ namespace Harmony.TraditionalBridge
             end
             endtry
         endmethod
+.ifdef DBLV11
+         public method DispatchOne, @object
+            messageReader, @HeaderDelimitedMessageReader
+            serializer, @DispatchSerializer
+            callback, @CallbackDispatcher
+            record
+                header, ContentHeader
+                jsonDoc, @object
+                parsedJson, JSON_ELEMENT  
+                callResponse, JSON_ELEMENT  
+                result, @object
+        proc
+            try
+            begin
+                messageReader.ReadHeader(header)
+                if(header.endOfConnection) then
+                    mreturn ^null
+                else
+                begin
+                    MaybeLog(5, "Dispatcher: starting client call result processing with ContentLength " + %string(header.length) + " ContentType " + %atrim(header.contentTypeBuffer))
 
+                    ReadContent(header, messageReader, jsonDoc, parsedJson)
 
+                    if(IS_OBJ(parsedJson)) then
+                    begin
+                        if(parsedJson.TryGetProperty("result", callResponse)) then
+                            result = callback.HandleResponse(callResponse, this)
+                        else
+                            throw new Exception("json response didnt contain 'result'")
+                    end
+                    else
+                        throw new Exception("invalid json response type")
+                
+
+                    MaybeLog(1, "Finishing call to client")
+                    mreturn result
+                end
+            end
+            catch(ex, @Exception)
+            begin
+                try
+                begin
+                    serializer.ReportError(ex.ToString(), (int)-32603, (int)-1)
+                end
+                catch(ex2, @Exception)
+                begin
+                    MaybeLog(1, "failed while writing error " + ex2.ToString() + " original error was " + ex.ToString())
+                    Logger.Instance.CloseLog()
+                end
+                endtry
+            end
+            endtry
+            mreturn ^null
+        endmethod
+
+        public method DispatchOne, @object
+            serializer, @DispatchSerializer
+            callback, @CallbackDispatcher
+            record
+                messageReader, @HeaderDelimitedMessageReader 
+                result, @object
+        proc
+            messageReader = new HeaderDelimitedMessageReader(serializer.CurrentOutChannel())
+            result = DispatchOne(messageReader, serializer, callback)
+            mreturn result
+        endmethod
+
+.endc
         ;;; <summary>
         ;;; 
         ;;; </summary>
@@ -1015,6 +1109,10 @@ namespace Harmony.TraditionalBridge
                 requestId = temp.GetInt32()
             else
                 requestId = -1
+
+            ;;grab the next highest request id
+            if(requestId > MaxRequestId)
+                MaxRequestId = requestId
 
             MaybeLog(5, "Dispatcher: requestid " + %string(requestId))
 
@@ -1153,7 +1251,9 @@ namespace Harmony.TraditionalBridge
     ;;; 
     ;;; </summary>
     abstract class RoutineStub
-                
+        public static CurrentDispatcher, @RoutineDispatcher
+        public static CurrentSerializer, @DispatchSerializer
+
         ;;; <summary>
         ;;; 
         ;;; </summary>
@@ -1187,12 +1287,22 @@ namespace Harmony.TraditionalBridge
                 idValue = idElement.GetInt32()
                 MaybeLog(6, "prolog for id " + %string(idValue))
             end
-            
-            serializer.ReportResponseProlog(hasId, idValue)
-            dispatcher.BeforeDispatch(name, callFrame, serializer)
-            DispatchInternal(name, callFrame, serializer, dispatcher)
-            dispatcher.AfterDispatch(name, callFrame, serializer)
-            serializer.ReportResponseEpilog()
+            try
+            begin
+                CurrentDispatcher = dispatcher
+                CurrentSerializer = serializer
+                serializer.ReportResponseProlog(hasId, idValue)
+                dispatcher.BeforeDispatch(name, callFrame, serializer)
+                DispatchInternal(name, callFrame, serializer, dispatcher)
+                dispatcher.AfterDispatch(name, callFrame, serializer)
+                serializer.ReportResponseEpilog()
+            end
+            finally
+            begin
+                CurrentDispatcher = ^null
+                CurrentSerializer = ^null
+            end
+            endtry
         endmethod
 
         public method RCBInit, void
@@ -1256,8 +1366,10 @@ namespace Harmony.TraditionalBridge
                 argEncodedProp, JSON_ELEMENT
                 argIsEncoded, boolean
                 argHasValue, boolean
+                argTypeTemp, FieldDataType
         proc
             argLength = ^size(argBuffer)
+            argTypeTemp = argType
             argPrecision = 0
             argHasValue = argObject.TryGetProperty("PassedValue", argValue)
             if(argHasValue || alwaysPassed) then
@@ -1288,8 +1400,16 @@ namespace Harmony.TraditionalBridge
 
                             else
                             begin
-                                argBuffer = argValue.GetString()
-                                MaybeLog(4, "argument " + %string(index) + " passed to rcb dispatcher with argType " + %string(argType) + " JsonString value " + argValue.GetString())
+                                if(IS_TEXT(argValue)) then
+                                begin
+                                    argBuffer = argValue.GetString()
+                                    MaybeLog(4, "argument " + %string(index) + " passed to rcb dispatcher with argType " + %string(argType) + " JsonString value " + argBuffer)
+                                end
+                                else
+                                begin
+                                    argBuffer = ""
+                                    MaybeLog(4, "argument " + %string(index) + " passed to rcb dispatcher with argType " + %string(argType) + " had non string value")
+                                end
                             end
                         end
                         else
@@ -1335,12 +1455,27 @@ namespace Harmony.TraditionalBridge
                         else
                             ^i(argBuffer) = 0
                     end
-
+                    else if (argType == FieldDataType.HandleField) then
+                    begin
+                        if (argHasValue) then
+                        begin
+                            data argValueString, string, argValue.GetString()
+                            if argValueString.Length then
+                                ^i(argBuffer) = %HANDLE_FROM_STRING(argValue.GetString(), DM_STATIC)
+                            else
+                                ^i(argBuffer) = %mem_proc(DM_ALLOC|DM_BLANK|DM_STATIC,1)
+                        end
+                        else
+                        begin
+                            ^i(argBuffer) = %mem_proc(DM_ALLOC|DM_BLANK|DM_STATIC,1)
+                        end
+                        argTypeTemp = FieldDataType.IntegerField
+                    end
                     else
                         throw new Exception("unexpected arg type during RCB dispatch " + %string(argType))
 
                     MaybeLog(4, "argument " + %string(index) + " passed to rcb dispatcher with argType " + %string(argType) + " argBuffer value " + argBuffer)
-                    xcall rcb_setarg(rcbid, argBuffer, index, (i)argType, argLength, argPrecision)
+                    xcall rcb_setarg(rcbid, argBuffer, index, (i)argTypeTemp, argLength, argPrecision)
                 end
                 else
                     throw new Exception("Object parameters to RCB dispatch is not currently implemented")
@@ -1391,6 +1526,13 @@ namespace Harmony.TraditionalBridge
                     serializer.ArgumentData(index, ^d(argBuffer, argPrecision), argType, argLength, argPrecision, false)
                 FieldDataType.DecimalField:
                     serializer.ArgumentData(index, ^d(argBuffer), argType, argLength, argPrecision, false)
+                FieldDataType.HandleField:
+                begin
+                    data stringValue, string, %STRING_FROM_HANDLE(^i(argBuffer))
+                    if (String.IsNullOrWhitespace(stringValue))
+                        stringValue = ""
+                    serializer.ArgumentData(index, stringValue, argType, argLength, argPrecision, false)
+                end
                 endcase
             end
         endmethod

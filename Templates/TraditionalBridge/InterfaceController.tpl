@@ -1,5 +1,5 @@
 <CODEGEN_FILENAME><INTERFACE_NAME>Controller.dbl</CODEGEN_FILENAME>
-<REQUIRES_CODEGEN_VERSION>5.4.6</REQUIRES_CODEGEN_VERSION>
+<REQUIRES_CODEGEN_VERSION>5.8.5</REQUIRES_CODEGEN_VERSION>
 <REQUIRES_USERTOKEN>MODELS_NAMESPACE</REQUIRES_USERTOKEN>
 <REQUIRES_USERTOKEN>DTOS_NAMESPACE</REQUIRES_USERTOKEN>
 ;//****************************************************************************
@@ -66,9 +66,9 @@ import <NAMESPACE>
 
 namespace <NAMESPACE>
 
-	<IF DEFINED_ENABLE_AUTHENTICATION>
-	{Authorize}
-	</IF DEFINED_ENABLE_AUTHENTICATION>
+    <IF DEFINED_ENABLE_AUTHENTICATION>
+    {Authorize}
+    </IF DEFINED_ENABLE_AUTHENTICATION>
     {Route("<INTERFACE_NAME>")}
     public partial class <INTERFACE_NAME>Controller extends ControllerBase
 
@@ -83,13 +83,14 @@ namespace <NAMESPACE>
         ;;; <param name="aAppSettings">Application settings</param>
         public method <INTERFACE_NAME>Controller
             a<INTERFACE_NAME>Service, @<INTERFACE_NAME>Service
-			aAppSettings, @IOptions<<MODELS_NAMESPACE>.AppSettings>
+            aAppSettings, @IOptions<<MODELS_NAMESPACE>.AppSettings>
         proc
             _<INTERFACE_NAME>Service = a<INTERFACE_NAME>Service
             _AppSettings = aAppSettings
         endmethod
 
 <METHOD_LOOP>
+        {Http<IF IN_OR_INOUT>Post<ELSE>Get</IF>}
         {Route("<METHOD_NAME>")}
         ;;; <summary>
         ;;; 
@@ -102,9 +103,11 @@ namespace <NAMESPACE>
   </IF IN_OR_INOUT>
         proc
   <IF IN_OR_INOUT>
+    <IF NOT_DEFINED_GLOBAL_MODELSTATE_FILTER>
             if (!ModelState.IsValid)
                 mreturn BadRequest()
-  </IF IN_OR_INOUT>
+    </IF>
+  </IF>
   <IF RETURNS_DATA>
             mreturn ok(await _<INTERFACE_NAME>Service.<METHOD_NAME>(<IF IN_OR_INOUT>aRequest</IF IN_OR_INOUT>))
   <ELSE>
