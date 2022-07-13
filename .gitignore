@@ -3,6 +3,7 @@
 
 *.chw
 *.dbp
+*.ddf
 *.dll
 *.exe
 *.exe.config
