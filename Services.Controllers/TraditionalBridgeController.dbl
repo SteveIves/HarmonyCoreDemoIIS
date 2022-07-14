@@ -43,6 +43,7 @@ namespace Services.Controllers
         endmethod
 
         {AllowAnonymous}
+        {HttpGet}
         {Route("AddTwoNumbers/{aNumber1}/{aNumber2}")}
         ;;; <summary>
         ;;; Adds two numbers and returns the sum
@@ -57,6 +58,7 @@ namespace Services.Controllers
         endmethod
 
         {AllowAnonymous}
+        {HttpGet}
         {Route("GetEnvironment")}
         ;;; <summary>
         ;;; Get the current environment data setting
@@ -68,6 +70,7 @@ namespace Services.Controllers
         endmethod
 
         {AllowAnonymous}
+        {HttpGet}
         {Route("GetLogicalName/{aLogicalName}")}
         ;;; <summary>
         ;;; Get the value of a logical name in the Traditional Synergy environment
