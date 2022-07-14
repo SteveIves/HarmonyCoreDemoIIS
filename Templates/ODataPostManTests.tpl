@@ -7,7 +7,7 @@
 <REQUIRES_USERTOKEN>SERVER_PROTOCOL</REQUIRES_USERTOKEN>
 {
     "info": {
-        "_postman_id": "<guid_nobrace>",
+        "_postman_id": "3efc60d1-7fb2-4a4a-a466-2ba6f69ebe7d",
         "name": "<API_TITLE>",
         "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
     },

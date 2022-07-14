@@ -1,6 +1,6 @@
 {
     "info": {
-        "_postman_id": "e2b9a89d-676d-460d-8dcc-5d4c94745e4b",
+        "_postman_id": "3efc60d1-7fb2-4a4a-a466-2ba6f69ebe7d",
         "name": "Harmony Core Sample API",
         "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
     },
@@ -2200,7 +2200,7 @@
         },
         {
             "key": "ServerAuthUri",
-            "value": "https://localhost:8086/<CUSTOM_AUTH_CONTROLLER_PATH>/<CUSTOM_AUTH_ENDPOINT_PATH>",
+            "value": "https://localhost:8086/Authentication/GetToken",
             "type": "string"
         }
     ]
