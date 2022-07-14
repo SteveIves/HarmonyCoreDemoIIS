@@ -67,10 +67,10 @@
     <h1> Welcome to your RESTful Web Service</h1>
     <ul>
         <li><a href="/odata/v1">OData Entities</a></li>
-        <li><a href="/odata/v1/$odata">OData Endpoint Mappings</a></li>
         <li><a href="/odata/v1/$metadata">OData Metadata (XML)</a></li>
         <li><a href="/odata/v1/$metadata?$format=json">OData Metadata (JSON)</a></li>
-        <li><a href="/swagger">Swagger Documentation</a></li>
+        <li><a href="/odata/v1/$odata">Endpoint Mappings</a></li>
+        <li><a href="/swagger">API Documentation</a></li>
         <li><a href="#data-centric">Data-Centric Service Examples (OData)</a></li>
         <li><a href="#code-centric">Code-Centric Service Examples (Traditional Bridge)</a></li>
         <li><a href="#customization">Customizing the Services</a></li>
@@ -139,6 +139,7 @@
     <ul>
         <li><a href="odata/v1/Customers?$select=CustomerNumber,Name">All customers, customer number and name.</a></li>
         <li><a href="odata/v1/Customers(CustomerNumber=8)?$select=Name,Phone,CreditLimit">Customer 8, name, phone number and credit limit.</a></li>
+        <li><a href="odata/v1/Customers(CustomerNumber=8)?$select=Name&$format=application/json;odata.metadata=none">Customer 8, name only, no metadata.</a></li>
     </ul>
 
     <!--$filter-->

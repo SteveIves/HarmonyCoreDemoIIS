@@ -1,6 +1,5 @@
 <CODEGEN_FILENAME>SelfHost.dbl</CODEGEN_FILENAME>
 <REQUIRES_CODEGEN_VERSION>5.4.6</REQUIRES_CODEGEN_VERSION>
-<REQUIRES_USERTOKEN>API_DOCS_PATH</REQUIRES_USERTOKEN>
 <REQUIRES_USERTOKEN>SERVICES_NAMESPACE</REQUIRES_USERTOKEN>
 <REQUIRES_USERTOKEN>SERVER_PROTOCOL</REQUIRES_USERTOKEN>
 <REQUIRES_USERTOKEN>SERVER_NAME</REQUIRES_USERTOKEN>
@@ -55,8 +54,8 @@ import Microsoft.AspNetCore.Hosting
 import System.Collections.Generic
 import System.IO
 import System.Text
-import <NAMESPACE>
 import <SERVICES_NAMESPACE>
+import <NAMESPACE>
 
 main SelfHost
 
@@ -79,7 +78,10 @@ proc
     ;;-------------------------------------------------------------------------
     ;;Report the location of the API documentation
 
-    Console.WriteLine("API documentation is available at <SERVER_PROTOCOL>://<SERVER_NAME>:<SERVER_HTTPS_PORT>/<API_DOCS_PATH>")
+    Console.WriteLine("API documentation     <SERVER_PROTOCOL>://<SERVER_NAME>:<SERVER_HTTPS_PORT>/swagger")
+    Console.WriteLine("Endpoint mappings     <SERVER_PROTOCOL>://<SERVER_NAME>:<SERVER_HTTPS_PORT>/<SERVER_BASE_PATH>/v<API_VERSION>/$odata")
+    Console.WriteLine("OData metadata (XML)  <SERVER_PROTOCOL>://<SERVER_NAME>:<SERVER_HTTPS_PORT>/<SERVER_BASE_PATH>/v<API_VERSION>/$metadata")
+    Console.WriteLine("OData metadata (JSON) <SERVER_PROTOCOL>://<SERVER_NAME>:<SERVER_HTTPS_PORT>/<SERVER_BASE_PATH>/v<API_VERSION>/$metadata?$format=json")
 
     ;;-------------------------------------------------------------------------
     ;;Define the location that static files are served from and make sure it exists

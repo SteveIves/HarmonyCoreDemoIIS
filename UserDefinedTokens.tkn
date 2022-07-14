@@ -8,10 +8,8 @@
 ;
 <DATA_FOLDER>SampleData</DATA_FOLDER>
 ;
-<API_DOCS_PATH>api-docs</API_DOCS_PATH>
 <API_TITLE>Harmony Core Sample API</API_TITLE>
 <API_VERSION>1</API_VERSION>
-<API_TERMS>Open Source</API_TERMS>
 <API_DESCRIPTION>This environment presents an example of using Harmony Core to expose a collection of RESTful Web Service endpoints that allow you to interact with a small sample dataset.</API_DESCRIPTION>
 <API_CONTACT_NAME>Jodah Veloper</API_CONTACT_NAME>
 <API_CONTACT_EMAIL>jodah.veloper@synergexpsg.com</API_CONTACT_EMAIL>
@@ -25,6 +23,8 @@
 <SERVER_HTTPS_PORT>8086</SERVER_HTTPS_PORT>
 <SERVER_BASE_PATH>odata</SERVER_BASE_PATH>
 ;
+; These are used for real OAuth authentication
+;
 <OAUTH_SERVER>http://localhost:5000</OAUTH_SERVER>
 <OAUTH_API>api1</OAUTH_API>
 <OAUTH_CLIENT>ro.client</OAUTH_CLIENT>
@@ -32,9 +32,10 @@
 <OAUTH_TEST_USER>jodah</OAUTH_TEST_USER>
 <OAUTH_TEST_PASSWORD>P@ssw0rd</OAUTH_TEST_PASSWORD>
 ;
+;These are used for custom authentication
+;
 <CUSTOM_JWT_ISSUER>MyCompany</CUSTOM_JWT_ISSUER>
 <CUSTOM_JWT_AUDIENCE>MyApiName</CUSTOM_JWT_AUDIENCE>
-<CUSTOM_JWT_KEYGEN>AuthTools.GetKey()</CUSTOM_JWT_KEYGEN>
 ;
 <SIGNALR_PATH>/hub/myhub</SIGNALR_PATH>
 ;
@@ -43,6 +44,4 @@
 ;<ROLES_PUT>Manager</ROLES_PUT>
 ;<ROLES_PATCH>Manager</ROLES_PATCH>
 ;<ROLES_DELETE>Manager</ROLES_DELETE>
-;
-<BRIDGE_SMC_INTERFACE>SampleXfplEnv</BRIDGE_SMC_INTERFACE>
-;
+
