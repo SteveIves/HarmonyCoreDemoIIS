@@ -87,6 +87,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BridgeNoPool.dbl" />
     <Compile Include="Filters\ModelStateValidationFilter.dbl" />
     <Compile Include="Filters\TenantValidationFilter.dbl" />
     <Compile Include="StartupCustom.dbl" />
