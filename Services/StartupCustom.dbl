@@ -123,7 +123,7 @@ namespace Services
 
             if (_env.IsDevelopment()) then
             begin
-                traditionalBridgeDirectory = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(^typeof(Startup).Assembly.Location),"..\..\..\..\EXE"))
+                traditionalBridgeDirectory = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(^typeof(Startup).Assembly.Location),"..\..\..\..\TraditionalBridge\EXE"))
             end
             else
             begin

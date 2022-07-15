@@ -1,11 +1,12 @@
 ﻿<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\Common.props" />
   <Import Project="$(SolutionDir)Common.props" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Configuration)' == '' ">x86</Platform>
     <Name>TraditionalBridge</Name>
     <StartupObject>&lt;Synergy Main&gt;</StartupObject>
-    <OutputName>TraditionalBridgeHost</OutputName>
+    <OutputName>host</OutputName>
     <ProjectGuid>{3BA88C80-BA85-4063-AE3B-9005A1B568BC}</ProjectGuid>
     <ProjectTypeGuids>{7B8CF543-378A-4EC1-BB1B-98E4DC6E6820};{BBD0F5D1-1CC4-42fd-BA4C-A96779C64378}</ProjectTypeGuids>
     <OutputType>application</OutputType>
