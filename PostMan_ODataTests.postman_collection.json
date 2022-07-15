@@ -1,7 +1,7 @@
 {
     "info": {
         "_postman_id": "3efc60d1-7fb2-4a4a-a466-2ba6f69ebe7d",
-        "name": "Harmony Core Sample API",
+        "name": "Harmony Core Sample API (OData)",
         "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
     },
     "item": [
@@ -1083,14 +1083,14 @@
                         }
                     ],
                     "url": {
-                        "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/Orders(DateOrdered=2022-07-14)",
+                        "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/Orders(DateOrdered=2022-07-15)",
                         "host": [
                             "{{ServerBaseUri}}"
                         ],
                         "path": [
                             "{{ODataPath}}",
                             "v{{ApiVersion}}",
-                            "Orders(DateOrdered=2022-07-14)"
+                            "Orders(DateOrdered=2022-07-15)"
                         ]
                     }
                     },
@@ -1113,14 +1113,14 @@
                         }
                     ],
                     "url": {
-                        "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/Orders(DateOrdered=2022-07-14)/$count",
+                        "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/Orders(DateOrdered=2022-07-15)/$count",
                         "host": [
                             "{{ServerBaseUri}}"
                         ],
                         "path": [
                             "{{ODataPath}}",
                             "v{{ApiVersion}}",
-                            "Orders(DateOrdered=2022-07-14)",
+                            "Orders(DateOrdered=2022-07-15)",
                             "$count"
                         ]
                     }
@@ -1144,14 +1144,14 @@
                         }
                     ],
                     "url": {
-                        "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/Orders(DateCompleted=2022-07-14)",
+                        "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/Orders(DateCompleted=2022-07-15)",
                         "host": [
                             "{{ServerBaseUri}}"
                         ],
                         "path": [
                             "{{ODataPath}}",
                             "v{{ApiVersion}}",
-                            "Orders(DateCompleted=2022-07-14)"
+                            "Orders(DateCompleted=2022-07-15)"
                         ]
                     }
                     },
@@ -1174,14 +1174,14 @@
                         }
                     ],
                     "url": {
-                        "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/Orders(DateCompleted=2022-07-14)/$count",
+                        "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/Orders(DateCompleted=2022-07-15)/$count",
                         "host": [
                             "{{ServerBaseUri}}"
                         ],
                         "path": [
                             "{{ODataPath}}",
                             "v{{ApiVersion}}",
-                            "Orders(DateCompleted=2022-07-14)",
+                            "Orders(DateCompleted=2022-07-15)",
                             "$count"
                         ]
                     }
@@ -1503,14 +1503,14 @@
                         }
                     ],
                     "url": {
-                        "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/OrderItems(DateShipped=2022-07-14)",
+                        "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/OrderItems(DateShipped=2022-07-15)",
                         "host": [
                             "{{ServerBaseUri}}"
                         ],
                         "path": [
                             "{{ODataPath}}",
                             "v{{ApiVersion}}",
-                            "OrderItems(DateShipped=2022-07-14)"
+                            "OrderItems(DateShipped=2022-07-15)"
                         ]
                     }
                     },
@@ -1533,14 +1533,14 @@
                         }
                     ],
                     "url": {
-                        "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/OrderItems(DateShipped=2022-07-14)/$count",
+                        "raw": "{{ServerBaseUri}}/{{ODataPath}}/v{{ApiVersion}}/OrderItems(DateShipped=2022-07-15)/$count",
                         "host": [
                             "{{ServerBaseUri}}"
                         ],
                         "path": [
                             "{{ODataPath}}",
                             "v{{ApiVersion}}",
-                            "OrderItems(DateShipped=2022-07-14)",
+                            "OrderItems(DateShipped=2022-07-15)",
                             "$count"
                         ]
                     }

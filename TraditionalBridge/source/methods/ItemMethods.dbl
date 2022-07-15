@@ -21,26 +21,23 @@ import Synergex.SynergyDE.Select
 ;;*****************************************************************************
 
 {xfMethod(interface="MyApi",elb="EXE:xfplMethods")}
-function AddItem ,boolean
+function AddItem, boolean
 
     {xfParameter(name="Item")}
-    required in aItem    ,strItem
-
-    endparams
+    required in aItem, strItem
 
     stack record
-        retVal  ,boolean
-        chItem   ,int
-        tmpItem  ,strItem
+        retVal, boolean
+        chItem, int
+        tmpItem, strItem
     endrecord
 
     external function
-        ValidateItem ,boolean
+        ValidateItem, boolean
     endexternal
 
 proc
-
-    if (retVal=ValidateItem(tmpItem=aItem))
+    if (retVal=%ValidateItem(tmpItem=aItem))
     begin
         try
         begin
@@ -54,7 +51,7 @@ proc
         end
         finally
         begin
-            if (chItem&&%chopen(chItem))
+            if (chItem)
                 close chItem
         end
         endtry
@@ -67,17 +64,15 @@ endfunction
 ;;*****************************************************************************
 
 {xfMethod(interface="MyApi",elb="EXE:xfplMethods")}
-function DeleteItem  ,boolean
+function DeleteItem, boolean
 
     {xfParameter(name="ItemNumber")}
-    required in aItemNumber  ,d6
-
-    endparams
+    required in aItemNumber, d6
 
     stack record local_data
         retVal  ,boolean
-        chItem   ,int
-        item    ,strItem
+        chItem, int
+        item, strItem
     endrecord
 proc
 
@@ -97,9 +92,9 @@ proc
     end
     finally
     begin
-        if (chItem&&%chopen(chItem))
+        if (chItem)
             close chItem
-    end
+     end
     endtry
 
     freturn retVal
@@ -117,15 +112,12 @@ function GetItem, boolean
     {xfParameter(name="Item")}
     required out aItem, strItem
 
-    endparams
-
     stack record local_data
-        retVal  ,boolean
-        chItem   ,int
+        retVal, boolean
+        chItem, int
     endrecord
 
 proc
-
     init local_data, aItem
     retVal = true
 
@@ -143,7 +135,7 @@ proc
     end
     finally
     begin
-        if (chItem&&%chopen(chItem))
+        if (chItem)
             close chItem
     end
     endtry
@@ -160,16 +152,13 @@ function GetAllItems, boolean
     {xfParameter(name="Items",collectionType=xfCollectType.structure,structure="strItem",dataTable=true)}
     required out aItems, @ArrayList
 
-    endparams
-
     stack record local_data
-        retVal  ,boolean
+        retVal, boolean
         chItem, int
         item, strItem
     endrecord
 
 proc
-
     init local_data
     retVal=true
 
@@ -202,7 +191,7 @@ proc
         retval=false
     finally
     begin
-        if (chItem&&%chopen(chItem))
+        if (chItem)
             close chItem
     end
     endtry
@@ -219,13 +208,11 @@ function UpdateItem, boolean
     {xfParameter(name="Item")}
     required in aItem, strItem
 
-    endparams
-
     stack record local_data
-        retVal  ,boolean
-        chItem   ,int
-        newItem  ,strItem
-        oldItem  ,strItem
+        retVal, boolean
+        chItem,  int
+        newItem, strItem
+        oldItem, strItem
     endrecord
 
     external function
@@ -233,10 +220,9 @@ function UpdateItem, boolean
     endexternal
 
 proc
-
     init local_data
 
-    if (retVal=ValidateItem(newItem=aItem))
+    if (retVal=%ValidateItem(newItem=aItem))
     begin
         try
         begin
@@ -250,7 +236,7 @@ proc
         end
         finally
         begin
-            if (chItem&&%chopen(chItem))
+            if (chItem)
                 close chItem
         end
         endtry
@@ -268,14 +254,11 @@ function ValidateItem, boolean
     {xfParameter(name="Item")}
     required inout aItem, strItem
 
-    endparams
-
     stack record
         dataIsValid ,boolean
     endrecord
 
 proc
-
     dataIsValid = true
 
     ;;Validate required fields

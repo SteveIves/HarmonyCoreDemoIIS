@@ -66,10 +66,10 @@
       <SubType>Content</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="MakeMethods\MakeMethods.bat">
+    <Content Include="MakeMethods\MakeFileAccessMethods.bat">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="MakeMethods\StructureMethods.tpl">
+    <Content Include="MakeMethods\FileAccessMethods.tpl">
       <SubType>Content</SubType>
     </Content>
     <Content Include="MakeMethods\UpdateSMC.bat">

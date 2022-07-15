@@ -21,26 +21,23 @@ import Synergex.SynergyDE.Select
 ;;*****************************************************************************
 
 {xfMethod(interface="MyApi",elb="EXE:xfplMethods")}
-function AddOrderItem ,boolean
+function AddOrderItem, boolean
 
     {xfParameter(name="OrderItem")}
-    required in aOrderItem    ,strOrderItem
-
-    endparams
+    required in aOrderItem, strOrderItem
 
     stack record
-        retVal  ,boolean
-        chOrderItem   ,int
-        tmpOrderItem  ,strOrderItem
+        retVal, boolean
+        chOrderItem, int
+        tmpOrderItem, strOrderItem
     endrecord
 
     external function
-        ValidateOrderItem ,boolean
+        ValidateOrderItem, boolean
     endexternal
 
 proc
-
-    if (retVal=ValidateOrderItem(tmpOrderItem=aOrderItem))
+    if (retVal=%ValidateOrderItem(tmpOrderItem=aOrderItem))
     begin
         try
         begin
@@ -54,7 +51,7 @@ proc
         end
         finally
         begin
-            if (chOrderItem&&%chopen(chOrderItem))
+            if (chOrderItem)
                 close chOrderItem
         end
         endtry
@@ -67,20 +64,18 @@ endfunction
 ;;*****************************************************************************
 
 {xfMethod(interface="MyApi",elb="EXE:xfplMethods")}
-function DeleteOrderItem  ,boolean
+function DeleteOrderItem, boolean
 
     {xfParameter(name="OrderNumber")}
-    required in aOrderNumber  ,d6
+    required in aOrderNumber, d6
 
     {xfParameter(name="ItemNumber")}
-    required in aItemNumber  ,d2
-
-    endparams
+    required in aItemNumber, d2
 
     stack record local_data
         retVal  ,boolean
-        chOrderItem   ,int
-        order_item    ,strOrderItem
+        chOrderItem, int
+        order_item, strOrderItem
     endrecord
 proc
 
@@ -101,9 +96,9 @@ proc
     end
     finally
     begin
-        if (chOrderItem&&%chopen(chOrderItem))
+        if (chOrderItem)
             close chOrderItem
-    end
+     end
     endtry
 
     freturn retVal
@@ -124,15 +119,12 @@ function GetOrderItem, boolean
     {xfParameter(name="OrderItem")}
     required out aOrderItem, strOrderItem
 
-    endparams
-
     stack record local_data
-        retVal  ,boolean
-        chOrderItem   ,int
+        retVal, boolean
+        chOrderItem, int
     endrecord
 
 proc
-
     init local_data, aOrderItem
     retVal = true
 
@@ -151,7 +143,7 @@ proc
     end
     finally
     begin
-        if (chOrderItem&&%chopen(chOrderItem))
+        if (chOrderItem)
             close chOrderItem
     end
     endtry
@@ -171,10 +163,8 @@ function GetAllOrderItems, boolean
     {xfParameter(name="OrderItems",collectionType=xfCollectType.structure,structure="strOrderItem",dataTable=true)}
     required out aOrderItems, @ArrayList
 
-    endparams
-
     stack record local_data
-        retVal  ,boolean
+        retVal, boolean
         chOrderItem, int
         order_item, strOrderItem
         filterData, a8
@@ -182,7 +172,6 @@ function GetAllOrderItems, boolean
     endrecord
 
 proc
-
     init local_data
     retVal=true
 
@@ -222,7 +211,7 @@ proc
         retval=false
     finally
     begin
-        if (chOrderItem&&%chopen(chOrderItem))
+        if (chOrderItem)
             close chOrderItem
     end
     endtry
@@ -239,13 +228,11 @@ function UpdateOrderItem, boolean
     {xfParameter(name="OrderItem")}
     required in aOrderItem, strOrderItem
 
-    endparams
-
     stack record local_data
-        retVal  ,boolean
-        chOrderItem   ,int
-        newOrderItem  ,strOrderItem
-        oldOrderItem  ,strOrderItem
+        retVal, boolean
+        chOrderItem,  int
+        newOrderItem, strOrderItem
+        oldOrderItem, strOrderItem
     endrecord
 
     external function
@@ -253,10 +240,9 @@ function UpdateOrderItem, boolean
     endexternal
 
 proc
-
     init local_data
 
-    if (retVal=ValidateOrderItem(newOrderItem=aOrderItem))
+    if (retVal=%ValidateOrderItem(newOrderItem=aOrderItem))
     begin
         try
         begin
@@ -270,7 +256,7 @@ proc
         end
         finally
         begin
-            if (chOrderItem&&%chopen(chOrderItem))
+            if (chOrderItem)
                 close chOrderItem
         end
         endtry
@@ -288,14 +274,11 @@ function ValidateOrderItem, boolean
     {xfParameter(name="OrderItem")}
     required inout aOrderItem, strOrderItem
 
-    endparams
-
     stack record
         dataIsValid ,boolean
     endrecord
 
 proc
-
     dataIsValid = true
 
     ;;Validate required fields

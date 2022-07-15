@@ -3,11 +3,11 @@
 <REQUIRES_USERTOKEN>XF_ELB</REQUIRES_USERTOKEN>
 ;//****************************************************************************
 ;//
-;// Title:       xf_net_add.tpl
+;// Title:       FileAccessMethods.tpl
 ;//
 ;// Type:        CodeGen Template
 ;//
-;// Description: This template generates Synergy methods for a structure.
+;// Description: Generates CRUD file access methods methods for a structure.
 ;//
 ;// Date:        17th October 2008
 ;//
@@ -16,8 +16,7 @@
 ;//
 ;//****************************************************************************
 ;//
-;// Copyright (c) 2012, Synergex International, Inc.
-;// All rights reserved.
+;// Copyright (c) 2014, Synergex International, Inc. All rights reserved.
 ;//
 ;// Redistribution and use in source and binary forms, with or without
 ;// modification, are permitted provided that the following conditions are met:
@@ -64,26 +63,23 @@ import Synergex.SynergyDE.Select
 ;;*****************************************************************************
 
 {xfMethod(interface="<XF_INTERFACE>",elb="<XF_ELB>")}
-function Add<StructureName> ,boolean
+function Add<StructureName>, boolean
 
     {xfParameter(name="<StructureName>")}
-    required in a<StructureName>    ,str<StructureName>
-
-    endparams
+    required in a<StructureName>, str<StructureName>
 
     stack record
-        retVal  ,boolean
-        ch<StructureName>   ,int
-        tmp<StructureName>  ,str<StructureName>
+        retVal, boolean
+        ch<StructureName>, int
+        tmp<StructureName>, str<StructureName>
     endrecord
 
     external function
-        Validate<StructureName> ,boolean
+        Validate<StructureName>, boolean
     endexternal
 
 proc
-
-    if (retVal=Validate<StructureName>(tmp<StructureName>=a<StructureName>))
+    if (retVal=%Validate<StructureName>(tmp<StructureName>=a<StructureName>))
     begin
         try
         begin
@@ -97,7 +93,7 @@ proc
         end
         finally
         begin
-            if (ch<StructureName>&&%chopen(ch<StructureName>))
+            if (ch<StructureName>)
                 close ch<StructureName>
         end
         endtry
@@ -110,21 +106,19 @@ endfunction
 ;;*****************************************************************************
 
 {xfMethod(interface="<XF_INTERFACE>",elb="<XF_ELB>")}
-function Delete<StructureName>  ,boolean
+function Delete<StructureName>, boolean
 
 <PRIMARY_KEY>
   <SEGMENT_LOOP>
     {xfParameter(name="<SegmentName>")}
-    required in a<SegmentName>  ,<segment_spec>
+    required in a<SegmentName>, <segment_spec>
 
   </SEGMENT_LOOP>
 </PRIMARY_KEY>
-    endparams
-
     stack record local_data
         retVal  ,boolean
-        ch<StructureName>   ,int
-        <structure_name>    ,str<StructureName>
+        ch<StructureName>, int
+        <structure_name>, str<StructureName>
     endrecord
 proc
 
@@ -148,9 +142,9 @@ proc
     end
     finally
     begin
-        if (ch<StructureName>&&%chopen(ch<StructureName>))
+        if (ch<StructureName>)
             close ch<StructureName>
-    end
+     end
     endtry
 
     freturn retVal
@@ -172,15 +166,12 @@ function Get<StructureName>, boolean
     {xfParameter(name="<StructureName>")}
     required out a<StructureName>, str<StructureName>
 
-    endparams
-
     stack record local_data
-        retVal  ,boolean
-        ch<StructureName>   ,int
+        retVal, boolean
+        ch<StructureName>, int
     endrecord
 
 proc
-
     init local_data, a<StructureName>
     retVal = true
 
@@ -202,7 +193,7 @@ proc
     end
     finally
     begin
-        if (ch<StructureName>&&%chopen(ch<StructureName>))
+        if (ch<StructureName>)
             close ch<StructureName>
     end
     endtry
@@ -226,10 +217,8 @@ function GetAll<StructureName>s, boolean
     {xfParameter(name="<StructureName>s",collectionType=xfCollectType.structure,structure="str<StructureName>",dataTable=true)}
     required out a<StructureName>s, @ArrayList
 
-    endparams
-
     stack record local_data
-        retVal  ,boolean
+        retVal, boolean
         ch<StructureName>, int
         <structure_name>, str<StructureName>
 <PRIMARY_KEY>
@@ -241,7 +230,6 @@ function GetAll<StructureName>s, boolean
     endrecord
 
 proc
-
     init local_data
     retVal=true
 
@@ -297,7 +285,7 @@ proc
         retval=false
     finally
     begin
-        if (ch<StructureName>&&%chopen(ch<StructureName>))
+        if (ch<StructureName>)
             close ch<StructureName>
     end
     endtry
@@ -314,13 +302,11 @@ function Update<StructureName>, boolean
     {xfParameter(name="<StructureName>")}
     required in a<StructureName>, str<StructureName>
 
-    endparams
-
     stack record local_data
-        retVal  ,boolean
-        ch<StructureName>   ,int
-        new<StructureName>  ,str<StructureName>
-        old<StructureName>  ,str<StructureName>
+        retVal, boolean
+        ch<StructureName>,  int
+        new<StructureName>, str<StructureName>
+        old<StructureName>, str<StructureName>
     endrecord
 
     external function
@@ -328,10 +314,9 @@ function Update<StructureName>, boolean
     endexternal
 
 proc
-
     init local_data
 
-    if (retVal=Validate<StructureName>(new<StructureName>=a<StructureName>))
+    if (retVal=%Validate<StructureName>(new<StructureName>=a<StructureName>))
     begin
         try
         begin
@@ -345,7 +330,7 @@ proc
         end
         finally
         begin
-            if (ch<StructureName>&&%chopen(ch<StructureName>))
+            if (ch<StructureName>)
                 close ch<StructureName>
         end
         endtry
@@ -363,14 +348,11 @@ function Validate<StructureName>, boolean
     {xfParameter(name="<StructureName>")}
     required inout a<StructureName>, str<StructureName>
 
-    endparams
-
     stack record
         dataIsValid ,boolean
     endrecord
 
 proc
-
     dataIsValid = true
 
     ;;Validate required fields

@@ -4,7 +4,7 @@
 {
 	"info": {
 		"_postman_id": "2648742f-eaf1-4fe1-8a13-52af1cd8534a",
-		"name": "<API_TITLE> (<INTERFACE_NAME>)",
+		"name": "<API_TITLE> (Code: <INTERFACE_NAME>)",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [

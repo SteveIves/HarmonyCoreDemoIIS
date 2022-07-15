@@ -21,26 +21,23 @@ import Synergex.SynergyDE.Select
 ;;*****************************************************************************
 
 {xfMethod(interface="MyApi",elb="EXE:xfplMethods")}
-function AddVendor ,boolean
+function AddVendor, boolean
 
     {xfParameter(name="Vendor")}
-    required in aVendor    ,strVendor
-
-    endparams
+    required in aVendor, strVendor
 
     stack record
-        retVal  ,boolean
-        chVendor   ,int
-        tmpVendor  ,strVendor
+        retVal, boolean
+        chVendor, int
+        tmpVendor, strVendor
     endrecord
 
     external function
-        ValidateVendor ,boolean
+        ValidateVendor, boolean
     endexternal
 
 proc
-
-    if (retVal=ValidateVendor(tmpVendor=aVendor))
+    if (retVal=%ValidateVendor(tmpVendor=aVendor))
     begin
         try
         begin
@@ -54,7 +51,7 @@ proc
         end
         finally
         begin
-            if (chVendor&&%chopen(chVendor))
+            if (chVendor)
                 close chVendor
         end
         endtry
@@ -67,17 +64,15 @@ endfunction
 ;;*****************************************************************************
 
 {xfMethod(interface="MyApi",elb="EXE:xfplMethods")}
-function DeleteVendor  ,boolean
+function DeleteVendor, boolean
 
     {xfParameter(name="VendorNumber")}
-    required in aVendorNumber  ,d6
-
-    endparams
+    required in aVendorNumber, d6
 
     stack record local_data
         retVal  ,boolean
-        chVendor   ,int
-        vendor    ,strVendor
+        chVendor, int
+        vendor, strVendor
     endrecord
 proc
 
@@ -97,9 +92,9 @@ proc
     end
     finally
     begin
-        if (chVendor&&%chopen(chVendor))
+        if (chVendor)
             close chVendor
-    end
+     end
     endtry
 
     freturn retVal
@@ -117,15 +112,12 @@ function GetVendor, boolean
     {xfParameter(name="Vendor")}
     required out aVendor, strVendor
 
-    endparams
-
     stack record local_data
-        retVal  ,boolean
-        chVendor   ,int
+        retVal, boolean
+        chVendor, int
     endrecord
 
 proc
-
     init local_data, aVendor
     retVal = true
 
@@ -143,7 +135,7 @@ proc
     end
     finally
     begin
-        if (chVendor&&%chopen(chVendor))
+        if (chVendor)
             close chVendor
     end
     endtry
@@ -160,16 +152,13 @@ function GetAllVendors, boolean
     {xfParameter(name="Vendors",collectionType=xfCollectType.structure,structure="strVendor",dataTable=true)}
     required out aVendors, @ArrayList
 
-    endparams
-
     stack record local_data
-        retVal  ,boolean
+        retVal, boolean
         chVendor, int
         vendor, strVendor
     endrecord
 
 proc
-
     init local_data
     retVal=true
 
@@ -202,7 +191,7 @@ proc
         retval=false
     finally
     begin
-        if (chVendor&&%chopen(chVendor))
+        if (chVendor)
             close chVendor
     end
     endtry
@@ -219,13 +208,11 @@ function UpdateVendor, boolean
     {xfParameter(name="Vendor")}
     required in aVendor, strVendor
 
-    endparams
-
     stack record local_data
-        retVal  ,boolean
-        chVendor   ,int
-        newVendor  ,strVendor
-        oldVendor  ,strVendor
+        retVal, boolean
+        chVendor,  int
+        newVendor, strVendor
+        oldVendor, strVendor
     endrecord
 
     external function
@@ -233,10 +220,9 @@ function UpdateVendor, boolean
     endexternal
 
 proc
-
     init local_data
 
-    if (retVal=ValidateVendor(newVendor=aVendor))
+    if (retVal=%ValidateVendor(newVendor=aVendor))
     begin
         try
         begin
@@ -250,7 +236,7 @@ proc
         end
         finally
         begin
-            if (chVendor&&%chopen(chVendor))
+            if (chVendor)
                 close chVendor
         end
         endtry
@@ -268,14 +254,11 @@ function ValidateVendor, boolean
     {xfParameter(name="Vendor")}
     required inout aVendor, strVendor
 
-    endparams
-
     stack record
         dataIsValid ,boolean
     endrecord
 
 proc
-
     dataIsValid = true
 
     ;;Validate required fields

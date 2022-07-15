@@ -21,26 +21,23 @@ import Synergex.SynergyDE.Select
 ;;*****************************************************************************
 
 {xfMethod(interface="MyApi",elb="EXE:xfplMethods")}
-function AddCustomer ,boolean
+function AddCustomer, boolean
 
     {xfParameter(name="Customer")}
-    required in aCustomer    ,strCustomer
-
-    endparams
+    required in aCustomer, strCustomer
 
     stack record
-        retVal  ,boolean
-        chCustomer   ,int
-        tmpCustomer  ,strCustomer
+        retVal, boolean
+        chCustomer, int
+        tmpCustomer, strCustomer
     endrecord
 
     external function
-        ValidateCustomer ,boolean
+        ValidateCustomer, boolean
     endexternal
 
 proc
-
-    if (retVal=ValidateCustomer(tmpCustomer=aCustomer))
+    if (retVal=%ValidateCustomer(tmpCustomer=aCustomer))
     begin
         try
         begin
@@ -54,7 +51,7 @@ proc
         end
         finally
         begin
-            if (chCustomer&&%chopen(chCustomer))
+            if (chCustomer)
                 close chCustomer
         end
         endtry
@@ -67,17 +64,15 @@ endfunction
 ;;*****************************************************************************
 
 {xfMethod(interface="MyApi",elb="EXE:xfplMethods")}
-function DeleteCustomer  ,boolean
+function DeleteCustomer, boolean
 
     {xfParameter(name="CustomerNumber")}
-    required in aCustomerNumber  ,d6
-
-    endparams
+    required in aCustomerNumber, d6
 
     stack record local_data
         retVal  ,boolean
-        chCustomer   ,int
-        customer    ,strCustomer
+        chCustomer, int
+        customer, strCustomer
     endrecord
 proc
 
@@ -97,9 +92,9 @@ proc
     end
     finally
     begin
-        if (chCustomer&&%chopen(chCustomer))
+        if (chCustomer)
             close chCustomer
-    end
+     end
     endtry
 
     freturn retVal
@@ -117,15 +112,12 @@ function GetCustomer, boolean
     {xfParameter(name="Customer")}
     required out aCustomer, strCustomer
 
-    endparams
-
     stack record local_data
-        retVal  ,boolean
-        chCustomer   ,int
+        retVal, boolean
+        chCustomer, int
     endrecord
 
 proc
-
     init local_data, aCustomer
     retVal = true
 
@@ -143,7 +135,7 @@ proc
     end
     finally
     begin
-        if (chCustomer&&%chopen(chCustomer))
+        if (chCustomer)
             close chCustomer
     end
     endtry
@@ -160,16 +152,13 @@ function GetAllCustomers, boolean
     {xfParameter(name="Customers",collectionType=xfCollectType.structure,structure="strCustomer",dataTable=true)}
     required out aCustomers, @ArrayList
 
-    endparams
-
     stack record local_data
-        retVal  ,boolean
+        retVal, boolean
         chCustomer, int
         customer, strCustomer
     endrecord
 
 proc
-
     init local_data
     retVal=true
 
@@ -202,7 +191,7 @@ proc
         retval=false
     finally
     begin
-        if (chCustomer&&%chopen(chCustomer))
+        if (chCustomer)
             close chCustomer
     end
     endtry
@@ -219,13 +208,11 @@ function UpdateCustomer, boolean
     {xfParameter(name="Customer")}
     required in aCustomer, strCustomer
 
-    endparams
-
     stack record local_data
-        retVal  ,boolean
-        chCustomer   ,int
-        newCustomer  ,strCustomer
-        oldCustomer  ,strCustomer
+        retVal, boolean
+        chCustomer,  int
+        newCustomer, strCustomer
+        oldCustomer, strCustomer
     endrecord
 
     external function
@@ -233,10 +220,9 @@ function UpdateCustomer, boolean
     endexternal
 
 proc
-
     init local_data
 
-    if (retVal=ValidateCustomer(newCustomer=aCustomer))
+    if (retVal=%ValidateCustomer(newCustomer=aCustomer))
     begin
         try
         begin
@@ -250,7 +236,7 @@ proc
         end
         finally
         begin
-            if (chCustomer&&%chopen(chCustomer))
+            if (chCustomer)
                 close chCustomer
         end
         endtry
@@ -268,14 +254,11 @@ function ValidateCustomer, boolean
     {xfParameter(name="Customer")}
     required inout aCustomer, strCustomer
 
-    endparams
-
     stack record
         dataIsValid ,boolean
     endrecord
 
 proc
-
     dataIsValid = true
 
     ;;Validate required fields
