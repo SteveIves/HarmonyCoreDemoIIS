@@ -1,5 +1,4 @@
 @echo off
-setlocal
 setlocal EnableDelayedExpansion
 
 set SolutionDir=%~dp0
