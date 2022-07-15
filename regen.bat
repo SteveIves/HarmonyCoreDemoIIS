@@ -236,7 +236,7 @@ if NOT DEFINED EF_PROVIDER_MYSQL (
 )
 
 rem ================================================================================
-rem Postman tests
+rem Postman tests for OData environment
 
 if DEFINED ENABLE_POSTMAN_TESTS (
 
@@ -252,6 +252,19 @@ if DEFINED ENABLE_POSTMAN_TESTS (
   echo !command! >> regen_last.bat
   !command!
   if ERRORLEVEL 1 goto error
+
+  echo.
+  echo Generating interface Postman tests for Traditional Bridge environment
+
+  set command=codegen ^
+-t PostManDevelopmentEnvironment ^
+-i Templates ^
+-o . ^
+%NOREPLACEOPTS%
+  echo !command! >> regen_last.bat
+  !command!
+  if ERRORLEVEL 1 goto error
+
 )
 
 rem ================================================================================
@@ -646,7 +659,7 @@ rem ============================================================================
   if DEFINED ENABLE_POSTMAN_TESTS (
 
   echo.
-  echo Generating interface Postman tests
+  echo Generating interface Postman tests for Traditional Bridge environment
 
   set command=codegen ^
 -smc %SMC_XML_FILE% ^
