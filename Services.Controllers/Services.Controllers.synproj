@@ -53,10 +53,10 @@
     <Compile Include="CustomersController.dbl" />
     <Compile Include="IsolatedMethodsBase.dbl" />
     <Compile Include="ItemsController.dbl" />
+    <Compile Include="MyApiController.dbl" />
+    <Compile Include="MyApiService.dbl" />
     <Compile Include="OrderItemsController.dbl" />
     <Compile Include="OrdersController.dbl" />
-    <Compile Include="TraditionalBridgeController.dbl" />
-    <Compile Include="TraditionalBridgeService.dbl" />
     <Compile Include="VendorsController.dbl" />
   </ItemGroup>
   <ItemGroup>

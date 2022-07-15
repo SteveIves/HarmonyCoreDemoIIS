@@ -1,0 +1,25 @@
+;;*****************************************************************************
+;;
+;; Title:       GetLogicalName.dbl
+;;
+;; Description: An example routine being exposed by Traditional Bridge.
+;;              Returns the Synergy DBL version number and operating system.
+;;
+;;*****************************************************************************
+
+{xfMethod(interface="MyApi",elb="EXE:xfplMethods")}
+function GetLogicalName, a1024
+    required in aLogicalName, a40
+    stack record
+        translation,    a1024
+        length,         i4
+    endrecord
+proc
+    xcall getlog(aLogicalName,translation,length)
+
+    if (length)
+        freturn translation(1:length)
+    
+    freturn ""
+
+endfunction

@@ -134,7 +134,7 @@ namespace Services
             data environmentVariables, @Dictionary<string,string>,new Dictionary<string,string>(){{"HARMONY_LOG_LEVEL","6"}}
             
             ;Create a context pool for 'TraditionalBridgeService'
-            data contextPool, @ExternalContextPool<TraditionalBridgeService>, new ExternalContextPool<TraditionalBridgeService>
+            data contextPool, @ExternalContextPool<MyApiService>, new ExternalContextPool<MyApiService>
             &    (
             &    launchCommand,
             &    "optional_command_parameters",
@@ -144,8 +144,8 @@ namespace Services
             &    ) 
 
             ;; Make 'TraditionalBridgeService' available as a DI service
-            services.AddSingleton<IContextFactory<TraditionalBridgeService>>(contextPool)
-            services.AddContextPool<TraditionalBridgeService>()
+            services.AddSingleton<IContextFactory<MyApiService>>(contextPool)
+            services.AddContextPool<MyApiService>()
 
 ;            ;;-----------------------------------------------------------------
 ;            ;; Enable "SignalR" support

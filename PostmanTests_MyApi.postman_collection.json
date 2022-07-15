@@ -1,0 +1,957 @@
+{
+	"info": {
+		"_postman_id": "2648742f-eaf1-4fe1-8a13-52af1cd8534a",
+		"name": "Harmony Core Sample API (MyApi)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "AddCustomer",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\t\"Customer\": \"\" \n}"
+				},
+				"url": {
+					"raw": "{{BridgeBaseUri}}/{{ControllerPath}}/AddCustomer",
+					"host": [
+						"{{BridgeBaseUri}}"
+					],
+					"path": [
+						"{{ControllerPath}}",
+						"AddCustomer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddItem",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\t\"Item\": \"\" \n}"
+				},
+				"url": {
+					"raw": "{{BridgeBaseUri}}/{{ControllerPath}}/AddItem",
+					"host": [
+						"{{BridgeBaseUri}}"
+					],
+					"path": [
+						"{{ControllerPath}}",
+						"AddItem"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddOrder",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\t\"Order\": \"\" \n}"
+				},
+				"url": {
+					"raw": "{{BridgeBaseUri}}/{{ControllerPath}}/AddOrder",
+					"host": [
+						"{{BridgeBaseUri}}"
+					],
+					"path": [
+						"{{ControllerPath}}",
+						"AddOrder"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddOrderItem",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\t\"OrderItem\": \"\" \n}"
+				},
+				"url": {
+					"raw": "{{BridgeBaseUri}}/{{ControllerPath}}/AddOrderItem",
+					"host": [
+						"{{BridgeBaseUri}}"
+					],
+					"path": [
+						"{{ControllerPath}}",
+						"AddOrderItem"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddTwoNumbers",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\t\"number1\": 9.9,\n\t\"number2\": 9.9 \n}"
+				},
+				"url": {
+					"raw": "{{BridgeBaseUri}}/{{ControllerPath}}/AddTwoNumbers",
+					"host": [
+						"{{BridgeBaseUri}}"
+					],
+					"path": [
+						"{{ControllerPath}}",
+						"AddTwoNumbers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddVendor",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\t\"Vendor\": \"\" \n}"
+				},
+				"url": {
+					"raw": "{{BridgeBaseUri}}/{{ControllerPath}}/AddVendor",
+					"host": [
+						"{{BridgeBaseUri}}"
+					],
+					"path": [
+						"{{ControllerPath}}",
+						"AddVendor"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteCustomer",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\t\"CustomerNumber\": 9 \n}"
+				},
+				"url": {
+					"raw": "{{BridgeBaseUri}}/{{ControllerPath}}/DeleteCustomer",
+					"host": [
+						"{{BridgeBaseUri}}"
+					],
+					"path": [
+						"{{ControllerPath}}",
+						"DeleteCustomer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteItem",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\t\"ItemNumber\": 9 \n}"
+				},
+				"url": {
+					"raw": "{{BridgeBaseUri}}/{{ControllerPath}}/DeleteItem",
+					"host": [
+						"{{BridgeBaseUri}}"
+					],
+					"path": [
+						"{{ControllerPath}}",
+						"DeleteItem"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteOrder",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\t\"OrderNumber\": 9 \n}"
+				},
+				"url": {
+					"raw": "{{BridgeBaseUri}}/{{ControllerPath}}/DeleteOrder",
+					"host": [
+						"{{BridgeBaseUri}}"
+					],
+					"path": [
+						"{{ControllerPath}}",
+						"DeleteOrder"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteOrderItem",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\t\"OrderNumber\": 9,\n\t\"ItemNumber\": 9 \n}"
+				},
+				"url": {
+					"raw": "{{BridgeBaseUri}}/{{ControllerPath}}/DeleteOrderItem",
+					"host": [
+						"{{BridgeBaseUri}}"
+					],
+					"path": [
+						"{{ControllerPath}}",
+						"DeleteOrderItem"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteVendor",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\t\"VendorNumber\": 9 \n}"
+				},
+				"url": {
+					"raw": "{{BridgeBaseUri}}/{{ControllerPath}}/DeleteVendor",
+					"host": [
+						"{{BridgeBaseUri}}"
+					],
+					"path": [
+						"{{ControllerPath}}",
+						"DeleteVendor"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllCustomers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BridgeBaseUri}}/{{ControllerPath}}/GetAllCustomers",
+					"host": [
+						"{{BridgeBaseUri}}"
+					],
+					"path": [
+						"{{ControllerPath}}",
+						"GetAllCustomers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllItems",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BridgeBaseUri}}/{{ControllerPath}}/GetAllItems",
+					"host": [
+						"{{BridgeBaseUri}}"
+					],
+					"path": [
+						"{{ControllerPath}}",
+						"GetAllItems"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllOrderItems",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\t\"OrderNumber\": 9 \n}"
+				},
+				"url": {
+					"raw": "{{BridgeBaseUri}}/{{ControllerPath}}/GetAllOrderItems",
+					"host": [
+						"{{BridgeBaseUri}}"
+					],
+					"path": [
+						"{{ControllerPath}}",
+						"GetAllOrderItems"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllOrders",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BridgeBaseUri}}/{{ControllerPath}}/GetAllOrders",
+					"host": [
+						"{{BridgeBaseUri}}"
+					],
+					"path": [
+						"{{ControllerPath}}",
+						"GetAllOrders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllVendors",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BridgeBaseUri}}/{{ControllerPath}}/GetAllVendors",
+					"host": [
+						"{{BridgeBaseUri}}"
+					],
+					"path": [
+						"{{ControllerPath}}",
+						"GetAllVendors"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetCustomer",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\t\"CustomerNumber\": 9 \n}"
+				},
+				"url": {
+					"raw": "{{BridgeBaseUri}}/{{ControllerPath}}/GetCustomer",
+					"host": [
+						"{{BridgeBaseUri}}"
+					],
+					"path": [
+						"{{ControllerPath}}",
+						"GetCustomer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetEnvironment",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BridgeBaseUri}}/{{ControllerPath}}/GetEnvironment",
+					"host": [
+						"{{BridgeBaseUri}}"
+					],
+					"path": [
+						"{{ControllerPath}}",
+						"GetEnvironment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetItem",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\t\"ItemNumber\": 9 \n}"
+				},
+				"url": {
+					"raw": "{{BridgeBaseUri}}/{{ControllerPath}}/GetItem",
+					"host": [
+						"{{BridgeBaseUri}}"
+					],
+					"path": [
+						"{{ControllerPath}}",
+						"GetItem"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetLogicalName",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\t\"aLogicalName\": \"Z\" \n}"
+				},
+				"url": {
+					"raw": "{{BridgeBaseUri}}/{{ControllerPath}}/GetLogicalName",
+					"host": [
+						"{{BridgeBaseUri}}"
+					],
+					"path": [
+						"{{ControllerPath}}",
+						"GetLogicalName"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetOrder",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\t\"OrderNumber\": 9 \n}"
+				},
+				"url": {
+					"raw": "{{BridgeBaseUri}}/{{ControllerPath}}/GetOrder",
+					"host": [
+						"{{BridgeBaseUri}}"
+					],
+					"path": [
+						"{{ControllerPath}}",
+						"GetOrder"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetOrderItem",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\t\"OrderNumber\": 9,\n\t\"ItemNumber\": 9 \n}"
+				},
+				"url": {
+					"raw": "{{BridgeBaseUri}}/{{ControllerPath}}/GetOrderItem",
+					"host": [
+						"{{BridgeBaseUri}}"
+					],
+					"path": [
+						"{{ControllerPath}}",
+						"GetOrderItem"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetVendor",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\t\"VendorNumber\": 9 \n}"
+				},
+				"url": {
+					"raw": "{{BridgeBaseUri}}/{{ControllerPath}}/GetVendor",
+					"host": [
+						"{{BridgeBaseUri}}"
+					],
+					"path": [
+						"{{ControllerPath}}",
+						"GetVendor"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateCustomer",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\t\"Customer\": \"\" \n}"
+				},
+				"url": {
+					"raw": "{{BridgeBaseUri}}/{{ControllerPath}}/UpdateCustomer",
+					"host": [
+						"{{BridgeBaseUri}}"
+					],
+					"path": [
+						"{{ControllerPath}}",
+						"UpdateCustomer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateItem",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\t\"Item\": \"\" \n}"
+				},
+				"url": {
+					"raw": "{{BridgeBaseUri}}/{{ControllerPath}}/UpdateItem",
+					"host": [
+						"{{BridgeBaseUri}}"
+					],
+					"path": [
+						"{{ControllerPath}}",
+						"UpdateItem"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateOrder",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\t\"Order\": \"\" \n}"
+				},
+				"url": {
+					"raw": "{{BridgeBaseUri}}/{{ControllerPath}}/UpdateOrder",
+					"host": [
+						"{{BridgeBaseUri}}"
+					],
+					"path": [
+						"{{ControllerPath}}",
+						"UpdateOrder"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateOrderItem",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\t\"OrderItem\": \"\" \n}"
+				},
+				"url": {
+					"raw": "{{BridgeBaseUri}}/{{ControllerPath}}/UpdateOrderItem",
+					"host": [
+						"{{BridgeBaseUri}}"
+					],
+					"path": [
+						"{{ControllerPath}}",
+						"UpdateOrderItem"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateVendor",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\t\"Vendor\": \"\" \n}"
+				},
+				"url": {
+					"raw": "{{BridgeBaseUri}}/{{ControllerPath}}/UpdateVendor",
+					"host": [
+						"{{BridgeBaseUri}}"
+					],
+					"path": [
+						"{{ControllerPath}}",
+						"UpdateVendor"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ValidateCustomer",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\t\"Customer\": \"\" \n}"
+				},
+				"url": {
+					"raw": "{{BridgeBaseUri}}/{{ControllerPath}}/ValidateCustomer",
+					"host": [
+						"{{BridgeBaseUri}}"
+					],
+					"path": [
+						"{{ControllerPath}}",
+						"ValidateCustomer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ValidateItem",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\t\"Item\": \"\" \n}"
+				},
+				"url": {
+					"raw": "{{BridgeBaseUri}}/{{ControllerPath}}/ValidateItem",
+					"host": [
+						"{{BridgeBaseUri}}"
+					],
+					"path": [
+						"{{ControllerPath}}",
+						"ValidateItem"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ValidateOrder",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\t\"Order\": \"\" \n}"
+				},
+				"url": {
+					"raw": "{{BridgeBaseUri}}/{{ControllerPath}}/ValidateOrder",
+					"host": [
+						"{{BridgeBaseUri}}"
+					],
+					"path": [
+						"{{ControllerPath}}",
+						"ValidateOrder"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ValidateOrderItem",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\t\"OrderItem\": \"\" \n}"
+				},
+				"url": {
+					"raw": "{{BridgeBaseUri}}/{{ControllerPath}}/ValidateOrderItem",
+					"host": [
+						"{{BridgeBaseUri}}"
+					],
+					"path": [
+						"{{ControllerPath}}",
+						"ValidateOrderItem"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ValidateVendor",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\t\"Vendor\": \"\" \n}"
+				},
+				"url": {
+					"raw": "{{BridgeBaseUri}}/{{ControllerPath}}/ValidateVendor",
+					"host": [
+						"{{BridgeBaseUri}}"
+					],
+					"path": [
+						"{{ControllerPath}}",
+						"ValidateVendor"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "JWT_HERE",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "3f8076a8-3672-4d3d-bf27-6a7fa8e1d73a",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "64969d3e-8215-4845-9deb-77f993fb049a",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "348faa4b-487a-4d1e-9c94-9880cb11f521",
+			"key": "BridgeBaseUri",
+			"value": "https://localhost:8086",
+			"type": "string"
+		},
+		{
+			"id": "a3b6a948-ca0e-4b59-958f-560f2eaa2205",
+			"key": "ControllerPath",
+			"value": "MyApi",
+			"type": "string"
+		}
+	]
+}
