@@ -1,4 +1,4 @@
-<CODEGEN_FILENAME><StructureName>Methods.dbl</CODEGEN_FILENAME>
+<CODEGEN_FILENAME><StructureName>IO.dbl</CODEGEN_FILENAME>
 <REQUIRES_USERTOKEN>XF_INTERFACE</REQUIRES_USERTOKEN>
 <REQUIRES_USERTOKEN>XF_ELB</REQUIRES_USERTOKEN>
 ;//****************************************************************************
@@ -42,9 +42,9 @@
 ;//
 ;;*****************************************************************************
 ;;
-;; File:        <StructureName>Methods.dbl
+;; File:        <StructureName>IO.dbl
 ;;
-;; Description: xfServerPlus methods for structure <STRUCTURE_NAME>
+;; Description: File IO methods for structure <STRUCTURE_NAME>
 ;;
 ;;*****************************************************************************
 ;;
@@ -63,15 +63,15 @@ import Synergex.SynergyDE.Select
 ;;*****************************************************************************
 
 {xfMethod(interface="<XF_INTERFACE>",elb="<XF_ELB>")}
-function Add<StructureName>, boolean
+function <StructureName>Add, boolean
 
     {xfParameter(name="<StructureName>")}
     required in a<StructureName>, str<StructureName>
 
     stack record
         retVal, boolean
-        ch<StructureName>, int
-        tmp<StructureName>, str<StructureName>
+        ch, int
+        tmprec, str<StructureName>
     endrecord
 
     external function
@@ -79,12 +79,12 @@ function Add<StructureName>, boolean
     endexternal
 
 proc
-    if (retVal=%Validate<StructureName>(tmp<StructureName>=a<StructureName>))
+    if (retVal=%<StructureName>Validate(tmprec=a<StructureName>))
     begin
         try
         begin
-            open(ch<StructureName>=0,u:i,"<FILE_NAME>")
-            store(ch<StructureName>,tmp<StructureName>)
+            open(ch=0,u:i,"<FILE_NAME>")
+            store(ch,tmprec)
             retVal = true
         end
         catch (ex)
@@ -93,8 +93,8 @@ proc
         end
         finally
         begin
-            if (ch<StructureName>)
-                close ch<StructureName>
+            if (ch)
+                close ch
         end
         endtry
     end
@@ -106,7 +106,7 @@ endfunction
 ;;*****************************************************************************
 
 {xfMethod(interface="<XF_INTERFACE>",elb="<XF_ELB>")}
-function Delete<StructureName>, boolean
+function <StructureName>Delete, boolean
 
 <PRIMARY_KEY>
   <SEGMENT_LOOP>
@@ -117,7 +117,7 @@ function Delete<StructureName>, boolean
 </PRIMARY_KEY>
     stack record local_data
         retVal  ,boolean
-        ch<StructureName>, int
+        ch, int
         <structure_name>, str<StructureName>
     endrecord
 proc
@@ -132,9 +132,9 @@ proc
 
     try
     begin
-        open(ch<StructureName>=0,u:i,"<FILE_NAME>")
-        read(ch<StructureName>,<structure_name>,keyval(ch<StructureName>,<structure_name>,0))
-        delete(ch<StructureName>)
+        open(ch=0,u:i,"<FILE_NAME>")
+        read(ch,<structure_name>,keyval(ch,<structure_name>,0))
+        delete(ch)
     end
     catch (ex)
     begin
@@ -142,8 +142,8 @@ proc
     end
     finally
     begin
-        if (ch<StructureName>)
-            close ch<StructureName>
+        if (ch)
+            close ch
      end
     endtry
 
@@ -154,7 +154,7 @@ endfunction
 ;;*****************************************************************************
 
 {xfMethod(interface="<XF_INTERFACE>",elb="<XF_ELB>")}
-function Get<StructureName>, boolean
+function <StructureName>Get, boolean
 
 <PRIMARY_KEY>
   <SEGMENT_LOOP>
@@ -168,7 +168,7 @@ function Get<StructureName>, boolean
 
     stack record local_data
         retVal, boolean
-        ch<StructureName>, int
+        ch, int
     endrecord
 
 proc
@@ -183,8 +183,8 @@ proc
 
     try
     begin
-        open(ch<StructureName>=0,i:i,"<FILE_NAME>")
-        read(ch<StructureName>,a<StructureName>,keyval(ch<StructureName>,a<StructureName>,0))
+        open(ch=0,i:i,"<FILE_NAME>")
+        read(ch,a<StructureName>,keyval(ch,a<StructureName>,0))
     end
     catch (ex)
     begin
@@ -193,8 +193,8 @@ proc
     end
     finally
     begin
-        if (ch<StructureName>)
-            close ch<StructureName>
+        if (ch)
+            close ch
     end
     endtry
 
@@ -205,7 +205,7 @@ endfunction
 ;;*****************************************************************************
 
 {xfMethod(interface="<XF_INTERFACE>",elb="<XF_ELB>")}
-function GetAll<StructureName>s, boolean
+function <StructureName>GetAll, boolean
 
 <PRIMARY_KEY>
   <SEGMENT_LOOP_FILTER>
@@ -219,7 +219,7 @@ function GetAll<StructureName>s, boolean
 
     stack record local_data
         retVal, boolean
-        ch<StructureName>, int
+        ch, int
         <structure_name>, str<StructureName>
 <PRIMARY_KEY>
   <IF MULTIPLE_SEGMENTS>
@@ -241,21 +241,21 @@ proc
     <structure_name>.<segment_name> = a<SegmentName>
     filterLen += ^size(<structure_name>.<segment_name>)
     </SEGMENT_LOOP_FILTER>
-    filterData=keyval(ch<StructureName>,<structure_name>,0)
+    filterData=keyval(ch,<structure_name>,0)
   </IF>
 </PRIMARY_KEY>
 
     try
     begin
         ;;Open the data file
-        open(ch<StructureName>=0,i:i,"<FILE_NAME>")
+        open(ch=0,i:i,"<FILE_NAME>")
 
         ;;Position to the first record to be returned
 <PRIMARY_KEY>
   <IF SINGLE_SEGMENT>
-        find(ch<StructureName>,,^FIRST)
+        find(ch,,^FIRST)
   <ELSE MULTIPLE_SEGMENTS>
-        find(ch<StructureName>,,filterData(1:filterLen))
+        find(ch,,filterData(1:filterLen))
   </IF>
 </PRIMARY_KEY>
 
@@ -263,12 +263,12 @@ proc
         repeat
         begin
             ;;Get the next record
-            reads(ch<StructureName>,<structure_name>)
+            reads(ch,<structure_name>)
 <PRIMARY_KEY>
   <IF MULTIPLE_SEGMENTS>
 
             ;;Make sure we're still in range with the filter
-            if (keyval(ch<StructureName>,<structure_name>,0)!=filterData(1:filterLen))
+            if (keyval(ch,<structure_name>,0)!=filterData(1:filterLen))
                 exitloop
   </IF>
 </PRIMARY_KEY>
@@ -285,8 +285,8 @@ proc
         retval=false
     finally
     begin
-        if (ch<StructureName>)
-            close ch<StructureName>
+        if (ch)
+            close ch
     end
     endtry
 
@@ -297,32 +297,32 @@ endfunction
 ;;*****************************************************************************
 
 {xfMethod(interface="<XF_INTERFACE>",elb="<XF_ELB>")}
-function Update<StructureName>, boolean
+function <StructureName>Update, boolean
 
     {xfParameter(name="<StructureName>")}
     required in a<StructureName>, str<StructureName>
 
     stack record local_data
         retVal, boolean
-        ch<StructureName>,  int
+        ch,  int
         new<StructureName>, str<StructureName>
         old<StructureName>, str<StructureName>
     endrecord
 
     external function
-        Validate<StructureName> ,boolean
+        <StructureName>Validate ,boolean
     endexternal
 
 proc
     init local_data
 
-    if (retVal=%Validate<StructureName>(new<StructureName>=a<StructureName>))
+    if (retVal=%<StructureName>Validate(new<StructureName>=a<StructureName>))
     begin
         try
         begin
-            open(ch<StructureName>=0,u:i,"<FILE_NAME>")
-            read(ch<StructureName>,old<StructureName>,new<StructureName>.<primary_key_field>)
-            write(ch<StructureName>,new<StructureName>)
+            open(ch=0,u:i,"<FILE_NAME>")
+            read(ch,old<StructureName>,new<StructureName>.<primary_key_field>)
+            write(ch,new<StructureName>)
         end
         catch (ex)
         begin
@@ -330,8 +330,8 @@ proc
         end
         finally
         begin
-            if (ch<StructureName>)
-                close ch<StructureName>
+            if (ch)
+                close ch
         end
         endtry
     end
@@ -343,7 +343,7 @@ endfunction
 ;;*****************************************************************************
 
 {xfMethod(interface="<XF_INTERFACE>",elb="<XF_ELB>")}
-function Validate<StructureName>, boolean
+function <StructureName>Validate, boolean
 
     {xfParameter(name="<StructureName>")}
     required inout a<StructureName>, str<StructureName>

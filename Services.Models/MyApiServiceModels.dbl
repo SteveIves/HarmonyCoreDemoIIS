@@ -23,142 +23,6 @@ namespace MyApi
 .endc
 
 ;;--------------------------------------------------------------------------------
-;; AddCustomer
-
-    {JsonObject(MemberSerialization.OptIn)}
-    ;;; <summary>
-    ;;; Represents IN parameters for method MyApi.AddCustomer.
-    ;;; </summary>
-    public class AddCustomer_Request
-
-        {JsonProperty}
-        {Required(ErrorMessage="Customer is required")}
-        ;;; <summary>
-        ;;; Parameter 1 (REQUIRED IN CUSTOMERS)
-        ;;; No description found in method catalog
-        ;;; </summary>
-        public Customer, @Customer
-
-    endclass
-
-    {JsonObject(MemberSerialization.OptIn)}
-    ;;; <summary>
-    ;;; Represents OUT parameters and return value for method MyApi.AddCustomer.
-    ;;; </summary>
-    public class AddCustomer_Response
-
-        {JsonProperty}
-        ;;; <summary>
-        ;;; Return value
-        ;;; </summary>
-        public ReturnValue, boolean
-
-    endclass
-
-
-;;--------------------------------------------------------------------------------
-;; AddItem
-
-    {JsonObject(MemberSerialization.OptIn)}
-    ;;; <summary>
-    ;;; Represents IN parameters for method MyApi.AddItem.
-    ;;; </summary>
-    public class AddItem_Request
-
-        {JsonProperty}
-        {Required(ErrorMessage="Item is required")}
-        ;;; <summary>
-        ;;; Parameter 1 (REQUIRED IN ITEMS)
-        ;;; No description found in method catalog
-        ;;; </summary>
-        public Item, @Item
-
-    endclass
-
-    {JsonObject(MemberSerialization.OptIn)}
-    ;;; <summary>
-    ;;; Represents OUT parameters and return value for method MyApi.AddItem.
-    ;;; </summary>
-    public class AddItem_Response
-
-        {JsonProperty}
-        ;;; <summary>
-        ;;; Return value
-        ;;; </summary>
-        public ReturnValue, boolean
-
-    endclass
-
-
-;;--------------------------------------------------------------------------------
-;; AddOrder
-
-    {JsonObject(MemberSerialization.OptIn)}
-    ;;; <summary>
-    ;;; Represents IN parameters for method MyApi.AddOrder.
-    ;;; </summary>
-    public class AddOrder_Request
-
-        {JsonProperty}
-        {Required(ErrorMessage="Order is required")}
-        ;;; <summary>
-        ;;; Parameter 1 (REQUIRED IN ORDERS)
-        ;;; No description found in method catalog
-        ;;; </summary>
-        public Order, @Order
-
-    endclass
-
-    {JsonObject(MemberSerialization.OptIn)}
-    ;;; <summary>
-    ;;; Represents OUT parameters and return value for method MyApi.AddOrder.
-    ;;; </summary>
-    public class AddOrder_Response
-
-        {JsonProperty}
-        ;;; <summary>
-        ;;; Return value
-        ;;; </summary>
-        public ReturnValue, boolean
-
-    endclass
-
-
-;;--------------------------------------------------------------------------------
-;; AddOrderItem
-
-    {JsonObject(MemberSerialization.OptIn)}
-    ;;; <summary>
-    ;;; Represents IN parameters for method MyApi.AddOrderItem.
-    ;;; </summary>
-    public class AddOrderItem_Request
-
-        {JsonProperty}
-        {Required(ErrorMessage="OrderItem is required")}
-        ;;; <summary>
-        ;;; Parameter 1 (REQUIRED IN ORDER_ITEMS)
-        ;;; No description found in method catalog
-        ;;; </summary>
-        public OrderItem, @OrderItem
-
-    endclass
-
-    {JsonObject(MemberSerialization.OptIn)}
-    ;;; <summary>
-    ;;; Represents OUT parameters and return value for method MyApi.AddOrderItem.
-    ;;; </summary>
-    public class AddOrderItem_Response
-
-        {JsonProperty}
-        ;;; <summary>
-        ;;; Return value
-        ;;; </summary>
-        public ReturnValue, boolean
-
-    endclass
-
-
-;;--------------------------------------------------------------------------------
 ;; AddTwoNumbers
 
     {JsonObject(MemberSerialization.OptIn)}
@@ -202,29 +66,29 @@ namespace MyApi
 
 
 ;;--------------------------------------------------------------------------------
-;; AddVendor
+;; CustomerAdd
 
     {JsonObject(MemberSerialization.OptIn)}
     ;;; <summary>
-    ;;; Represents IN parameters for method MyApi.AddVendor.
+    ;;; Represents IN parameters for method MyApi.CustomerAdd.
     ;;; </summary>
-    public class AddVendor_Request
+    public class CustomerAdd_Request
 
         {JsonProperty}
-        {Required(ErrorMessage="Vendor is required")}
+        {Required(ErrorMessage="Customer is required")}
         ;;; <summary>
-        ;;; Parameter 1 (REQUIRED IN VENDORS)
+        ;;; Parameter 1 (REQUIRED IN CUSTOMERS)
         ;;; No description found in method catalog
         ;;; </summary>
-        public Vendor, @Vendor
+        public Customer, @Customer
 
     endclass
 
     {JsonObject(MemberSerialization.OptIn)}
     ;;; <summary>
-    ;;; Represents OUT parameters and return value for method MyApi.AddVendor.
+    ;;; Represents OUT parameters and return value for method MyApi.CustomerAdd.
     ;;; </summary>
-    public class AddVendor_Response
+    public class CustomerAdd_Response
 
         {JsonProperty}
         ;;; <summary>
@@ -236,13 +100,13 @@ namespace MyApi
 
 
 ;;--------------------------------------------------------------------------------
-;; DeleteCustomer
+;; CustomerDelete
 
     {JsonObject(MemberSerialization.OptIn)}
     ;;; <summary>
-    ;;; Represents IN parameters for method MyApi.DeleteCustomer.
+    ;;; Represents IN parameters for method MyApi.CustomerDelete.
     ;;; </summary>
-    public class DeleteCustomer_Request
+    public class CustomerDelete_Request
 
         {JsonProperty}
         {Required(ErrorMessage="CustomerNumber is required")}
@@ -256,9 +120,9 @@ namespace MyApi
 
     {JsonObject(MemberSerialization.OptIn)}
     ;;; <summary>
-    ;;; Represents OUT parameters and return value for method MyApi.DeleteCustomer.
+    ;;; Represents OUT parameters and return value for method MyApi.CustomerDelete.
     ;;; </summary>
-    public class DeleteCustomer_Response
+    public class CustomerDelete_Response
 
         {JsonProperty}
         ;;; <summary>
@@ -270,29 +134,29 @@ namespace MyApi
 
 
 ;;--------------------------------------------------------------------------------
-;; DeleteItem
+;; CustomerGet
 
     {JsonObject(MemberSerialization.OptIn)}
     ;;; <summary>
-    ;;; Represents IN parameters for method MyApi.DeleteItem.
+    ;;; Represents IN parameters for method MyApi.CustomerGet.
     ;;; </summary>
-    public class DeleteItem_Request
+    public class CustomerGet_Request
 
         {JsonProperty}
-        {Required(ErrorMessage="ItemNumber is required")}
+        {Required(ErrorMessage="CustomerNumber is required")}
         ;;; <summary>
         ;;; Parameter 1 (REQUIRED IN d6)
         ;;; No description found in method catalog
         ;;; </summary>
-        public ItemNumber, int
+        public CustomerNumber, int
 
     endclass
 
     {JsonObject(MemberSerialization.OptIn)}
     ;;; <summary>
-    ;;; Represents OUT parameters and return value for method MyApi.DeleteItem.
+    ;;; Represents OUT parameters and return value for method MyApi.CustomerGet.
     ;;; </summary>
-    public class DeleteItem_Response
+    public class CustomerGet_Response
 
         {JsonProperty}
         ;;; <summary>
@@ -300,128 +164,25 @@ namespace MyApi
         ;;; </summary>
         public ReturnValue, boolean
 
-    endclass
-
-
-;;--------------------------------------------------------------------------------
-;; DeleteOrder
-
-    {JsonObject(MemberSerialization.OptIn)}
-    ;;; <summary>
-    ;;; Represents IN parameters for method MyApi.DeleteOrder.
-    ;;; </summary>
-    public class DeleteOrder_Request
-
         {JsonProperty}
-        {Required(ErrorMessage="OrderNumber is required")}
         ;;; <summary>
-        ;;; Parameter 1 (REQUIRED IN d6)
+        ;;; Parameter 2 (REQUIRED OUT CUSTOMERS)
         ;;; No description found in method catalog
         ;;; </summary>
-        public OrderNumber, int
-
-    endclass
-
-    {JsonObject(MemberSerialization.OptIn)}
-    ;;; <summary>
-    ;;; Represents OUT parameters and return value for method MyApi.DeleteOrder.
-    ;;; </summary>
-    public class DeleteOrder_Response
-
-        {JsonProperty}
-        ;;; <summary>
-        ;;; Return value
-        ;;; </summary>
-        public ReturnValue, boolean
+        public Customer, @Customer
 
     endclass
 
 
 ;;--------------------------------------------------------------------------------
-;; DeleteOrderItem
-
-    {JsonObject(MemberSerialization.OptIn)}
-    ;;; <summary>
-    ;;; Represents IN parameters for method MyApi.DeleteOrderItem.
-    ;;; </summary>
-    public class DeleteOrderItem_Request
-
-        {JsonProperty}
-        {Required(ErrorMessage="OrderNumber is required")}
-        ;;; <summary>
-        ;;; Parameter 1 (REQUIRED IN d6)
-        ;;; No description found in method catalog
-        ;;; </summary>
-        public OrderNumber, int
-
-        {JsonProperty}
-        {Required(ErrorMessage="ItemNumber is required")}
-        ;;; <summary>
-        ;;; Parameter 2 (REQUIRED IN d2)
-        ;;; No description found in method catalog
-        ;;; </summary>
-        public ItemNumber, int
-
-    endclass
-
-    {JsonObject(MemberSerialization.OptIn)}
-    ;;; <summary>
-    ;;; Represents OUT parameters and return value for method MyApi.DeleteOrderItem.
-    ;;; </summary>
-    public class DeleteOrderItem_Response
-
-        {JsonProperty}
-        ;;; <summary>
-        ;;; Return value
-        ;;; </summary>
-        public ReturnValue, boolean
-
-    endclass
-
-
-;;--------------------------------------------------------------------------------
-;; DeleteVendor
-
-    {JsonObject(MemberSerialization.OptIn)}
-    ;;; <summary>
-    ;;; Represents IN parameters for method MyApi.DeleteVendor.
-    ;;; </summary>
-    public class DeleteVendor_Request
-
-        {JsonProperty}
-        {Required(ErrorMessage="VendorNumber is required")}
-        ;;; <summary>
-        ;;; Parameter 1 (REQUIRED IN d6)
-        ;;; No description found in method catalog
-        ;;; </summary>
-        public VendorNumber, int
-
-    endclass
-
-    {JsonObject(MemberSerialization.OptIn)}
-    ;;; <summary>
-    ;;; Represents OUT parameters and return value for method MyApi.DeleteVendor.
-    ;;; </summary>
-    public class DeleteVendor_Response
-
-        {JsonProperty}
-        ;;; <summary>
-        ;;; Return value
-        ;;; </summary>
-        public ReturnValue, boolean
-
-    endclass
-
-
-;;--------------------------------------------------------------------------------
-;; GetAllCustomers
+;; CustomerGetAll
     ;; This method has no in parameters
 
     {JsonObject(MemberSerialization.OptIn)}
     ;;; <summary>
-    ;;; Represents OUT parameters and return value for method MyApi.GetAllCustomers.
+    ;;; Represents OUT parameters and return value for method MyApi.CustomerGetAll.
     ;;; </summary>
-    public class GetAllCustomers_Response
+    public class CustomerGetAll_Response
 
         {JsonProperty}
         ;;; <summary>
@@ -440,55 +201,63 @@ namespace MyApi
 
 
 ;;--------------------------------------------------------------------------------
-;; GetAllItems
-    ;; This method has no in parameters
+;; CustomerUpdate
 
     {JsonObject(MemberSerialization.OptIn)}
     ;;; <summary>
-    ;;; Represents OUT parameters and return value for method MyApi.GetAllItems.
+    ;;; Represents IN parameters for method MyApi.CustomerUpdate.
     ;;; </summary>
-    public class GetAllItems_Response
+    public class CustomerUpdate_Request
+
+        {JsonProperty}
+        {Required(ErrorMessage="Customer is required")}
+        ;;; <summary>
+        ;;; Parameter 1 (REQUIRED IN CUSTOMERS)
+        ;;; No description found in method catalog
+        ;;; </summary>
+        public Customer, @Customer
+
+    endclass
+
+    {JsonObject(MemberSerialization.OptIn)}
+    ;;; <summary>
+    ;;; Represents OUT parameters and return value for method MyApi.CustomerUpdate.
+    ;;; </summary>
+    public class CustomerUpdate_Response
 
         {JsonProperty}
         ;;; <summary>
         ;;; Return value
         ;;; </summary>
         public ReturnValue, boolean
-
-        {JsonProperty}
-        ;;; <summary>
-        ;;; Parameter 1 (REQUIRED OUT @ArrayList)
-        ;;; No description found in method catalog
-        ;;; </summary>
-        public Items, [#]@Item
 
     endclass
 
 
 ;;--------------------------------------------------------------------------------
-;; GetAllOrderItems
+;; CustomerValidate
 
     {JsonObject(MemberSerialization.OptIn)}
     ;;; <summary>
-    ;;; Represents IN parameters for method MyApi.GetAllOrderItems.
+    ;;; Represents IN parameters for method MyApi.CustomerValidate.
     ;;; </summary>
-    public class GetAllOrderItems_Request
+    public class CustomerValidate_Request
 
         {JsonProperty}
-        {Required(ErrorMessage="OrderNumber is required")}
+        {Required(ErrorMessage="Customer is required")}
         ;;; <summary>
-        ;;; Parameter 1 (REQUIRED IN d6)
+        ;;; Parameter 1 (REQUIRED INOUT CUSTOMERS)
         ;;; No description found in method catalog
         ;;; </summary>
-        public OrderNumber, int
+        public Customer, @Customer
 
     endclass
 
     {JsonObject(MemberSerialization.OptIn)}
     ;;; <summary>
-    ;;; Represents OUT parameters and return value for method MyApi.GetAllOrderItems.
+    ;;; Represents OUT parameters and return value for method MyApi.CustomerValidate.
     ;;; </summary>
-    public class GetAllOrderItems_Response
+    public class CustomerValidate_Response
 
         {JsonProperty}
         ;;; <summary>
@@ -498,100 +267,7 @@ namespace MyApi
 
         {JsonProperty}
         ;;; <summary>
-        ;;; Parameter 2 (REQUIRED OUT @ArrayList)
-        ;;; No description found in method catalog
-        ;;; </summary>
-        public OrderItems, [#]@OrderItem
-
-    endclass
-
-
-;;--------------------------------------------------------------------------------
-;; GetAllOrders
-    ;; This method has no in parameters
-
-    {JsonObject(MemberSerialization.OptIn)}
-    ;;; <summary>
-    ;;; Represents OUT parameters and return value for method MyApi.GetAllOrders.
-    ;;; </summary>
-    public class GetAllOrders_Response
-
-        {JsonProperty}
-        ;;; <summary>
-        ;;; Return value
-        ;;; </summary>
-        public ReturnValue, boolean
-
-        {JsonProperty}
-        ;;; <summary>
-        ;;; Parameter 1 (REQUIRED OUT @ArrayList)
-        ;;; No description found in method catalog
-        ;;; </summary>
-        public Orders, [#]@Order
-
-    endclass
-
-
-;;--------------------------------------------------------------------------------
-;; GetAllVendors
-    ;; This method has no in parameters
-
-    {JsonObject(MemberSerialization.OptIn)}
-    ;;; <summary>
-    ;;; Represents OUT parameters and return value for method MyApi.GetAllVendors.
-    ;;; </summary>
-    public class GetAllVendors_Response
-
-        {JsonProperty}
-        ;;; <summary>
-        ;;; Return value
-        ;;; </summary>
-        public ReturnValue, boolean
-
-        {JsonProperty}
-        ;;; <summary>
-        ;;; Parameter 1 (REQUIRED OUT @ArrayList)
-        ;;; No description found in method catalog
-        ;;; </summary>
-        public Vendors, [#]@Vendor
-
-    endclass
-
-
-;;--------------------------------------------------------------------------------
-;; GetCustomer
-
-    {JsonObject(MemberSerialization.OptIn)}
-    ;;; <summary>
-    ;;; Represents IN parameters for method MyApi.GetCustomer.
-    ;;; </summary>
-    public class GetCustomer_Request
-
-        {JsonProperty}
-        {Required(ErrorMessage="CustomerNumber is required")}
-        ;;; <summary>
-        ;;; Parameter 1 (REQUIRED IN d6)
-        ;;; No description found in method catalog
-        ;;; </summary>
-        public CustomerNumber, int
-
-    endclass
-
-    {JsonObject(MemberSerialization.OptIn)}
-    ;;; <summary>
-    ;;; Represents OUT parameters and return value for method MyApi.GetCustomer.
-    ;;; </summary>
-    public class GetCustomer_Response
-
-        {JsonProperty}
-        ;;; <summary>
-        ;;; Return value
-        ;;; </summary>
-        public ReturnValue, boolean
-
-        {JsonProperty}
-        ;;; <summary>
-        ;;; Parameter 2 (REQUIRED OUT CUSTOMERS)
+        ;;; Parameter 1 (REQUIRED INOUT CUSTOMERS)
         ;;; No description found in method catalog
         ;;; </summary>
         public Customer, @Customer
@@ -613,19 +289,87 @@ namespace MyApi
         ;;; <summary>
         ;;; Return value
         ;;; </summary>
-        public ReturnValue, String
+        public ReturnValue, string
 
     endclass
 
 
 ;;--------------------------------------------------------------------------------
-;; GetItem
+;; GetLogicalName
 
     {JsonObject(MemberSerialization.OptIn)}
     ;;; <summary>
-    ;;; Represents IN parameters for method MyApi.GetItem.
+    ;;; Represents IN parameters for method MyApi.GetLogicalName.
     ;;; </summary>
-    public class GetItem_Request
+    public class GetLogicalName_Request
+
+        {JsonProperty}
+        {Required(ErrorMessage="LogicalName is required")}
+        ;;; <summary>
+        ;;; Parameter 1 (REQUIRED IN string)
+        ;;; No description found in method catalog
+        ;;; </summary>
+        public LogicalName, string
+
+    endclass
+
+    {JsonObject(MemberSerialization.OptIn)}
+    ;;; <summary>
+    ;;; Represents OUT parameters and return value for method MyApi.GetLogicalName.
+    ;;; </summary>
+    public class GetLogicalName_Response
+
+        {JsonProperty}
+        ;;; <summary>
+        ;;; Return value
+        ;;; </summary>
+        public ReturnValue, string
+
+    endclass
+
+
+;;--------------------------------------------------------------------------------
+;; ItemAdd
+
+    {JsonObject(MemberSerialization.OptIn)}
+    ;;; <summary>
+    ;;; Represents IN parameters for method MyApi.ItemAdd.
+    ;;; </summary>
+    public class ItemAdd_Request
+
+        {JsonProperty}
+        {Required(ErrorMessage="Item is required")}
+        ;;; <summary>
+        ;;; Parameter 1 (REQUIRED IN ITEMS)
+        ;;; No description found in method catalog
+        ;;; </summary>
+        public Item, @Item
+
+    endclass
+
+    {JsonObject(MemberSerialization.OptIn)}
+    ;;; <summary>
+    ;;; Represents OUT parameters and return value for method MyApi.ItemAdd.
+    ;;; </summary>
+    public class ItemAdd_Response
+
+        {JsonProperty}
+        ;;; <summary>
+        ;;; Return value
+        ;;; </summary>
+        public ReturnValue, boolean
+
+    endclass
+
+
+;;--------------------------------------------------------------------------------
+;; ItemDelete
+
+    {JsonObject(MemberSerialization.OptIn)}
+    ;;; <summary>
+    ;;; Represents IN parameters for method MyApi.ItemDelete.
+    ;;; </summary>
+    public class ItemDelete_Request
 
         {JsonProperty}
         {Required(ErrorMessage="ItemNumber is required")}
@@ -639,9 +383,43 @@ namespace MyApi
 
     {JsonObject(MemberSerialization.OptIn)}
     ;;; <summary>
-    ;;; Represents OUT parameters and return value for method MyApi.GetItem.
+    ;;; Represents OUT parameters and return value for method MyApi.ItemDelete.
     ;;; </summary>
-    public class GetItem_Response
+    public class ItemDelete_Response
+
+        {JsonProperty}
+        ;;; <summary>
+        ;;; Return value
+        ;;; </summary>
+        public ReturnValue, boolean
+
+    endclass
+
+
+;;--------------------------------------------------------------------------------
+;; ItemGet
+
+    {JsonObject(MemberSerialization.OptIn)}
+    ;;; <summary>
+    ;;; Represents IN parameters for method MyApi.ItemGet.
+    ;;; </summary>
+    public class ItemGet_Request
+
+        {JsonProperty}
+        {Required(ErrorMessage="ItemNumber is required")}
+        ;;; <summary>
+        ;;; Parameter 1 (REQUIRED IN d6)
+        ;;; No description found in method catalog
+        ;;; </summary>
+        public ItemNumber, int
+
+    endclass
+
+    {JsonObject(MemberSerialization.OptIn)}
+    ;;; <summary>
+    ;;; Represents OUT parameters and return value for method MyApi.ItemGet.
+    ;;; </summary>
+    public class ItemGet_Response
 
         {JsonProperty}
         ;;; <summary>
@@ -660,48 +438,148 @@ namespace MyApi
 
 
 ;;--------------------------------------------------------------------------------
-;; GetLogicalName
+;; ItemGetAll
+    ;; This method has no in parameters
 
     {JsonObject(MemberSerialization.OptIn)}
     ;;; <summary>
-    ;;; Represents IN parameters for method MyApi.GetLogicalName.
+    ;;; Represents OUT parameters and return value for method MyApi.ItemGetAll.
     ;;; </summary>
-    public class GetLogicalName_Request
-
-        {JsonProperty}
-        {Required(ErrorMessage="aLogicalName is required")}
-        {StringLength(40,ErrorMessage="aLogicalName is limited to 40 characters")}
-        ;;; <summary>
-        ;;; Parameter 1 (REQUIRED IN a40)
-        ;;; No description found in method catalog
-        ;;; </summary>
-        public aLogicalName, String
-
-    endclass
-
-    {JsonObject(MemberSerialization.OptIn)}
-    ;;; <summary>
-    ;;; Represents OUT parameters and return value for method MyApi.GetLogicalName.
-    ;;; </summary>
-    public class GetLogicalName_Response
+    public class ItemGetAll_Response
 
         {JsonProperty}
         ;;; <summary>
         ;;; Return value
         ;;; </summary>
-        public ReturnValue, String
+        public ReturnValue, boolean
+
+        {JsonProperty}
+        ;;; <summary>
+        ;;; Parameter 1 (REQUIRED OUT @ArrayList)
+        ;;; No description found in method catalog
+        ;;; </summary>
+        public Items, [#]@Item
 
     endclass
 
 
 ;;--------------------------------------------------------------------------------
-;; GetOrder
+;; ItemUpdate
 
     {JsonObject(MemberSerialization.OptIn)}
     ;;; <summary>
-    ;;; Represents IN parameters for method MyApi.GetOrder.
+    ;;; Represents IN parameters for method MyApi.ItemUpdate.
     ;;; </summary>
-    public class GetOrder_Request
+    public class ItemUpdate_Request
+
+        {JsonProperty}
+        {Required(ErrorMessage="Item is required")}
+        ;;; <summary>
+        ;;; Parameter 1 (REQUIRED IN ITEMS)
+        ;;; No description found in method catalog
+        ;;; </summary>
+        public Item, @Item
+
+    endclass
+
+    {JsonObject(MemberSerialization.OptIn)}
+    ;;; <summary>
+    ;;; Represents OUT parameters and return value for method MyApi.ItemUpdate.
+    ;;; </summary>
+    public class ItemUpdate_Response
+
+        {JsonProperty}
+        ;;; <summary>
+        ;;; Return value
+        ;;; </summary>
+        public ReturnValue, boolean
+
+    endclass
+
+
+;;--------------------------------------------------------------------------------
+;; ItemValidate
+
+    {JsonObject(MemberSerialization.OptIn)}
+    ;;; <summary>
+    ;;; Represents IN parameters for method MyApi.ItemValidate.
+    ;;; </summary>
+    public class ItemValidate_Request
+
+        {JsonProperty}
+        {Required(ErrorMessage="Item is required")}
+        ;;; <summary>
+        ;;; Parameter 1 (REQUIRED INOUT ITEMS)
+        ;;; No description found in method catalog
+        ;;; </summary>
+        public Item, @Item
+
+    endclass
+
+    {JsonObject(MemberSerialization.OptIn)}
+    ;;; <summary>
+    ;;; Represents OUT parameters and return value for method MyApi.ItemValidate.
+    ;;; </summary>
+    public class ItemValidate_Response
+
+        {JsonProperty}
+        ;;; <summary>
+        ;;; Return value
+        ;;; </summary>
+        public ReturnValue, boolean
+
+        {JsonProperty}
+        ;;; <summary>
+        ;;; Parameter 1 (REQUIRED INOUT ITEMS)
+        ;;; No description found in method catalog
+        ;;; </summary>
+        public Item, @Item
+
+    endclass
+
+
+;;--------------------------------------------------------------------------------
+;; OrderAdd
+
+    {JsonObject(MemberSerialization.OptIn)}
+    ;;; <summary>
+    ;;; Represents IN parameters for method MyApi.OrderAdd.
+    ;;; </summary>
+    public class OrderAdd_Request
+
+        {JsonProperty}
+        {Required(ErrorMessage="Order is required")}
+        ;;; <summary>
+        ;;; Parameter 1 (REQUIRED IN ORDERS)
+        ;;; No description found in method catalog
+        ;;; </summary>
+        public Order, @Order
+
+    endclass
+
+    {JsonObject(MemberSerialization.OptIn)}
+    ;;; <summary>
+    ;;; Represents OUT parameters and return value for method MyApi.OrderAdd.
+    ;;; </summary>
+    public class OrderAdd_Response
+
+        {JsonProperty}
+        ;;; <summary>
+        ;;; Return value
+        ;;; </summary>
+        public ReturnValue, boolean
+
+    endclass
+
+
+;;--------------------------------------------------------------------------------
+;; OrderDelete
+
+    {JsonObject(MemberSerialization.OptIn)}
+    ;;; <summary>
+    ;;; Represents IN parameters for method MyApi.OrderDelete.
+    ;;; </summary>
+    public class OrderDelete_Request
 
         {JsonProperty}
         {Required(ErrorMessage="OrderNumber is required")}
@@ -715,9 +593,43 @@ namespace MyApi
 
     {JsonObject(MemberSerialization.OptIn)}
     ;;; <summary>
-    ;;; Represents OUT parameters and return value for method MyApi.GetOrder.
+    ;;; Represents OUT parameters and return value for method MyApi.OrderDelete.
     ;;; </summary>
-    public class GetOrder_Response
+    public class OrderDelete_Response
+
+        {JsonProperty}
+        ;;; <summary>
+        ;;; Return value
+        ;;; </summary>
+        public ReturnValue, boolean
+
+    endclass
+
+
+;;--------------------------------------------------------------------------------
+;; OrderGet
+
+    {JsonObject(MemberSerialization.OptIn)}
+    ;;; <summary>
+    ;;; Represents IN parameters for method MyApi.OrderGet.
+    ;;; </summary>
+    public class OrderGet_Request
+
+        {JsonProperty}
+        {Required(ErrorMessage="OrderNumber is required")}
+        ;;; <summary>
+        ;;; Parameter 1 (REQUIRED IN d6)
+        ;;; No description found in method catalog
+        ;;; </summary>
+        public OrderNumber, int
+
+    endclass
+
+    {JsonObject(MemberSerialization.OptIn)}
+    ;;; <summary>
+    ;;; Represents OUT parameters and return value for method MyApi.OrderGet.
+    ;;; </summary>
+    public class OrderGet_Response
 
         {JsonProperty}
         ;;; <summary>
@@ -736,13 +648,73 @@ namespace MyApi
 
 
 ;;--------------------------------------------------------------------------------
-;; GetOrderItem
+;; OrderGetAll
+    ;; This method has no in parameters
 
     {JsonObject(MemberSerialization.OptIn)}
     ;;; <summary>
-    ;;; Represents IN parameters for method MyApi.GetOrderItem.
+    ;;; Represents OUT parameters and return value for method MyApi.OrderGetAll.
     ;;; </summary>
-    public class GetOrderItem_Request
+    public class OrderGetAll_Response
+
+        {JsonProperty}
+        ;;; <summary>
+        ;;; Return value
+        ;;; </summary>
+        public ReturnValue, boolean
+
+        {JsonProperty}
+        ;;; <summary>
+        ;;; Parameter 1 (REQUIRED OUT @ArrayList)
+        ;;; No description found in method catalog
+        ;;; </summary>
+        public Orders, [#]@Order
+
+    endclass
+
+
+;;--------------------------------------------------------------------------------
+;; OrderItemAdd
+
+    {JsonObject(MemberSerialization.OptIn)}
+    ;;; <summary>
+    ;;; Represents IN parameters for method MyApi.OrderItemAdd.
+    ;;; </summary>
+    public class OrderItemAdd_Request
+
+        {JsonProperty}
+        {Required(ErrorMessage="OrderItem is required")}
+        ;;; <summary>
+        ;;; Parameter 1 (REQUIRED IN ORDER_ITEMS)
+        ;;; No description found in method catalog
+        ;;; </summary>
+        public OrderItem, @OrderItem
+
+    endclass
+
+    {JsonObject(MemberSerialization.OptIn)}
+    ;;; <summary>
+    ;;; Represents OUT parameters and return value for method MyApi.OrderItemAdd.
+    ;;; </summary>
+    public class OrderItemAdd_Response
+
+        {JsonProperty}
+        ;;; <summary>
+        ;;; Return value
+        ;;; </summary>
+        public ReturnValue, boolean
+
+    endclass
+
+
+;;--------------------------------------------------------------------------------
+;; OrderItemDelete
+
+    {JsonObject(MemberSerialization.OptIn)}
+    ;;; <summary>
+    ;;; Represents IN parameters for method MyApi.OrderItemDelete.
+    ;;; </summary>
+    public class OrderItemDelete_Request
 
         {JsonProperty}
         {Required(ErrorMessage="OrderNumber is required")}
@@ -764,9 +736,51 @@ namespace MyApi
 
     {JsonObject(MemberSerialization.OptIn)}
     ;;; <summary>
-    ;;; Represents OUT parameters and return value for method MyApi.GetOrderItem.
+    ;;; Represents OUT parameters and return value for method MyApi.OrderItemDelete.
     ;;; </summary>
-    public class GetOrderItem_Response
+    public class OrderItemDelete_Response
+
+        {JsonProperty}
+        ;;; <summary>
+        ;;; Return value
+        ;;; </summary>
+        public ReturnValue, boolean
+
+    endclass
+
+
+;;--------------------------------------------------------------------------------
+;; OrderItemGet
+
+    {JsonObject(MemberSerialization.OptIn)}
+    ;;; <summary>
+    ;;; Represents IN parameters for method MyApi.OrderItemGet.
+    ;;; </summary>
+    public class OrderItemGet_Request
+
+        {JsonProperty}
+        {Required(ErrorMessage="OrderNumber is required")}
+        ;;; <summary>
+        ;;; Parameter 1 (REQUIRED IN d6)
+        ;;; No description found in method catalog
+        ;;; </summary>
+        public OrderNumber, int
+
+        {JsonProperty}
+        {Required(ErrorMessage="ItemNumber is required")}
+        ;;; <summary>
+        ;;; Parameter 2 (REQUIRED IN d2)
+        ;;; No description found in method catalog
+        ;;; </summary>
+        public ItemNumber, int
+
+    endclass
+
+    {JsonObject(MemberSerialization.OptIn)}
+    ;;; <summary>
+    ;;; Represents OUT parameters and return value for method MyApi.OrderItemGet.
+    ;;; </summary>
+    public class OrderItemGet_Response
 
         {JsonProperty}
         ;;; <summary>
@@ -785,13 +799,238 @@ namespace MyApi
 
 
 ;;--------------------------------------------------------------------------------
-;; GetVendor
+;; OrderItemGetAll
 
     {JsonObject(MemberSerialization.OptIn)}
     ;;; <summary>
-    ;;; Represents IN parameters for method MyApi.GetVendor.
+    ;;; Represents IN parameters for method MyApi.OrderItemGetAll.
     ;;; </summary>
-    public class GetVendor_Request
+    public class OrderItemGetAll_Request
+
+        {JsonProperty}
+        {Required(ErrorMessage="OrderNumber is required")}
+        ;;; <summary>
+        ;;; Parameter 1 (REQUIRED IN d6)
+        ;;; No description found in method catalog
+        ;;; </summary>
+        public OrderNumber, int
+
+    endclass
+
+    {JsonObject(MemberSerialization.OptIn)}
+    ;;; <summary>
+    ;;; Represents OUT parameters and return value for method MyApi.OrderItemGetAll.
+    ;;; </summary>
+    public class OrderItemGetAll_Response
+
+        {JsonProperty}
+        ;;; <summary>
+        ;;; Return value
+        ;;; </summary>
+        public ReturnValue, boolean
+
+        {JsonProperty}
+        ;;; <summary>
+        ;;; Parameter 2 (REQUIRED OUT @ArrayList)
+        ;;; No description found in method catalog
+        ;;; </summary>
+        public OrderItems, [#]@OrderItem
+
+    endclass
+
+
+;;--------------------------------------------------------------------------------
+;; OrderItemUpdate
+
+    {JsonObject(MemberSerialization.OptIn)}
+    ;;; <summary>
+    ;;; Represents IN parameters for method MyApi.OrderItemUpdate.
+    ;;; </summary>
+    public class OrderItemUpdate_Request
+
+        {JsonProperty}
+        {Required(ErrorMessage="OrderItem is required")}
+        ;;; <summary>
+        ;;; Parameter 1 (REQUIRED IN ORDER_ITEMS)
+        ;;; No description found in method catalog
+        ;;; </summary>
+        public OrderItem, @OrderItem
+
+    endclass
+
+    {JsonObject(MemberSerialization.OptIn)}
+    ;;; <summary>
+    ;;; Represents OUT parameters and return value for method MyApi.OrderItemUpdate.
+    ;;; </summary>
+    public class OrderItemUpdate_Response
+
+        {JsonProperty}
+        ;;; <summary>
+        ;;; Return value
+        ;;; </summary>
+        public ReturnValue, boolean
+
+    endclass
+
+
+;;--------------------------------------------------------------------------------
+;; OrderItemValidate
+
+    {JsonObject(MemberSerialization.OptIn)}
+    ;;; <summary>
+    ;;; Represents IN parameters for method MyApi.OrderItemValidate.
+    ;;; </summary>
+    public class OrderItemValidate_Request
+
+        {JsonProperty}
+        {Required(ErrorMessage="OrderItem is required")}
+        ;;; <summary>
+        ;;; Parameter 1 (REQUIRED INOUT ORDER_ITEMS)
+        ;;; No description found in method catalog
+        ;;; </summary>
+        public OrderItem, @OrderItem
+
+    endclass
+
+    {JsonObject(MemberSerialization.OptIn)}
+    ;;; <summary>
+    ;;; Represents OUT parameters and return value for method MyApi.OrderItemValidate.
+    ;;; </summary>
+    public class OrderItemValidate_Response
+
+        {JsonProperty}
+        ;;; <summary>
+        ;;; Return value
+        ;;; </summary>
+        public ReturnValue, boolean
+
+        {JsonProperty}
+        ;;; <summary>
+        ;;; Parameter 1 (REQUIRED INOUT ORDER_ITEMS)
+        ;;; No description found in method catalog
+        ;;; </summary>
+        public OrderItem, @OrderItem
+
+    endclass
+
+
+;;--------------------------------------------------------------------------------
+;; OrderUpdate
+
+    {JsonObject(MemberSerialization.OptIn)}
+    ;;; <summary>
+    ;;; Represents IN parameters for method MyApi.OrderUpdate.
+    ;;; </summary>
+    public class OrderUpdate_Request
+
+        {JsonProperty}
+        {Required(ErrorMessage="Order is required")}
+        ;;; <summary>
+        ;;; Parameter 1 (REQUIRED IN ORDERS)
+        ;;; No description found in method catalog
+        ;;; </summary>
+        public Order, @Order
+
+    endclass
+
+    {JsonObject(MemberSerialization.OptIn)}
+    ;;; <summary>
+    ;;; Represents OUT parameters and return value for method MyApi.OrderUpdate.
+    ;;; </summary>
+    public class OrderUpdate_Response
+
+        {JsonProperty}
+        ;;; <summary>
+        ;;; Return value
+        ;;; </summary>
+        public ReturnValue, boolean
+
+    endclass
+
+
+;;--------------------------------------------------------------------------------
+;; OrderValidate
+
+    {JsonObject(MemberSerialization.OptIn)}
+    ;;; <summary>
+    ;;; Represents IN parameters for method MyApi.OrderValidate.
+    ;;; </summary>
+    public class OrderValidate_Request
+
+        {JsonProperty}
+        {Required(ErrorMessage="Order is required")}
+        ;;; <summary>
+        ;;; Parameter 1 (REQUIRED INOUT ORDERS)
+        ;;; No description found in method catalog
+        ;;; </summary>
+        public Order, @Order
+
+    endclass
+
+    {JsonObject(MemberSerialization.OptIn)}
+    ;;; <summary>
+    ;;; Represents OUT parameters and return value for method MyApi.OrderValidate.
+    ;;; </summary>
+    public class OrderValidate_Response
+
+        {JsonProperty}
+        ;;; <summary>
+        ;;; Return value
+        ;;; </summary>
+        public ReturnValue, boolean
+
+        {JsonProperty}
+        ;;; <summary>
+        ;;; Parameter 1 (REQUIRED INOUT ORDERS)
+        ;;; No description found in method catalog
+        ;;; </summary>
+        public Order, @Order
+
+    endclass
+
+
+;;--------------------------------------------------------------------------------
+;; VendorAdd
+
+    {JsonObject(MemberSerialization.OptIn)}
+    ;;; <summary>
+    ;;; Represents IN parameters for method MyApi.VendorAdd.
+    ;;; </summary>
+    public class VendorAdd_Request
+
+        {JsonProperty}
+        {Required(ErrorMessage="Vendor is required")}
+        ;;; <summary>
+        ;;; Parameter 1 (REQUIRED IN VENDORS)
+        ;;; No description found in method catalog
+        ;;; </summary>
+        public Vendor, @Vendor
+
+    endclass
+
+    {JsonObject(MemberSerialization.OptIn)}
+    ;;; <summary>
+    ;;; Represents OUT parameters and return value for method MyApi.VendorAdd.
+    ;;; </summary>
+    public class VendorAdd_Response
+
+        {JsonProperty}
+        ;;; <summary>
+        ;;; Return value
+        ;;; </summary>
+        public ReturnValue, boolean
+
+    endclass
+
+
+;;--------------------------------------------------------------------------------
+;; VendorDelete
+
+    {JsonObject(MemberSerialization.OptIn)}
+    ;;; <summary>
+    ;;; Represents IN parameters for method MyApi.VendorDelete.
+    ;;; </summary>
+    public class VendorDelete_Request
 
         {JsonProperty}
         {Required(ErrorMessage="VendorNumber is required")}
@@ -805,9 +1044,43 @@ namespace MyApi
 
     {JsonObject(MemberSerialization.OptIn)}
     ;;; <summary>
-    ;;; Represents OUT parameters and return value for method MyApi.GetVendor.
+    ;;; Represents OUT parameters and return value for method MyApi.VendorDelete.
     ;;; </summary>
-    public class GetVendor_Response
+    public class VendorDelete_Response
+
+        {JsonProperty}
+        ;;; <summary>
+        ;;; Return value
+        ;;; </summary>
+        public ReturnValue, boolean
+
+    endclass
+
+
+;;--------------------------------------------------------------------------------
+;; VendorGet
+
+    {JsonObject(MemberSerialization.OptIn)}
+    ;;; <summary>
+    ;;; Represents IN parameters for method MyApi.VendorGet.
+    ;;; </summary>
+    public class VendorGet_Request
+
+        {JsonProperty}
+        {Required(ErrorMessage="VendorNumber is required")}
+        ;;; <summary>
+        ;;; Parameter 1 (REQUIRED IN d6)
+        ;;; No description found in method catalog
+        ;;; </summary>
+        public VendorNumber, int
+
+    endclass
+
+    {JsonObject(MemberSerialization.OptIn)}
+    ;;; <summary>
+    ;;; Represents OUT parameters and return value for method MyApi.VendorGet.
+    ;;; </summary>
+    public class VendorGet_Response
 
         {JsonProperty}
         ;;; <summary>
@@ -826,29 +1099,14 @@ namespace MyApi
 
 
 ;;--------------------------------------------------------------------------------
-;; UpdateCustomer
+;; VendorGetAll
+    ;; This method has no in parameters
 
     {JsonObject(MemberSerialization.OptIn)}
     ;;; <summary>
-    ;;; Represents IN parameters for method MyApi.UpdateCustomer.
+    ;;; Represents OUT parameters and return value for method MyApi.VendorGetAll.
     ;;; </summary>
-    public class UpdateCustomer_Request
-
-        {JsonProperty}
-        {Required(ErrorMessage="Customer is required")}
-        ;;; <summary>
-        ;;; Parameter 1 (REQUIRED IN CUSTOMERS)
-        ;;; No description found in method catalog
-        ;;; </summary>
-        public Customer, @Customer
-
-    endclass
-
-    {JsonObject(MemberSerialization.OptIn)}
-    ;;; <summary>
-    ;;; Represents OUT parameters and return value for method MyApi.UpdateCustomer.
-    ;;; </summary>
-    public class UpdateCustomer_Response
+    public class VendorGetAll_Response
 
         {JsonProperty}
         ;;; <summary>
@@ -856,119 +1114,24 @@ namespace MyApi
         ;;; </summary>
         public ReturnValue, boolean
 
-    endclass
-
-
-;;--------------------------------------------------------------------------------
-;; UpdateItem
-
-    {JsonObject(MemberSerialization.OptIn)}
-    ;;; <summary>
-    ;;; Represents IN parameters for method MyApi.UpdateItem.
-    ;;; </summary>
-    public class UpdateItem_Request
-
         {JsonProperty}
-        {Required(ErrorMessage="Item is required")}
         ;;; <summary>
-        ;;; Parameter 1 (REQUIRED IN ITEMS)
+        ;;; Parameter 1 (REQUIRED OUT @ArrayList)
         ;;; No description found in method catalog
         ;;; </summary>
-        public Item, @Item
-
-    endclass
-
-    {JsonObject(MemberSerialization.OptIn)}
-    ;;; <summary>
-    ;;; Represents OUT parameters and return value for method MyApi.UpdateItem.
-    ;;; </summary>
-    public class UpdateItem_Response
-
-        {JsonProperty}
-        ;;; <summary>
-        ;;; Return value
-        ;;; </summary>
-        public ReturnValue, boolean
+        public Vendors, [#]@Vendor
 
     endclass
 
 
 ;;--------------------------------------------------------------------------------
-;; UpdateOrder
+;; VendorUpdate
 
     {JsonObject(MemberSerialization.OptIn)}
     ;;; <summary>
-    ;;; Represents IN parameters for method MyApi.UpdateOrder.
+    ;;; Represents IN parameters for method MyApi.VendorUpdate.
     ;;; </summary>
-    public class UpdateOrder_Request
-
-        {JsonProperty}
-        {Required(ErrorMessage="Order is required")}
-        ;;; <summary>
-        ;;; Parameter 1 (REQUIRED IN ORDERS)
-        ;;; No description found in method catalog
-        ;;; </summary>
-        public Order, @Order
-
-    endclass
-
-    {JsonObject(MemberSerialization.OptIn)}
-    ;;; <summary>
-    ;;; Represents OUT parameters and return value for method MyApi.UpdateOrder.
-    ;;; </summary>
-    public class UpdateOrder_Response
-
-        {JsonProperty}
-        ;;; <summary>
-        ;;; Return value
-        ;;; </summary>
-        public ReturnValue, boolean
-
-    endclass
-
-
-;;--------------------------------------------------------------------------------
-;; UpdateOrderItem
-
-    {JsonObject(MemberSerialization.OptIn)}
-    ;;; <summary>
-    ;;; Represents IN parameters for method MyApi.UpdateOrderItem.
-    ;;; </summary>
-    public class UpdateOrderItem_Request
-
-        {JsonProperty}
-        {Required(ErrorMessage="OrderItem is required")}
-        ;;; <summary>
-        ;;; Parameter 1 (REQUIRED IN ORDER_ITEMS)
-        ;;; No description found in method catalog
-        ;;; </summary>
-        public OrderItem, @OrderItem
-
-    endclass
-
-    {JsonObject(MemberSerialization.OptIn)}
-    ;;; <summary>
-    ;;; Represents OUT parameters and return value for method MyApi.UpdateOrderItem.
-    ;;; </summary>
-    public class UpdateOrderItem_Response
-
-        {JsonProperty}
-        ;;; <summary>
-        ;;; Return value
-        ;;; </summary>
-        public ReturnValue, boolean
-
-    endclass
-
-
-;;--------------------------------------------------------------------------------
-;; UpdateVendor
-
-    {JsonObject(MemberSerialization.OptIn)}
-    ;;; <summary>
-    ;;; Represents IN parameters for method MyApi.UpdateVendor.
-    ;;; </summary>
-    public class UpdateVendor_Request
+    public class VendorUpdate_Request
 
         {JsonProperty}
         {Required(ErrorMessage="Vendor is required")}
@@ -982,9 +1145,9 @@ namespace MyApi
 
     {JsonObject(MemberSerialization.OptIn)}
     ;;; <summary>
-    ;;; Represents OUT parameters and return value for method MyApi.UpdateVendor.
+    ;;; Represents OUT parameters and return value for method MyApi.VendorUpdate.
     ;;; </summary>
-    public class UpdateVendor_Response
+    public class VendorUpdate_Response
 
         {JsonProperty}
         ;;; <summary>
@@ -996,177 +1159,13 @@ namespace MyApi
 
 
 ;;--------------------------------------------------------------------------------
-;; ValidateCustomer
+;; VendorValidate
 
     {JsonObject(MemberSerialization.OptIn)}
     ;;; <summary>
-    ;;; Represents IN parameters for method MyApi.ValidateCustomer.
+    ;;; Represents IN parameters for method MyApi.VendorValidate.
     ;;; </summary>
-    public class ValidateCustomer_Request
-
-        {JsonProperty}
-        {Required(ErrorMessage="Customer is required")}
-        ;;; <summary>
-        ;;; Parameter 1 (REQUIRED INOUT CUSTOMERS)
-        ;;; No description found in method catalog
-        ;;; </summary>
-        public Customer, @Customer
-
-    endclass
-
-    {JsonObject(MemberSerialization.OptIn)}
-    ;;; <summary>
-    ;;; Represents OUT parameters and return value for method MyApi.ValidateCustomer.
-    ;;; </summary>
-    public class ValidateCustomer_Response
-
-        {JsonProperty}
-        ;;; <summary>
-        ;;; Return value
-        ;;; </summary>
-        public ReturnValue, boolean
-
-        {JsonProperty}
-        ;;; <summary>
-        ;;; Parameter 1 (REQUIRED INOUT CUSTOMERS)
-        ;;; No description found in method catalog
-        ;;; </summary>
-        public Customer, @Customer
-
-    endclass
-
-
-;;--------------------------------------------------------------------------------
-;; ValidateItem
-
-    {JsonObject(MemberSerialization.OptIn)}
-    ;;; <summary>
-    ;;; Represents IN parameters for method MyApi.ValidateItem.
-    ;;; </summary>
-    public class ValidateItem_Request
-
-        {JsonProperty}
-        {Required(ErrorMessage="Item is required")}
-        ;;; <summary>
-        ;;; Parameter 1 (REQUIRED INOUT ITEMS)
-        ;;; No description found in method catalog
-        ;;; </summary>
-        public Item, @Item
-
-    endclass
-
-    {JsonObject(MemberSerialization.OptIn)}
-    ;;; <summary>
-    ;;; Represents OUT parameters and return value for method MyApi.ValidateItem.
-    ;;; </summary>
-    public class ValidateItem_Response
-
-        {JsonProperty}
-        ;;; <summary>
-        ;;; Return value
-        ;;; </summary>
-        public ReturnValue, boolean
-
-        {JsonProperty}
-        ;;; <summary>
-        ;;; Parameter 1 (REQUIRED INOUT ITEMS)
-        ;;; No description found in method catalog
-        ;;; </summary>
-        public Item, @Item
-
-    endclass
-
-
-;;--------------------------------------------------------------------------------
-;; ValidateOrder
-
-    {JsonObject(MemberSerialization.OptIn)}
-    ;;; <summary>
-    ;;; Represents IN parameters for method MyApi.ValidateOrder.
-    ;;; </summary>
-    public class ValidateOrder_Request
-
-        {JsonProperty}
-        {Required(ErrorMessage="Order is required")}
-        ;;; <summary>
-        ;;; Parameter 1 (REQUIRED INOUT ORDERS)
-        ;;; No description found in method catalog
-        ;;; </summary>
-        public Order, @Order
-
-    endclass
-
-    {JsonObject(MemberSerialization.OptIn)}
-    ;;; <summary>
-    ;;; Represents OUT parameters and return value for method MyApi.ValidateOrder.
-    ;;; </summary>
-    public class ValidateOrder_Response
-
-        {JsonProperty}
-        ;;; <summary>
-        ;;; Return value
-        ;;; </summary>
-        public ReturnValue, boolean
-
-        {JsonProperty}
-        ;;; <summary>
-        ;;; Parameter 1 (REQUIRED INOUT ORDERS)
-        ;;; No description found in method catalog
-        ;;; </summary>
-        public Order, @Order
-
-    endclass
-
-
-;;--------------------------------------------------------------------------------
-;; ValidateOrderItem
-
-    {JsonObject(MemberSerialization.OptIn)}
-    ;;; <summary>
-    ;;; Represents IN parameters for method MyApi.ValidateOrderItem.
-    ;;; </summary>
-    public class ValidateOrderItem_Request
-
-        {JsonProperty}
-        {Required(ErrorMessage="OrderItem is required")}
-        ;;; <summary>
-        ;;; Parameter 1 (REQUIRED INOUT ORDER_ITEMS)
-        ;;; No description found in method catalog
-        ;;; </summary>
-        public OrderItem, @OrderItem
-
-    endclass
-
-    {JsonObject(MemberSerialization.OptIn)}
-    ;;; <summary>
-    ;;; Represents OUT parameters and return value for method MyApi.ValidateOrderItem.
-    ;;; </summary>
-    public class ValidateOrderItem_Response
-
-        {JsonProperty}
-        ;;; <summary>
-        ;;; Return value
-        ;;; </summary>
-        public ReturnValue, boolean
-
-        {JsonProperty}
-        ;;; <summary>
-        ;;; Parameter 1 (REQUIRED INOUT ORDER_ITEMS)
-        ;;; No description found in method catalog
-        ;;; </summary>
-        public OrderItem, @OrderItem
-
-    endclass
-
-
-;;--------------------------------------------------------------------------------
-;; ValidateVendor
-
-    {JsonObject(MemberSerialization.OptIn)}
-    ;;; <summary>
-    ;;; Represents IN parameters for method MyApi.ValidateVendor.
-    ;;; </summary>
-    public class ValidateVendor_Request
+    public class VendorValidate_Request
 
         {JsonProperty}
         {Required(ErrorMessage="Vendor is required")}
@@ -1180,9 +1179,9 @@ namespace MyApi
 
     {JsonObject(MemberSerialization.OptIn)}
     ;;; <summary>
-    ;;; Represents OUT parameters and return value for method MyApi.ValidateVendor.
+    ;;; Represents OUT parameters and return value for method MyApi.VendorValidate.
     ;;; </summary>
-    public class ValidateVendor_Response
+    public class VendorValidate_Response
 
         {JsonProperty}
         ;;; <summary>

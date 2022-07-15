@@ -48,50 +48,6 @@ namespace Services.Controllers
         endmethod
 
         {HttpPost}
-        {Route("AddCustomer")}
-        public async method AddCustomer, @Task<ActionResult<AddCustomer_Response>>
-            {FromBody}
-            required in aRequest, @AddCustomer_Request
-        proc
-            if (!ModelState.IsValid)
-                mreturn BadRequest()
-            mreturn ok(await _MyApiService.AddCustomer(aRequest))
-        endmethod
-
-        {HttpPost}
-        {Route("AddItem")}
-        public async method AddItem, @Task<ActionResult<AddItem_Response>>
-            {FromBody}
-            required in aRequest, @AddItem_Request
-        proc
-            if (!ModelState.IsValid)
-                mreturn BadRequest()
-            mreturn ok(await _MyApiService.AddItem(aRequest))
-        endmethod
-
-        {HttpPost}
-        {Route("AddOrder")}
-        public async method AddOrder, @Task<ActionResult<AddOrder_Response>>
-            {FromBody}
-            required in aRequest, @AddOrder_Request
-        proc
-            if (!ModelState.IsValid)
-                mreturn BadRequest()
-            mreturn ok(await _MyApiService.AddOrder(aRequest))
-        endmethod
-
-        {HttpPost}
-        {Route("AddOrderItem")}
-        public async method AddOrderItem, @Task<ActionResult<AddOrderItem_Response>>
-            {FromBody}
-            required in aRequest, @AddOrderItem_Request
-        proc
-            if (!ModelState.IsValid)
-                mreturn BadRequest()
-            mreturn ok(await _MyApiService.AddOrderItem(aRequest))
-        endmethod
-
-        {HttpPost}
         {Route("AddTwoNumbers")}
         public async method AddTwoNumbers, @Task<ActionResult<AddTwoNumbers_Response>>
             {FromBody}
@@ -103,119 +59,65 @@ namespace Services.Controllers
         endmethod
 
         {HttpPost}
-        {Route("AddVendor")}
-        public async method AddVendor, @Task<ActionResult<AddVendor_Response>>
+        {Route("CustomerAdd")}
+        public async method CustomerAdd, @Task<ActionResult<CustomerAdd_Response>>
             {FromBody}
-            required in aRequest, @AddVendor_Request
+            required in aRequest, @CustomerAdd_Request
         proc
             if (!ModelState.IsValid)
                 mreturn BadRequest()
-            mreturn ok(await _MyApiService.AddVendor(aRequest))
+            mreturn ok(await _MyApiService.CustomerAdd(aRequest))
         endmethod
 
         {HttpPost}
-        {Route("DeleteCustomer")}
-        public async method DeleteCustomer, @Task<ActionResult<DeleteCustomer_Response>>
+        {Route("CustomerDelete")}
+        public async method CustomerDelete, @Task<ActionResult<CustomerDelete_Response>>
             {FromBody}
-            required in aRequest, @DeleteCustomer_Request
+            required in aRequest, @CustomerDelete_Request
         proc
             if (!ModelState.IsValid)
                 mreturn BadRequest()
-            mreturn ok(await _MyApiService.DeleteCustomer(aRequest))
+            mreturn ok(await _MyApiService.CustomerDelete(aRequest))
         endmethod
 
         {HttpPost}
-        {Route("DeleteItem")}
-        public async method DeleteItem, @Task<ActionResult<DeleteItem_Response>>
+        {Route("CustomerGet")}
+        public async method CustomerGet, @Task<ActionResult<CustomerGet_Response>>
             {FromBody}
-            required in aRequest, @DeleteItem_Request
+            required in aRequest, @CustomerGet_Request
         proc
             if (!ModelState.IsValid)
                 mreturn BadRequest()
-            mreturn ok(await _MyApiService.DeleteItem(aRequest))
-        endmethod
-
-        {HttpPost}
-        {Route("DeleteOrder")}
-        public async method DeleteOrder, @Task<ActionResult<DeleteOrder_Response>>
-            {FromBody}
-            required in aRequest, @DeleteOrder_Request
-        proc
-            if (!ModelState.IsValid)
-                mreturn BadRequest()
-            mreturn ok(await _MyApiService.DeleteOrder(aRequest))
-        endmethod
-
-        {HttpPost}
-        {Route("DeleteOrderItem")}
-        public async method DeleteOrderItem, @Task<ActionResult<DeleteOrderItem_Response>>
-            {FromBody}
-            required in aRequest, @DeleteOrderItem_Request
-        proc
-            if (!ModelState.IsValid)
-                mreturn BadRequest()
-            mreturn ok(await _MyApiService.DeleteOrderItem(aRequest))
-        endmethod
-
-        {HttpPost}
-        {Route("DeleteVendor")}
-        public async method DeleteVendor, @Task<ActionResult<DeleteVendor_Response>>
-            {FromBody}
-            required in aRequest, @DeleteVendor_Request
-        proc
-            if (!ModelState.IsValid)
-                mreturn BadRequest()
-            mreturn ok(await _MyApiService.DeleteVendor(aRequest))
+            mreturn ok(await _MyApiService.CustomerGet(aRequest))
         endmethod
 
         {HttpGet}
-        {Route("GetAllCustomers")}
-        public async method GetAllCustomers, @Task<ActionResult<GetAllCustomers_Response>>
+        {Route("CustomerGetAll")}
+        public async method CustomerGetAll, @Task<ActionResult<CustomerGetAll_Response>>
         proc
-            mreturn ok(await _MyApiService.GetAllCustomers())
-        endmethod
-
-        {HttpGet}
-        {Route("GetAllItems")}
-        public async method GetAllItems, @Task<ActionResult<GetAllItems_Response>>
-        proc
-            mreturn ok(await _MyApiService.GetAllItems())
+            mreturn ok(await _MyApiService.CustomerGetAll())
         endmethod
 
         {HttpPost}
-        {Route("GetAllOrderItems")}
-        public async method GetAllOrderItems, @Task<ActionResult<GetAllOrderItems_Response>>
+        {Route("CustomerUpdate")}
+        public async method CustomerUpdate, @Task<ActionResult<CustomerUpdate_Response>>
             {FromBody}
-            required in aRequest, @GetAllOrderItems_Request
+            required in aRequest, @CustomerUpdate_Request
         proc
             if (!ModelState.IsValid)
                 mreturn BadRequest()
-            mreturn ok(await _MyApiService.GetAllOrderItems(aRequest))
-        endmethod
-
-        {HttpGet}
-        {Route("GetAllOrders")}
-        public async method GetAllOrders, @Task<ActionResult<GetAllOrders_Response>>
-        proc
-            mreturn ok(await _MyApiService.GetAllOrders())
-        endmethod
-
-        {HttpGet}
-        {Route("GetAllVendors")}
-        public async method GetAllVendors, @Task<ActionResult<GetAllVendors_Response>>
-        proc
-            mreturn ok(await _MyApiService.GetAllVendors())
+            mreturn ok(await _MyApiService.CustomerUpdate(aRequest))
         endmethod
 
         {HttpPost}
-        {Route("GetCustomer")}
-        public async method GetCustomer, @Task<ActionResult<GetCustomer_Response>>
+        {Route("CustomerValidate")}
+        public async method CustomerValidate, @Task<ActionResult<CustomerValidate_Response>>
             {FromBody}
-            required in aRequest, @GetCustomer_Request
+            required in aRequest, @CustomerValidate_Request
         proc
             if (!ModelState.IsValid)
                 mreturn BadRequest()
-            mreturn ok(await _MyApiService.GetCustomer(aRequest))
+            mreturn ok(await _MyApiService.CustomerValidate(aRequest))
         endmethod
 
         {HttpGet}
@@ -223,17 +125,6 @@ namespace Services.Controllers
         public async method GetEnvironment, @Task<ActionResult<GetEnvironment_Response>>
         proc
             mreturn ok(await _MyApiService.GetEnvironment())
-        endmethod
-
-        {HttpPost}
-        {Route("GetItem")}
-        public async method GetItem, @Task<ActionResult<GetItem_Response>>
-            {FromBody}
-            required in aRequest, @GetItem_Request
-        proc
-            if (!ModelState.IsValid)
-                mreturn BadRequest()
-            mreturn ok(await _MyApiService.GetItem(aRequest))
         endmethod
 
         {HttpPost}
@@ -248,146 +139,255 @@ namespace Services.Controllers
         endmethod
 
         {HttpPost}
-        {Route("GetOrder")}
-        public async method GetOrder, @Task<ActionResult<GetOrder_Response>>
+        {Route("ItemAdd")}
+        public async method ItemAdd, @Task<ActionResult<ItemAdd_Response>>
             {FromBody}
-            required in aRequest, @GetOrder_Request
+            required in aRequest, @ItemAdd_Request
         proc
             if (!ModelState.IsValid)
                 mreturn BadRequest()
-            mreturn ok(await _MyApiService.GetOrder(aRequest))
+            mreturn ok(await _MyApiService.ItemAdd(aRequest))
         endmethod
 
         {HttpPost}
-        {Route("GetOrderItem")}
-        public async method GetOrderItem, @Task<ActionResult<GetOrderItem_Response>>
+        {Route("ItemDelete")}
+        public async method ItemDelete, @Task<ActionResult<ItemDelete_Response>>
             {FromBody}
-            required in aRequest, @GetOrderItem_Request
+            required in aRequest, @ItemDelete_Request
         proc
             if (!ModelState.IsValid)
                 mreturn BadRequest()
-            mreturn ok(await _MyApiService.GetOrderItem(aRequest))
+            mreturn ok(await _MyApiService.ItemDelete(aRequest))
         endmethod
 
         {HttpPost}
-        {Route("GetVendor")}
-        public async method GetVendor, @Task<ActionResult<GetVendor_Response>>
+        {Route("ItemGet")}
+        public async method ItemGet, @Task<ActionResult<ItemGet_Response>>
             {FromBody}
-            required in aRequest, @GetVendor_Request
+            required in aRequest, @ItemGet_Request
         proc
             if (!ModelState.IsValid)
                 mreturn BadRequest()
-            mreturn ok(await _MyApiService.GetVendor(aRequest))
+            mreturn ok(await _MyApiService.ItemGet(aRequest))
+        endmethod
+
+        {HttpGet}
+        {Route("ItemGetAll")}
+        public async method ItemGetAll, @Task<ActionResult<ItemGetAll_Response>>
+        proc
+            mreturn ok(await _MyApiService.ItemGetAll())
         endmethod
 
         {HttpPost}
-        {Route("UpdateCustomer")}
-        public async method UpdateCustomer, @Task<ActionResult<UpdateCustomer_Response>>
+        {Route("ItemUpdate")}
+        public async method ItemUpdate, @Task<ActionResult<ItemUpdate_Response>>
             {FromBody}
-            required in aRequest, @UpdateCustomer_Request
+            required in aRequest, @ItemUpdate_Request
         proc
             if (!ModelState.IsValid)
                 mreturn BadRequest()
-            mreturn ok(await _MyApiService.UpdateCustomer(aRequest))
+            mreturn ok(await _MyApiService.ItemUpdate(aRequest))
         endmethod
 
         {HttpPost}
-        {Route("UpdateItem")}
-        public async method UpdateItem, @Task<ActionResult<UpdateItem_Response>>
+        {Route("ItemValidate")}
+        public async method ItemValidate, @Task<ActionResult<ItemValidate_Response>>
             {FromBody}
-            required in aRequest, @UpdateItem_Request
+            required in aRequest, @ItemValidate_Request
         proc
             if (!ModelState.IsValid)
                 mreturn BadRequest()
-            mreturn ok(await _MyApiService.UpdateItem(aRequest))
+            mreturn ok(await _MyApiService.ItemValidate(aRequest))
         endmethod
 
         {HttpPost}
-        {Route("UpdateOrder")}
-        public async method UpdateOrder, @Task<ActionResult<UpdateOrder_Response>>
+        {Route("OrderAdd")}
+        public async method OrderAdd, @Task<ActionResult<OrderAdd_Response>>
             {FromBody}
-            required in aRequest, @UpdateOrder_Request
+            required in aRequest, @OrderAdd_Request
         proc
             if (!ModelState.IsValid)
                 mreturn BadRequest()
-            mreturn ok(await _MyApiService.UpdateOrder(aRequest))
+            mreturn ok(await _MyApiService.OrderAdd(aRequest))
         endmethod
 
         {HttpPost}
-        {Route("UpdateOrderItem")}
-        public async method UpdateOrderItem, @Task<ActionResult<UpdateOrderItem_Response>>
+        {Route("OrderDelete")}
+        public async method OrderDelete, @Task<ActionResult<OrderDelete_Response>>
             {FromBody}
-            required in aRequest, @UpdateOrderItem_Request
+            required in aRequest, @OrderDelete_Request
         proc
             if (!ModelState.IsValid)
                 mreturn BadRequest()
-            mreturn ok(await _MyApiService.UpdateOrderItem(aRequest))
+            mreturn ok(await _MyApiService.OrderDelete(aRequest))
         endmethod
 
         {HttpPost}
-        {Route("UpdateVendor")}
-        public async method UpdateVendor, @Task<ActionResult<UpdateVendor_Response>>
+        {Route("OrderGet")}
+        public async method OrderGet, @Task<ActionResult<OrderGet_Response>>
             {FromBody}
-            required in aRequest, @UpdateVendor_Request
+            required in aRequest, @OrderGet_Request
         proc
             if (!ModelState.IsValid)
                 mreturn BadRequest()
-            mreturn ok(await _MyApiService.UpdateVendor(aRequest))
+            mreturn ok(await _MyApiService.OrderGet(aRequest))
+        endmethod
+
+        {HttpGet}
+        {Route("OrderGetAll")}
+        public async method OrderGetAll, @Task<ActionResult<OrderGetAll_Response>>
+        proc
+            mreturn ok(await _MyApiService.OrderGetAll())
         endmethod
 
         {HttpPost}
-        {Route("ValidateCustomer")}
-        public async method ValidateCustomer, @Task<ActionResult<ValidateCustomer_Response>>
+        {Route("OrderItemAdd")}
+        public async method OrderItemAdd, @Task<ActionResult<OrderItemAdd_Response>>
             {FromBody}
-            required in aRequest, @ValidateCustomer_Request
+            required in aRequest, @OrderItemAdd_Request
         proc
             if (!ModelState.IsValid)
                 mreturn BadRequest()
-            mreturn ok(await _MyApiService.ValidateCustomer(aRequest))
+            mreturn ok(await _MyApiService.OrderItemAdd(aRequest))
         endmethod
 
         {HttpPost}
-        {Route("ValidateItem")}
-        public async method ValidateItem, @Task<ActionResult<ValidateItem_Response>>
+        {Route("OrderItemDelete")}
+        public async method OrderItemDelete, @Task<ActionResult<OrderItemDelete_Response>>
             {FromBody}
-            required in aRequest, @ValidateItem_Request
+            required in aRequest, @OrderItemDelete_Request
         proc
             if (!ModelState.IsValid)
                 mreturn BadRequest()
-            mreturn ok(await _MyApiService.ValidateItem(aRequest))
+            mreturn ok(await _MyApiService.OrderItemDelete(aRequest))
         endmethod
 
         {HttpPost}
-        {Route("ValidateOrder")}
-        public async method ValidateOrder, @Task<ActionResult<ValidateOrder_Response>>
+        {Route("OrderItemGet")}
+        public async method OrderItemGet, @Task<ActionResult<OrderItemGet_Response>>
             {FromBody}
-            required in aRequest, @ValidateOrder_Request
+            required in aRequest, @OrderItemGet_Request
         proc
             if (!ModelState.IsValid)
                 mreturn BadRequest()
-            mreturn ok(await _MyApiService.ValidateOrder(aRequest))
+            mreturn ok(await _MyApiService.OrderItemGet(aRequest))
         endmethod
 
         {HttpPost}
-        {Route("ValidateOrderItem")}
-        public async method ValidateOrderItem, @Task<ActionResult<ValidateOrderItem_Response>>
+        {Route("OrderItemGetAll")}
+        public async method OrderItemGetAll, @Task<ActionResult<OrderItemGetAll_Response>>
             {FromBody}
-            required in aRequest, @ValidateOrderItem_Request
+            required in aRequest, @OrderItemGetAll_Request
         proc
             if (!ModelState.IsValid)
                 mreturn BadRequest()
-            mreturn ok(await _MyApiService.ValidateOrderItem(aRequest))
+            mreturn ok(await _MyApiService.OrderItemGetAll(aRequest))
         endmethod
 
         {HttpPost}
-        {Route("ValidateVendor")}
-        public async method ValidateVendor, @Task<ActionResult<ValidateVendor_Response>>
+        {Route("OrderItemUpdate")}
+        public async method OrderItemUpdate, @Task<ActionResult<OrderItemUpdate_Response>>
             {FromBody}
-            required in aRequest, @ValidateVendor_Request
+            required in aRequest, @OrderItemUpdate_Request
         proc
             if (!ModelState.IsValid)
                 mreturn BadRequest()
-            mreturn ok(await _MyApiService.ValidateVendor(aRequest))
+            mreturn ok(await _MyApiService.OrderItemUpdate(aRequest))
+        endmethod
+
+        {HttpPost}
+        {Route("OrderItemValidate")}
+        public async method OrderItemValidate, @Task<ActionResult<OrderItemValidate_Response>>
+            {FromBody}
+            required in aRequest, @OrderItemValidate_Request
+        proc
+            if (!ModelState.IsValid)
+                mreturn BadRequest()
+            mreturn ok(await _MyApiService.OrderItemValidate(aRequest))
+        endmethod
+
+        {HttpPost}
+        {Route("OrderUpdate")}
+        public async method OrderUpdate, @Task<ActionResult<OrderUpdate_Response>>
+            {FromBody}
+            required in aRequest, @OrderUpdate_Request
+        proc
+            if (!ModelState.IsValid)
+                mreturn BadRequest()
+            mreturn ok(await _MyApiService.OrderUpdate(aRequest))
+        endmethod
+
+        {HttpPost}
+        {Route("OrderValidate")}
+        public async method OrderValidate, @Task<ActionResult<OrderValidate_Response>>
+            {FromBody}
+            required in aRequest, @OrderValidate_Request
+        proc
+            if (!ModelState.IsValid)
+                mreturn BadRequest()
+            mreturn ok(await _MyApiService.OrderValidate(aRequest))
+        endmethod
+
+        {HttpPost}
+        {Route("VendorAdd")}
+        public async method VendorAdd, @Task<ActionResult<VendorAdd_Response>>
+            {FromBody}
+            required in aRequest, @VendorAdd_Request
+        proc
+            if (!ModelState.IsValid)
+                mreturn BadRequest()
+            mreturn ok(await _MyApiService.VendorAdd(aRequest))
+        endmethod
+
+        {HttpPost}
+        {Route("VendorDelete")}
+        public async method VendorDelete, @Task<ActionResult<VendorDelete_Response>>
+            {FromBody}
+            required in aRequest, @VendorDelete_Request
+        proc
+            if (!ModelState.IsValid)
+                mreturn BadRequest()
+            mreturn ok(await _MyApiService.VendorDelete(aRequest))
+        endmethod
+
+        {HttpPost}
+        {Route("VendorGet")}
+        public async method VendorGet, @Task<ActionResult<VendorGet_Response>>
+            {FromBody}
+            required in aRequest, @VendorGet_Request
+        proc
+            if (!ModelState.IsValid)
+                mreturn BadRequest()
+            mreturn ok(await _MyApiService.VendorGet(aRequest))
+        endmethod
+
+        {HttpGet}
+        {Route("VendorGetAll")}
+        public async method VendorGetAll, @Task<ActionResult<VendorGetAll_Response>>
+        proc
+            mreturn ok(await _MyApiService.VendorGetAll())
+        endmethod
+
+        {HttpPost}
+        {Route("VendorUpdate")}
+        public async method VendorUpdate, @Task<ActionResult<VendorUpdate_Response>>
+            {FromBody}
+            required in aRequest, @VendorUpdate_Request
+        proc
+            if (!ModelState.IsValid)
+                mreturn BadRequest()
+            mreturn ok(await _MyApiService.VendorUpdate(aRequest))
+        endmethod
+
+        {HttpPost}
+        {Route("VendorValidate")}
+        public async method VendorValidate, @Task<ActionResult<VendorValidate_Response>>
+            {FromBody}
+            required in aRequest, @VendorValidate_Request
+        proc
+            if (!ModelState.IsValid)
+                mreturn BadRequest()
+            mreturn ok(await _MyApiService.VendorValidate(aRequest))
         endmethod
 
     endclass

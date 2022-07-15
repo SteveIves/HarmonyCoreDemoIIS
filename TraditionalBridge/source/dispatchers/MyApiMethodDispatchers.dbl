@@ -27,226 +27,6 @@ namespace TraditionalBridge.Dispatchers.MyApi
 
     ;;-------------------------------------------------------------------------
     ;;; <summary>
-    ;;; Dispatcher for method MyApi.AddCustomer
-    ;;; </summary>
-    public class AddCustomer_Dispatcher extends RoutineStub
-
-        private mStrCustomerMetadata, @DataObjectMetadataBase
-
-        public method AddCustomer_Dispatcher
-        proc
-            ;;Initialize the meta data for any data objects that are used by parameters to the method
-            mStrCustomerMetadata = DataObjectMetadataBase.LookupType("Customer")
-        endmethod
-
-        protected override method DispatchInternal, void
-            required in name,       string
-            required in callFrame,  JSON_ELEMENT
-            required in serializer, @DispatchSerializer
-            required in dispatcher, @RoutineDispatcher
-            record
-                requestId,          int
-                arguments,          JSON_ELEMENT
-                argumentDefinition, @ArgumentDataDefinition
-
-                ;;Argument 1 (REQUIRED IN Customer structure @StrCustomer)
-                arg1DataObject,     @DataObjectBase
-                arg1,               StrCustomer
-                returnValue,         I4
-            endrecord
-
-
-        proc
-
-            ;;------------------------------------------------------------
-            ;;Prepare variables for arguments
-
-            arguments = callFrame.GetProperty("params")
-
-            ;;Argument 1 (REQUIRED IN Customer structure @StrCustomer)
-
-            ;;Structure argument. Get the data object then get the record from it
-            arg1DataObject = dispatcher.DeserializeObject(arguments[1],mStrCustomerMetadata)
-            arg1 = arg1DataObject.SynergyRecord
-
-            ;;------------------------------------------------------------
-            ;; Call the underlying routine
-
-            returnValue = %AddCustomer(arg1)
-
-            ;;Function return value
-            serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
-        endmethod
-
-    endclass
-
-    ;;-------------------------------------------------------------------------
-    ;;; <summary>
-    ;;; Dispatcher for method MyApi.AddItem
-    ;;; </summary>
-    public class AddItem_Dispatcher extends RoutineStub
-
-        private mStrItemMetadata, @DataObjectMetadataBase
-
-        public method AddItem_Dispatcher
-        proc
-            ;;Initialize the meta data for any data objects that are used by parameters to the method
-            mStrItemMetadata = DataObjectMetadataBase.LookupType("Item")
-        endmethod
-
-        protected override method DispatchInternal, void
-            required in name,       string
-            required in callFrame,  JSON_ELEMENT
-            required in serializer, @DispatchSerializer
-            required in dispatcher, @RoutineDispatcher
-            record
-                requestId,          int
-                arguments,          JSON_ELEMENT
-                argumentDefinition, @ArgumentDataDefinition
-
-                ;;Argument 1 (REQUIRED IN Item structure @StrItem)
-                arg1DataObject,     @DataObjectBase
-                arg1,               StrItem
-                returnValue,         I4
-            endrecord
-
-
-        proc
-
-            ;;------------------------------------------------------------
-            ;;Prepare variables for arguments
-
-            arguments = callFrame.GetProperty("params")
-
-            ;;Argument 1 (REQUIRED IN Item structure @StrItem)
-
-            ;;Structure argument. Get the data object then get the record from it
-            arg1DataObject = dispatcher.DeserializeObject(arguments[1],mStrItemMetadata)
-            arg1 = arg1DataObject.SynergyRecord
-
-            ;;------------------------------------------------------------
-            ;; Call the underlying routine
-
-            returnValue = %AddItem(arg1)
-
-            ;;Function return value
-            serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
-        endmethod
-
-    endclass
-
-    ;;-------------------------------------------------------------------------
-    ;;; <summary>
-    ;;; Dispatcher for method MyApi.AddOrder
-    ;;; </summary>
-    public class AddOrder_Dispatcher extends RoutineStub
-
-        private mStrOrderMetadata, @DataObjectMetadataBase
-
-        public method AddOrder_Dispatcher
-        proc
-            ;;Initialize the meta data for any data objects that are used by parameters to the method
-            mStrOrderMetadata = DataObjectMetadataBase.LookupType("Order")
-        endmethod
-
-        protected override method DispatchInternal, void
-            required in name,       string
-            required in callFrame,  JSON_ELEMENT
-            required in serializer, @DispatchSerializer
-            required in dispatcher, @RoutineDispatcher
-            record
-                requestId,          int
-                arguments,          JSON_ELEMENT
-                argumentDefinition, @ArgumentDataDefinition
-
-                ;;Argument 1 (REQUIRED IN Order structure @StrOrder)
-                arg1DataObject,     @DataObjectBase
-                arg1,               StrOrder
-                returnValue,         I4
-            endrecord
-
-
-        proc
-
-            ;;------------------------------------------------------------
-            ;;Prepare variables for arguments
-
-            arguments = callFrame.GetProperty("params")
-
-            ;;Argument 1 (REQUIRED IN Order structure @StrOrder)
-
-            ;;Structure argument. Get the data object then get the record from it
-            arg1DataObject = dispatcher.DeserializeObject(arguments[1],mStrOrderMetadata)
-            arg1 = arg1DataObject.SynergyRecord
-
-            ;;------------------------------------------------------------
-            ;; Call the underlying routine
-
-            returnValue = %AddOrder(arg1)
-
-            ;;Function return value
-            serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
-        endmethod
-
-    endclass
-
-    ;;-------------------------------------------------------------------------
-    ;;; <summary>
-    ;;; Dispatcher for method MyApi.AddOrderItem
-    ;;; </summary>
-    public class AddOrderItem_Dispatcher extends RoutineStub
-
-        private mStrOrderItemMetadata, @DataObjectMetadataBase
-
-        public method AddOrderItem_Dispatcher
-        proc
-            ;;Initialize the meta data for any data objects that are used by parameters to the method
-            mStrOrderItemMetadata = DataObjectMetadataBase.LookupType("OrderItem")
-        endmethod
-
-        protected override method DispatchInternal, void
-            required in name,       string
-            required in callFrame,  JSON_ELEMENT
-            required in serializer, @DispatchSerializer
-            required in dispatcher, @RoutineDispatcher
-            record
-                requestId,          int
-                arguments,          JSON_ELEMENT
-                argumentDefinition, @ArgumentDataDefinition
-
-                ;;Argument 1 (REQUIRED IN OrderItem structure @StrOrderItem)
-                arg1DataObject,     @DataObjectBase
-                arg1,               StrOrderItem
-                returnValue,         I4
-            endrecord
-
-
-        proc
-
-            ;;------------------------------------------------------------
-            ;;Prepare variables for arguments
-
-            arguments = callFrame.GetProperty("params")
-
-            ;;Argument 1 (REQUIRED IN OrderItem structure @StrOrderItem)
-
-            ;;Structure argument. Get the data object then get the record from it
-            arg1DataObject = dispatcher.DeserializeObject(arguments[1],mStrOrderItemMetadata)
-            arg1 = arg1DataObject.SynergyRecord
-
-            ;;------------------------------------------------------------
-            ;; Call the underlying routine
-
-            returnValue = %AddOrderItem(arg1)
-
-            ;;Function return value
-            serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
-        endmethod
-
-    endclass
-
-    ;;-------------------------------------------------------------------------
-    ;;; <summary>
     ;;; Dispatcher for method MyApi.AddTwoNumbers
     ;;; </summary>
     public class AddTwoNumbers_Dispatcher extends RoutineStub
@@ -309,16 +89,16 @@ namespace TraditionalBridge.Dispatchers.MyApi
 
     ;;-------------------------------------------------------------------------
     ;;; <summary>
-    ;;; Dispatcher for method MyApi.AddVendor
+    ;;; Dispatcher for method MyApi.CustomerAdd
     ;;; </summary>
-    public class AddVendor_Dispatcher extends RoutineStub
+    public class CustomerAdd_Dispatcher extends RoutineStub
 
-        private mStrVendorMetadata, @DataObjectMetadataBase
+        private mStrCustomerMetadata, @DataObjectMetadataBase
 
-        public method AddVendor_Dispatcher
+        public method CustomerAdd_Dispatcher
         proc
             ;;Initialize the meta data for any data objects that are used by parameters to the method
-            mStrVendorMetadata = DataObjectMetadataBase.LookupType("Vendor")
+            mStrCustomerMetadata = DataObjectMetadataBase.LookupType("Customer")
         endmethod
 
         protected override method DispatchInternal, void
@@ -331,9 +111,9 @@ namespace TraditionalBridge.Dispatchers.MyApi
                 arguments,          JSON_ELEMENT
                 argumentDefinition, @ArgumentDataDefinition
 
-                ;;Argument 1 (REQUIRED IN Vendor structure @StrVendor)
+                ;;Argument 1 (REQUIRED IN Customer structure @StrCustomer)
                 arg1DataObject,     @DataObjectBase
-                arg1,               StrVendor
+                arg1,               StrCustomer
                 returnValue,         I4
             endrecord
 
@@ -345,16 +125,16 @@ namespace TraditionalBridge.Dispatchers.MyApi
 
             arguments = callFrame.GetProperty("params")
 
-            ;;Argument 1 (REQUIRED IN Vendor structure @StrVendor)
+            ;;Argument 1 (REQUIRED IN Customer structure @StrCustomer)
 
             ;;Structure argument. Get the data object then get the record from it
-            arg1DataObject = dispatcher.DeserializeObject(arguments[1],mStrVendorMetadata)
+            arg1DataObject = dispatcher.DeserializeObject(arguments[1],mStrCustomerMetadata)
             arg1 = arg1DataObject.SynergyRecord
 
             ;;------------------------------------------------------------
             ;; Call the underlying routine
 
-            returnValue = %AddVendor(arg1)
+            returnValue = %CustomerAdd(arg1)
 
             ;;Function return value
             serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
@@ -364,12 +144,12 @@ namespace TraditionalBridge.Dispatchers.MyApi
 
     ;;-------------------------------------------------------------------------
     ;;; <summary>
-    ;;; Dispatcher for method MyApi.DeleteCustomer
+    ;;; Dispatcher for method MyApi.CustomerDelete
     ;;; </summary>
-    public class DeleteCustomer_Dispatcher extends RoutineStub
+    public class CustomerDelete_Dispatcher extends RoutineStub
 
 
-        public method DeleteCustomer_Dispatcher
+        public method CustomerDelete_Dispatcher
         proc
             ;;Initialize the meta data for any data objects that are used by parameters to the method
         endmethod
@@ -404,7 +184,7 @@ namespace TraditionalBridge.Dispatchers.MyApi
             ;;------------------------------------------------------------
             ;; Call the underlying routine
 
-            returnValue = %DeleteCustomer(arg1)
+            returnValue = %CustomerDelete(arg1)
 
             ;;Function return value
             serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
@@ -414,515 +194,13 @@ namespace TraditionalBridge.Dispatchers.MyApi
 
     ;;-------------------------------------------------------------------------
     ;;; <summary>
-    ;;; Dispatcher for method MyApi.DeleteItem
+    ;;; Dispatcher for method MyApi.CustomerGet
     ;;; </summary>
-    public class DeleteItem_Dispatcher extends RoutineStub
-
-
-        public method DeleteItem_Dispatcher
-        proc
-            ;;Initialize the meta data for any data objects that are used by parameters to the method
-        endmethod
-
-        protected override method DispatchInternal, void
-            required in name,       string
-            required in callFrame,  JSON_ELEMENT
-            required in serializer, @DispatchSerializer
-            required in dispatcher, @RoutineDispatcher
-            record
-                requestId,          int
-                arguments,          JSON_ELEMENT
-                argumentDefinition, @ArgumentDataDefinition
-
-                ;;Argument 1 (REQUIRED IN ItemNumber d6)
-                arg1,               d6
-                returnValue,         I4
-            endrecord
-
-
-        proc
-
-            ;;------------------------------------------------------------
-            ;;Prepare variables for arguments
-
-            arguments = callFrame.GetProperty("params")
-
-            ;;Argument 1 (REQUIRED IN ItemNumber d6)
-
-            arg1 = dispatcher.GetDecimal(arguments[1])
-
-            ;;------------------------------------------------------------
-            ;; Call the underlying routine
-
-            returnValue = %DeleteItem(arg1)
-
-            ;;Function return value
-            serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
-        endmethod
-
-    endclass
-
-    ;;-------------------------------------------------------------------------
-    ;;; <summary>
-    ;;; Dispatcher for method MyApi.DeleteOrder
-    ;;; </summary>
-    public class DeleteOrder_Dispatcher extends RoutineStub
-
-
-        public method DeleteOrder_Dispatcher
-        proc
-            ;;Initialize the meta data for any data objects that are used by parameters to the method
-        endmethod
-
-        protected override method DispatchInternal, void
-            required in name,       string
-            required in callFrame,  JSON_ELEMENT
-            required in serializer, @DispatchSerializer
-            required in dispatcher, @RoutineDispatcher
-            record
-                requestId,          int
-                arguments,          JSON_ELEMENT
-                argumentDefinition, @ArgumentDataDefinition
-
-                ;;Argument 1 (REQUIRED IN OrderNumber d6)
-                arg1,               d6
-                returnValue,         I4
-            endrecord
-
-
-        proc
-
-            ;;------------------------------------------------------------
-            ;;Prepare variables for arguments
-
-            arguments = callFrame.GetProperty("params")
-
-            ;;Argument 1 (REQUIRED IN OrderNumber d6)
-
-            arg1 = dispatcher.GetDecimal(arguments[1])
-
-            ;;------------------------------------------------------------
-            ;; Call the underlying routine
-
-            returnValue = %DeleteOrder(arg1)
-
-            ;;Function return value
-            serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
-        endmethod
-
-    endclass
-
-    ;;-------------------------------------------------------------------------
-    ;;; <summary>
-    ;;; Dispatcher for method MyApi.DeleteOrderItem
-    ;;; </summary>
-    public class DeleteOrderItem_Dispatcher extends RoutineStub
-
-
-        public method DeleteOrderItem_Dispatcher
-        proc
-            ;;Initialize the meta data for any data objects that are used by parameters to the method
-        endmethod
-
-        protected override method DispatchInternal, void
-            required in name,       string
-            required in callFrame,  JSON_ELEMENT
-            required in serializer, @DispatchSerializer
-            required in dispatcher, @RoutineDispatcher
-            record
-                requestId,          int
-                arguments,          JSON_ELEMENT
-                argumentDefinition, @ArgumentDataDefinition
-
-                ;;Argument 1 (REQUIRED IN OrderNumber d6)
-                arg1,               d6
-                ;;Argument 2 (REQUIRED IN ItemNumber d2)
-                arg2,               d2
-                returnValue,         I4
-            endrecord
-
-
-        proc
-
-            ;;------------------------------------------------------------
-            ;;Prepare variables for arguments
-
-            arguments = callFrame.GetProperty("params")
-
-            ;;Argument 1 (REQUIRED IN OrderNumber d6)
-
-            arg1 = dispatcher.GetDecimal(arguments[1])
-
-            ;;Argument 2 (REQUIRED IN ItemNumber d2)
-
-            arg2 = dispatcher.GetDecimal(arguments[2])
-
-            ;;------------------------------------------------------------
-            ;; Call the underlying routine
-
-            returnValue = %DeleteOrderItem(arg1,arg2)
-
-            ;;Function return value
-            serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
-        endmethod
-
-    endclass
-
-    ;;-------------------------------------------------------------------------
-    ;;; <summary>
-    ;;; Dispatcher for method MyApi.DeleteVendor
-    ;;; </summary>
-    public class DeleteVendor_Dispatcher extends RoutineStub
-
-
-        public method DeleteVendor_Dispatcher
-        proc
-            ;;Initialize the meta data for any data objects that are used by parameters to the method
-        endmethod
-
-        protected override method DispatchInternal, void
-            required in name,       string
-            required in callFrame,  JSON_ELEMENT
-            required in serializer, @DispatchSerializer
-            required in dispatcher, @RoutineDispatcher
-            record
-                requestId,          int
-                arguments,          JSON_ELEMENT
-                argumentDefinition, @ArgumentDataDefinition
-
-                ;;Argument 1 (REQUIRED IN VendorNumber d6)
-                arg1,               d6
-                returnValue,         I4
-            endrecord
-
-
-        proc
-
-            ;;------------------------------------------------------------
-            ;;Prepare variables for arguments
-
-            arguments = callFrame.GetProperty("params")
-
-            ;;Argument 1 (REQUIRED IN VendorNumber d6)
-
-            arg1 = dispatcher.GetDecimal(arguments[1])
-
-            ;;------------------------------------------------------------
-            ;; Call the underlying routine
-
-            returnValue = %DeleteVendor(arg1)
-
-            ;;Function return value
-            serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
-        endmethod
-
-    endclass
-
-    ;;-------------------------------------------------------------------------
-    ;;; <summary>
-    ;;; Dispatcher for method MyApi.GetAllCustomers
-    ;;; </summary>
-    public class GetAllCustomers_Dispatcher extends RoutineStub
+    public class CustomerGet_Dispatcher extends RoutineStub
 
         private mStrCustomerMetadata, @DataObjectMetadataBase
 
-        public method GetAllCustomers_Dispatcher
-        proc
-            ;;Initialize the meta data for any data objects that are used by parameters to the method
-            mStrCustomerMetadata = DataObjectMetadataBase.LookupType("Customer")
-        endmethod
-
-        protected override method DispatchInternal, void
-            required in name,       string
-            required in callFrame,  JSON_ELEMENT
-            required in serializer, @DispatchSerializer
-            required in dispatcher, @RoutineDispatcher
-            record
-                requestId,          int
-                arguments,          JSON_ELEMENT
-                argumentDefinition, @ArgumentDataDefinition
-
-                ;;Argument 1 (REQUIRED OUT Customers ArrayList collection of structure @StrCustomer returned as DataTable)
-                arg1Array,          JSON_ELEMENT
-                arg1,               @ArrayList
-                returnValue,         I4
-            endrecord
-
-
-        proc
-
-            ;;------------------------------------------------------------
-            ;;Prepare variables for arguments
-
-            arguments = callFrame.GetProperty("params")
-
-            ;;Argument 1 (REQUIRED OUT Customers ArrayList collection of structure @StrCustomer returned as DataTable)
-
-            arg1 = new ArrayList()
-
-            ;;------------------------------------------------------------
-            ;; Call the underlying routine
-
-            returnValue = %GetAllCustomers(arg1)
-
-            ;;Function return value
-            serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
-
-            ;;--------------------------------------------------------------------------------
-            ;;Argument 1 (REQUIRED OUT Customers ArrayList collection of structure @StrCustomer returned as DataTable)
-            
-            serializer.ArgumentData(1,arg1,FieldDataType.DataObjectCollectionField,161,"CUSTOMERS",true)
-        endmethod
-
-    endclass
-
-    ;;-------------------------------------------------------------------------
-    ;;; <summary>
-    ;;; Dispatcher for method MyApi.GetAllItems
-    ;;; </summary>
-    public class GetAllItems_Dispatcher extends RoutineStub
-
-        private mStrItemMetadata, @DataObjectMetadataBase
-
-        public method GetAllItems_Dispatcher
-        proc
-            ;;Initialize the meta data for any data objects that are used by parameters to the method
-            mStrItemMetadata = DataObjectMetadataBase.LookupType("Item")
-        endmethod
-
-        protected override method DispatchInternal, void
-            required in name,       string
-            required in callFrame,  JSON_ELEMENT
-            required in serializer, @DispatchSerializer
-            required in dispatcher, @RoutineDispatcher
-            record
-                requestId,          int
-                arguments,          JSON_ELEMENT
-                argumentDefinition, @ArgumentDataDefinition
-
-                ;;Argument 1 (REQUIRED OUT Items ArrayList collection of structure @StrItem returned as DataTable)
-                arg1Array,          JSON_ELEMENT
-                arg1,               @ArrayList
-                returnValue,         I4
-            endrecord
-
-
-        proc
-
-            ;;------------------------------------------------------------
-            ;;Prepare variables for arguments
-
-            arguments = callFrame.GetProperty("params")
-
-            ;;Argument 1 (REQUIRED OUT Items ArrayList collection of structure @StrItem returned as DataTable)
-
-            arg1 = new ArrayList()
-
-            ;;------------------------------------------------------------
-            ;; Call the underlying routine
-
-            returnValue = %GetAllItems(arg1)
-
-            ;;Function return value
-            serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
-
-            ;;--------------------------------------------------------------------------------
-            ;;Argument 1 (REQUIRED OUT Items ArrayList collection of structure @StrItem returned as DataTable)
-            
-            serializer.ArgumentData(1,arg1,FieldDataType.DataObjectCollectionField,151,"ITEMS",true)
-        endmethod
-
-    endclass
-
-    ;;-------------------------------------------------------------------------
-    ;;; <summary>
-    ;;; Dispatcher for method MyApi.GetAllOrderItems
-    ;;; </summary>
-    public class GetAllOrderItems_Dispatcher extends RoutineStub
-
-        private mStrOrderItemMetadata, @DataObjectMetadataBase
-
-        public method GetAllOrderItems_Dispatcher
-        proc
-            ;;Initialize the meta data for any data objects that are used by parameters to the method
-            mStrOrderItemMetadata = DataObjectMetadataBase.LookupType("OrderItem")
-        endmethod
-
-        protected override method DispatchInternal, void
-            required in name,       string
-            required in callFrame,  JSON_ELEMENT
-            required in serializer, @DispatchSerializer
-            required in dispatcher, @RoutineDispatcher
-            record
-                requestId,          int
-                arguments,          JSON_ELEMENT
-                argumentDefinition, @ArgumentDataDefinition
-
-                ;;Argument 1 (REQUIRED IN OrderNumber d6)
-                arg1,               d6
-                ;;Argument 2 (REQUIRED OUT OrderItems ArrayList collection of structure @StrOrderItem returned as DataTable)
-                arg2Array,          JSON_ELEMENT
-                arg2,               @ArrayList
-                returnValue,         I4
-            endrecord
-
-
-        proc
-
-            ;;------------------------------------------------------------
-            ;;Prepare variables for arguments
-
-            arguments = callFrame.GetProperty("params")
-
-            ;;Argument 1 (REQUIRED IN OrderNumber d6)
-
-            arg1 = dispatcher.GetDecimal(arguments[1])
-
-            ;;Argument 2 (REQUIRED OUT OrderItems ArrayList collection of structure @StrOrderItem returned as DataTable)
-
-            arg2 = new ArrayList()
-
-            ;;------------------------------------------------------------
-            ;; Call the underlying routine
-
-            returnValue = %GetAllOrderItems(arg1,arg2)
-
-            ;;Function return value
-            serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
-
-            ;;--------------------------------------------------------------------------------
-            ;;Argument 2 (REQUIRED OUT OrderItems ArrayList collection of structure @StrOrderItem returned as DataTable)
-            
-            serializer.ArgumentData(2,arg2,FieldDataType.DataObjectCollectionField,100,"ORDER_ITEMS",true)
-        endmethod
-
-    endclass
-
-    ;;-------------------------------------------------------------------------
-    ;;; <summary>
-    ;;; Dispatcher for method MyApi.GetAllOrders
-    ;;; </summary>
-    public class GetAllOrders_Dispatcher extends RoutineStub
-
-        private mStrOrderMetadata, @DataObjectMetadataBase
-
-        public method GetAllOrders_Dispatcher
-        proc
-            ;;Initialize the meta data for any data objects that are used by parameters to the method
-            mStrOrderMetadata = DataObjectMetadataBase.LookupType("Order")
-        endmethod
-
-        protected override method DispatchInternal, void
-            required in name,       string
-            required in callFrame,  JSON_ELEMENT
-            required in serializer, @DispatchSerializer
-            required in dispatcher, @RoutineDispatcher
-            record
-                requestId,          int
-                arguments,          JSON_ELEMENT
-                argumentDefinition, @ArgumentDataDefinition
-
-                ;;Argument 1 (REQUIRED OUT Orders ArrayList collection of structure @StrOrder returned as DataTable)
-                arg1Array,          JSON_ELEMENT
-                arg1,               @ArrayList
-                returnValue,         I4
-            endrecord
-
-
-        proc
-
-            ;;------------------------------------------------------------
-            ;;Prepare variables for arguments
-
-            arguments = callFrame.GetProperty("params")
-
-            ;;Argument 1 (REQUIRED OUT Orders ArrayList collection of structure @StrOrder returned as DataTable)
-
-            arg1 = new ArrayList()
-
-            ;;------------------------------------------------------------
-            ;; Call the underlying routine
-
-            returnValue = %GetAllOrders(arg1)
-
-            ;;Function return value
-            serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
-
-            ;;--------------------------------------------------------------------------------
-            ;;Argument 1 (REQUIRED OUT Orders ArrayList collection of structure @StrOrder returned as DataTable)
-            
-            serializer.ArgumentData(1,arg1,FieldDataType.DataObjectCollectionField,100,"ORDERS",true)
-        endmethod
-
-    endclass
-
-    ;;-------------------------------------------------------------------------
-    ;;; <summary>
-    ;;; Dispatcher for method MyApi.GetAllVendors
-    ;;; </summary>
-    public class GetAllVendors_Dispatcher extends RoutineStub
-
-        private mStrVendorMetadata, @DataObjectMetadataBase
-
-        public method GetAllVendors_Dispatcher
-        proc
-            ;;Initialize the meta data for any data objects that are used by parameters to the method
-            mStrVendorMetadata = DataObjectMetadataBase.LookupType("Vendor")
-        endmethod
-
-        protected override method DispatchInternal, void
-            required in name,       string
-            required in callFrame,  JSON_ELEMENT
-            required in serializer, @DispatchSerializer
-            required in dispatcher, @RoutineDispatcher
-            record
-                requestId,          int
-                arguments,          JSON_ELEMENT
-                argumentDefinition, @ArgumentDataDefinition
-
-                ;;Argument 1 (REQUIRED OUT Vendors ArrayList collection of structure @StrVendor returned as DataTable)
-                arg1Array,          JSON_ELEMENT
-                arg1,               @ArrayList
-                returnValue,         I4
-            endrecord
-
-
-        proc
-
-            ;;------------------------------------------------------------
-            ;;Prepare variables for arguments
-
-            arguments = callFrame.GetProperty("params")
-
-            ;;Argument 1 (REQUIRED OUT Vendors ArrayList collection of structure @StrVendor returned as DataTable)
-
-            arg1 = new ArrayList()
-
-            ;;------------------------------------------------------------
-            ;; Call the underlying routine
-
-            returnValue = %GetAllVendors(arg1)
-
-            ;;Function return value
-            serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
-
-            ;;--------------------------------------------------------------------------------
-            ;;Argument 1 (REQUIRED OUT Vendors ArrayList collection of structure @StrVendor returned as DataTable)
-            
-            serializer.ArgumentData(1,arg1,FieldDataType.DataObjectCollectionField,135,"VENDORS",true)
-        endmethod
-
-    endclass
-
-    ;;-------------------------------------------------------------------------
-    ;;; <summary>
-    ;;; Dispatcher for method MyApi.GetCustomer
-    ;;; </summary>
-    public class GetCustomer_Dispatcher extends RoutineStub
-
-        private mStrCustomerMetadata, @DataObjectMetadataBase
-
-        public method GetCustomer_Dispatcher
+        public method CustomerGet_Dispatcher
         proc
             ;;Initialize the meta data for any data objects that are used by parameters to the method
             mStrCustomerMetadata = DataObjectMetadataBase.LookupType("Customer")
@@ -964,7 +242,7 @@ namespace TraditionalBridge.Dispatchers.MyApi
             ;;------------------------------------------------------------
             ;; Call the underlying routine
 
-            returnValue = %GetCustomer(arg1,arg2)
+            returnValue = %CustomerGet(arg1,arg2)
 
             ;;Function return value
             serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
@@ -974,6 +252,180 @@ namespace TraditionalBridge.Dispatchers.MyApi
             
             ;;Argument 2: Single StrCustomer record
             serializer.ArgumentData(2,arg2,FieldDataType.DataObjectField,161,"CUSTOMERS",true)
+        endmethod
+
+    endclass
+
+    ;;-------------------------------------------------------------------------
+    ;;; <summary>
+    ;;; Dispatcher for method MyApi.CustomerGetAll
+    ;;; </summary>
+    public class CustomerGetAll_Dispatcher extends RoutineStub
+
+        private mStrCustomerMetadata, @DataObjectMetadataBase
+
+        public method CustomerGetAll_Dispatcher
+        proc
+            ;;Initialize the meta data for any data objects that are used by parameters to the method
+            mStrCustomerMetadata = DataObjectMetadataBase.LookupType("Customer")
+        endmethod
+
+        protected override method DispatchInternal, void
+            required in name,       string
+            required in callFrame,  JSON_ELEMENT
+            required in serializer, @DispatchSerializer
+            required in dispatcher, @RoutineDispatcher
+            record
+                requestId,          int
+                arguments,          JSON_ELEMENT
+                argumentDefinition, @ArgumentDataDefinition
+
+                ;;Argument 1 (REQUIRED OUT Customers ArrayList collection of structure @StrCustomer returned as DataTable)
+                arg1Array,          JSON_ELEMENT
+                arg1,               @ArrayList
+                returnValue,         I4
+            endrecord
+
+
+        proc
+
+            ;;------------------------------------------------------------
+            ;;Prepare variables for arguments
+
+            arguments = callFrame.GetProperty("params")
+
+            ;;Argument 1 (REQUIRED OUT Customers ArrayList collection of structure @StrCustomer returned as DataTable)
+
+            arg1 = new ArrayList()
+
+            ;;------------------------------------------------------------
+            ;; Call the underlying routine
+
+            returnValue = %CustomerGetAll(arg1)
+
+            ;;Function return value
+            serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
+
+            ;;--------------------------------------------------------------------------------
+            ;;Argument 1 (REQUIRED OUT Customers ArrayList collection of structure @StrCustomer returned as DataTable)
+            
+            serializer.ArgumentData(1,arg1,FieldDataType.DataObjectCollectionField,161,"CUSTOMERS",true)
+        endmethod
+
+    endclass
+
+    ;;-------------------------------------------------------------------------
+    ;;; <summary>
+    ;;; Dispatcher for method MyApi.CustomerUpdate
+    ;;; </summary>
+    public class CustomerUpdate_Dispatcher extends RoutineStub
+
+        private mStrCustomerMetadata, @DataObjectMetadataBase
+
+        public method CustomerUpdate_Dispatcher
+        proc
+            ;;Initialize the meta data for any data objects that are used by parameters to the method
+            mStrCustomerMetadata = DataObjectMetadataBase.LookupType("Customer")
+        endmethod
+
+        protected override method DispatchInternal, void
+            required in name,       string
+            required in callFrame,  JSON_ELEMENT
+            required in serializer, @DispatchSerializer
+            required in dispatcher, @RoutineDispatcher
+            record
+                requestId,          int
+                arguments,          JSON_ELEMENT
+                argumentDefinition, @ArgumentDataDefinition
+
+                ;;Argument 1 (REQUIRED IN Customer structure @StrCustomer)
+                arg1DataObject,     @DataObjectBase
+                arg1,               StrCustomer
+                returnValue,         I4
+            endrecord
+
+
+        proc
+
+            ;;------------------------------------------------------------
+            ;;Prepare variables for arguments
+
+            arguments = callFrame.GetProperty("params")
+
+            ;;Argument 1 (REQUIRED IN Customer structure @StrCustomer)
+
+            ;;Structure argument. Get the data object then get the record from it
+            arg1DataObject = dispatcher.DeserializeObject(arguments[1],mStrCustomerMetadata)
+            arg1 = arg1DataObject.SynergyRecord
+
+            ;;------------------------------------------------------------
+            ;; Call the underlying routine
+
+            returnValue = %CustomerUpdate(arg1)
+
+            ;;Function return value
+            serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
+        endmethod
+
+    endclass
+
+    ;;-------------------------------------------------------------------------
+    ;;; <summary>
+    ;;; Dispatcher for method MyApi.CustomerValidate
+    ;;; </summary>
+    public class CustomerValidate_Dispatcher extends RoutineStub
+
+        private mStrCustomerMetadata, @DataObjectMetadataBase
+
+        public method CustomerValidate_Dispatcher
+        proc
+            ;;Initialize the meta data for any data objects that are used by parameters to the method
+            mStrCustomerMetadata = DataObjectMetadataBase.LookupType("Customer")
+        endmethod
+
+        protected override method DispatchInternal, void
+            required in name,       string
+            required in callFrame,  JSON_ELEMENT
+            required in serializer, @DispatchSerializer
+            required in dispatcher, @RoutineDispatcher
+            record
+                requestId,          int
+                arguments,          JSON_ELEMENT
+                argumentDefinition, @ArgumentDataDefinition
+
+                ;;Argument 1 (REQUIRED INOUT Customer structure @StrCustomer)
+                arg1DataObject,     @DataObjectBase
+                arg1,               StrCustomer
+                returnValue,         I4
+            endrecord
+
+
+        proc
+
+            ;;------------------------------------------------------------
+            ;;Prepare variables for arguments
+
+            arguments = callFrame.GetProperty("params")
+
+            ;;Argument 1 (REQUIRED INOUT Customer structure @StrCustomer)
+
+            ;;Structure argument. Get the data object then get the record from it
+            arg1DataObject = dispatcher.DeserializeObject(arguments[1],mStrCustomerMetadata)
+            arg1 = arg1DataObject.SynergyRecord
+
+            ;;------------------------------------------------------------
+            ;; Call the underlying routine
+
+            returnValue = %CustomerValidate(arg1)
+
+            ;;Function return value
+            serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
+
+            ;;--------------------------------------------------------------------------------
+            ;;Argument 1 (REQUIRED INOUT Customer structure @StrCustomer)
+            
+            ;;Argument 1: Single StrCustomer record
+            serializer.ArgumentData(1,arg1,FieldDataType.DataObjectField,161,"CUSTOMERS",true)
         endmethod
 
     endclass
@@ -1000,7 +452,7 @@ namespace TraditionalBridge.Dispatchers.MyApi
                 arguments,          JSON_ELEMENT
                 argumentDefinition, @ArgumentDataDefinition
 
-                returnValue,         A80
+                returnValue,         STRING
             endrecord
 
 
@@ -1017,20 +469,175 @@ namespace TraditionalBridge.Dispatchers.MyApi
             returnValue = %GetEnvironment()
 
             ;;Function return value
-            serializer.ArgumentData(0,%atrim(returnValue),FieldDataType.AlphaField,80,0,true)
+            serializer.ArgumentData(0,%atrim(returnValue),FieldDataType.StringField,,0,false)
         endmethod
 
     endclass
 
     ;;-------------------------------------------------------------------------
     ;;; <summary>
-    ;;; Dispatcher for method MyApi.GetItem
+    ;;; Dispatcher for method MyApi.GetLogicalName
     ;;; </summary>
-    public class GetItem_Dispatcher extends RoutineStub
+    public class GetLogicalName_Dispatcher extends RoutineStub
+
+
+        public method GetLogicalName_Dispatcher
+        proc
+            ;;Initialize the meta data for any data objects that are used by parameters to the method
+        endmethod
+
+        protected override method DispatchInternal, void
+            required in name,       string
+            required in callFrame,  JSON_ELEMENT
+            required in serializer, @DispatchSerializer
+            required in dispatcher, @RoutineDispatcher
+            record
+                requestId,          int
+                arguments,          JSON_ELEMENT
+                argumentDefinition, @ArgumentDataDefinition
+
+                ;;Argument 1 (REQUIRED IN LogicalName string)
+                arg1,               string
+                returnValue,         STRING
+            endrecord
+
+
+        proc
+
+            ;;------------------------------------------------------------
+            ;;Prepare variables for arguments
+
+            arguments = callFrame.GetProperty("params")
+
+            ;;Argument 1 (REQUIRED IN LogicalName string)
+
+            arg1 = dispatcher.GetText(arguments[1])
+
+            ;;------------------------------------------------------------
+            ;; Call the underlying routine
+
+            returnValue = %GetLogicalName(arg1)
+
+            ;;Function return value
+            serializer.ArgumentData(0,%atrim(returnValue),FieldDataType.StringField,,0,false)
+        endmethod
+
+    endclass
+
+    ;;-------------------------------------------------------------------------
+    ;;; <summary>
+    ;;; Dispatcher for method MyApi.ItemAdd
+    ;;; </summary>
+    public class ItemAdd_Dispatcher extends RoutineStub
 
         private mStrItemMetadata, @DataObjectMetadataBase
 
-        public method GetItem_Dispatcher
+        public method ItemAdd_Dispatcher
+        proc
+            ;;Initialize the meta data for any data objects that are used by parameters to the method
+            mStrItemMetadata = DataObjectMetadataBase.LookupType("Item")
+        endmethod
+
+        protected override method DispatchInternal, void
+            required in name,       string
+            required in callFrame,  JSON_ELEMENT
+            required in serializer, @DispatchSerializer
+            required in dispatcher, @RoutineDispatcher
+            record
+                requestId,          int
+                arguments,          JSON_ELEMENT
+                argumentDefinition, @ArgumentDataDefinition
+
+                ;;Argument 1 (REQUIRED IN Item structure @StrItem)
+                arg1DataObject,     @DataObjectBase
+                arg1,               StrItem
+                returnValue,         I4
+            endrecord
+
+
+        proc
+
+            ;;------------------------------------------------------------
+            ;;Prepare variables for arguments
+
+            arguments = callFrame.GetProperty("params")
+
+            ;;Argument 1 (REQUIRED IN Item structure @StrItem)
+
+            ;;Structure argument. Get the data object then get the record from it
+            arg1DataObject = dispatcher.DeserializeObject(arguments[1],mStrItemMetadata)
+            arg1 = arg1DataObject.SynergyRecord
+
+            ;;------------------------------------------------------------
+            ;; Call the underlying routine
+
+            returnValue = %ItemAdd(arg1)
+
+            ;;Function return value
+            serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
+        endmethod
+
+    endclass
+
+    ;;-------------------------------------------------------------------------
+    ;;; <summary>
+    ;;; Dispatcher for method MyApi.ItemDelete
+    ;;; </summary>
+    public class ItemDelete_Dispatcher extends RoutineStub
+
+
+        public method ItemDelete_Dispatcher
+        proc
+            ;;Initialize the meta data for any data objects that are used by parameters to the method
+        endmethod
+
+        protected override method DispatchInternal, void
+            required in name,       string
+            required in callFrame,  JSON_ELEMENT
+            required in serializer, @DispatchSerializer
+            required in dispatcher, @RoutineDispatcher
+            record
+                requestId,          int
+                arguments,          JSON_ELEMENT
+                argumentDefinition, @ArgumentDataDefinition
+
+                ;;Argument 1 (REQUIRED IN ItemNumber d6)
+                arg1,               d6
+                returnValue,         I4
+            endrecord
+
+
+        proc
+
+            ;;------------------------------------------------------------
+            ;;Prepare variables for arguments
+
+            arguments = callFrame.GetProperty("params")
+
+            ;;Argument 1 (REQUIRED IN ItemNumber d6)
+
+            arg1 = dispatcher.GetDecimal(arguments[1])
+
+            ;;------------------------------------------------------------
+            ;; Call the underlying routine
+
+            returnValue = %ItemDelete(arg1)
+
+            ;;Function return value
+            serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
+        endmethod
+
+    endclass
+
+    ;;-------------------------------------------------------------------------
+    ;;; <summary>
+    ;;; Dispatcher for method MyApi.ItemGet
+    ;;; </summary>
+    public class ItemGet_Dispatcher extends RoutineStub
+
+        private mStrItemMetadata, @DataObjectMetadataBase
+
+        public method ItemGet_Dispatcher
         proc
             ;;Initialize the meta data for any data objects that are used by parameters to the method
             mStrItemMetadata = DataObjectMetadataBase.LookupType("Item")
@@ -1072,7 +679,7 @@ namespace TraditionalBridge.Dispatchers.MyApi
             ;;------------------------------------------------------------
             ;; Call the underlying routine
 
-            returnValue = %GetItem(arg1,arg2)
+            returnValue = %ItemGet(arg1,arg2)
 
             ;;Function return value
             serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
@@ -1088,12 +695,241 @@ namespace TraditionalBridge.Dispatchers.MyApi
 
     ;;-------------------------------------------------------------------------
     ;;; <summary>
-    ;;; Dispatcher for method MyApi.GetLogicalName
+    ;;; Dispatcher for method MyApi.ItemGetAll
     ;;; </summary>
-    public class GetLogicalName_Dispatcher extends RoutineStub
+    public class ItemGetAll_Dispatcher extends RoutineStub
+
+        private mStrItemMetadata, @DataObjectMetadataBase
+
+        public method ItemGetAll_Dispatcher
+        proc
+            ;;Initialize the meta data for any data objects that are used by parameters to the method
+            mStrItemMetadata = DataObjectMetadataBase.LookupType("Item")
+        endmethod
+
+        protected override method DispatchInternal, void
+            required in name,       string
+            required in callFrame,  JSON_ELEMENT
+            required in serializer, @DispatchSerializer
+            required in dispatcher, @RoutineDispatcher
+            record
+                requestId,          int
+                arguments,          JSON_ELEMENT
+                argumentDefinition, @ArgumentDataDefinition
+
+                ;;Argument 1 (REQUIRED OUT Items ArrayList collection of structure @StrItem returned as DataTable)
+                arg1Array,          JSON_ELEMENT
+                arg1,               @ArrayList
+                returnValue,         I4
+            endrecord
 
 
-        public method GetLogicalName_Dispatcher
+        proc
+
+            ;;------------------------------------------------------------
+            ;;Prepare variables for arguments
+
+            arguments = callFrame.GetProperty("params")
+
+            ;;Argument 1 (REQUIRED OUT Items ArrayList collection of structure @StrItem returned as DataTable)
+
+            arg1 = new ArrayList()
+
+            ;;------------------------------------------------------------
+            ;; Call the underlying routine
+
+            returnValue = %ItemGetAll(arg1)
+
+            ;;Function return value
+            serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
+
+            ;;--------------------------------------------------------------------------------
+            ;;Argument 1 (REQUIRED OUT Items ArrayList collection of structure @StrItem returned as DataTable)
+            
+            serializer.ArgumentData(1,arg1,FieldDataType.DataObjectCollectionField,151,"ITEMS",true)
+        endmethod
+
+    endclass
+
+    ;;-------------------------------------------------------------------------
+    ;;; <summary>
+    ;;; Dispatcher for method MyApi.ItemUpdate
+    ;;; </summary>
+    public class ItemUpdate_Dispatcher extends RoutineStub
+
+        private mStrItemMetadata, @DataObjectMetadataBase
+
+        public method ItemUpdate_Dispatcher
+        proc
+            ;;Initialize the meta data for any data objects that are used by parameters to the method
+            mStrItemMetadata = DataObjectMetadataBase.LookupType("Item")
+        endmethod
+
+        protected override method DispatchInternal, void
+            required in name,       string
+            required in callFrame,  JSON_ELEMENT
+            required in serializer, @DispatchSerializer
+            required in dispatcher, @RoutineDispatcher
+            record
+                requestId,          int
+                arguments,          JSON_ELEMENT
+                argumentDefinition, @ArgumentDataDefinition
+
+                ;;Argument 1 (REQUIRED IN Item structure @StrItem)
+                arg1DataObject,     @DataObjectBase
+                arg1,               StrItem
+                returnValue,         I4
+            endrecord
+
+
+        proc
+
+            ;;------------------------------------------------------------
+            ;;Prepare variables for arguments
+
+            arguments = callFrame.GetProperty("params")
+
+            ;;Argument 1 (REQUIRED IN Item structure @StrItem)
+
+            ;;Structure argument. Get the data object then get the record from it
+            arg1DataObject = dispatcher.DeserializeObject(arguments[1],mStrItemMetadata)
+            arg1 = arg1DataObject.SynergyRecord
+
+            ;;------------------------------------------------------------
+            ;; Call the underlying routine
+
+            returnValue = %ItemUpdate(arg1)
+
+            ;;Function return value
+            serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
+        endmethod
+
+    endclass
+
+    ;;-------------------------------------------------------------------------
+    ;;; <summary>
+    ;;; Dispatcher for method MyApi.ItemValidate
+    ;;; </summary>
+    public class ItemValidate_Dispatcher extends RoutineStub
+
+        private mStrItemMetadata, @DataObjectMetadataBase
+
+        public method ItemValidate_Dispatcher
+        proc
+            ;;Initialize the meta data for any data objects that are used by parameters to the method
+            mStrItemMetadata = DataObjectMetadataBase.LookupType("Item")
+        endmethod
+
+        protected override method DispatchInternal, void
+            required in name,       string
+            required in callFrame,  JSON_ELEMENT
+            required in serializer, @DispatchSerializer
+            required in dispatcher, @RoutineDispatcher
+            record
+                requestId,          int
+                arguments,          JSON_ELEMENT
+                argumentDefinition, @ArgumentDataDefinition
+
+                ;;Argument 1 (REQUIRED INOUT Item structure @StrItem)
+                arg1DataObject,     @DataObjectBase
+                arg1,               StrItem
+                returnValue,         I4
+            endrecord
+
+
+        proc
+
+            ;;------------------------------------------------------------
+            ;;Prepare variables for arguments
+
+            arguments = callFrame.GetProperty("params")
+
+            ;;Argument 1 (REQUIRED INOUT Item structure @StrItem)
+
+            ;;Structure argument. Get the data object then get the record from it
+            arg1DataObject = dispatcher.DeserializeObject(arguments[1],mStrItemMetadata)
+            arg1 = arg1DataObject.SynergyRecord
+
+            ;;------------------------------------------------------------
+            ;; Call the underlying routine
+
+            returnValue = %ItemValidate(arg1)
+
+            ;;Function return value
+            serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
+
+            ;;--------------------------------------------------------------------------------
+            ;;Argument 1 (REQUIRED INOUT Item structure @StrItem)
+            
+            ;;Argument 1: Single StrItem record
+            serializer.ArgumentData(1,arg1,FieldDataType.DataObjectField,151,"ITEMS",true)
+        endmethod
+
+    endclass
+
+    ;;-------------------------------------------------------------------------
+    ;;; <summary>
+    ;;; Dispatcher for method MyApi.OrderAdd
+    ;;; </summary>
+    public class OrderAdd_Dispatcher extends RoutineStub
+
+        private mStrOrderMetadata, @DataObjectMetadataBase
+
+        public method OrderAdd_Dispatcher
+        proc
+            ;;Initialize the meta data for any data objects that are used by parameters to the method
+            mStrOrderMetadata = DataObjectMetadataBase.LookupType("Order")
+        endmethod
+
+        protected override method DispatchInternal, void
+            required in name,       string
+            required in callFrame,  JSON_ELEMENT
+            required in serializer, @DispatchSerializer
+            required in dispatcher, @RoutineDispatcher
+            record
+                requestId,          int
+                arguments,          JSON_ELEMENT
+                argumentDefinition, @ArgumentDataDefinition
+
+                ;;Argument 1 (REQUIRED IN Order structure @StrOrder)
+                arg1DataObject,     @DataObjectBase
+                arg1,               StrOrder
+                returnValue,         I4
+            endrecord
+
+
+        proc
+
+            ;;------------------------------------------------------------
+            ;;Prepare variables for arguments
+
+            arguments = callFrame.GetProperty("params")
+
+            ;;Argument 1 (REQUIRED IN Order structure @StrOrder)
+
+            ;;Structure argument. Get the data object then get the record from it
+            arg1DataObject = dispatcher.DeserializeObject(arguments[1],mStrOrderMetadata)
+            arg1 = arg1DataObject.SynergyRecord
+
+            ;;------------------------------------------------------------
+            ;; Call the underlying routine
+
+            returnValue = %OrderAdd(arg1)
+
+            ;;Function return value
+            serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
+        endmethod
+
+    endclass
+
+    ;;-------------------------------------------------------------------------
+    ;;; <summary>
+    ;;; Dispatcher for method MyApi.OrderDelete
+    ;;; </summary>
+    public class OrderDelete_Dispatcher extends RoutineStub
+
+
+        public method OrderDelete_Dispatcher
         proc
             ;;Initialize the meta data for any data objects that are used by parameters to the method
         endmethod
@@ -1108,9 +944,9 @@ namespace TraditionalBridge.Dispatchers.MyApi
                 arguments,          JSON_ELEMENT
                 argumentDefinition, @ArgumentDataDefinition
 
-                ;;Argument 1 (REQUIRED IN aLogicalName a40)
-                arg1,               a40
-                returnValue,         A1024
+                ;;Argument 1 (REQUIRED IN OrderNumber d6)
+                arg1,               d6
+                returnValue,         I4
             endrecord
 
 
@@ -1121,30 +957,30 @@ namespace TraditionalBridge.Dispatchers.MyApi
 
             arguments = callFrame.GetProperty("params")
 
-            ;;Argument 1 (REQUIRED IN aLogicalName a40)
+            ;;Argument 1 (REQUIRED IN OrderNumber d6)
 
-            arg1 = dispatcher.GetText(arguments[1])
+            arg1 = dispatcher.GetDecimal(arguments[1])
 
             ;;------------------------------------------------------------
             ;; Call the underlying routine
 
-            returnValue = %GetLogicalName(arg1)
+            returnValue = %OrderDelete(arg1)
 
             ;;Function return value
-            serializer.ArgumentData(0,%atrim(returnValue),FieldDataType.AlphaField,1024,0,true)
+            serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
         endmethod
 
     endclass
 
     ;;-------------------------------------------------------------------------
     ;;; <summary>
-    ;;; Dispatcher for method MyApi.GetOrder
+    ;;; Dispatcher for method MyApi.OrderGet
     ;;; </summary>
-    public class GetOrder_Dispatcher extends RoutineStub
+    public class OrderGet_Dispatcher extends RoutineStub
 
         private mStrOrderMetadata, @DataObjectMetadataBase
 
-        public method GetOrder_Dispatcher
+        public method OrderGet_Dispatcher
         proc
             ;;Initialize the meta data for any data objects that are used by parameters to the method
             mStrOrderMetadata = DataObjectMetadataBase.LookupType("Order")
@@ -1186,7 +1022,7 @@ namespace TraditionalBridge.Dispatchers.MyApi
             ;;------------------------------------------------------------
             ;; Call the underlying routine
 
-            returnValue = %GetOrder(arg1,arg2)
+            returnValue = %OrderGet(arg1,arg2)
 
             ;;Function return value
             serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
@@ -1202,13 +1038,182 @@ namespace TraditionalBridge.Dispatchers.MyApi
 
     ;;-------------------------------------------------------------------------
     ;;; <summary>
-    ;;; Dispatcher for method MyApi.GetOrderItem
+    ;;; Dispatcher for method MyApi.OrderGetAll
     ;;; </summary>
-    public class GetOrderItem_Dispatcher extends RoutineStub
+    public class OrderGetAll_Dispatcher extends RoutineStub
+
+        private mStrOrderMetadata, @DataObjectMetadataBase
+
+        public method OrderGetAll_Dispatcher
+        proc
+            ;;Initialize the meta data for any data objects that are used by parameters to the method
+            mStrOrderMetadata = DataObjectMetadataBase.LookupType("Order")
+        endmethod
+
+        protected override method DispatchInternal, void
+            required in name,       string
+            required in callFrame,  JSON_ELEMENT
+            required in serializer, @DispatchSerializer
+            required in dispatcher, @RoutineDispatcher
+            record
+                requestId,          int
+                arguments,          JSON_ELEMENT
+                argumentDefinition, @ArgumentDataDefinition
+
+                ;;Argument 1 (REQUIRED OUT Orders ArrayList collection of structure @StrOrder returned as DataTable)
+                arg1Array,          JSON_ELEMENT
+                arg1,               @ArrayList
+                returnValue,         I4
+            endrecord
+
+
+        proc
+
+            ;;------------------------------------------------------------
+            ;;Prepare variables for arguments
+
+            arguments = callFrame.GetProperty("params")
+
+            ;;Argument 1 (REQUIRED OUT Orders ArrayList collection of structure @StrOrder returned as DataTable)
+
+            arg1 = new ArrayList()
+
+            ;;------------------------------------------------------------
+            ;; Call the underlying routine
+
+            returnValue = %OrderGetAll(arg1)
+
+            ;;Function return value
+            serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
+
+            ;;--------------------------------------------------------------------------------
+            ;;Argument 1 (REQUIRED OUT Orders ArrayList collection of structure @StrOrder returned as DataTable)
+            
+            serializer.ArgumentData(1,arg1,FieldDataType.DataObjectCollectionField,100,"ORDERS",true)
+        endmethod
+
+    endclass
+
+    ;;-------------------------------------------------------------------------
+    ;;; <summary>
+    ;;; Dispatcher for method MyApi.OrderItemAdd
+    ;;; </summary>
+    public class OrderItemAdd_Dispatcher extends RoutineStub
 
         private mStrOrderItemMetadata, @DataObjectMetadataBase
 
-        public method GetOrderItem_Dispatcher
+        public method OrderItemAdd_Dispatcher
+        proc
+            ;;Initialize the meta data for any data objects that are used by parameters to the method
+            mStrOrderItemMetadata = DataObjectMetadataBase.LookupType("OrderItem")
+        endmethod
+
+        protected override method DispatchInternal, void
+            required in name,       string
+            required in callFrame,  JSON_ELEMENT
+            required in serializer, @DispatchSerializer
+            required in dispatcher, @RoutineDispatcher
+            record
+                requestId,          int
+                arguments,          JSON_ELEMENT
+                argumentDefinition, @ArgumentDataDefinition
+
+                ;;Argument 1 (REQUIRED IN OrderItem structure @StrOrderItem)
+                arg1DataObject,     @DataObjectBase
+                arg1,               StrOrderItem
+                returnValue,         I4
+            endrecord
+
+
+        proc
+
+            ;;------------------------------------------------------------
+            ;;Prepare variables for arguments
+
+            arguments = callFrame.GetProperty("params")
+
+            ;;Argument 1 (REQUIRED IN OrderItem structure @StrOrderItem)
+
+            ;;Structure argument. Get the data object then get the record from it
+            arg1DataObject = dispatcher.DeserializeObject(arguments[1],mStrOrderItemMetadata)
+            arg1 = arg1DataObject.SynergyRecord
+
+            ;;------------------------------------------------------------
+            ;; Call the underlying routine
+
+            returnValue = %OrderItemAdd(arg1)
+
+            ;;Function return value
+            serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
+        endmethod
+
+    endclass
+
+    ;;-------------------------------------------------------------------------
+    ;;; <summary>
+    ;;; Dispatcher for method MyApi.OrderItemDelete
+    ;;; </summary>
+    public class OrderItemDelete_Dispatcher extends RoutineStub
+
+
+        public method OrderItemDelete_Dispatcher
+        proc
+            ;;Initialize the meta data for any data objects that are used by parameters to the method
+        endmethod
+
+        protected override method DispatchInternal, void
+            required in name,       string
+            required in callFrame,  JSON_ELEMENT
+            required in serializer, @DispatchSerializer
+            required in dispatcher, @RoutineDispatcher
+            record
+                requestId,          int
+                arguments,          JSON_ELEMENT
+                argumentDefinition, @ArgumentDataDefinition
+
+                ;;Argument 1 (REQUIRED IN OrderNumber d6)
+                arg1,               d6
+                ;;Argument 2 (REQUIRED IN ItemNumber d2)
+                arg2,               d2
+                returnValue,         I4
+            endrecord
+
+
+        proc
+
+            ;;------------------------------------------------------------
+            ;;Prepare variables for arguments
+
+            arguments = callFrame.GetProperty("params")
+
+            ;;Argument 1 (REQUIRED IN OrderNumber d6)
+
+            arg1 = dispatcher.GetDecimal(arguments[1])
+
+            ;;Argument 2 (REQUIRED IN ItemNumber d2)
+
+            arg2 = dispatcher.GetDecimal(arguments[2])
+
+            ;;------------------------------------------------------------
+            ;; Call the underlying routine
+
+            returnValue = %OrderItemDelete(arg1,arg2)
+
+            ;;Function return value
+            serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
+        endmethod
+
+    endclass
+
+    ;;-------------------------------------------------------------------------
+    ;;; <summary>
+    ;;; Dispatcher for method MyApi.OrderItemGet
+    ;;; </summary>
+    public class OrderItemGet_Dispatcher extends RoutineStub
+
+        private mStrOrderItemMetadata, @DataObjectMetadataBase
+
+        public method OrderItemGet_Dispatcher
         proc
             ;;Initialize the meta data for any data objects that are used by parameters to the method
             mStrOrderItemMetadata = DataObjectMetadataBase.LookupType("OrderItem")
@@ -1256,7 +1261,7 @@ namespace TraditionalBridge.Dispatchers.MyApi
             ;;------------------------------------------------------------
             ;; Call the underlying routine
 
-            returnValue = %GetOrderItem(arg1,arg2,arg3)
+            returnValue = %OrderItemGet(arg1,arg2,arg3)
 
             ;;Function return value
             serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
@@ -1272,13 +1277,414 @@ namespace TraditionalBridge.Dispatchers.MyApi
 
     ;;-------------------------------------------------------------------------
     ;;; <summary>
-    ;;; Dispatcher for method MyApi.GetVendor
+    ;;; Dispatcher for method MyApi.OrderItemGetAll
     ;;; </summary>
-    public class GetVendor_Dispatcher extends RoutineStub
+    public class OrderItemGetAll_Dispatcher extends RoutineStub
+
+        private mStrOrderItemMetadata, @DataObjectMetadataBase
+
+        public method OrderItemGetAll_Dispatcher
+        proc
+            ;;Initialize the meta data for any data objects that are used by parameters to the method
+            mStrOrderItemMetadata = DataObjectMetadataBase.LookupType("OrderItem")
+        endmethod
+
+        protected override method DispatchInternal, void
+            required in name,       string
+            required in callFrame,  JSON_ELEMENT
+            required in serializer, @DispatchSerializer
+            required in dispatcher, @RoutineDispatcher
+            record
+                requestId,          int
+                arguments,          JSON_ELEMENT
+                argumentDefinition, @ArgumentDataDefinition
+
+                ;;Argument 1 (REQUIRED IN OrderNumber d6)
+                arg1,               d6
+                ;;Argument 2 (REQUIRED OUT OrderItems ArrayList collection of structure @StrOrderItem returned as DataTable)
+                arg2Array,          JSON_ELEMENT
+                arg2,               @ArrayList
+                returnValue,         I4
+            endrecord
+
+
+        proc
+
+            ;;------------------------------------------------------------
+            ;;Prepare variables for arguments
+
+            arguments = callFrame.GetProperty("params")
+
+            ;;Argument 1 (REQUIRED IN OrderNumber d6)
+
+            arg1 = dispatcher.GetDecimal(arguments[1])
+
+            ;;Argument 2 (REQUIRED OUT OrderItems ArrayList collection of structure @StrOrderItem returned as DataTable)
+
+            arg2 = new ArrayList()
+
+            ;;------------------------------------------------------------
+            ;; Call the underlying routine
+
+            returnValue = %OrderItemGetAll(arg1,arg2)
+
+            ;;Function return value
+            serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
+
+            ;;--------------------------------------------------------------------------------
+            ;;Argument 2 (REQUIRED OUT OrderItems ArrayList collection of structure @StrOrderItem returned as DataTable)
+            
+            serializer.ArgumentData(2,arg2,FieldDataType.DataObjectCollectionField,100,"ORDER_ITEMS",true)
+        endmethod
+
+    endclass
+
+    ;;-------------------------------------------------------------------------
+    ;;; <summary>
+    ;;; Dispatcher for method MyApi.OrderItemUpdate
+    ;;; </summary>
+    public class OrderItemUpdate_Dispatcher extends RoutineStub
+
+        private mStrOrderItemMetadata, @DataObjectMetadataBase
+
+        public method OrderItemUpdate_Dispatcher
+        proc
+            ;;Initialize the meta data for any data objects that are used by parameters to the method
+            mStrOrderItemMetadata = DataObjectMetadataBase.LookupType("OrderItem")
+        endmethod
+
+        protected override method DispatchInternal, void
+            required in name,       string
+            required in callFrame,  JSON_ELEMENT
+            required in serializer, @DispatchSerializer
+            required in dispatcher, @RoutineDispatcher
+            record
+                requestId,          int
+                arguments,          JSON_ELEMENT
+                argumentDefinition, @ArgumentDataDefinition
+
+                ;;Argument 1 (REQUIRED IN OrderItem structure @StrOrderItem)
+                arg1DataObject,     @DataObjectBase
+                arg1,               StrOrderItem
+                returnValue,         I4
+            endrecord
+
+
+        proc
+
+            ;;------------------------------------------------------------
+            ;;Prepare variables for arguments
+
+            arguments = callFrame.GetProperty("params")
+
+            ;;Argument 1 (REQUIRED IN OrderItem structure @StrOrderItem)
+
+            ;;Structure argument. Get the data object then get the record from it
+            arg1DataObject = dispatcher.DeserializeObject(arguments[1],mStrOrderItemMetadata)
+            arg1 = arg1DataObject.SynergyRecord
+
+            ;;------------------------------------------------------------
+            ;; Call the underlying routine
+
+            returnValue = %OrderItemUpdate(arg1)
+
+            ;;Function return value
+            serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
+        endmethod
+
+    endclass
+
+    ;;-------------------------------------------------------------------------
+    ;;; <summary>
+    ;;; Dispatcher for method MyApi.OrderItemValidate
+    ;;; </summary>
+    public class OrderItemValidate_Dispatcher extends RoutineStub
+
+        private mStrOrderItemMetadata, @DataObjectMetadataBase
+
+        public method OrderItemValidate_Dispatcher
+        proc
+            ;;Initialize the meta data for any data objects that are used by parameters to the method
+            mStrOrderItemMetadata = DataObjectMetadataBase.LookupType("OrderItem")
+        endmethod
+
+        protected override method DispatchInternal, void
+            required in name,       string
+            required in callFrame,  JSON_ELEMENT
+            required in serializer, @DispatchSerializer
+            required in dispatcher, @RoutineDispatcher
+            record
+                requestId,          int
+                arguments,          JSON_ELEMENT
+                argumentDefinition, @ArgumentDataDefinition
+
+                ;;Argument 1 (REQUIRED INOUT OrderItem structure @StrOrderItem)
+                arg1DataObject,     @DataObjectBase
+                arg1,               StrOrderItem
+                returnValue,         I4
+            endrecord
+
+
+        proc
+
+            ;;------------------------------------------------------------
+            ;;Prepare variables for arguments
+
+            arguments = callFrame.GetProperty("params")
+
+            ;;Argument 1 (REQUIRED INOUT OrderItem structure @StrOrderItem)
+
+            ;;Structure argument. Get the data object then get the record from it
+            arg1DataObject = dispatcher.DeserializeObject(arguments[1],mStrOrderItemMetadata)
+            arg1 = arg1DataObject.SynergyRecord
+
+            ;;------------------------------------------------------------
+            ;; Call the underlying routine
+
+            returnValue = %OrderItemValidate(arg1)
+
+            ;;Function return value
+            serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
+
+            ;;--------------------------------------------------------------------------------
+            ;;Argument 1 (REQUIRED INOUT OrderItem structure @StrOrderItem)
+            
+            ;;Argument 1: Single StrOrderItem record
+            serializer.ArgumentData(1,arg1,FieldDataType.DataObjectField,100,"ORDER_ITEMS",true)
+        endmethod
+
+    endclass
+
+    ;;-------------------------------------------------------------------------
+    ;;; <summary>
+    ;;; Dispatcher for method MyApi.OrderUpdate
+    ;;; </summary>
+    public class OrderUpdate_Dispatcher extends RoutineStub
+
+        private mStrOrderMetadata, @DataObjectMetadataBase
+
+        public method OrderUpdate_Dispatcher
+        proc
+            ;;Initialize the meta data for any data objects that are used by parameters to the method
+            mStrOrderMetadata = DataObjectMetadataBase.LookupType("Order")
+        endmethod
+
+        protected override method DispatchInternal, void
+            required in name,       string
+            required in callFrame,  JSON_ELEMENT
+            required in serializer, @DispatchSerializer
+            required in dispatcher, @RoutineDispatcher
+            record
+                requestId,          int
+                arguments,          JSON_ELEMENT
+                argumentDefinition, @ArgumentDataDefinition
+
+                ;;Argument 1 (REQUIRED IN Order structure @StrOrder)
+                arg1DataObject,     @DataObjectBase
+                arg1,               StrOrder
+                returnValue,         I4
+            endrecord
+
+
+        proc
+
+            ;;------------------------------------------------------------
+            ;;Prepare variables for arguments
+
+            arguments = callFrame.GetProperty("params")
+
+            ;;Argument 1 (REQUIRED IN Order structure @StrOrder)
+
+            ;;Structure argument. Get the data object then get the record from it
+            arg1DataObject = dispatcher.DeserializeObject(arguments[1],mStrOrderMetadata)
+            arg1 = arg1DataObject.SynergyRecord
+
+            ;;------------------------------------------------------------
+            ;; Call the underlying routine
+
+            returnValue = %OrderUpdate(arg1)
+
+            ;;Function return value
+            serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
+        endmethod
+
+    endclass
+
+    ;;-------------------------------------------------------------------------
+    ;;; <summary>
+    ;;; Dispatcher for method MyApi.OrderValidate
+    ;;; </summary>
+    public class OrderValidate_Dispatcher extends RoutineStub
+
+        private mStrOrderMetadata, @DataObjectMetadataBase
+
+        public method OrderValidate_Dispatcher
+        proc
+            ;;Initialize the meta data for any data objects that are used by parameters to the method
+            mStrOrderMetadata = DataObjectMetadataBase.LookupType("Order")
+        endmethod
+
+        protected override method DispatchInternal, void
+            required in name,       string
+            required in callFrame,  JSON_ELEMENT
+            required in serializer, @DispatchSerializer
+            required in dispatcher, @RoutineDispatcher
+            record
+                requestId,          int
+                arguments,          JSON_ELEMENT
+                argumentDefinition, @ArgumentDataDefinition
+
+                ;;Argument 1 (REQUIRED INOUT Order structure @StrOrder)
+                arg1DataObject,     @DataObjectBase
+                arg1,               StrOrder
+                returnValue,         I4
+            endrecord
+
+
+        proc
+
+            ;;------------------------------------------------------------
+            ;;Prepare variables for arguments
+
+            arguments = callFrame.GetProperty("params")
+
+            ;;Argument 1 (REQUIRED INOUT Order structure @StrOrder)
+
+            ;;Structure argument. Get the data object then get the record from it
+            arg1DataObject = dispatcher.DeserializeObject(arguments[1],mStrOrderMetadata)
+            arg1 = arg1DataObject.SynergyRecord
+
+            ;;------------------------------------------------------------
+            ;; Call the underlying routine
+
+            returnValue = %OrderValidate(arg1)
+
+            ;;Function return value
+            serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
+
+            ;;--------------------------------------------------------------------------------
+            ;;Argument 1 (REQUIRED INOUT Order structure @StrOrder)
+            
+            ;;Argument 1: Single StrOrder record
+            serializer.ArgumentData(1,arg1,FieldDataType.DataObjectField,100,"ORDERS",true)
+        endmethod
+
+    endclass
+
+    ;;-------------------------------------------------------------------------
+    ;;; <summary>
+    ;;; Dispatcher for method MyApi.VendorAdd
+    ;;; </summary>
+    public class VendorAdd_Dispatcher extends RoutineStub
 
         private mStrVendorMetadata, @DataObjectMetadataBase
 
-        public method GetVendor_Dispatcher
+        public method VendorAdd_Dispatcher
+        proc
+            ;;Initialize the meta data for any data objects that are used by parameters to the method
+            mStrVendorMetadata = DataObjectMetadataBase.LookupType("Vendor")
+        endmethod
+
+        protected override method DispatchInternal, void
+            required in name,       string
+            required in callFrame,  JSON_ELEMENT
+            required in serializer, @DispatchSerializer
+            required in dispatcher, @RoutineDispatcher
+            record
+                requestId,          int
+                arguments,          JSON_ELEMENT
+                argumentDefinition, @ArgumentDataDefinition
+
+                ;;Argument 1 (REQUIRED IN Vendor structure @StrVendor)
+                arg1DataObject,     @DataObjectBase
+                arg1,               StrVendor
+                returnValue,         I4
+            endrecord
+
+
+        proc
+
+            ;;------------------------------------------------------------
+            ;;Prepare variables for arguments
+
+            arguments = callFrame.GetProperty("params")
+
+            ;;Argument 1 (REQUIRED IN Vendor structure @StrVendor)
+
+            ;;Structure argument. Get the data object then get the record from it
+            arg1DataObject = dispatcher.DeserializeObject(arguments[1],mStrVendorMetadata)
+            arg1 = arg1DataObject.SynergyRecord
+
+            ;;------------------------------------------------------------
+            ;; Call the underlying routine
+
+            returnValue = %VendorAdd(arg1)
+
+            ;;Function return value
+            serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
+        endmethod
+
+    endclass
+
+    ;;-------------------------------------------------------------------------
+    ;;; <summary>
+    ;;; Dispatcher for method MyApi.VendorDelete
+    ;;; </summary>
+    public class VendorDelete_Dispatcher extends RoutineStub
+
+
+        public method VendorDelete_Dispatcher
+        proc
+            ;;Initialize the meta data for any data objects that are used by parameters to the method
+        endmethod
+
+        protected override method DispatchInternal, void
+            required in name,       string
+            required in callFrame,  JSON_ELEMENT
+            required in serializer, @DispatchSerializer
+            required in dispatcher, @RoutineDispatcher
+            record
+                requestId,          int
+                arguments,          JSON_ELEMENT
+                argumentDefinition, @ArgumentDataDefinition
+
+                ;;Argument 1 (REQUIRED IN VendorNumber d6)
+                arg1,               d6
+                returnValue,         I4
+            endrecord
+
+
+        proc
+
+            ;;------------------------------------------------------------
+            ;;Prepare variables for arguments
+
+            arguments = callFrame.GetProperty("params")
+
+            ;;Argument 1 (REQUIRED IN VendorNumber d6)
+
+            arg1 = dispatcher.GetDecimal(arguments[1])
+
+            ;;------------------------------------------------------------
+            ;; Call the underlying routine
+
+            returnValue = %VendorDelete(arg1)
+
+            ;;Function return value
+            serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
+        endmethod
+
+    endclass
+
+    ;;-------------------------------------------------------------------------
+    ;;; <summary>
+    ;;; Dispatcher for method MyApi.VendorGet
+    ;;; </summary>
+    public class VendorGet_Dispatcher extends RoutineStub
+
+        private mStrVendorMetadata, @DataObjectMetadataBase
+
+        public method VendorGet_Dispatcher
         proc
             ;;Initialize the meta data for any data objects that are used by parameters to the method
             mStrVendorMetadata = DataObjectMetadataBase.LookupType("Vendor")
@@ -1320,7 +1726,7 @@ namespace TraditionalBridge.Dispatchers.MyApi
             ;;------------------------------------------------------------
             ;; Call the underlying routine
 
-            returnValue = %GetVendor(arg1,arg2)
+            returnValue = %VendorGet(arg1,arg2)
 
             ;;Function return value
             serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
@@ -1336,233 +1742,71 @@ namespace TraditionalBridge.Dispatchers.MyApi
 
     ;;-------------------------------------------------------------------------
     ;;; <summary>
-    ;;; Dispatcher for method MyApi.UpdateCustomer
+    ;;; Dispatcher for method MyApi.VendorGetAll
     ;;; </summary>
-    public class UpdateCustomer_Dispatcher extends RoutineStub
-
-        private mStrCustomerMetadata, @DataObjectMetadataBase
-
-        public method UpdateCustomer_Dispatcher
-        proc
-            ;;Initialize the meta data for any data objects that are used by parameters to the method
-            mStrCustomerMetadata = DataObjectMetadataBase.LookupType("Customer")
-        endmethod
-
-        protected override method DispatchInternal, void
-            required in name,       string
-            required in callFrame,  JSON_ELEMENT
-            required in serializer, @DispatchSerializer
-            required in dispatcher, @RoutineDispatcher
-            record
-                requestId,          int
-                arguments,          JSON_ELEMENT
-                argumentDefinition, @ArgumentDataDefinition
-
-                ;;Argument 1 (REQUIRED IN Customer structure @StrCustomer)
-                arg1DataObject,     @DataObjectBase
-                arg1,               StrCustomer
-                returnValue,         I4
-            endrecord
-
-
-        proc
-
-            ;;------------------------------------------------------------
-            ;;Prepare variables for arguments
-
-            arguments = callFrame.GetProperty("params")
-
-            ;;Argument 1 (REQUIRED IN Customer structure @StrCustomer)
-
-            ;;Structure argument. Get the data object then get the record from it
-            arg1DataObject = dispatcher.DeserializeObject(arguments[1],mStrCustomerMetadata)
-            arg1 = arg1DataObject.SynergyRecord
-
-            ;;------------------------------------------------------------
-            ;; Call the underlying routine
-
-            returnValue = %UpdateCustomer(arg1)
-
-            ;;Function return value
-            serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
-        endmethod
-
-    endclass
-
-    ;;-------------------------------------------------------------------------
-    ;;; <summary>
-    ;;; Dispatcher for method MyApi.UpdateItem
-    ;;; </summary>
-    public class UpdateItem_Dispatcher extends RoutineStub
-
-        private mStrItemMetadata, @DataObjectMetadataBase
-
-        public method UpdateItem_Dispatcher
-        proc
-            ;;Initialize the meta data for any data objects that are used by parameters to the method
-            mStrItemMetadata = DataObjectMetadataBase.LookupType("Item")
-        endmethod
-
-        protected override method DispatchInternal, void
-            required in name,       string
-            required in callFrame,  JSON_ELEMENT
-            required in serializer, @DispatchSerializer
-            required in dispatcher, @RoutineDispatcher
-            record
-                requestId,          int
-                arguments,          JSON_ELEMENT
-                argumentDefinition, @ArgumentDataDefinition
-
-                ;;Argument 1 (REQUIRED IN Item structure @StrItem)
-                arg1DataObject,     @DataObjectBase
-                arg1,               StrItem
-                returnValue,         I4
-            endrecord
-
-
-        proc
-
-            ;;------------------------------------------------------------
-            ;;Prepare variables for arguments
-
-            arguments = callFrame.GetProperty("params")
-
-            ;;Argument 1 (REQUIRED IN Item structure @StrItem)
-
-            ;;Structure argument. Get the data object then get the record from it
-            arg1DataObject = dispatcher.DeserializeObject(arguments[1],mStrItemMetadata)
-            arg1 = arg1DataObject.SynergyRecord
-
-            ;;------------------------------------------------------------
-            ;; Call the underlying routine
-
-            returnValue = %UpdateItem(arg1)
-
-            ;;Function return value
-            serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
-        endmethod
-
-    endclass
-
-    ;;-------------------------------------------------------------------------
-    ;;; <summary>
-    ;;; Dispatcher for method MyApi.UpdateOrder
-    ;;; </summary>
-    public class UpdateOrder_Dispatcher extends RoutineStub
-
-        private mStrOrderMetadata, @DataObjectMetadataBase
-
-        public method UpdateOrder_Dispatcher
-        proc
-            ;;Initialize the meta data for any data objects that are used by parameters to the method
-            mStrOrderMetadata = DataObjectMetadataBase.LookupType("Order")
-        endmethod
-
-        protected override method DispatchInternal, void
-            required in name,       string
-            required in callFrame,  JSON_ELEMENT
-            required in serializer, @DispatchSerializer
-            required in dispatcher, @RoutineDispatcher
-            record
-                requestId,          int
-                arguments,          JSON_ELEMENT
-                argumentDefinition, @ArgumentDataDefinition
-
-                ;;Argument 1 (REQUIRED IN Order structure @StrOrder)
-                arg1DataObject,     @DataObjectBase
-                arg1,               StrOrder
-                returnValue,         I4
-            endrecord
-
-
-        proc
-
-            ;;------------------------------------------------------------
-            ;;Prepare variables for arguments
-
-            arguments = callFrame.GetProperty("params")
-
-            ;;Argument 1 (REQUIRED IN Order structure @StrOrder)
-
-            ;;Structure argument. Get the data object then get the record from it
-            arg1DataObject = dispatcher.DeserializeObject(arguments[1],mStrOrderMetadata)
-            arg1 = arg1DataObject.SynergyRecord
-
-            ;;------------------------------------------------------------
-            ;; Call the underlying routine
-
-            returnValue = %UpdateOrder(arg1)
-
-            ;;Function return value
-            serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
-        endmethod
-
-    endclass
-
-    ;;-------------------------------------------------------------------------
-    ;;; <summary>
-    ;;; Dispatcher for method MyApi.UpdateOrderItem
-    ;;; </summary>
-    public class UpdateOrderItem_Dispatcher extends RoutineStub
-
-        private mStrOrderItemMetadata, @DataObjectMetadataBase
-
-        public method UpdateOrderItem_Dispatcher
-        proc
-            ;;Initialize the meta data for any data objects that are used by parameters to the method
-            mStrOrderItemMetadata = DataObjectMetadataBase.LookupType("OrderItem")
-        endmethod
-
-        protected override method DispatchInternal, void
-            required in name,       string
-            required in callFrame,  JSON_ELEMENT
-            required in serializer, @DispatchSerializer
-            required in dispatcher, @RoutineDispatcher
-            record
-                requestId,          int
-                arguments,          JSON_ELEMENT
-                argumentDefinition, @ArgumentDataDefinition
-
-                ;;Argument 1 (REQUIRED IN OrderItem structure @StrOrderItem)
-                arg1DataObject,     @DataObjectBase
-                arg1,               StrOrderItem
-                returnValue,         I4
-            endrecord
-
-
-        proc
-
-            ;;------------------------------------------------------------
-            ;;Prepare variables for arguments
-
-            arguments = callFrame.GetProperty("params")
-
-            ;;Argument 1 (REQUIRED IN OrderItem structure @StrOrderItem)
-
-            ;;Structure argument. Get the data object then get the record from it
-            arg1DataObject = dispatcher.DeserializeObject(arguments[1],mStrOrderItemMetadata)
-            arg1 = arg1DataObject.SynergyRecord
-
-            ;;------------------------------------------------------------
-            ;; Call the underlying routine
-
-            returnValue = %UpdateOrderItem(arg1)
-
-            ;;Function return value
-            serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
-        endmethod
-
-    endclass
-
-    ;;-------------------------------------------------------------------------
-    ;;; <summary>
-    ;;; Dispatcher for method MyApi.UpdateVendor
-    ;;; </summary>
-    public class UpdateVendor_Dispatcher extends RoutineStub
+    public class VendorGetAll_Dispatcher extends RoutineStub
 
         private mStrVendorMetadata, @DataObjectMetadataBase
 
-        public method UpdateVendor_Dispatcher
+        public method VendorGetAll_Dispatcher
+        proc
+            ;;Initialize the meta data for any data objects that are used by parameters to the method
+            mStrVendorMetadata = DataObjectMetadataBase.LookupType("Vendor")
+        endmethod
+
+        protected override method DispatchInternal, void
+            required in name,       string
+            required in callFrame,  JSON_ELEMENT
+            required in serializer, @DispatchSerializer
+            required in dispatcher, @RoutineDispatcher
+            record
+                requestId,          int
+                arguments,          JSON_ELEMENT
+                argumentDefinition, @ArgumentDataDefinition
+
+                ;;Argument 1 (REQUIRED OUT Vendors ArrayList collection of structure @StrVendor returned as DataTable)
+                arg1Array,          JSON_ELEMENT
+                arg1,               @ArrayList
+                returnValue,         I4
+            endrecord
+
+
+        proc
+
+            ;;------------------------------------------------------------
+            ;;Prepare variables for arguments
+
+            arguments = callFrame.GetProperty("params")
+
+            ;;Argument 1 (REQUIRED OUT Vendors ArrayList collection of structure @StrVendor returned as DataTable)
+
+            arg1 = new ArrayList()
+
+            ;;------------------------------------------------------------
+            ;; Call the underlying routine
+
+            returnValue = %VendorGetAll(arg1)
+
+            ;;Function return value
+            serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
+
+            ;;--------------------------------------------------------------------------------
+            ;;Argument 1 (REQUIRED OUT Vendors ArrayList collection of structure @StrVendor returned as DataTable)
+            
+            serializer.ArgumentData(1,arg1,FieldDataType.DataObjectCollectionField,135,"VENDORS",true)
+        endmethod
+
+    endclass
+
+    ;;-------------------------------------------------------------------------
+    ;;; <summary>
+    ;;; Dispatcher for method MyApi.VendorUpdate
+    ;;; </summary>
+    public class VendorUpdate_Dispatcher extends RoutineStub
+
+        private mStrVendorMetadata, @DataObjectMetadataBase
+
+        public method VendorUpdate_Dispatcher
         proc
             ;;Initialize the meta data for any data objects that are used by parameters to the method
             mStrVendorMetadata = DataObjectMetadataBase.LookupType("Vendor")
@@ -1601,7 +1845,7 @@ namespace TraditionalBridge.Dispatchers.MyApi
             ;;------------------------------------------------------------
             ;; Call the underlying routine
 
-            returnValue = %UpdateVendor(arg1)
+            returnValue = %VendorUpdate(arg1)
 
             ;;Function return value
             serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
@@ -1611,257 +1855,13 @@ namespace TraditionalBridge.Dispatchers.MyApi
 
     ;;-------------------------------------------------------------------------
     ;;; <summary>
-    ;;; Dispatcher for method MyApi.ValidateCustomer
+    ;;; Dispatcher for method MyApi.VendorValidate
     ;;; </summary>
-    public class ValidateCustomer_Dispatcher extends RoutineStub
-
-        private mStrCustomerMetadata, @DataObjectMetadataBase
-
-        public method ValidateCustomer_Dispatcher
-        proc
-            ;;Initialize the meta data for any data objects that are used by parameters to the method
-            mStrCustomerMetadata = DataObjectMetadataBase.LookupType("Customer")
-        endmethod
-
-        protected override method DispatchInternal, void
-            required in name,       string
-            required in callFrame,  JSON_ELEMENT
-            required in serializer, @DispatchSerializer
-            required in dispatcher, @RoutineDispatcher
-            record
-                requestId,          int
-                arguments,          JSON_ELEMENT
-                argumentDefinition, @ArgumentDataDefinition
-
-                ;;Argument 1 (REQUIRED INOUT Customer structure @StrCustomer)
-                arg1DataObject,     @DataObjectBase
-                arg1,               StrCustomer
-                returnValue,         I4
-            endrecord
-
-
-        proc
-
-            ;;------------------------------------------------------------
-            ;;Prepare variables for arguments
-
-            arguments = callFrame.GetProperty("params")
-
-            ;;Argument 1 (REQUIRED INOUT Customer structure @StrCustomer)
-
-            ;;Structure argument. Get the data object then get the record from it
-            arg1DataObject = dispatcher.DeserializeObject(arguments[1],mStrCustomerMetadata)
-            arg1 = arg1DataObject.SynergyRecord
-
-            ;;------------------------------------------------------------
-            ;; Call the underlying routine
-
-            returnValue = %ValidateCustomer(arg1)
-
-            ;;Function return value
-            serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
-
-            ;;--------------------------------------------------------------------------------
-            ;;Argument 1 (REQUIRED INOUT Customer structure @StrCustomer)
-            
-            ;;Argument 1: Single StrCustomer record
-            serializer.ArgumentData(1,arg1,FieldDataType.DataObjectField,161,"CUSTOMERS",true)
-        endmethod
-
-    endclass
-
-    ;;-------------------------------------------------------------------------
-    ;;; <summary>
-    ;;; Dispatcher for method MyApi.ValidateItem
-    ;;; </summary>
-    public class ValidateItem_Dispatcher extends RoutineStub
-
-        private mStrItemMetadata, @DataObjectMetadataBase
-
-        public method ValidateItem_Dispatcher
-        proc
-            ;;Initialize the meta data for any data objects that are used by parameters to the method
-            mStrItemMetadata = DataObjectMetadataBase.LookupType("Item")
-        endmethod
-
-        protected override method DispatchInternal, void
-            required in name,       string
-            required in callFrame,  JSON_ELEMENT
-            required in serializer, @DispatchSerializer
-            required in dispatcher, @RoutineDispatcher
-            record
-                requestId,          int
-                arguments,          JSON_ELEMENT
-                argumentDefinition, @ArgumentDataDefinition
-
-                ;;Argument 1 (REQUIRED INOUT Item structure @StrItem)
-                arg1DataObject,     @DataObjectBase
-                arg1,               StrItem
-                returnValue,         I4
-            endrecord
-
-
-        proc
-
-            ;;------------------------------------------------------------
-            ;;Prepare variables for arguments
-
-            arguments = callFrame.GetProperty("params")
-
-            ;;Argument 1 (REQUIRED INOUT Item structure @StrItem)
-
-            ;;Structure argument. Get the data object then get the record from it
-            arg1DataObject = dispatcher.DeserializeObject(arguments[1],mStrItemMetadata)
-            arg1 = arg1DataObject.SynergyRecord
-
-            ;;------------------------------------------------------------
-            ;; Call the underlying routine
-
-            returnValue = %ValidateItem(arg1)
-
-            ;;Function return value
-            serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
-
-            ;;--------------------------------------------------------------------------------
-            ;;Argument 1 (REQUIRED INOUT Item structure @StrItem)
-            
-            ;;Argument 1: Single StrItem record
-            serializer.ArgumentData(1,arg1,FieldDataType.DataObjectField,151,"ITEMS",true)
-        endmethod
-
-    endclass
-
-    ;;-------------------------------------------------------------------------
-    ;;; <summary>
-    ;;; Dispatcher for method MyApi.ValidateOrder
-    ;;; </summary>
-    public class ValidateOrder_Dispatcher extends RoutineStub
-
-        private mStrOrderMetadata, @DataObjectMetadataBase
-
-        public method ValidateOrder_Dispatcher
-        proc
-            ;;Initialize the meta data for any data objects that are used by parameters to the method
-            mStrOrderMetadata = DataObjectMetadataBase.LookupType("Order")
-        endmethod
-
-        protected override method DispatchInternal, void
-            required in name,       string
-            required in callFrame,  JSON_ELEMENT
-            required in serializer, @DispatchSerializer
-            required in dispatcher, @RoutineDispatcher
-            record
-                requestId,          int
-                arguments,          JSON_ELEMENT
-                argumentDefinition, @ArgumentDataDefinition
-
-                ;;Argument 1 (REQUIRED INOUT Order structure @StrOrder)
-                arg1DataObject,     @DataObjectBase
-                arg1,               StrOrder
-                returnValue,         I4
-            endrecord
-
-
-        proc
-
-            ;;------------------------------------------------------------
-            ;;Prepare variables for arguments
-
-            arguments = callFrame.GetProperty("params")
-
-            ;;Argument 1 (REQUIRED INOUT Order structure @StrOrder)
-
-            ;;Structure argument. Get the data object then get the record from it
-            arg1DataObject = dispatcher.DeserializeObject(arguments[1],mStrOrderMetadata)
-            arg1 = arg1DataObject.SynergyRecord
-
-            ;;------------------------------------------------------------
-            ;; Call the underlying routine
-
-            returnValue = %ValidateOrder(arg1)
-
-            ;;Function return value
-            serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
-
-            ;;--------------------------------------------------------------------------------
-            ;;Argument 1 (REQUIRED INOUT Order structure @StrOrder)
-            
-            ;;Argument 1: Single StrOrder record
-            serializer.ArgumentData(1,arg1,FieldDataType.DataObjectField,100,"ORDERS",true)
-        endmethod
-
-    endclass
-
-    ;;-------------------------------------------------------------------------
-    ;;; <summary>
-    ;;; Dispatcher for method MyApi.ValidateOrderItem
-    ;;; </summary>
-    public class ValidateOrderItem_Dispatcher extends RoutineStub
-
-        private mStrOrderItemMetadata, @DataObjectMetadataBase
-
-        public method ValidateOrderItem_Dispatcher
-        proc
-            ;;Initialize the meta data for any data objects that are used by parameters to the method
-            mStrOrderItemMetadata = DataObjectMetadataBase.LookupType("OrderItem")
-        endmethod
-
-        protected override method DispatchInternal, void
-            required in name,       string
-            required in callFrame,  JSON_ELEMENT
-            required in serializer, @DispatchSerializer
-            required in dispatcher, @RoutineDispatcher
-            record
-                requestId,          int
-                arguments,          JSON_ELEMENT
-                argumentDefinition, @ArgumentDataDefinition
-
-                ;;Argument 1 (REQUIRED INOUT OrderItem structure @StrOrderItem)
-                arg1DataObject,     @DataObjectBase
-                arg1,               StrOrderItem
-                returnValue,         I4
-            endrecord
-
-
-        proc
-
-            ;;------------------------------------------------------------
-            ;;Prepare variables for arguments
-
-            arguments = callFrame.GetProperty("params")
-
-            ;;Argument 1 (REQUIRED INOUT OrderItem structure @StrOrderItem)
-
-            ;;Structure argument. Get the data object then get the record from it
-            arg1DataObject = dispatcher.DeserializeObject(arguments[1],mStrOrderItemMetadata)
-            arg1 = arg1DataObject.SynergyRecord
-
-            ;;------------------------------------------------------------
-            ;; Call the underlying routine
-
-            returnValue = %ValidateOrderItem(arg1)
-
-            ;;Function return value
-            serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
-
-            ;;--------------------------------------------------------------------------------
-            ;;Argument 1 (REQUIRED INOUT OrderItem structure @StrOrderItem)
-            
-            ;;Argument 1: Single StrOrderItem record
-            serializer.ArgumentData(1,arg1,FieldDataType.DataObjectField,100,"ORDER_ITEMS",true)
-        endmethod
-
-    endclass
-
-    ;;-------------------------------------------------------------------------
-    ;;; <summary>
-    ;;; Dispatcher for method MyApi.ValidateVendor
-    ;;; </summary>
-    public class ValidateVendor_Dispatcher extends RoutineStub
+    public class VendorValidate_Dispatcher extends RoutineStub
 
         private mStrVendorMetadata, @DataObjectMetadataBase
 
-        public method ValidateVendor_Dispatcher
+        public method VendorValidate_Dispatcher
         proc
             ;;Initialize the meta data for any data objects that are used by parameters to the method
             mStrVendorMetadata = DataObjectMetadataBase.LookupType("Vendor")
@@ -1900,7 +1900,7 @@ namespace TraditionalBridge.Dispatchers.MyApi
             ;;------------------------------------------------------------
             ;; Call the underlying routine
 
-            returnValue = %ValidateVendor(arg1)
+            returnValue = %VendorValidate(arg1)
 
             ;;Function return value
             serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)

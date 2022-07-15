@@ -1,8 +1,8 @@
 ;;*****************************************************************************
 ;;
-;; File:        OrderMethods.dbl
+;; File:        VendorIO.dbl
 ;;
-;; Description: xfServerPlus methods for structure ORDER
+;; Description: File IO methods for structure VENDOR
 ;;
 ;;*****************************************************************************
 ;;
@@ -14,35 +14,35 @@
 import System.Collections
 import Synergex.SynergyDE.Select
 
-.ifndef strOrder
-.include "ORDERS" repository, structure="strOrder", end
+.ifndef strVendor
+.include "VENDORS" repository, structure="strVendor", end
 .endc
 
 ;;*****************************************************************************
 
 {xfMethod(interface="MyApi",elb="EXE:xfplMethods")}
-function AddOrder, boolean
+function VendorAdd, boolean
 
-    {xfParameter(name="Order")}
-    required in aOrder, strOrder
+    {xfParameter(name="Vendor")}
+    required in aVendor, strVendor
 
     stack record
         retVal, boolean
-        chOrder, int
-        tmpOrder, strOrder
+        ch, int
+        tmprec, strVendor
     endrecord
 
     external function
-        ValidateOrder, boolean
+        ValidateVendor, boolean
     endexternal
 
 proc
-    if (retVal=%ValidateOrder(tmpOrder=aOrder))
+    if (retVal=%VendorValidate(tmprec=aVendor))
     begin
         try
         begin
-            open(chOrder=0,u:i,"DAT:orders.ism")
-            store(chOrder,tmpOrder)
+            open(ch=0,u:i,"DAT:vendors.ism")
+            store(ch,tmprec)
             retVal = true
         end
         catch (ex)
@@ -51,8 +51,8 @@ proc
         end
         finally
         begin
-            if (chOrder)
-                close chOrder
+            if (ch)
+                close ch
         end
         endtry
     end
@@ -64,27 +64,27 @@ endfunction
 ;;*****************************************************************************
 
 {xfMethod(interface="MyApi",elb="EXE:xfplMethods")}
-function DeleteOrder, boolean
+function VendorDelete, boolean
 
-    {xfParameter(name="OrderNumber")}
-    required in aOrderNumber, d6
+    {xfParameter(name="VendorNumber")}
+    required in aVendorNumber, d6
 
     stack record local_data
         retVal  ,boolean
-        chOrder, int
-        order, strOrder
+        ch, int
+        vendor, strVendor
     endrecord
 proc
 
     init local_data
 
-    order.order_number = aOrderNumber
+    vendor.vendor_number = aVendorNumber
 
     try
     begin
-        open(chOrder=0,u:i,"DAT:orders.ism")
-        read(chOrder,order,keyval(chOrder,order,0))
-        delete(chOrder)
+        open(ch=0,u:i,"DAT:vendors.ism")
+        read(ch,vendor,keyval(ch,vendor,0))
+        delete(ch)
     end
     catch (ex)
     begin
@@ -92,8 +92,8 @@ proc
     end
     finally
     begin
-        if (chOrder)
-            close chOrder
+        if (ch)
+            close ch
      end
     endtry
 
@@ -104,39 +104,39 @@ endfunction
 ;;*****************************************************************************
 
 {xfMethod(interface="MyApi",elb="EXE:xfplMethods")}
-function GetOrder, boolean
+function VendorGet, boolean
 
-    {xfParameter(name="OrderNumber")}
-    required in  aOrderNumber, d6
+    {xfParameter(name="VendorNumber")}
+    required in  aVendorNumber, d6
 
-    {xfParameter(name="Order")}
-    required out aOrder, strOrder
+    {xfParameter(name="Vendor")}
+    required out aVendor, strVendor
 
     stack record local_data
         retVal, boolean
-        chOrder, int
+        ch, int
     endrecord
 
 proc
-    init local_data, aOrder
+    init local_data, aVendor
     retVal = true
 
-    aOrder.order_number = aOrderNumber
+    aVendor.vendor_number = aVendorNumber
 
     try
     begin
-        open(chOrder=0,i:i,"DAT:orders.ism")
-        read(chOrder,aOrder,keyval(chOrder,aOrder,0))
+        open(ch=0,i:i,"DAT:vendors.ism")
+        read(ch,aVendor,keyval(ch,aVendor,0))
     end
     catch (ex)
     begin
-        init aOrder
+        init aVendor
         retVal = false
     end
     finally
     begin
-        if (chOrder)
-            close chOrder
+        if (ch)
+            close ch
     end
     endtry
 
@@ -147,40 +147,40 @@ endfunction
 ;;*****************************************************************************
 
 {xfMethod(interface="MyApi",elb="EXE:xfplMethods")}
-function GetAllOrders, boolean
+function VendorGetAll, boolean
 
-    {xfParameter(name="Orders",collectionType=xfCollectType.structure,structure="strOrder",dataTable=true)}
-    required out aOrders, @ArrayList
+    {xfParameter(name="Vendors",collectionType=xfCollectType.structure,structure="strVendor",dataTable=true)}
+    required out aVendors, @ArrayList
 
     stack record local_data
         retVal, boolean
-        chOrder, int
-        order, strOrder
+        ch, int
+        vendor, strVendor
     endrecord
 
 proc
     init local_data
     retVal=true
 
-    aOrders = new ArrayList()
+    aVendors = new ArrayList()
 
 
     try
     begin
         ;;Open the data file
-        open(chOrder=0,i:i,"DAT:orders.ism")
+        open(ch=0,i:i,"DAT:vendors.ism")
 
         ;;Position to the first record to be returned
-        find(chOrder,,^FIRST)
+        find(ch,,^FIRST)
 
         ;;Read and return the data
         repeat
         begin
             ;;Get the next record
-            reads(chOrder,order)
+            reads(ch,vendor)
 
             ;;Add the record to the return collection
-            aOrders.Add((@strOrder)order)
+            aVendors.Add((@strVendor)vendor)
         end
     end
     catch (ex, @EndOfFileException)
@@ -191,8 +191,8 @@ proc
         retval=false
     finally
     begin
-        if (chOrder)
-            close chOrder
+        if (ch)
+            close ch
     end
     endtry
 
@@ -203,32 +203,32 @@ endfunction
 ;;*****************************************************************************
 
 {xfMethod(interface="MyApi",elb="EXE:xfplMethods")}
-function UpdateOrder, boolean
+function VendorUpdate, boolean
 
-    {xfParameter(name="Order")}
-    required in aOrder, strOrder
+    {xfParameter(name="Vendor")}
+    required in aVendor, strVendor
 
     stack record local_data
         retVal, boolean
-        chOrder,  int
-        newOrder, strOrder
-        oldOrder, strOrder
+        ch,  int
+        newVendor, strVendor
+        oldVendor, strVendor
     endrecord
 
     external function
-        ValidateOrder ,boolean
+        VendorValidate ,boolean
     endexternal
 
 proc
     init local_data
 
-    if (retVal=%ValidateOrder(newOrder=aOrder))
+    if (retVal=%VendorValidate(newVendor=aVendor))
     begin
         try
         begin
-            open(chOrder=0,u:i,"DAT:orders.ism")
-            read(chOrder,oldOrder,newOrder.order_number)
-            write(chOrder,newOrder)
+            open(ch=0,u:i,"DAT:vendors.ism")
+            read(ch,oldVendor,newVendor.vendor_number)
+            write(ch,newVendor)
         end
         catch (ex)
         begin
@@ -236,8 +236,8 @@ proc
         end
         finally
         begin
-            if (chOrder)
-                close chOrder
+            if (ch)
+                close ch
         end
         endtry
     end
@@ -249,10 +249,10 @@ endfunction
 ;;*****************************************************************************
 
 {xfMethod(interface="MyApi",elb="EXE:xfplMethods")}
-function ValidateOrder, boolean
+function VendorValidate, boolean
 
-    {xfParameter(name="Order")}
-    required inout aOrder, strOrder
+    {xfParameter(name="Vendor")}
+    required inout aVendor, strVendor
 
     stack record
         dataIsValid ,boolean
@@ -262,14 +262,6 @@ proc
     dataIsValid = true
 
     ;;Validate required fields
-    if ((dataIsValid)&&(!aOrder.order_number))
-        dataIsValid = false
-    if ((dataIsValid)&&(!aOrder.customer_number))
-        dataIsValid = false
-    if ((dataIsValid)&&(!aOrder.placed_by))
-        dataIsValid = false
-    if ((dataIsValid)&&(!aOrder.date_ordered))
-        dataIsValid = false
 
     ;;Enforce upper-case field reqirements
     if (dataIsValid)

@@ -1,8 +1,8 @@
 ;;*****************************************************************************
 ;;
-;; File:        ItemMethods.dbl
+;; File:        ItemIO.dbl
 ;;
-;; Description: xfServerPlus methods for structure ITEM
+;; Description: File IO methods for structure ITEM
 ;;
 ;;*****************************************************************************
 ;;
@@ -21,15 +21,15 @@ import Synergex.SynergyDE.Select
 ;;*****************************************************************************
 
 {xfMethod(interface="MyApi",elb="EXE:xfplMethods")}
-function AddItem, boolean
+function ItemAdd, boolean
 
     {xfParameter(name="Item")}
     required in aItem, strItem
 
     stack record
         retVal, boolean
-        chItem, int
-        tmpItem, strItem
+        ch, int
+        tmprec, strItem
     endrecord
 
     external function
@@ -37,12 +37,12 @@ function AddItem, boolean
     endexternal
 
 proc
-    if (retVal=%ValidateItem(tmpItem=aItem))
+    if (retVal=%ItemValidate(tmprec=aItem))
     begin
         try
         begin
-            open(chItem=0,u:i,"DAT:items.ism")
-            store(chItem,tmpItem)
+            open(ch=0,u:i,"DAT:items.ism")
+            store(ch,tmprec)
             retVal = true
         end
         catch (ex)
@@ -51,8 +51,8 @@ proc
         end
         finally
         begin
-            if (chItem)
-                close chItem
+            if (ch)
+                close ch
         end
         endtry
     end
@@ -64,14 +64,14 @@ endfunction
 ;;*****************************************************************************
 
 {xfMethod(interface="MyApi",elb="EXE:xfplMethods")}
-function DeleteItem, boolean
+function ItemDelete, boolean
 
     {xfParameter(name="ItemNumber")}
     required in aItemNumber, d6
 
     stack record local_data
         retVal  ,boolean
-        chItem, int
+        ch, int
         item, strItem
     endrecord
 proc
@@ -82,9 +82,9 @@ proc
 
     try
     begin
-        open(chItem=0,u:i,"DAT:items.ism")
-        read(chItem,item,keyval(chItem,item,0))
-        delete(chItem)
+        open(ch=0,u:i,"DAT:items.ism")
+        read(ch,item,keyval(ch,item,0))
+        delete(ch)
     end
     catch (ex)
     begin
@@ -92,8 +92,8 @@ proc
     end
     finally
     begin
-        if (chItem)
-            close chItem
+        if (ch)
+            close ch
      end
     endtry
 
@@ -104,7 +104,7 @@ endfunction
 ;;*****************************************************************************
 
 {xfMethod(interface="MyApi",elb="EXE:xfplMethods")}
-function GetItem, boolean
+function ItemGet, boolean
 
     {xfParameter(name="ItemNumber")}
     required in  aItemNumber, d6
@@ -114,7 +114,7 @@ function GetItem, boolean
 
     stack record local_data
         retVal, boolean
-        chItem, int
+        ch, int
     endrecord
 
 proc
@@ -125,8 +125,8 @@ proc
 
     try
     begin
-        open(chItem=0,i:i,"DAT:items.ism")
-        read(chItem,aItem,keyval(chItem,aItem,0))
+        open(ch=0,i:i,"DAT:items.ism")
+        read(ch,aItem,keyval(ch,aItem,0))
     end
     catch (ex)
     begin
@@ -135,8 +135,8 @@ proc
     end
     finally
     begin
-        if (chItem)
-            close chItem
+        if (ch)
+            close ch
     end
     endtry
 
@@ -147,14 +147,14 @@ endfunction
 ;;*****************************************************************************
 
 {xfMethod(interface="MyApi",elb="EXE:xfplMethods")}
-function GetAllItems, boolean
+function ItemGetAll, boolean
 
     {xfParameter(name="Items",collectionType=xfCollectType.structure,structure="strItem",dataTable=true)}
     required out aItems, @ArrayList
 
     stack record local_data
         retVal, boolean
-        chItem, int
+        ch, int
         item, strItem
     endrecord
 
@@ -168,16 +168,16 @@ proc
     try
     begin
         ;;Open the data file
-        open(chItem=0,i:i,"DAT:items.ism")
+        open(ch=0,i:i,"DAT:items.ism")
 
         ;;Position to the first record to be returned
-        find(chItem,,^FIRST)
+        find(ch,,^FIRST)
 
         ;;Read and return the data
         repeat
         begin
             ;;Get the next record
-            reads(chItem,item)
+            reads(ch,item)
 
             ;;Add the record to the return collection
             aItems.Add((@strItem)item)
@@ -191,8 +191,8 @@ proc
         retval=false
     finally
     begin
-        if (chItem)
-            close chItem
+        if (ch)
+            close ch
     end
     endtry
 
@@ -203,32 +203,32 @@ endfunction
 ;;*****************************************************************************
 
 {xfMethod(interface="MyApi",elb="EXE:xfplMethods")}
-function UpdateItem, boolean
+function ItemUpdate, boolean
 
     {xfParameter(name="Item")}
     required in aItem, strItem
 
     stack record local_data
         retVal, boolean
-        chItem,  int
+        ch,  int
         newItem, strItem
         oldItem, strItem
     endrecord
 
     external function
-        ValidateItem ,boolean
+        ItemValidate ,boolean
     endexternal
 
 proc
     init local_data
 
-    if (retVal=%ValidateItem(newItem=aItem))
+    if (retVal=%ItemValidate(newItem=aItem))
     begin
         try
         begin
-            open(chItem=0,u:i,"DAT:items.ism")
-            read(chItem,oldItem,newItem.item_number)
-            write(chItem,newItem)
+            open(ch=0,u:i,"DAT:items.ism")
+            read(ch,oldItem,newItem.item_number)
+            write(ch,newItem)
         end
         catch (ex)
         begin
@@ -236,8 +236,8 @@ proc
         end
         finally
         begin
-            if (chItem)
-                close chItem
+            if (ch)
+                close ch
         end
         endtry
     end
@@ -249,7 +249,7 @@ endfunction
 ;;*****************************************************************************
 
 {xfMethod(interface="MyApi",elb="EXE:xfplMethods")}
-function ValidateItem, boolean
+function ItemValidate, boolean
 
     {xfParameter(name="Item")}
     required inout aItem, strItem

@@ -8,7 +8,7 @@
 ;;*****************************************************************************
 
 {xfMethod(interface="MyApi",elb="EXE:xfplMethods")}
-function GetEnvironment, a80
+function GetEnvironment, string
 
 proc
     freturn %versn
