@@ -150,7 +150,14 @@ namespace Services
             bridgeCryptoKey = Environment.GetEnvironmentVariable("BRIDGE_CRYPTO_KEY")
             bridgeLogLevel  = Environment.GetEnvironmentVariable("BRIDGE_LOG_LEVEL")
 
-            Console.WriteLine("Traditional bridge services are connecting to {0}@{1} using logging level {2}",bridgeUser,bridgeServer,bridgeLogLevel)
+            if (bridgeMode == "REMOTE") then
+            begin
+                Console.WriteLine("Traditional bridge is connecting to {0}@{1} with logging level {2}",bridgeUser,bridgeServer,bridgeLogLevel)
+            end
+            else
+            begin
+                Console.WriteLine("Traditional bridge is running locally with logging level {0}",bridgeLogLevel)
+            end
 
             if (!Int.TryParse(Environment.GetEnvironmentVariable("BRIDGE_POOL_SIZE"),poolSize))
                 poolSize = 4
