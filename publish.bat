@@ -14,7 +14,7 @@ rem  4. Optionally includes the content of the SampleData folder
 rem     (Only if environment variuable INCLUDE_SAMPLE_DATA is defined)
 rem
 rem  5. Optionally includes VC++ runtime files
-rem     (Only if environment variuable INCLUDE_C_RUNTIMES is defined)
+rem     (Only if environment variuable INCLUDE_C_RUNTIME is defined)
 rem
 rem  6. Zips the PUBLISH folder to HarmonyCoreService-yyyymmdd-hhmm.zip
 rem     (Only if 7-zip is installed)
@@ -52,8 +52,9 @@ if exist "%DeployDir%\." (
 
 rem Publish the application
 echo INFO: Publishing the application to the deployment folder...
+set SYNCPMOPT=-wd=316
 pushd Services.Host
-dotnet publish -c Debug -r win7-x64 -o %DeployDir%
+dotnet publish -c Debug -r win7-x64 --self-contained -o %DeployDir%
 
 if ERRORLEVEL 0 (
   echo INFO: Publish is complete
@@ -89,8 +90,7 @@ if defined INCLUDE_SAMPLE_DATA (
 
 rem At the time of writing, Azure AppService does not provide the VS2019 C++
 rem runtimes so if we are publishing for AppService we need to include them
-rem 
-if defined INCLUDE_C_RUNTIMES (
+if defined INCLUDE_C_RUNTIME (
   echo INFO: Providing C++ runtimes...
   copy /y vcredistFiles\*.* %DeployDir%
 )
