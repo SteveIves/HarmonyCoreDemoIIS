@@ -27,12 +27,12 @@
     <GenerateMvcApplicationPartsAssemblyAttributes>false</GenerateMvcApplicationPartsAssemblyAttributes>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <OutputPath>bin\$(configuration)\$(platform)</OutputPath>
-    <UnevaluatedOutputPath>bin\$(configuration)\$(platform)</UnevaluatedOutputPath>
+    <OutputPath>bin\$(configuration)</OutputPath>
+    <UnevaluatedOutputPath>bin\$(configuration)</UnevaluatedOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <UnevaluatedOutputPath>bin\$(configuration)\$(platform)</UnevaluatedOutputPath>
-    <OutputPath>bin\$(configuration)\$(platform)</OutputPath>
+    <UnevaluatedOutputPath>bin\$(configuration)</UnevaluatedOutputPath>
+    <OutputPath>bin\$(configuration)</OutputPath>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Harmony.Core">
