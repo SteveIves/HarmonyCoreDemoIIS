@@ -14,12 +14,12 @@
     <ProvidesMainMethod>true</ProvidesMainMethod>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <OutputPath>$(EXE)</OutputPath>
-    <UnevaluatedOutputPath>$(EXE)</UnevaluatedOutputPath>
+    <OutputPath>bin\$(configuration)\$(platform)</OutputPath>
+    <UnevaluatedOutputPath>bin\$(configuration)\$(platform)</UnevaluatedOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <UnevaluatedOutputPath>$(EXE)</UnevaluatedOutputPath>
-    <OutputPath>$(EXE)</OutputPath>
+    <UnevaluatedOutputPath>bin\$(configuration)\$(platform)</UnevaluatedOutputPath>
+    <OutputPath>bin\$(configuration)\$(platform)</OutputPath>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="IdentityModel">

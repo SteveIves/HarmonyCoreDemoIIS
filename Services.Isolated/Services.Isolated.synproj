@@ -8,14 +8,15 @@
     <ProjectGuid>{15223F07-0941-46E8-9C2F-9924D7FFA678}</ProjectGuid>
     <EnableCommonProperties>True</EnableCommonProperties>
     <Prefer32Bit>False</Prefer32Bit>
-  <GenerateMvcApplicationPartsAssemblyAttributes>false</GenerateMvcApplicationPartsAssemblyAttributes></PropertyGroup>
+    <GenerateMvcApplicationPartsAssemblyAttributes>false</GenerateMvcApplicationPartsAssemblyAttributes>
+  </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <OutputPath>$(EXE)</OutputPath>
-    <UnevaluatedOutputPath>$(EXE)</UnevaluatedOutputPath>
+    <OutputPath>bin\$(configuration)\$(platform)</OutputPath>
+    <UnevaluatedOutputPath>bin\$(configuration)\$(platform)</UnevaluatedOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <UnevaluatedOutputPath>$(EXE)</UnevaluatedOutputPath>
-    <OutputPath>$(EXE)</OutputPath>
+    <UnevaluatedOutputPath>bin\$(configuration)\$(platform)</UnevaluatedOutputPath>
+    <OutputPath>bin\$(configuration)\$(platform)</OutputPath>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Harmony.Core">
