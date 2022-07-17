@@ -69,8 +69,9 @@ proc
     catch (ex, @Exception)
     begin
         Console.WriteLine(ex.Message)
-        Console.Write("Press a key to terminate: ")
-        Console.ReadKey()
+        ;Can't do this in IIS!
+        ;Console.Write("Press a key to terminate: ")
+        ;Console.ReadKey()
         stop
     end
     endtry
