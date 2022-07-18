@@ -1,5 +1,4 @@
 ﻿<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\Common.props" />
   <Import Project="$(SolutionDir)Common.props" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -19,6 +18,8 @@
     <DBL_qRelaxed>False</DBL_qRelaxed>
     <DBL_qRelaxedParam>False</DBL_qRelaxedParam>
     <DBL_qRelaxedParamad>False</DBL_qRelaxedParamad>
+    <DBL_DisWarnOptCheck>True</DBL_DisWarnOptCheck>
+    <DBL_DisWarnOpt>316</DBL_DisWarnOpt>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <IncludeDebugInformation>true</IncludeDebugInformation>
@@ -62,7 +63,15 @@
     <Folder Include="source\models" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="launch">
+      <SubType>Content</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="launch.bat">
+      <SubType>Content</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="launch.com">
       <SubType>Content</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

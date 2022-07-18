@@ -22,10 +22,12 @@ rem
 rem  7. Deletes the temporary PUBLISH folder
 rem     (Only if the zip file was created)
 rem
-rem  8. Transfers the ZIP file to a remote server via FTP.
-rem     (Only if WinSCP is installed and the environment variables
+rem  8. Transfers the ZIP file to a specified location via COPY or FTP.
+rem     (Only if WinSCP is installed, and the PUBLISH_MODE is set to
+rem     COPY and PUBLISH_DIR is set to a valid directory path, or
+rem     PUBLISH_MODE is set to FTP and the environment variables
 rem     PUBLISH_FTP_SERVER PUBLISH_FTP_USER and PUBLISH_FTP_PASSWORD
-rem     are defined)
+rem     are set)
 rem 
 rem A good way to set these environment variables is to create a batch
 rem file named publish_settings.bat in the main solution folderr. if
@@ -34,16 +36,38 @@ rem the file is present it will be executed when this script runs.
 setlocal EnableDelayedExpansion
 
 set SolutionDir=%~dp0
+set SYNCPMOPT=-wd=316
 
 pushd "%SolutionDir%"
 
 rem If we have a settings file, execute it
-if exist publish_settings.bat call publish_settings.bat
+if exist Publish.Settings.bat call Publish.Settings.bat
 
 set RPSMFIL=%SolutionDir%Repository\rpsmain.ism
 set RPSTFIL=%SolutionDir%Repository\rpstext.ism
 
 set DeployDir=%SolutionDir%PUBLISH
+
+rem Select the platform we are publishing for
+if /i "%1" == "WINDOWS" goto publish_windows
+if /i "%1" == "LINUX" goto publish_linux
+
+:ask_platform
+  set /p answer=Publish for (W)indows or (L)inux ? 
+  if /i "%answer:~,1%" EQU "W" goto publish_windows
+  if /i "%answer:~,1%" EQU "L" goto publish_linux
+  goto ask_platform
+
+:publish_windows
+set PLATFORM=windows
+set RUNTIME=win7-x64
+goto do_publish
+
+:publish_linux
+set PLATFORM=linux
+set RUNTIME=linux-x64
+
+:do_publish
 
 rem If there is an old PUBLISH folder, delete it
 if exist "%DeployDir%\." (
@@ -51,19 +75,33 @@ if exist "%DeployDir%\." (
   rmdir /S /Q "%DeployDir%" > nul 2>&1
 )
 
-rem Publish the application
-echo INFO: Publishing to %DeployDir%...
-set SYNCPMOPT=-wd=316
-pushd Services.Host
-dotnet publish -nologo --configuration Debug --runtime win10-x64 --self-contained --output %DeployDir% --verbosity quiet
+rem The dotnet publish command will not build the TraditionalBridge project
+rem so first we'll build the solution to make sure its output is up to date.
 
-if ERRORLEVEL 0 (
-  echo INFO: Publish complete
-) else (
+echo INFO: Building solution...
+msbuild -nologo -p:platform="Any CPU" -p:configuration=Debug -verbosity:quiet
+
+if ERRORLEVEL 1 (
+  echo ERROR: Solution build failed!
+  goto done
+)
+
+echo INFO: Solution build complete
+
+rem Publish the application
+echo INFO: Publishing for %PLATFORM% to %DeployDir%...
+
+pushd Services.Host
+
+dotnet publish -nologo -p:platform=AnyCPU --configuration Debug --runtime %RUNTIME% --self-contained --output %DeployDir% --verbosity quiet
+
+if ERRORLEVEL 1 (
   echo ERROR: Publish failed!
   popd
   goto done
 )
+
+echo INFO: Publish complete
 
 popd
 
@@ -71,7 +109,12 @@ rem Include the Traditional Bridge host program and startup script
 echo INFO: Copying traditional bridge files...
 copy /y TraditionalBridge\EXE\host.dbr %DeployDir% > nul 2>&1
 copy /y TraditionalBridge\EXE\host.dbp %DeployDir% > nul 2>&1
-copy /y TraditionalBridge\EXE\launch.bat %DeployDir% > nul 2>&1
+if /i "%PLATFORM%" == "windows" (
+  copy /y TraditionalBridge\EXE\launch.bat %DeployDir% > nul 2>&1
+)
+if /i "%PLATFORM%" == "linux" (
+  copy /y TraditionalBridge\EXE\launch %DeployDir% > nul 2>&1
+)
 
 rem Replace the web.config file with our own version that sets the
 rem ASPNETCORE_ENVIRONMENT to Production
@@ -89,18 +132,20 @@ if defined INCLUDE_SAMPLE_DATA (
   copy /y SampleData\*.* %DeployDir%\SampleData > nul 2>&1
 )
 
-rem At the time of writing, Azure AppService does not provide the VS2019 C++
-rem runtime so if we are publishing for AppService we need to include it
-if defined INCLUDE_C_RUNTIME (
-  echo INFO: Copying C++ runtime...
-  copy /y vcredistFiles\*.* %DeployDir% > nul 2>&1
+if /i "%PLATFORM%" == "windows" (
+  rem At the time of writing, Azure AppService does not provide the VS2019 C++
+  rem runtime so if we are publishing for AppService we need to include it
+  if defined INCLUDE_C_RUNTIME (
+    echo INFO: Copying C++ runtime...
+    copy /y vcredistFiles\*.* %DeployDir% > nul 2>&1
+  )
 )
 
 rem If WinZip is present, Zip the PUBLISH folder to a date-stamped zip file
 set yyyymmdd=%date:~-4%%date:~4,2%%date:~7,2%
 set hh=%TIME:~0,2%
 set mm=%TIME:~3,2%
-set zipFile=%SolutionDir%HarmonyCoreService-%yyyymmdd%-%hh%%mm%.zip
+set zipFile=%SolutionDir%HarmonyCoreService-%PLATFORM%-%yyyymmdd%-%hh%%mm%.zip
 
 if exist %DeployDir%\. (
   if exist "%ProgramW6432%\7-Zip\7z.exe" (
@@ -137,9 +182,7 @@ if not defined PUBLISH_MODE (
 )
 
 rem Distribution via COPY?
-if "%PUBLISH_MODE%" == "COPY" (
-  echo COPY MODE!
-
+if /i "%PUBLISH_MODE%" == "COPY" (
   rem Do we have a direrctory to copy to?
   if not defined PUBLISH_DIR (
     echo ERROR: Unable to copy zip file to staging server because PUBLISH_DIR is not set!
@@ -166,7 +209,7 @@ if "%PUBLISH_MODE%" == "COPY" (
 )
 
 rem Distribution via FTP?
-if "%PUBLISH_MODE%" == "FTP" (
+if /i "%PUBLISH_MODE%" == "FTP" (
 
   rem Do we have an FTP username?
   if not defined PUBLISH_FTP_SERVER (
