@@ -71,25 +71,23 @@ set RUNTIME=linux-x64
 
 rem If there is an old PUBLISH folder, delete it
 if exist "%DeployDir%\." (
-  echo INFO: Deleting previous deployment folder...
+  echo Deleting previous deployment folder
   rmdir /S /Q "%DeployDir%" > nul 2>&1
 )
 
 rem The dotnet publish command will not build the TraditionalBridge project
 rem so first we'll build the solution to make sure its output is up to date.
 
-echo INFO: Building solution...
+echo Building solution
 msbuild -nologo -p:platform="Any CPU" -p:configuration=Debug -verbosity:quiet
 
 if ERRORLEVEL 1 (
-  echo ERROR: Solution build failed!
+  echo ERROR: Build failed!
   goto done
 )
 
-echo INFO: Solution build complete
-
 rem Publish the application
-echo INFO: Publishing for %PLATFORM% to %DeployDir%...
+echo Publishing for %PLATFORM% to %DeployDir%
 
 pushd Services.Host
 
@@ -101,26 +99,26 @@ if ERRORLEVEL 1 (
   goto done
 )
 
-echo INFO: Publish complete
+echo Publish complete
 
 popd
 
 rem Include the Traditional Bridge host program and startup script
-echo INFO: Copying traditional bridge files...
+echo Copying traditional bridge files
 copy /y TraditionalBridge\EXE\host.dbr "%DeployDir%" > nul 2>&1
 copy /y TraditionalBridge\EXE\host.dbp "%DeployDir%" > nul 2>&1
 if /i "%PLATFORM%" == "windows" (
-  copy /y TraditionalBridge\EXE\launch.bat "%DeployDir%" > nul 2>&1
+  copy /y TraditionalBridge\windows\launch.bat "%DeployDir%" > nul 2>&1
 )
 if /i "%PLATFORM%" == "linux" (
-  copy /y TraditionalBridge\EXE\launch "%DeployDir%" > nul 2>&1
+  copy /y TraditionalBridge\linux\launch "%DeployDir%" > nul 2>&1
 )
 
 if /i "%PLATFORM%" == "windows" (
   rem Replace the web.config file with our own version that sets the
   rem ASPNETCORE_ENVIRONMENT to Production
   if exist "%DeployDir%\web.config" (
-    echo INFO: Copying web.config...
+    echo Copying web.config
     del  /Q "%DeployDir%\web.config"
     copy /Y "%SolutionDir%\web.config" "%DeployDir%\web.config" > nul 2>&1
   )
@@ -129,7 +127,7 @@ if /i "%PLATFORM%" == "windows" (
 rem If you want to include the SampleData folder set INCLUDE_SAMPLE_DATA=YES
 rem in PUBLISH_SETTINGS.BAT
 if defined INCLUDE_SAMPLE_DATA (
-  echo INFO: Copying sample data...
+  echo Copying sample data
   if not exist "%DeployDir%\SampleData\." mkdir "%DeployDir%\SampleData"
   copy /y SampleData\*.* "%DeployDir%\SampleData" > nul 2>&1
 )
@@ -138,13 +136,13 @@ if /i "%PLATFORM%" == "windows" (
   rem At the time of writing, Azure AppService does not provide the VS2019 C++
   rem runtime so if we are publishing for AppService we need to include it
   if defined INCLUDE_C_RUNTIME (
-    echo INFO: Copying C++ runtime...
+    echo Copying C++ runtime
     copy /y vcredistFiles\*.* "%DeployDir%" > nul 2>&1
   )
 )
 
 if /i "%PLATFORM%" == "linux" (
-  echo INFO: Applying Linux line endings...
+  echo Applying Linux line endings
   tools\dos2unix "%DeployDir%\launch" > nul 2>&1
   tools\dos2unix "%DeployDir%\SampleData\*.*" > nul 2>&1
 )
@@ -161,12 +159,12 @@ set zipFile=%SolutionDir%HarmonyCoreService-%PLATFORM%-%yyyymmdd%-%hh%%mm%.zip
 
 if exist "%DeployDir%\." (
   if exist "%ProgramW6432%\7-Zip\7z.exe" (
-    echo INFO: Zipping to %zipFile%...
+    echo Zipping to %zipFile%
     pushd "%DeployDir%"
     "%ProgramW6432%\7-Zip\7z.exe" a -r -bso0 -bsp0 "%zipFile%" *
 
     if ERRORLEVEL 0 (
-      echo INFO: Zip file created
+      echo Zip file created
     ) else (
       echo ERROR: Failed to create zip file!
       popd
@@ -175,13 +173,13 @@ if exist "%DeployDir%\." (
     popd
   ) else (
     echo WARNING: Unable to zip the deployment directory because 7-zip is not installed!
-    echo INFO: The published application is in %DeployDir%
+    echo The published application is in %DeployDir%
   )
 )
 
 rem If the zip file exists, delete the publish folder
 if exist "%zipFile%" (
-  echo INFO: Deleting deployment folder %DeployDir%
+  echo Deleting deployment folder %DeployDir%
   rmdir /S /Q "%DeployDir%" > nul 2>&1
 ) else (
     goto done
@@ -189,7 +187,7 @@ if exist "%zipFile%" (
 
 rem Do we have PUBLISH_MODE set?
 if not defined PUBLISH_MODE (
-  echo INFO: Zip file distribution has not been configured
+  echo Zip file distribution has not been configured
   goto done
 )
 
@@ -212,7 +210,7 @@ if /i "%PUBLISH_MODE%" == "COPY" (
 
   rem Did it work?
   if ERRORLEVEL 0 (
-    echo INFO: The zip file was successfully copied to "%PUBLISH_DIR%"
+    echo The zip file was successfully copied to "%PUBLISH_DIR%"
   ) else (
     echo ERROR: Failed to copy zip file to "%PUBLISH_DIR%"
   )
@@ -243,7 +241,7 @@ if /i "%PUBLISH_MODE%" == "FTP" (
 
   rem Is WinSCP installed?
   if exist "%ProgramFiles(x86)%\WinSCP\WinSCP.com" (
-    echo INFO: Uploading zip file to staging server...
+    echo Uploading zip file to staging server
     rem Yes, upload the ZIP file to the staging server
     "%ProgramFiles(x86)%\WinSCP\WinSCP.com" /command "open ftp://%PUBLISH_FTP_USER%:%PUBLISH_FTP_PASSWORD%@%PUBLISH_FTP_SERVER%/" "put %zipFile% /" "exit"
      if ERRORLEVEL 0 (
@@ -257,7 +255,7 @@ if /i "%PUBLISH_MODE%" == "FTP" (
   goto done
 )
 
-echo INFO: PUBLISH_MODE is set to an unsupported value %PUBLISH_MODE%. Use COPY or FTP.
+echo PUBLISH_MODE is set to an unsupported value %PUBLISH_MODE%. Use COPY or FTP.
 
 :done
 popd

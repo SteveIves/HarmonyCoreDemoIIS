@@ -56,6 +56,9 @@
   <ItemGroup>
     <Folder Include="MakeMethods\" />
     <Folder Include="MethodCatalog\" />
+    <Folder Include="Linux" />
+    <Folder Include="OpenVMS" />
+    <Folder Include="Windows" />
     <Folder Include="source\" />
     <Folder Include="source\bridge" />
     <Folder Include="source\dispatchers" />
@@ -63,17 +66,8 @@
     <Folder Include="source\models" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="launch">
+    <Content Include="Linux\launch">
       <SubType>Content</SubType>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="launch.bat">
-      <SubType>Content</SubType>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="launch.com">
-      <SubType>Content</SubType>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="MakeMethods\MakeFileAccessMethods.bat">
       <SubType>Content</SubType>
@@ -85,6 +79,12 @@
       <SubType>Content</SubType>
     </Content>
     <Content Include="MethodCatalog\smc.xml">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="OpenVMS\launch.com">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Windows\launch.bat">
       <SubType>Content</SubType>
     </Content>
   </ItemGroup>

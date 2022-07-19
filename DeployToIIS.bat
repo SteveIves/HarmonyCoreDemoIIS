@@ -72,13 +72,13 @@ echo Deploying zip file %zipFileName%
 
 :do_deploy
 
-echo INFO: Stopping IIS Application Pool...
+echo Stopping IIS Application Pool
 %WINDIR%\System32\inetsrv\appcmd.exe stop site /site.name:"%IIS_SITE_NAME%"
 
-echo INFO: Stopping IIS Web Site...
+echo Stopping IIS Web Site
 %WINDIR%\System32\inetsrv\appcmd.exe stop apppool /apppool.name:"%IIS_APP_POOL_NAME%"
 
-echo INFO: Deleting existing files...
+echo Deleting existing files
 
 rem Delete all files except *.zip in the current directory and all subdirectories
 for /R "." %%f in (*) do (if not "%%~xf"==".zip" del "%%~f")
@@ -88,15 +88,15 @@ for /D %%d in (*) do rmdir /S /Q %%d
 
 rem All that should be left now is ZIP files!
 
-echo INFO: Extracting files from zip file...
+echo Extracting files from zip file
 
 "%ProgramW6432%\7-Zip\7z.exe" x -y %zipFileName%
 
 if ERRORLEVEL 0 (
-  echo INFO: Files extracted successfully
-  echo INFO: Restarting IIS Web Site...
+  echo Files extracted successfully
+  echo Restarting IIS Web Site
   %WINDIR%\System32\inetsrv\appcmd.exe start apppool /apppool.name:"%IIS_APP_POOL_NAME%"
-  echo INFO: Restarting IIS Application Pool...
+  echo Restarting IIS Application Pool
   %WINDIR%\System32\inetsrv\appcmd.exe start site /site.name:"%IIS_SITE_NAME%"
 ) else (
   echo ERROR: Error during file extraction, web site and application pool will NOT be restarted!
