@@ -41,3 +41,4 @@ OutputFiles
 /Publish.Settings.bat
 /DeployToIIS.Settings.bat
 *.zip
+/TraditionalBridge/OpenVMS/SendToVms.Settings.bat

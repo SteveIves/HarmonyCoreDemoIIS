@@ -52,12 +52,12 @@ import Services.Filters
 import System.Collections.Generic
 import System.IO
 import System.Linq
+import System.Runtime.InteropServices
 import System.Text
 import System.Threading.Tasks
 import Services.Controllers
 import Services.Models
 import Swashbuckle.AspNetCore.Swagger
-import System.Runtime.InteropServices
 
 namespace Services
 
@@ -123,7 +123,7 @@ namespace Services
             ;;---------------------------------------------------------------------
             ;; Configure the Traditional Bridge environment
 
-            bridgeMode = Environment.GetEnvironmentVariable("BRIDGE_MODE")
+            bridgeMode = Environment.GetEnvironmentVariable("BRIDGE_MODE").ToUpper()
 
             using bridgeMode select
             ("LOCAL","REMOTE"),
@@ -132,7 +132,7 @@ namespace Services
                 throw new ApplicationException("Invalid value for BRIDGE_MODE in AppSettings.json. Specify LOCAL or REMOTE.")
             endusing
              
-            using Environment.GetEnvironmentVariable("BRIDGE_SERVER_OS") select
+            using Environment.GetEnvironmentVariable("BRIDGE_SERVER_OS").ToUpper() select
             ("WINDOWS"),
                 bridgeOS = RemoteTargetOS.Windows
             ("LINUX"),
@@ -145,51 +145,53 @@ namespace Services
                 throw new ApplicationException("Invalid value for BRIDGE_SERVER_OS in AppSettings.jsonl. Specify WINDOWS, LINUX, UNIX or VMS.")
             endusing
 
-            bridgeServer    = Environment.GetEnvironmentVariable("BRIDGE_SERVER")
-            bridgeUser      = Environment.GetEnvironmentVariable("BRIDGE_USER")
-            bridgePassword  = Environment.GetEnvironmentVariable("BRIDGE_PASSWORD")
-            bridgeCryptoKey = Environment.GetEnvironmentVariable("BRIDGE_CRYPTO_KEY")
-            bridgeLogLevel  = Environment.GetEnvironmentVariable("BRIDGE_LOG_LEVEL")
+            ;Read settings used by LOCAL and REMOTE
 
-            if (bridgeMode == "REMOTE") then
-            begin
-                Console.WriteLine("Traditional bridge is connecting to {0}@{1} with logging level {2}",bridgeUser,bridgeServer,bridgeLogLevel)
-            end
-            else
-            begin
-                Console.WriteLine("Traditional bridge is running locally with logging level {0}",bridgeLogLevel)
-            end
+            bridgeLogLevel  = Environment.GetEnvironmentVariable("BRIDGE_LOG_LEVEL")
 
             if (!Int.TryParse(Environment.GetEnvironmentVariable("BRIDGE_POOL_SIZE"),poolSize))
                 poolSize = 4
 
-            if (!Int.TryParse(Environment.GetEnvironmentVariable("BRIDGE_CONNECT_TIMEOUT"),connectTimeout))
-                connectTimeout = 600000
+            if (bridgeMode == "REMOTE")
+            begin
+                ;Read settings used REMOTE only
 
-            if (!Int.TryParse(Environment.GetEnvironmentVariable("BRIDGE_CALL_TIMEOUT"),callTimeout))
-                callTimeout = 100000
+                bridgeServer    = Environment.GetEnvironmentVariable("BRIDGE_SERVER")
+                bridgeUser      = Environment.GetEnvironmentVariable("BRIDGE_USER")
+                bridgePassword  = Environment.GetEnvironmentVariable("BRIDGE_PASSWORD")
+                bridgeCryptoKey = Environment.GetEnvironmentVariable("BRIDGE_CRYPTO_KEY")
 
-            using Environment.GetEnvironmentVariable("BRIDGE_POOLING") select
-            ("ENABLED"),
-                usePooling = true
-            ("DISABLED"),
-                usePooling = false
-            (),
-                throw new ApplicationException("Invalid value for BRIDGE_POOLING in AppSettings.json. Specify ENABLED or DISABLED.")
-            endusing
+                if (!Int.TryParse(Environment.GetEnvironmentVariable("BRIDGE_CONNECT_TIMEOUT"),connectTimeout))
+                    connectTimeout = 600000
 
-            using Environment.GetEnvironmentVariable("BRIDGE_AUTH_MODE") select
-            ("PASSWORD"),
-                usePassword = true
-            ("CRYPTO_KEY"),
-                usePassword = false
-            (),
-                throw new ApplicationException("Invalid value for BRIDGE_AUTH_MODE in AppSettings.json. Specify PASSWORD or CRYPTO_KEY")
-            endusing
+                if (!Int.TryParse(Environment.GetEnvironmentVariable("BRIDGE_CALL_TIMEOUT"),callTimeout))
+                    callTimeout = 100000
+
+                using Environment.GetEnvironmentVariable("BRIDGE_POOLING").ToUpper() select
+                ("ENABLED"),
+                    usePooling = true
+                ("DISABLED"),
+                    usePooling = false
+                (),
+                    throw new ApplicationException("Invalid value for BRIDGE_POOLING in AppSettings.json. Specify ENABLED or DISABLED.")
+                endusing
+
+                using Environment.GetEnvironmentVariable("BRIDGE_AUTH_MODE").ToUpper() select
+                ("PASSWORD"),
+                    usePassword = true
+                ("CRYPTO_KEY"),
+                    usePassword = false
+                (),
+                    throw new ApplicationException("Invalid value for BRIDGE_AUTH_MODE in AppSettings.json. Specify PASSWORD or CRYPTO_KEY")
+                endusing
+            end
 
             using bridgeMode select
             ("LOCAL"),
             begin
+                ;Report local operating mode
+                Console.WriteLine("Traditional bridge is running locally with logging level {0}",bridgeLogLevel)
+
                 data traditionalBridgeDirectory, string
 
                 if (_env.IsDevelopment()) then
@@ -213,10 +215,12 @@ namespace Services
                     startCommand = Path.Combine(traditionalBridgeDirectory,"launch")
                 end
 
+                data startParameters = String.Format("{0}",bridgeLogLevel)
+
                 data contextPool, @ExternalContextPool<MyApiService>, new ExternalContextPool<MyApiService>
                 &    (
                 &    startCommand,
-                &    String.Format("{0}",bridgeLogLevel),
+                &    startParameters,
                 &    traditionalBridgeDirectory,
                 &    ^null,
                 &    poolSize
@@ -227,6 +231,9 @@ namespace Services
             end
             ("REMOTE"),
             begin
+                ;Report remote operating mode
+                Console.WriteLine("Traditional bridge is connecting to {0}@{1} with logging level {2}",bridgeUser,bridgeServer,bridgeLogLevel)
+
                 using bridgeOS select
                 (RemoteTargetOS.Windows),
                     startCommand = "launch.bat"

@@ -112,6 +112,7 @@ if /i "%PLATFORM%" == "windows" (
 )
 if /i "%PLATFORM%" == "linux" (
   copy /y TraditionalBridge\linux\launch "%DeployDir%" > nul 2>&1
+  copy /y TraditionalBridge\linux\startService "%DeployDir%" > nul 2>&1
 )
 
 if /i "%PLATFORM%" == "windows" (
@@ -144,6 +145,7 @@ if /i "%PLATFORM%" == "windows" (
 if /i "%PLATFORM%" == "linux" (
   echo Applying Linux line endings
   tools\dos2unix "%DeployDir%\launch" > nul 2>&1
+  tools\dos2unix "%DeployDir%\startService" > nul 2>&1
   tools\dos2unix "%DeployDir%\SampleData\*.*" > nul 2>&1
 )
 

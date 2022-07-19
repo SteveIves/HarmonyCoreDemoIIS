@@ -61,6 +61,18 @@ main SelfHost
 
 proc
     ;;-------------------------------------------------------------------------
+    ;;Wait for the Visual Studio debugger to attach
+    
+    if (!String.IsNullOrWhiteSpace(System.Environment.GetEnvironmentVariable("WAIT_FOR_DEBUGGER")))
+    begin
+        while (!System.Diagnostics.Debugger.IsAttached)
+        begin
+            Console.WriteLine("Waiting for debugger to attach...")
+            sleep 1
+        end
+    end
+
+    ;;-------------------------------------------------------------------------
     ;;Configure the environment
     try
     begin
