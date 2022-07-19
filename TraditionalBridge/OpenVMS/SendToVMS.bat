@@ -1,6 +1,16 @@
 @echo off
 setlocal
 pushd %~dp0
+
+rem Look for a settings file that should contain something like this:
+rem 
+rem  @echo off
+rem  set VMS_HOST=10.1.1.1
+rem  set VMS_USER=bridge
+rem  set VMS_PASSWORD=p@ssword
+
+if exist SendToVMS.Settings.bat call SendToVMS.Settings.bat
+
 rem 
 rem =============================================================================
 rem
