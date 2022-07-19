@@ -9,7 +9,7 @@
 
 # Verify that we have a Synergy environment
 
-if [ ! -z $DBLDIR ]
+if [ -z $DBLDIR ]
 then
 	echo "ERROR: No DBL environment detected!"
 	return 2> /dev/null; exit

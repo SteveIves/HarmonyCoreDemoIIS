@@ -93,7 +93,7 @@ echo INFO: Publishing for %PLATFORM% to %DeployDir%...
 
 pushd Services.Host
 
-dotnet publish -nologo -p:platform=AnyCPU --configuration Debug --runtime %RUNTIME% --self-contained --output %DeployDir% --verbosity quiet
+dotnet publish -nologo -p:platform=AnyCPU --configuration Debug --runtime %RUNTIME% --self-contained --output "%DeployDir%" --verbosity quiet
 
 if ERRORLEVEL 1 (
   echo ERROR: Publish failed!
@@ -107,29 +107,31 @@ popd
 
 rem Include the Traditional Bridge host program and startup script
 echo INFO: Copying traditional bridge files...
-copy /y TraditionalBridge\EXE\host.dbr %DeployDir% > nul 2>&1
-copy /y TraditionalBridge\EXE\host.dbp %DeployDir% > nul 2>&1
+copy /y TraditionalBridge\EXE\host.dbr "%DeployDir%" > nul 2>&1
+copy /y TraditionalBridge\EXE\host.dbp "%DeployDir%" > nul 2>&1
 if /i "%PLATFORM%" == "windows" (
-  copy /y TraditionalBridge\EXE\launch.bat %DeployDir% > nul 2>&1
+  copy /y TraditionalBridge\EXE\launch.bat "%DeployDir%" > nul 2>&1
 )
 if /i "%PLATFORM%" == "linux" (
-  copy /y TraditionalBridge\EXE\launch %DeployDir% > nul 2>&1
+  copy /y TraditionalBridge\EXE\launch "%DeployDir%" > nul 2>&1
 )
 
-rem Replace the web.config file with our own version that sets the
-rem ASPNETCORE_ENVIRONMENT to Production
-if exist "%DeployDir%\web.config" (
-  echo INFO: Copying web.config...
-  del  /Q "%DeployDir%\web.config"
-  copy /Y "%SolutionDir%\web.config" "%DeployDir%\web.config" > nul 2>&1
+if /i "%PLATFORM%" == "windows" (
+  rem Replace the web.config file with our own version that sets the
+  rem ASPNETCORE_ENVIRONMENT to Production
+  if exist "%DeployDir%\web.config" (
+    echo INFO: Copying web.config...
+    del  /Q "%DeployDir%\web.config"
+    copy /Y "%SolutionDir%\web.config" "%DeployDir%\web.config" > nul 2>&1
+  )
 )
 
 rem If you want to include the SampleData folder set INCLUDE_SAMPLE_DATA=YES
 rem in PUBLISH_SETTINGS.BAT
 if defined INCLUDE_SAMPLE_DATA (
   echo INFO: Copying sample data...
-  if not exist %DeployDir%\SampleData\. mkdir %DeployDir%\SampleData
-  copy /y SampleData\*.* %DeployDir%\SampleData > nul 2>&1
+  if not exist "%DeployDir%\SampleData\." mkdir "%DeployDir%\SampleData"
+  copy /y SampleData\*.* "%DeployDir%\SampleData" > nul 2>&1
 )
 
 if /i "%PLATFORM%" == "windows" (
@@ -137,8 +139,18 @@ if /i "%PLATFORM%" == "windows" (
   rem runtime so if we are publishing for AppService we need to include it
   if defined INCLUDE_C_RUNTIME (
     echo INFO: Copying C++ runtime...
-    copy /y vcredistFiles\*.* %DeployDir% > nul 2>&1
+    copy /y vcredistFiles\*.* "%DeployDir%" > nul 2>&1
   )
+)
+
+if /i "%PLATFORM%" == "linux" (
+  echo INFO: Applying Linux line endings...
+  tools\dos2unix "%DeployDir%\launch" > nul 2>&1
+  tools\dos2unix "%DeployDir%\SampleData\*.*" > nul 2>&1
+)
+
+if /i not "%PUBLISH_ZIP%" == "TRUE" (
+  goto done
 )
 
 rem If WinZip is present, Zip the PUBLISH folder to a date-stamped zip file
@@ -147,10 +159,10 @@ set hh=%TIME:~0,2%
 set mm=%TIME:~3,2%
 set zipFile=%SolutionDir%HarmonyCoreService-%PLATFORM%-%yyyymmdd%-%hh%%mm%.zip
 
-if exist %DeployDir%\. (
+if exist "%DeployDir%\." (
   if exist "%ProgramW6432%\7-Zip\7z.exe" (
     echo INFO: Zipping to %zipFile%...
-    pushd %DeployDir%
+    pushd "%DeployDir%"
     "%ProgramW6432%\7-Zip\7z.exe" a -r -bso0 -bsp0 "%zipFile%" *
 
     if ERRORLEVEL 0 (

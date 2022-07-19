@@ -57,6 +57,7 @@ import System.Threading.Tasks
 import Services.Controllers
 import Services.Models
 import Swashbuckle.AspNetCore.Swagger
+import System.Runtime.InteropServices
 
 namespace Services
 
@@ -193,14 +194,24 @@ namespace Services
 
                 if (_env.IsDevelopment()) then
                 begin
-                    traditionalBridgeDirectory = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(^typeof(Startup).Assembly.Location),"..\..\..\..\TraditionalBridge\EXE"))
+                    if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) then
+                        traditionalBridgeDirectory = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(^typeof(Startup).Assembly.Location),"..\..\..\..\TraditionalBridge\EXE"))
+                    else
+                        traditionalBridgeDirectory = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(^typeof(Startup).Assembly.Location),"../../../../TraditionalBridge/EXE"))
                 end
                 else
                 begin
                     traditionalBridgeDirectory = Path.GetFullPath(Path.GetDirectoryName(^typeof(Startup).Assembly.Location))
                 end
 
-                startCommand = Path.Combine(traditionalBridgeDirectory,"launch.bat")
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) then
+                begin
+                    startCommand = Path.Combine(traditionalBridgeDirectory,"launch.bat")
+                end
+                else
+                begin
+                    startCommand = Path.Combine(traditionalBridgeDirectory,"launch")
+                end
 
                 data contextPool, @ExternalContextPool<MyApiService>, new ExternalContextPool<MyApiService>
                 &    (
@@ -216,8 +227,17 @@ namespace Services
             end
             ("REMOTE"),
             begin
+                using bridgeOS select
+                (RemoteTargetOS.Windows),
+                    startCommand = "launch.bat"
+                (RemoteTargetOS.Linux),
+                    startCommand = "launch"
+                (RemoteTargetOS.VMS),
+                    startCommand = "launch.com"
+                endusing
+
                 ;; Command to send to remote server to start a new connection.
-                startCommand    = String.Format("TraditionalBridge/launch {0}",bridgeLogLevel)
+                startCommand    = String.Format("{0} {1}",startCommand,bridgeLogLevel)
 
                 if (usePooling) then
                 begin
