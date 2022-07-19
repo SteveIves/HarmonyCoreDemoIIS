@@ -78,9 +78,6 @@
     <Content Include="MakeMethods\FileAccessMethods.tpl">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="MakeMethods\UpdateSMC.bat">
-      <SubType>Content</SubType>
-    </Content>
     <Content Include="MethodCatalog\smc.xml">
       <SubType>Content</SubType>
     </Content>
