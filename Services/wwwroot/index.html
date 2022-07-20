@@ -278,7 +278,7 @@
 
     <p><strong>$select</strong> constains returned properties</p>
     <ul>
-        <li><a href="odata/v1/Orders(OrderNumber3)?$select=CustomerReference,DateOrdered,PlacedBy">Order 3, customer reference, date ordered and order placed by.</a></li>
+        <li><a href="odata/v1/Orders(OrderNumber=3)?$select=CustomerReference,DateOrdered,PlacedBy">Order 3, customer reference, date ordered and order placed by.</a></li>
     </ul>
 
     <!--$filter-->
@@ -308,11 +308,11 @@
 
     <p><strong>$expand</strong> joins to related entities</p>
     <ul>
-        <li><a href="odata/v1/Orders(OrderNumber3)?$expand=REL_OrderItems">Single order and its line items.</a></li>
+        <li><a href="odata/v1/Orders(OrderNumber=3)?$expand=REL_OrderItems">Single order and its line items.</a></li>
         <li><a href="odata/v1/Orders?$expand=REL_OrderItems">All orders and the order line items.</a> (large result set)</li>
-        <li><a href="odata/v1/Orders(OrderNumber3)?$expand=REL_Customer">Single order and the customer ordering.</a></li>
+        <li><a href="odata/v1/Orders(OrderNumber=3)?$expand=REL_Customer">Single order and the customer ordering.</a></li>
         <li><a href="odata/v1/Orders?$expand=REL_Customer">All orders and the customer ordering.</a> (large result set)</li>
-        <li><a href="odata/v1/Orders(OrderNumber3)?$expand=REL_OrderItems,REL_Customer">Single order, the order items and the customer ordering.</a></li>
+        <li><a href="odata/v1/Orders(OrderNumber=3)?$expand=REL_OrderItems,REL_Customer">Single order, the order items and the customer ordering.</a></li>
         <li><a href="odata/v1/Orders?$expand=REL_OrderItems,REL_Customer">All orders, the order items, and the customer ordering.</a> (large result set)</li>
     </ul>
 

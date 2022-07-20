@@ -11,26 +11,27 @@ rem  3. Replaces the web.config created by the publish operation with
 rem     one that sets the ASPNETCORE_ENVIRONMENT to Production
 rem
 rem  4. Optionally includes the content of the SampleData folder
-rem     (Only if environment variuable INCLUDE_SAMPLE_DATA is defined)
+rem     (Only if environment variuable INCLUDE_SAMPLE_DATA=TRUE)
 rem
 rem  5. Optionally includes VC++ runtime files
-rem     (Only if environment variuable INCLUDE_C_RUNTIME is defined)
+rem     (Only if environment variable INCLUDE_C_RUNTIME=TRUE)
 rem
-rem  6. Zips the PUBLISH folder to HarmonyCoreService-yyyymmdd-hhmm.zip
-rem     (Only if 7-zip is installed)
+rem  6. Optionally zips the PUBLISH folder to a date and time stamped zip file
+rem     HarmonyCoreService-yyyymmdd-hhmm.zip
+rem     (Only if 7-zip is installed and environment variable PUBLISH_ZIP=TRUE)
 rem
 rem  7. Deletes the temporary PUBLISH folder
-rem     (Only if the zip file was created)
+rem     (Only if the a zip file was created)
 rem
 rem  8. Transfers the ZIP file to a specified location via COPY or FTP.
-rem     (Only if WinSCP is installed, and the PUBLISH_MODE is set to
-rem     COPY and PUBLISH_DIR is set to a valid directory path, or
-rem     PUBLISH_MODE is set to FTP and the environment variables
+rem     (Only if a zip file was created, and the PUBLISH_MODE=COPY
+rem     and PUBLISH_DIR is set to a valid directory path, or WinSCP is
+rem     installed, PUBLISH_MODE=FTP and the environment variables
 rem     PUBLISH_FTP_SERVER PUBLISH_FTP_USER and PUBLISH_FTP_PASSWORD
 rem     are set)
 rem 
 rem A good way to set these environment variables is to create a batch
-rem file named publish_settings.bat in the main solution folderr. if
+rem file named Publish.Settings.bat in the main solution folder. If
 rem the file is present it will be executed when this script runs.
 
 setlocal EnableDelayedExpansion
@@ -125,9 +126,7 @@ if /i "%PLATFORM%" == "windows" (
   )
 )
 
-rem If you want to include the SampleData folder set INCLUDE_SAMPLE_DATA=YES
-rem in PUBLISH_SETTINGS.BAT
-if defined INCLUDE_SAMPLE_DATA (
+if /i "%INCLUDE_SAMPLE_DATA%" == "TRUE" (
   echo Copying sample data
   if not exist "%DeployDir%\SampleData\." mkdir "%DeployDir%\SampleData"
   copy /y SampleData\*.* "%DeployDir%\SampleData" > nul 2>&1
@@ -136,7 +135,7 @@ if defined INCLUDE_SAMPLE_DATA (
 if /i "%PLATFORM%" == "windows" (
   rem At the time of writing, Azure AppService does not provide the VS2019 C++
   rem runtime so if we are publishing for AppService we need to include it
-  if defined INCLUDE_C_RUNTIME (
+  if /i "%INCLUDE_C_RUNTIME%" == "TRUE" (
     echo Copying C++ runtime
     copy /y vcredistFiles\*.* "%DeployDir%" > nul 2>&1
   )
