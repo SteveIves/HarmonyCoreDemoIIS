@@ -45,8 +45,10 @@
     <PackageReference Include="IdentityServer4.AccessTokenValidation">
       <Version>3.0.1</Version>
     </PackageReference>
-    <PackageReference Include="SSH.NET" Version="2020.0.1" />
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="SSH.NET">
+      <Version>2020.0.2</Version>
+    </PackageReference>
     <PackageReference Include="Synergex.SynergyDE.Build">
       <Version>22.3.1080</Version>
     </PackageReference>
