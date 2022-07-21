@@ -56,9 +56,7 @@
   <ItemGroup>
     <Folder Include="MakeMethods\" />
     <Folder Include="MethodCatalog\" />
-    <Folder Include="Linux" />
     <Folder Include="OpenVMS" />
-    <Folder Include="Windows" />
     <Folder Include="source\" />
     <Folder Include="source\bridge" />
     <Folder Include="source\dispatchers" />
@@ -66,11 +64,13 @@
     <Folder Include="source\models" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Linux\launch">
+    <Content Include="launch">
       <SubType>Content</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Linux\startService">
+    <Content Include="launch.bat">
       <SubType>Content</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="MakeMethods\MakeFileAccessMethods.bat">
       <SubType>Content</SubType>
@@ -102,8 +102,9 @@
     <Content Include="OpenVMS\SETUP.COM">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="Windows\launch.bat">
+    <Content Include="startService">
       <SubType>Content</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>

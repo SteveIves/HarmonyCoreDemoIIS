@@ -17,7 +17,7 @@ rem  5. Optionally includes VC++ runtime files
 rem     (Only if environment variable INCLUDE_C_RUNTIME=TRUE)
 rem
 rem  6. Optionally zips the PUBLISH folder to a date and time stamped zip file
-rem     HarmonyCoreService-yyyymmdd-hhmm.zip
+rem     HarmonyCoreService-platform-yyyymmdd-hhmm.zip
 rem     (Only if 7-zip is installed and environment variable PUBLISH_ZIP=TRUE)
 rem
 rem  7. Deletes the temporary PUBLISH folder
@@ -152,11 +152,15 @@ if /i not "%PUBLISH_ZIP%" == "TRUE" (
   goto done
 )
 
-rem If WinZip is present, Zip the PUBLISH folder to a date-stamped zip file
-set yyyymmdd=%date:~-4%%date:~4,2%%date:~7,2%
-set hh=%TIME:~0,2%
-set mm=%TIME:~3,2%
-set zipFile=%SolutionDir%HarmonyCoreService-%PLATFORM%-%yyyymmdd%-%hh%%mm%.zip
+if /i "%TIME_STAMP_ZIP_FILE%" == "TRUE" (
+  rem Pick a zip file name
+  set yyyymmdd=%date:~-4%%date:~4,2%%date:~7,2%
+  set hh=%TIME:~0,2%
+  set mm=%TIME:~3,2%
+  set zipFile=%SolutionDir%HarmonyCoreService-%PLATFORM%-%yyyymmdd%-%hh%%mm%.zip
+) else (
+  set zipFile=%SolutionDir%HarmonyCoreService-%PLATFORM%.zip
+)
 
 if exist "%DeployDir%\." (
   if exist "%ProgramW6432%\7-Zip\7z.exe" (
@@ -201,10 +205,10 @@ if /i "%PUBLISH_MODE%" == "COPY" (
   )
 
   rem Does the direrctory exist?
-  if not exist "%PUBLISH_DIR%\." (
-    echo ERROR: Unable to copy zip file to staging server because directory %PUBLISH_DIR% does not exist!
-    goto done
-  )
+  rem if not exist "%PUBLISH_DIR%\." (
+  rem   echo ERROR: Unable to copy zip file to staging server because directory %PUBLISH_DIR% does not exist!
+  rem   goto done
+  rem )
 
   rem Copy the file
   copy /y "%zipFile%" "%PUBLISH_DIR%" > nul 2>&1
