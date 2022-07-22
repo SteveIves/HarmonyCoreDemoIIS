@@ -42,3 +42,4 @@ OutputFiles
 /DeployToIIS.Settings.bat
 *.zip
 /TraditionalBridge/OpenVMS/SendToVms.Settings.bat
+/.vscode

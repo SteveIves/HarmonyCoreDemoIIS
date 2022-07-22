@@ -109,11 +109,11 @@ echo Copying traditional bridge files
 copy /y TraditionalBridge\EXE\host.dbr "%DeployDir%" > nul 2>&1
 copy /y TraditionalBridge\EXE\host.dbp "%DeployDir%" > nul 2>&1
 if /i "%PLATFORM%" == "windows" (
-  copy /y TraditionalBridge\windows\launch.bat "%DeployDir%" > nul 2>&1
+  copy /y TraditionalBridge\launch.bat "%DeployDir%" > nul 2>&1
 )
 if /i "%PLATFORM%" == "linux" (
-  copy /y TraditionalBridge\linux\launch "%DeployDir%" > nul 2>&1
-  copy /y TraditionalBridge\linux\startService "%DeployDir%" > nul 2>&1
+  copy /y TraditionalBridge\launch "%DeployDir%" > nul 2>&1
+  copy /y TraditionalBridge\startService "%DeployDir%" > nul 2>&1
 )
 
 if /i "%PLATFORM%" == "windows" (
