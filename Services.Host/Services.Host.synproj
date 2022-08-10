@@ -13,9 +13,6 @@
     <AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel>
     <ProvidesMainMethod>true</ProvidesMainMethod>
   </PropertyGroup>
-  <PropertyGroup>
-    <UserSecretsId>BE518A96566F47D196D24992CE3C0165</UserSecretsId>
-  </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <OutputPath>bin\$(configuration)</OutputPath>
     <UnevaluatedOutputPath>bin\$(configuration)</UnevaluatedOutputPath>
