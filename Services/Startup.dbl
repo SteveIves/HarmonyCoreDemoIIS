@@ -30,11 +30,14 @@ import Microsoft.AspNetCore.StaticFiles
 import Microsoft.AspNetCore.Builder
 import Microsoft.AspNetCore.Mvc.ApplicationModels
 import Microsoft.AspNetCore.OData
+import Microsoft.AspNetCore.OData.Extensions
+import Microsoft.AspNetCore.OData.Routing
+import Microsoft.AspNetCore.OData.Formatter
 import Microsoft.AspNetCore.Routing
+import Microsoft.EntityFrameworkCore
 import Microsoft.Extensions.Configuration
 import Microsoft.Extensions.DependencyInjection
 import Microsoft.Extensions.DependencyInjection.Extensions
-import Microsoft.EntityFrameworkCore
 import Microsoft.Extensions.Configuration
 import Microsoft.Extensions.DependencyInjection
 import Microsoft.Extensions.DependencyInjection.Extensions
@@ -45,19 +48,16 @@ import Microsoft.Net.Http.Headers
 import Microsoft.OData
 import Microsoft.OData.Edm
 import Microsoft.OData.UriParser
-import Microsoft.AspNetCore.OData
-import Microsoft.AspNetCore.OData.Extensions
-import Microsoft.AspNetCore.OData.Routing
-import Microsoft.AspNetCore.OData.Formatter
+import Microsoft.OpenApi.Models
 import System.Collections.Generic
 import System.IO
 import System.Linq
+import System.Runtime.InteropServices
 import System.Text
 import System.Threading.Tasks
 import Services.Controllers
 import Services.Models
 import Swashbuckle.AspNetCore.Swagger
-import Microsoft.OpenApi.Models
 
 namespace Services
 
@@ -129,7 +129,7 @@ namespace Services
                 ('6 ','none '),
                     log_level = Microsoft.Extensions.Logging.LogLevel.None
                 (),
-                    throw new Exception("Invalid value for logical ODATA_LOG_LEVEL="+logical(1:loglen))
+                    throw new Exception("Invalid value for logical ASPNETCORE_LOG_LEVEL="+logical(1:loglen))
                 endusing
             end
 
@@ -214,7 +214,7 @@ namespace Services
             begin
                 option.EnableAttributeRouting = true
                 option.Count().Filter().Expand().Select().OrderBy().SetMaxTop(40)
-				&	.AddRouteComponents(EdmBuilder.GetEdmModel(^null, 1))
+                &  .AddRouteComponents(EdmBuilder.GetEdmModel(^null, 1))
                 option.Conventions.Insert(1, new AdapterRoutingConvention())
             end
 
@@ -225,17 +225,61 @@ namespace Services
             &    .AddNewtonsoftJson(lambda (opts) { opts.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.DefaultContractResolver()})
             &    .AddApplicationPart(^typeof(IsolatedMethodsBase).Assembly)
             &    .AddApplicationPart(^typeof(Microsoft.AspNetCore.OData.Routing.Controllers.MetadataController).Assembly)
+            &    .AddApiExplorer()
 
-			lambda configSwaggerGen(c)
-			begin
-				c.ResolveConflictingActions(lambda(apiDescriptions) { apiDescriptions.First() })
-				c.IgnoreObsoleteActions()
-				c.IgnoreObsoleteProperties()
-				c.CustomSchemaIds(lambda(ty) { ty.FullName })
-			end
+            lambda configSwaggerGen(c)
+            begin
+                ;;Main Swagger configuration
+                c.SwaggerDoc("v1", new OpenApiInfo() {
+                &    Version = "v1",
+                &    Title = "Harmony Core Sample API",
+                &    Description = "This environment presents an example of using Harmony Core to expose a collection of RESTful Web Service endpoints that allow you to interact with a small sample dataset.",
+                &    Contact = new OpenApiContact() {
+                &       Name = "Jodah Veloper",
+                &       Email = "jodah.veloper@synergexpsg.com"
+                &    }
+                &})
+                
+                c.ResolveConflictingActions(lambda(apiDescriptions) { apiDescriptions.First() })
+                c.IgnoreObsoleteActions()
+                c.IgnoreObsoleteProperties()
+                c.CustomSchemaIds(lambda(ty) { ty.FullName })
 
-			services.AddSwaggerGen(configSwaggerGen)
+                ;;Add OData query fields to swagger documentation
+                c.OperationFilter<ODataParametersSwaggerDefinition>()
 
+                data xmlDocFolder = findRelativeFolderForAssembly("XmlDoc")
+
+                if(!string.IsNullOrWhiteSpace(xmlDocFolder))
+                begin
+                    ;;If present, use information from Services.xml in swagger documentation
+                    data filePath = Path.Combine(xmlDocFolder, "Services.xml")
+                    if (File.Exists(filePath))
+                    begin
+                        c.IncludeXmlComments(filePath, true)
+                    end
+
+                    ;;If present, use information from Services.Controllers.xml in swagger documentation
+                    filePath = Path.Combine(xmlDocFolder, "Services.Controllers.xml")
+                    if (File.Exists(filePath))
+                    begin
+                        c.IncludeXmlComments(filePath, true)
+                    end
+
+                    ;;If present, use information from Services.Models.xml in swagger documentation
+                    filePath = Path.Combine(xmlDocFolder, "Services.Models.xml")
+                    if (File.Exists(filePath))
+                    begin
+                        c.IncludeXmlComments(filePath, true)
+                    end
+                end
+            end
+
+            services.AddSwaggerGen(configSwaggerGen)
+
+            ;Tell Swashbuckle that we are using Newtonsoft.Json so that we only see the "opted in" model properties.
+            ;This requires a reference to the NuGet package Swashbuckle.AspNetCore.Newtonsoft in the Services project
+            services.AddSwaggerGenNewtonsoftSupport()
 
             ;;-------------------------------------------------------
             ;;Enable HTTP redirection to HTTPS
@@ -342,10 +386,10 @@ namespace Services
             lambda corsOptions(builder)
             begin
                 builder
-                &   .AllowCredentials()
-                &   .AllowAnyMethod()
-                &   .AllowAnyHeader()
-                &   .SetIsOriginAllowed(lambda(p) { true } )
+                &    .AllowCredentials()
+                &    .AllowAnyMethod()
+                &    .AllowAnyHeader()
+                &    .SetIsOriginAllowed(lambda(p) { true } )
             end
 
             app.UseCors(corsOptions)
@@ -356,24 +400,47 @@ namespace Services
             ;;If there is a ConfigureCustomBeforeMvc method, call it
             ConfigureCustomBeforeMvc(app,env)
 
-			app.UseSwagger()
-			app.UseSwaggerUI(lambda(c) { c.SwaggerEndpoint("/swagger/v1/swagger.json", "Harmony Core Sample API") })
+            ;;-------------------------------------------------------
+            ;;Enable swagger documentation            
+
+            ;lambda useSwaggerOptions(opts)
+            ;begin
+            ;    opts.SerializeAsV2 = true
+            ;end
+
+            app.UseSwagger()
+
+            lambda swaggerUiOptions(opts)
+            begin
+                opts.SwaggerEndpoint("/swagger/v1/swagger.json", "v1")
+                ;opts.DisplayRequestDuration()
+                opts.EnableFilter()
+            end
+
+            app.UseSwaggerUI(swaggerUiOptions)
 
             ;;Enable serving static files
+
+            data staticFilesProvider, @FileExtensionContentTypeProvider
+            AddCustomMimeTypes(staticFilesProvider)
             app.UseDefaultFiles()
-            app.UseStaticFiles()
+            if (staticFilesProvider == ^null) then
+                app.UseStaticFiles()
+            else
+                app.UseStaticFiles(new StaticFileOptions() { ContentTypeProvider = staticFilesProvider })
 
             app.UsePathBase(new PathString("/odata/v1"))
 
             ;;Use odata route debug, /$odata
             app.UseODataRouteDebug("/$odata")
-			app.UseODataQueryRequest()
+            app.UseODataQueryRequest()
 
             lambda RoutingConfig(endpoints)
             begin
-				endpoints.MapControllers()
-			end
-
+                endpoints.MapControllers()
+                ConfigureRouting(endpoints)
+            end
+            
             app.UseRouting()
 
             app.UseEndpoints(RoutingConfig)
@@ -392,6 +459,15 @@ namespace Services
         ;;; <param name="services"></param>
         partial method ConfigureServicesCustom, void
             required in services, @IServiceCollection
+        endmethod
+
+        ;;; <summary>
+        ;;; Declare the ConfigureRouting partial method.
+        ;;; Developers can implement this method in a partial class to provide custom routing configuration.
+        ;;; </summary>
+        ;;; <param name="services"></param>
+        partial method ConfigureRouting, void
+            required in endpoints, @IEndpointRouteBuilder
         endmethod
 
         ;;; <summary>
@@ -434,7 +510,41 @@ namespace Services
             required in provider, @DataObjectProvider
         endmethod
 
+        ;;; <summary>
+        ;;; Declare the AddCustomMimeTypes partial method.
+        ;;; Developers can use this to add support for custom mime types to the kestrel server
+        ;;; </summary>
+        ;;; <param name="provider">Returns an instance of FileExtensionContentTypeProvider</param>
+        partial method AddCustomMimeTypes, void
+            required out provider, @FileExtensionContentTypeProvider
+        ;An example of how to implement this partial method:
+        ;proc
+        ;    provider = new FileExtensionContentTypeProvider()
+        ;    provider.Mappings.Add(".apk","application/vnd.android.package-archive")
+        endmethod
+
 .endregion
+
+        private static method findRelativeFolderForAssembly, string
+            folderName, string
+        proc
+            data assemblyLocation = ^typeof(Startup).Assembly.Location
+            data currentFolder = Path.GetDirectoryName(assemblyLocation)
+            data rootPath = Path.GetPathRoot(currentFolder)
+            while(currentFolder != rootPath)
+            begin
+                if(Directory.Exists(Path.Combine(currentFolder, folderName))) then
+                    mreturn Path.Combine(currentFolder, folderName)
+                else
+                begin
+                    if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) then
+                        currentFolder = Path.GetFullPath(currentFolder + "..\")
+                    else
+                        currentFolder = Path.GetFullPath(currentFolder + "../")
+                end
+            end
+            mreturn ^null
+        endmethod
 
     endclass
 

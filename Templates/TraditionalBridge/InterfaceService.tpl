@@ -1,5 +1,5 @@
 <CODEGEN_FILENAME><INTERFACE_NAME>Service.dbl</CODEGEN_FILENAME>
-<REQUIRES_CODEGEN_VERSION>5.8.5</REQUIRES_CODEGEN_VERSION>
+<REQUIRES_CODEGEN_VERSION>5.9.7</REQUIRES_CODEGEN_VERSION>
 <REQUIRES_USERTOKEN>MODELS_NAMESPACE</REQUIRES_USERTOKEN>
 <REQUIRES_USERTOKEN>DTOS_NAMESPACE</REQUIRES_USERTOKEN>
 ;//****************************************************************************
@@ -50,6 +50,7 @@
 
 import Harmony.Core
 import Harmony.Core.Context
+import Harmony.Core.Converters
 import Harmony.Core.Interface
 import Harmony.Core.EF.Extensions
 import Harmony.OData
@@ -59,6 +60,7 @@ import System
 import System.Collections.Generic
 import System.Text
 import Microsoft.AspNetCore.Mvc
+import Microsoft.AspNetCore.OData
 import Microsoft.AspNetCore.Authorization
 import Newtonsoft.Json.Linq
 import System.Linq
@@ -70,6 +72,7 @@ namespace <NAMESPACE>
     public partial class <INTERFACE_NAME>Service extends DynamicCallProvider
 
         static IsInitialized, boolean
+
         static method <INTERFACE_NAME>Service
         proc
         <METHOD_LOOP>
@@ -79,7 +82,20 @@ namespace <NAMESPACE>
                 </IF STRUCTURE>
             </PARAMETER_LOOP>
         </METHOD_LOOP>
+
+            ;;If there is a <INTERFACE_NAME>ServiceCustom method, call it
+            <INTERFACE_NAME>ServiceCustom()
+
             IsInitialized = true
+
+        endmethod
+
+        ;;; <summary>
+        ;;; Partial method to allow custom constrctor code.
+        ;;; </summary>
+        ;;; <param name="services"></param>
+        partial static method <INTERFACE_NAME>ServiceCustom, void
+
         endmethod
 
         ;;; <summary>
@@ -108,28 +124,72 @@ namespace <NAMESPACE>
             data response = new <DTOS_NAMESPACE>.<METHOD_NAME>_Response()
 
   </IF RETURNS_DATA>
+;//
+;//
+;//
+  <IF DATE_PARAMETERS>
+            ;;Define temporary variables to handle date parameters
+    <PARAMETER_LOOP>
+      <IF DATE>
+            data tmp<PARAMETER_NAME>, d8, 0
+      </IF>
+    </PARAMETER_LOOP>
+
+  </IF>
+;//
+;//
+;//
+  <IF DATE_PARAMETERS_IN>
+            ;;Convert inbound DateTime values to YYYYMMDD
+    <PARAMETER_LOOP>
+      <IF DATE AND IN_OR_INOUT>
+            SynergyConverter.ConvertBack(args.<PARAMETER_NAME>,tmp<PARAMETER_NAME>,"<PARAMETER_DATE_FORMAT>",^null)
+      </IF>
+    </PARAMETER_LOOP>
+
+  </IF DATE_PARAMETERS_IN>
+;//
+;//
+;//
             ;;Make the JSON-RPC call the traditional Synergy routine
             data resultTuple = await CallMethod("<METHOD_NAME>"
-    <PARAMETER_LOOP>
+  <PARAMETER_LOOP>
+    <IF DATE>
+            &   ,tmp<PARAMETER_NAME>
+    <ELSE>
             &   ,<IF OPTIONAL>ArgumentHelper.MayBeOptional(</IF OPTIONAL><IF IN_OR_INOUT>args.<PARAMETER_NAME><ELSE (STRUCTURE OR COLLECTION OR ALPHA OR STRING) AND NOT OPTIONAL>ArgumentHelper.MaybeNull(response.<PARAMETER_NAME>)<ELSE>response.<PARAMETER_NAME></IF IN_OR_INOUT><IF OPTIONAL>)</IF OPTIONAL>
-    </PARAMETER_LOOP>
+    </IF>
+  </PARAMETER_LOOP>
             &   )
+
+  <IF DATE_PARAMETERS_OUT>
+            ;;Convert outbound YYYYMMDD values to DateTime
+    <PARAMETER_LOOP>
+      <IF DATE AND OUT_OR_INOUT>
+            SynergyConverter.Convert(tmp<PARAMETER_NAME>,response.<PARAMETER_NAME>,"<PARAMETER_DATE_FORMAT>",^null)
+      </IF>
+    </PARAMETER_LOOP>
+
+  </IF DATE_PARAMETERS_OUT>
+;//
+;//
+;//
   <IF RETURNS_DATA>
     <IF FUNCTION>
-
              ;;Set the return value in the return data
             ArgumentHelper.Argument(0, resultTuple, response.<IF TWEAK_SMC_CAMEL_CASE>returnValue<ELSE>ReturnValue</IF>)
+
     </IF FUNCTION>
+;//
+;//
 ;//
     <COUNTER_1_RESET>
     <PARAMETER_LOOP>
         <IF COUNTER_1_EQ_0 AND OPTIONAL>
             <COUNTER_1_INCREMENT>
-
             data resultList, @List<Object>, resultTuple.Item2.ToList()
         </IF>
     </PARAMETER_LOOP>
-
     <PARAMETER_LOOP>
       <IF OUT_OR_INOUT>
       <IF OPTIONAL>

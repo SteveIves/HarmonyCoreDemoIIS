@@ -99,6 +99,9 @@ namespace <NAMESPACE>
             data status, int
             xcall setlog("SYNSEL_NUMALPHA_KEYS", 1, status) 
 
+            ;;Allows connections to older xfServer services
+            xcall setlog("SRV_COMPAT", 1, status)
+
             ;;Configure the test environment (set logicals, create files in a known state, etc.)
             UnitTestEnvironment.Configure()
 
@@ -159,12 +162,15 @@ namespace <NAMESPACE>
             ;;Get the file spec of the TestRequests folder
             UnitTestEnvironment.TestRequestsFolder = UnitTestEnvironment.FindRelativeFolderForAssembly("TestRequests")
 
-            ;;Make sure we have a TestResponses folder
-            UnitTestEnvironment.TestResponsesFolder = UnitTestEnvironment.FindRelativeFolderForAssembly("TestResponses")
-            if (String.IsNullOrWhiteSpace(UnitTestEnvironment.TestResponsesFolder))
+            if (!String.IsNullOrWhiteSpace(UnitTestEnvironment.TestRequestsFolder))
             begin
-                UnitTestEnvironment.TestResponsesFolder = UnitTestEnvironment.TestRequestsFolder.Replace("TestRequests","TestResponses")
-                Directory.CreateDirectory(UnitTestEnvironment.TestResponsesFolder)
+                ;;Make sure we have a TestResponses folder
+                UnitTestEnvironment.TestResponsesFolder = UnitTestEnvironment.FindRelativeFolderForAssembly("TestResponses")
+                if (String.IsNullOrWhiteSpace(UnitTestEnvironment.TestResponsesFolder))
+                begin
+                    UnitTestEnvironment.TestResponsesFolder = UnitTestEnvironment.TestRequestsFolder.Replace("TestRequests","TestResponses")
+                    Directory.CreateDirectory(UnitTestEnvironment.TestResponsesFolder)
+                end
             end
 
 </IF DEFINED_ENABLE_SIGNALR>
@@ -309,9 +315,57 @@ namespace <NAMESPACE>
                 if(Directory.Exists(Path.Combine(currentFolder, folderName))) then
                     mreturn Path.Combine(currentFolder, folderName)
                 else
-                    currentFolder = Path.GetFullPath(currentFolder + "..\")
+                    currentFolder = Path.GetFullPath(currentFolder + ".." + Path.DirectorySeparatorChar)
             end
             mreturn ^null
+        endmethod
+
+		public static method EnsurePlatformSpecificLineEndings, void
+            filePath, string
+            minLineLength, int
+        proc
+            data content = File.ReadAllBytes(filePath)
+            data allBytes, @List<byte>, new List<byte>()
+            data lineBytes, @List<byte>, new List<byte>()
+            data i = 1
+            while (i <= content.Length)
+            begin 
+                data c, char
+                c = %char(content[i])
+                if (c == %char(13) || c == %char(10)) then
+                begin
+                    allBytes.AddRange(lineBytes)
+
+                    if (lineBytes.Count >= minLineLength) then
+                    begin
+                        allBytes.AddRange(Encoding.ASCII.GetBytes(Environment.NewLine))
+                        if (c == %char(13) && i + 1 <= content.Length && %char(content[i + 1]) == %char(10))
+                            i = i + 1
+                    end
+                    else
+                    begin
+                        if (c == %char(13) && i + 1 <= content.Length && %char(content[i + 1]) == %char(10)) then
+                        begin
+                            allBytes.AddRange(Encoding.ASCII.GetBytes(Environment.NewLine))
+                            i = i + 1
+                        end
+                        else
+                        begin
+                            allBytes.Add(content[i])
+                        end
+                    end
+                    lineBytes.Clear()
+                end
+                else
+                begin
+                    lineBytes.Add(content[i])
+                end
+                
+                i = i + 1
+            end
+
+            allBytes.AddRange(lineBytes)
+            File.WriteAllBytes(filePath, allBytes.ToArray())
         endmethod
 
     endclass

@@ -19,6 +19,7 @@ import Newtonsoft.Json
 import System
 import System.Collections.Generic
 import System.Linq
+import System.Net.Mime
 import System.Text
 import System.Threading.Tasks
 import MyApi
@@ -27,7 +28,14 @@ import Services.Controllers
 
 namespace Services.Controllers
 
+    {Produces("application/json")}
     {Route("MyApi")}
+    ;;; <summary>
+    ;;; MyApi
+    ;;; </summary>
+    ;;; <remarks>
+    ;;; Custom coded endpoints for interface MyApi
+    ;;; </remarks>
     public partial class MyApiController extends ControllerBase
 
         ;;Services provided via dependency injection
@@ -49,6 +57,18 @@ namespace Services.Controllers
 
         {HttpPost}
         {Route("AddTwoNumbers")}
+        {Consumes(MediaTypeNames.Application.Json)}
+        {Produces("application/json")}
+        ;;; <summary>
+        ;;;   The method catalog does not provide a description for this operation.
+        ;;; </summary>
+        ;;; <remarks>
+        ;;;   The functinality of this endpoint is based on custom code in the underlying application. 
+        ;;; </remarks>
+        ;;; <response code="200"><HTTP_200_MESSAGE></response>
+        ;;; <response code="400"><HTTP_400_MESSAGE></response>
+        ;;; <response code="500"><HTTP_500_MESSAGE></response>
+        ;;; <returns></returns>
         public async method AddTwoNumbers, @Task<ActionResult<AddTwoNumbers_Response>>
             {FromBody}
             required in aRequest, @AddTwoNumbers_Request
@@ -60,6 +80,18 @@ namespace Services.Controllers
 
         {HttpPost}
         {Route("CustomerAdd")}
+        {Consumes(MediaTypeNames.Application.Json)}
+        {Produces("application/json")}
+        ;;; <summary>
+        ;;;   The method catalog does not provide a description for this operation.
+        ;;; </summary>
+        ;;; <remarks>
+        ;;;   The functinality of this endpoint is based on custom code in the underlying application. 
+        ;;; </remarks>
+        ;;; <response code="200"><HTTP_200_MESSAGE></response>
+        ;;; <response code="400"><HTTP_400_MESSAGE></response>
+        ;;; <response code="500"><HTTP_500_MESSAGE></response>
+        ;;; <returns></returns>
         public async method CustomerAdd, @Task<ActionResult<CustomerAdd_Response>>
             {FromBody}
             required in aRequest, @CustomerAdd_Request
@@ -71,6 +103,18 @@ namespace Services.Controllers
 
         {HttpPost}
         {Route("CustomerDelete")}
+        {Consumes(MediaTypeNames.Application.Json)}
+        {Produces("application/json")}
+        ;;; <summary>
+        ;;;   The method catalog does not provide a description for this operation.
+        ;;; </summary>
+        ;;; <remarks>
+        ;;;   The functinality of this endpoint is based on custom code in the underlying application. 
+        ;;; </remarks>
+        ;;; <response code="200"><HTTP_200_MESSAGE></response>
+        ;;; <response code="400"><HTTP_400_MESSAGE></response>
+        ;;; <response code="500"><HTTP_500_MESSAGE></response>
+        ;;; <returns></returns>
         public async method CustomerDelete, @Task<ActionResult<CustomerDelete_Response>>
             {FromBody}
             required in aRequest, @CustomerDelete_Request
@@ -82,6 +126,18 @@ namespace Services.Controllers
 
         {HttpPost}
         {Route("CustomerGet")}
+        {Consumes(MediaTypeNames.Application.Json)}
+        {Produces("application/json")}
+        ;;; <summary>
+        ;;;   The method catalog does not provide a description for this operation.
+        ;;; </summary>
+        ;;; <remarks>
+        ;;;   The functinality of this endpoint is based on custom code in the underlying application. 
+        ;;; </remarks>
+        ;;; <response code="200"><HTTP_200_MESSAGE></response>
+        ;;; <response code="400"><HTTP_400_MESSAGE></response>
+        ;;; <response code="500"><HTTP_500_MESSAGE></response>
+        ;;; <returns></returns>
         public async method CustomerGet, @Task<ActionResult<CustomerGet_Response>>
             {FromBody}
             required in aRequest, @CustomerGet_Request
@@ -93,6 +149,18 @@ namespace Services.Controllers
 
         {HttpGet}
         {Route("CustomerGetAll")}
+        {Consumes(MediaTypeNames.Application.Json)}
+        {Produces("application/json")}
+        ;;; <summary>
+        ;;;   The method catalog does not provide a description for this operation.
+        ;;; </summary>
+        ;;; <remarks>
+        ;;;   The functinality of this endpoint is based on custom code in the underlying application. 
+        ;;; </remarks>
+        ;;; <response code="200"><HTTP_200_MESSAGE></response>
+        ;;; <response code="400"><HTTP_400_MESSAGE></response>
+        ;;; <response code="500"><HTTP_500_MESSAGE></response>
+        ;;; <returns></returns>
         public async method CustomerGetAll, @Task<ActionResult<CustomerGetAll_Response>>
         proc
             mreturn ok(await _MyApiService.CustomerGetAll())
@@ -100,6 +168,18 @@ namespace Services.Controllers
 
         {HttpPost}
         {Route("CustomerUpdate")}
+        {Consumes(MediaTypeNames.Application.Json)}
+        {Produces("application/json")}
+        ;;; <summary>
+        ;;;   The method catalog does not provide a description for this operation.
+        ;;; </summary>
+        ;;; <remarks>
+        ;;;   The functinality of this endpoint is based on custom code in the underlying application. 
+        ;;; </remarks>
+        ;;; <response code="200"><HTTP_200_MESSAGE></response>
+        ;;; <response code="400"><HTTP_400_MESSAGE></response>
+        ;;; <response code="500"><HTTP_500_MESSAGE></response>
+        ;;; <returns></returns>
         public async method CustomerUpdate, @Task<ActionResult<CustomerUpdate_Response>>
             {FromBody}
             required in aRequest, @CustomerUpdate_Request
@@ -111,6 +191,18 @@ namespace Services.Controllers
 
         {HttpPost}
         {Route("CustomerValidate")}
+        {Consumes(MediaTypeNames.Application.Json)}
+        {Produces("application/json")}
+        ;;; <summary>
+        ;;;   The method catalog does not provide a description for this operation.
+        ;;; </summary>
+        ;;; <remarks>
+        ;;;   The functinality of this endpoint is based on custom code in the underlying application. 
+        ;;; </remarks>
+        ;;; <response code="200"><HTTP_200_MESSAGE></response>
+        ;;; <response code="400"><HTTP_400_MESSAGE></response>
+        ;;; <response code="500"><HTTP_500_MESSAGE></response>
+        ;;; <returns></returns>
         public async method CustomerValidate, @Task<ActionResult<CustomerValidate_Response>>
             {FromBody}
             required in aRequest, @CustomerValidate_Request
@@ -122,6 +214,18 @@ namespace Services.Controllers
 
         {HttpGet}
         {Route("GetEnvironment")}
+        {Consumes(MediaTypeNames.Application.Json)}
+        {Produces("application/json")}
+        ;;; <summary>
+        ;;;   The method catalog does not provide a description for this operation.
+        ;;; </summary>
+        ;;; <remarks>
+        ;;;   The functinality of this endpoint is based on custom code in the underlying application. 
+        ;;; </remarks>
+        ;;; <response code="200"><HTTP_200_MESSAGE></response>
+        ;;; <response code="400"><HTTP_400_MESSAGE></response>
+        ;;; <response code="500"><HTTP_500_MESSAGE></response>
+        ;;; <returns></returns>
         public async method GetEnvironment, @Task<ActionResult<GetEnvironment_Response>>
         proc
             mreturn ok(await _MyApiService.GetEnvironment())
@@ -129,6 +233,18 @@ namespace Services.Controllers
 
         {HttpPost}
         {Route("GetLogicalName")}
+        {Consumes(MediaTypeNames.Application.Json)}
+        {Produces("application/json")}
+        ;;; <summary>
+        ;;;   The method catalog does not provide a description for this operation.
+        ;;; </summary>
+        ;;; <remarks>
+        ;;;   The functinality of this endpoint is based on custom code in the underlying application. 
+        ;;; </remarks>
+        ;;; <response code="200"><HTTP_200_MESSAGE></response>
+        ;;; <response code="400"><HTTP_400_MESSAGE></response>
+        ;;; <response code="500"><HTTP_500_MESSAGE></response>
+        ;;; <returns></returns>
         public async method GetLogicalName, @Task<ActionResult<GetLogicalName_Response>>
             {FromBody}
             required in aRequest, @GetLogicalName_Request
@@ -140,6 +256,18 @@ namespace Services.Controllers
 
         {HttpPost}
         {Route("ItemAdd")}
+        {Consumes(MediaTypeNames.Application.Json)}
+        {Produces("application/json")}
+        ;;; <summary>
+        ;;;   The method catalog does not provide a description for this operation.
+        ;;; </summary>
+        ;;; <remarks>
+        ;;;   The functinality of this endpoint is based on custom code in the underlying application. 
+        ;;; </remarks>
+        ;;; <response code="200"><HTTP_200_MESSAGE></response>
+        ;;; <response code="400"><HTTP_400_MESSAGE></response>
+        ;;; <response code="500"><HTTP_500_MESSAGE></response>
+        ;;; <returns></returns>
         public async method ItemAdd, @Task<ActionResult<ItemAdd_Response>>
             {FromBody}
             required in aRequest, @ItemAdd_Request
@@ -151,6 +279,18 @@ namespace Services.Controllers
 
         {HttpPost}
         {Route("ItemDelete")}
+        {Consumes(MediaTypeNames.Application.Json)}
+        {Produces("application/json")}
+        ;;; <summary>
+        ;;;   The method catalog does not provide a description for this operation.
+        ;;; </summary>
+        ;;; <remarks>
+        ;;;   The functinality of this endpoint is based on custom code in the underlying application. 
+        ;;; </remarks>
+        ;;; <response code="200"><HTTP_200_MESSAGE></response>
+        ;;; <response code="400"><HTTP_400_MESSAGE></response>
+        ;;; <response code="500"><HTTP_500_MESSAGE></response>
+        ;;; <returns></returns>
         public async method ItemDelete, @Task<ActionResult<ItemDelete_Response>>
             {FromBody}
             required in aRequest, @ItemDelete_Request
@@ -162,6 +302,18 @@ namespace Services.Controllers
 
         {HttpPost}
         {Route("ItemGet")}
+        {Consumes(MediaTypeNames.Application.Json)}
+        {Produces("application/json")}
+        ;;; <summary>
+        ;;;   The method catalog does not provide a description for this operation.
+        ;;; </summary>
+        ;;; <remarks>
+        ;;;   The functinality of this endpoint is based on custom code in the underlying application. 
+        ;;; </remarks>
+        ;;; <response code="200"><HTTP_200_MESSAGE></response>
+        ;;; <response code="400"><HTTP_400_MESSAGE></response>
+        ;;; <response code="500"><HTTP_500_MESSAGE></response>
+        ;;; <returns></returns>
         public async method ItemGet, @Task<ActionResult<ItemGet_Response>>
             {FromBody}
             required in aRequest, @ItemGet_Request
@@ -173,6 +325,18 @@ namespace Services.Controllers
 
         {HttpGet}
         {Route("ItemGetAll")}
+        {Consumes(MediaTypeNames.Application.Json)}
+        {Produces("application/json")}
+        ;;; <summary>
+        ;;;   The method catalog does not provide a description for this operation.
+        ;;; </summary>
+        ;;; <remarks>
+        ;;;   The functinality of this endpoint is based on custom code in the underlying application. 
+        ;;; </remarks>
+        ;;; <response code="200"><HTTP_200_MESSAGE></response>
+        ;;; <response code="400"><HTTP_400_MESSAGE></response>
+        ;;; <response code="500"><HTTP_500_MESSAGE></response>
+        ;;; <returns></returns>
         public async method ItemGetAll, @Task<ActionResult<ItemGetAll_Response>>
         proc
             mreturn ok(await _MyApiService.ItemGetAll())
@@ -180,6 +344,18 @@ namespace Services.Controllers
 
         {HttpPost}
         {Route("ItemUpdate")}
+        {Consumes(MediaTypeNames.Application.Json)}
+        {Produces("application/json")}
+        ;;; <summary>
+        ;;;   The method catalog does not provide a description for this operation.
+        ;;; </summary>
+        ;;; <remarks>
+        ;;;   The functinality of this endpoint is based on custom code in the underlying application. 
+        ;;; </remarks>
+        ;;; <response code="200"><HTTP_200_MESSAGE></response>
+        ;;; <response code="400"><HTTP_400_MESSAGE></response>
+        ;;; <response code="500"><HTTP_500_MESSAGE></response>
+        ;;; <returns></returns>
         public async method ItemUpdate, @Task<ActionResult<ItemUpdate_Response>>
             {FromBody}
             required in aRequest, @ItemUpdate_Request
@@ -191,6 +367,18 @@ namespace Services.Controllers
 
         {HttpPost}
         {Route("ItemValidate")}
+        {Consumes(MediaTypeNames.Application.Json)}
+        {Produces("application/json")}
+        ;;; <summary>
+        ;;;   The method catalog does not provide a description for this operation.
+        ;;; </summary>
+        ;;; <remarks>
+        ;;;   The functinality of this endpoint is based on custom code in the underlying application. 
+        ;;; </remarks>
+        ;;; <response code="200"><HTTP_200_MESSAGE></response>
+        ;;; <response code="400"><HTTP_400_MESSAGE></response>
+        ;;; <response code="500"><HTTP_500_MESSAGE></response>
+        ;;; <returns></returns>
         public async method ItemValidate, @Task<ActionResult<ItemValidate_Response>>
             {FromBody}
             required in aRequest, @ItemValidate_Request
@@ -202,6 +390,18 @@ namespace Services.Controllers
 
         {HttpPost}
         {Route("OrderAdd")}
+        {Consumes(MediaTypeNames.Application.Json)}
+        {Produces("application/json")}
+        ;;; <summary>
+        ;;;   The method catalog does not provide a description for this operation.
+        ;;; </summary>
+        ;;; <remarks>
+        ;;;   The functinality of this endpoint is based on custom code in the underlying application. 
+        ;;; </remarks>
+        ;;; <response code="200"><HTTP_200_MESSAGE></response>
+        ;;; <response code="400"><HTTP_400_MESSAGE></response>
+        ;;; <response code="500"><HTTP_500_MESSAGE></response>
+        ;;; <returns></returns>
         public async method OrderAdd, @Task<ActionResult<OrderAdd_Response>>
             {FromBody}
             required in aRequest, @OrderAdd_Request
@@ -213,6 +413,18 @@ namespace Services.Controllers
 
         {HttpPost}
         {Route("OrderDelete")}
+        {Consumes(MediaTypeNames.Application.Json)}
+        {Produces("application/json")}
+        ;;; <summary>
+        ;;;   The method catalog does not provide a description for this operation.
+        ;;; </summary>
+        ;;; <remarks>
+        ;;;   The functinality of this endpoint is based on custom code in the underlying application. 
+        ;;; </remarks>
+        ;;; <response code="200"><HTTP_200_MESSAGE></response>
+        ;;; <response code="400"><HTTP_400_MESSAGE></response>
+        ;;; <response code="500"><HTTP_500_MESSAGE></response>
+        ;;; <returns></returns>
         public async method OrderDelete, @Task<ActionResult<OrderDelete_Response>>
             {FromBody}
             required in aRequest, @OrderDelete_Request
@@ -224,6 +436,18 @@ namespace Services.Controllers
 
         {HttpPost}
         {Route("OrderGet")}
+        {Consumes(MediaTypeNames.Application.Json)}
+        {Produces("application/json")}
+        ;;; <summary>
+        ;;;   The method catalog does not provide a description for this operation.
+        ;;; </summary>
+        ;;; <remarks>
+        ;;;   The functinality of this endpoint is based on custom code in the underlying application. 
+        ;;; </remarks>
+        ;;; <response code="200"><HTTP_200_MESSAGE></response>
+        ;;; <response code="400"><HTTP_400_MESSAGE></response>
+        ;;; <response code="500"><HTTP_500_MESSAGE></response>
+        ;;; <returns></returns>
         public async method OrderGet, @Task<ActionResult<OrderGet_Response>>
             {FromBody}
             required in aRequest, @OrderGet_Request
@@ -235,6 +459,18 @@ namespace Services.Controllers
 
         {HttpGet}
         {Route("OrderGetAll")}
+        {Consumes(MediaTypeNames.Application.Json)}
+        {Produces("application/json")}
+        ;;; <summary>
+        ;;;   The method catalog does not provide a description for this operation.
+        ;;; </summary>
+        ;;; <remarks>
+        ;;;   The functinality of this endpoint is based on custom code in the underlying application. 
+        ;;; </remarks>
+        ;;; <response code="200"><HTTP_200_MESSAGE></response>
+        ;;; <response code="400"><HTTP_400_MESSAGE></response>
+        ;;; <response code="500"><HTTP_500_MESSAGE></response>
+        ;;; <returns></returns>
         public async method OrderGetAll, @Task<ActionResult<OrderGetAll_Response>>
         proc
             mreturn ok(await _MyApiService.OrderGetAll())
@@ -242,6 +478,18 @@ namespace Services.Controllers
 
         {HttpPost}
         {Route("OrderItemAdd")}
+        {Consumes(MediaTypeNames.Application.Json)}
+        {Produces("application/json")}
+        ;;; <summary>
+        ;;;   The method catalog does not provide a description for this operation.
+        ;;; </summary>
+        ;;; <remarks>
+        ;;;   The functinality of this endpoint is based on custom code in the underlying application. 
+        ;;; </remarks>
+        ;;; <response code="200"><HTTP_200_MESSAGE></response>
+        ;;; <response code="400"><HTTP_400_MESSAGE></response>
+        ;;; <response code="500"><HTTP_500_MESSAGE></response>
+        ;;; <returns></returns>
         public async method OrderItemAdd, @Task<ActionResult<OrderItemAdd_Response>>
             {FromBody}
             required in aRequest, @OrderItemAdd_Request
@@ -253,6 +501,18 @@ namespace Services.Controllers
 
         {HttpPost}
         {Route("OrderItemDelete")}
+        {Consumes(MediaTypeNames.Application.Json)}
+        {Produces("application/json")}
+        ;;; <summary>
+        ;;;   The method catalog does not provide a description for this operation.
+        ;;; </summary>
+        ;;; <remarks>
+        ;;;   The functinality of this endpoint is based on custom code in the underlying application. 
+        ;;; </remarks>
+        ;;; <response code="200"><HTTP_200_MESSAGE></response>
+        ;;; <response code="400"><HTTP_400_MESSAGE></response>
+        ;;; <response code="500"><HTTP_500_MESSAGE></response>
+        ;;; <returns></returns>
         public async method OrderItemDelete, @Task<ActionResult<OrderItemDelete_Response>>
             {FromBody}
             required in aRequest, @OrderItemDelete_Request
@@ -264,6 +524,18 @@ namespace Services.Controllers
 
         {HttpPost}
         {Route("OrderItemGet")}
+        {Consumes(MediaTypeNames.Application.Json)}
+        {Produces("application/json")}
+        ;;; <summary>
+        ;;;   The method catalog does not provide a description for this operation.
+        ;;; </summary>
+        ;;; <remarks>
+        ;;;   The functinality of this endpoint is based on custom code in the underlying application. 
+        ;;; </remarks>
+        ;;; <response code="200"><HTTP_200_MESSAGE></response>
+        ;;; <response code="400"><HTTP_400_MESSAGE></response>
+        ;;; <response code="500"><HTTP_500_MESSAGE></response>
+        ;;; <returns></returns>
         public async method OrderItemGet, @Task<ActionResult<OrderItemGet_Response>>
             {FromBody}
             required in aRequest, @OrderItemGet_Request
@@ -275,6 +547,18 @@ namespace Services.Controllers
 
         {HttpPost}
         {Route("OrderItemGetAll")}
+        {Consumes(MediaTypeNames.Application.Json)}
+        {Produces("application/json")}
+        ;;; <summary>
+        ;;;   The method catalog does not provide a description for this operation.
+        ;;; </summary>
+        ;;; <remarks>
+        ;;;   The functinality of this endpoint is based on custom code in the underlying application. 
+        ;;; </remarks>
+        ;;; <response code="200"><HTTP_200_MESSAGE></response>
+        ;;; <response code="400"><HTTP_400_MESSAGE></response>
+        ;;; <response code="500"><HTTP_500_MESSAGE></response>
+        ;;; <returns></returns>
         public async method OrderItemGetAll, @Task<ActionResult<OrderItemGetAll_Response>>
             {FromBody}
             required in aRequest, @OrderItemGetAll_Request
@@ -286,6 +570,18 @@ namespace Services.Controllers
 
         {HttpPost}
         {Route("OrderItemUpdate")}
+        {Consumes(MediaTypeNames.Application.Json)}
+        {Produces("application/json")}
+        ;;; <summary>
+        ;;;   The method catalog does not provide a description for this operation.
+        ;;; </summary>
+        ;;; <remarks>
+        ;;;   The functinality of this endpoint is based on custom code in the underlying application. 
+        ;;; </remarks>
+        ;;; <response code="200"><HTTP_200_MESSAGE></response>
+        ;;; <response code="400"><HTTP_400_MESSAGE></response>
+        ;;; <response code="500"><HTTP_500_MESSAGE></response>
+        ;;; <returns></returns>
         public async method OrderItemUpdate, @Task<ActionResult<OrderItemUpdate_Response>>
             {FromBody}
             required in aRequest, @OrderItemUpdate_Request
@@ -297,6 +593,18 @@ namespace Services.Controllers
 
         {HttpPost}
         {Route("OrderItemValidate")}
+        {Consumes(MediaTypeNames.Application.Json)}
+        {Produces("application/json")}
+        ;;; <summary>
+        ;;;   The method catalog does not provide a description for this operation.
+        ;;; </summary>
+        ;;; <remarks>
+        ;;;   The functinality of this endpoint is based on custom code in the underlying application. 
+        ;;; </remarks>
+        ;;; <response code="200"><HTTP_200_MESSAGE></response>
+        ;;; <response code="400"><HTTP_400_MESSAGE></response>
+        ;;; <response code="500"><HTTP_500_MESSAGE></response>
+        ;;; <returns></returns>
         public async method OrderItemValidate, @Task<ActionResult<OrderItemValidate_Response>>
             {FromBody}
             required in aRequest, @OrderItemValidate_Request
@@ -308,6 +616,18 @@ namespace Services.Controllers
 
         {HttpPost}
         {Route("OrderUpdate")}
+        {Consumes(MediaTypeNames.Application.Json)}
+        {Produces("application/json")}
+        ;;; <summary>
+        ;;;   The method catalog does not provide a description for this operation.
+        ;;; </summary>
+        ;;; <remarks>
+        ;;;   The functinality of this endpoint is based on custom code in the underlying application. 
+        ;;; </remarks>
+        ;;; <response code="200"><HTTP_200_MESSAGE></response>
+        ;;; <response code="400"><HTTP_400_MESSAGE></response>
+        ;;; <response code="500"><HTTP_500_MESSAGE></response>
+        ;;; <returns></returns>
         public async method OrderUpdate, @Task<ActionResult<OrderUpdate_Response>>
             {FromBody}
             required in aRequest, @OrderUpdate_Request
@@ -319,6 +639,18 @@ namespace Services.Controllers
 
         {HttpPost}
         {Route("OrderValidate")}
+        {Consumes(MediaTypeNames.Application.Json)}
+        {Produces("application/json")}
+        ;;; <summary>
+        ;;;   The method catalog does not provide a description for this operation.
+        ;;; </summary>
+        ;;; <remarks>
+        ;;;   The functinality of this endpoint is based on custom code in the underlying application. 
+        ;;; </remarks>
+        ;;; <response code="200"><HTTP_200_MESSAGE></response>
+        ;;; <response code="400"><HTTP_400_MESSAGE></response>
+        ;;; <response code="500"><HTTP_500_MESSAGE></response>
+        ;;; <returns></returns>
         public async method OrderValidate, @Task<ActionResult<OrderValidate_Response>>
             {FromBody}
             required in aRequest, @OrderValidate_Request
@@ -330,6 +662,18 @@ namespace Services.Controllers
 
         {HttpPost}
         {Route("VendorAdd")}
+        {Consumes(MediaTypeNames.Application.Json)}
+        {Produces("application/json")}
+        ;;; <summary>
+        ;;;   The method catalog does not provide a description for this operation.
+        ;;; </summary>
+        ;;; <remarks>
+        ;;;   The functinality of this endpoint is based on custom code in the underlying application. 
+        ;;; </remarks>
+        ;;; <response code="200"><HTTP_200_MESSAGE></response>
+        ;;; <response code="400"><HTTP_400_MESSAGE></response>
+        ;;; <response code="500"><HTTP_500_MESSAGE></response>
+        ;;; <returns></returns>
         public async method VendorAdd, @Task<ActionResult<VendorAdd_Response>>
             {FromBody}
             required in aRequest, @VendorAdd_Request
@@ -341,6 +685,18 @@ namespace Services.Controllers
 
         {HttpPost}
         {Route("VendorDelete")}
+        {Consumes(MediaTypeNames.Application.Json)}
+        {Produces("application/json")}
+        ;;; <summary>
+        ;;;   The method catalog does not provide a description for this operation.
+        ;;; </summary>
+        ;;; <remarks>
+        ;;;   The functinality of this endpoint is based on custom code in the underlying application. 
+        ;;; </remarks>
+        ;;; <response code="200"><HTTP_200_MESSAGE></response>
+        ;;; <response code="400"><HTTP_400_MESSAGE></response>
+        ;;; <response code="500"><HTTP_500_MESSAGE></response>
+        ;;; <returns></returns>
         public async method VendorDelete, @Task<ActionResult<VendorDelete_Response>>
             {FromBody}
             required in aRequest, @VendorDelete_Request
@@ -352,6 +708,18 @@ namespace Services.Controllers
 
         {HttpPost}
         {Route("VendorGet")}
+        {Consumes(MediaTypeNames.Application.Json)}
+        {Produces("application/json")}
+        ;;; <summary>
+        ;;;   The method catalog does not provide a description for this operation.
+        ;;; </summary>
+        ;;; <remarks>
+        ;;;   The functinality of this endpoint is based on custom code in the underlying application. 
+        ;;; </remarks>
+        ;;; <response code="200"><HTTP_200_MESSAGE></response>
+        ;;; <response code="400"><HTTP_400_MESSAGE></response>
+        ;;; <response code="500"><HTTP_500_MESSAGE></response>
+        ;;; <returns></returns>
         public async method VendorGet, @Task<ActionResult<VendorGet_Response>>
             {FromBody}
             required in aRequest, @VendorGet_Request
@@ -363,6 +731,18 @@ namespace Services.Controllers
 
         {HttpGet}
         {Route("VendorGetAll")}
+        {Consumes(MediaTypeNames.Application.Json)}
+        {Produces("application/json")}
+        ;;; <summary>
+        ;;;   The method catalog does not provide a description for this operation.
+        ;;; </summary>
+        ;;; <remarks>
+        ;;;   The functinality of this endpoint is based on custom code in the underlying application. 
+        ;;; </remarks>
+        ;;; <response code="200"><HTTP_200_MESSAGE></response>
+        ;;; <response code="400"><HTTP_400_MESSAGE></response>
+        ;;; <response code="500"><HTTP_500_MESSAGE></response>
+        ;;; <returns></returns>
         public async method VendorGetAll, @Task<ActionResult<VendorGetAll_Response>>
         proc
             mreturn ok(await _MyApiService.VendorGetAll())
@@ -370,6 +750,18 @@ namespace Services.Controllers
 
         {HttpPost}
         {Route("VendorUpdate")}
+        {Consumes(MediaTypeNames.Application.Json)}
+        {Produces("application/json")}
+        ;;; <summary>
+        ;;;   The method catalog does not provide a description for this operation.
+        ;;; </summary>
+        ;;; <remarks>
+        ;;;   The functinality of this endpoint is based on custom code in the underlying application. 
+        ;;; </remarks>
+        ;;; <response code="200"><HTTP_200_MESSAGE></response>
+        ;;; <response code="400"><HTTP_400_MESSAGE></response>
+        ;;; <response code="500"><HTTP_500_MESSAGE></response>
+        ;;; <returns></returns>
         public async method VendorUpdate, @Task<ActionResult<VendorUpdate_Response>>
             {FromBody}
             required in aRequest, @VendorUpdate_Request
@@ -381,6 +773,18 @@ namespace Services.Controllers
 
         {HttpPost}
         {Route("VendorValidate")}
+        {Consumes(MediaTypeNames.Application.Json)}
+        {Produces("application/json")}
+        ;;; <summary>
+        ;;;   The method catalog does not provide a description for this operation.
+        ;;; </summary>
+        ;;; <remarks>
+        ;;;   The functinality of this endpoint is based on custom code in the underlying application. 
+        ;;; </remarks>
+        ;;; <response code="200"><HTTP_200_MESSAGE></response>
+        ;;; <response code="400"><HTTP_400_MESSAGE></response>
+        ;;; <response code="500"><HTTP_500_MESSAGE></response>
+        ;;; <returns></returns>
         public async method VendorValidate, @Task<ActionResult<VendorValidate_Response>>
             {FromBody}
             required in aRequest, @VendorValidate_Request

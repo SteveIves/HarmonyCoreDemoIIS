@@ -53,8 +53,8 @@ namespace TraditionalBridge.Dispatchers
             mDispatchStubs.Add("VendorGetAll", new VendorGetAll_Dispatcher())
             mDispatchStubs.Add("VendorUpdate", new VendorUpdate_Dispatcher())
             mDispatchStubs.Add("VendorValidate", new VendorValidate_Dispatcher())
+            InitHook()
         endmethod
-
     endclass
 
 endnamespace

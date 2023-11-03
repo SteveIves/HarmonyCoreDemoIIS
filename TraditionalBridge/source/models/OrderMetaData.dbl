@@ -46,13 +46,24 @@ namespace TraditionalBridge.Models
 			mreturn ^null
 		endmethod
 
+		public virtual method SetIntoArray, void
+            dataArea, a
+            arrayObject, @object
+            index, int
+		record
+			typedArrayObject, [#]strOrder
+        proc
+            typedArrayObject = ([#]strOrder)arrayObject
+			typedArrayObject[index] = dataArea
+        endmethod
+
 		public override method MakeNew, @DataObjectBase
 			required in dataArea, a
 			required in grfa, a
 			record
 				newOrder, @TraditionalBridge.Models.Order
 		proc
-			newOrder = new Order(dataArea) 
+			newOrder = new TraditionalBridge.Models.Order(dataArea) 
 			newOrder.GlobalRFA = grfa
 			mreturn newOrder
 		endmethod

@@ -113,7 +113,7 @@ namespace TraditionalBridge.Dispatchers.MyApi
 
                 ;;Argument 1 (REQUIRED IN Customer structure @StrCustomer)
                 arg1DataObject,     @DataObjectBase
-                arg1,               StrCustomer
+                arg1,               strCustomer
                 returnValue,         I4
             endrecord
 
@@ -137,7 +137,7 @@ namespace TraditionalBridge.Dispatchers.MyApi
             returnValue = %CustomerAdd(arg1)
 
             ;;Function return value
-            serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
+            serializer.ArgumentData(0,returnValue,FieldDataType.BooleanField,4,0,false)
         endmethod
 
     endclass
@@ -187,7 +187,7 @@ namespace TraditionalBridge.Dispatchers.MyApi
             returnValue = %CustomerDelete(arg1)
 
             ;;Function return value
-            serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
+            serializer.ArgumentData(0,returnValue,FieldDataType.BooleanField,4,0,false)
         endmethod
 
     endclass
@@ -220,7 +220,7 @@ namespace TraditionalBridge.Dispatchers.MyApi
                 arg1,               d6
                 ;;Argument 2 (REQUIRED OUT Customer structure @StrCustomer)
                 arg2DataObject,     @DataObjectBase
-                arg2,               StrCustomer
+                arg2,               strCustomer
                 returnValue,         I4
             endrecord
 
@@ -245,7 +245,7 @@ namespace TraditionalBridge.Dispatchers.MyApi
             returnValue = %CustomerGet(arg1,arg2)
 
             ;;Function return value
-            serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
+            serializer.ArgumentData(0,returnValue,FieldDataType.BooleanField,4,0,false)
 
             ;;--------------------------------------------------------------------------------
             ;;Argument 2 (REQUIRED OUT Customer structure @StrCustomer)
@@ -304,7 +304,7 @@ namespace TraditionalBridge.Dispatchers.MyApi
             returnValue = %CustomerGetAll(arg1)
 
             ;;Function return value
-            serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
+            serializer.ArgumentData(0,returnValue,FieldDataType.BooleanField,4,0,false)
 
             ;;--------------------------------------------------------------------------------
             ;;Argument 1 (REQUIRED OUT Customers ArrayList collection of structure @StrCustomer returned as DataTable)
@@ -340,7 +340,7 @@ namespace TraditionalBridge.Dispatchers.MyApi
 
                 ;;Argument 1 (REQUIRED IN Customer structure @StrCustomer)
                 arg1DataObject,     @DataObjectBase
-                arg1,               StrCustomer
+                arg1,               strCustomer
                 returnValue,         I4
             endrecord
 
@@ -364,7 +364,7 @@ namespace TraditionalBridge.Dispatchers.MyApi
             returnValue = %CustomerUpdate(arg1)
 
             ;;Function return value
-            serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
+            serializer.ArgumentData(0,returnValue,FieldDataType.BooleanField,4,0,false)
         endmethod
 
     endclass
@@ -395,7 +395,7 @@ namespace TraditionalBridge.Dispatchers.MyApi
 
                 ;;Argument 1 (REQUIRED INOUT Customer structure @StrCustomer)
                 arg1DataObject,     @DataObjectBase
-                arg1,               StrCustomer
+                arg1,               strCustomer
                 returnValue,         I4
             endrecord
 
@@ -419,7 +419,7 @@ namespace TraditionalBridge.Dispatchers.MyApi
             returnValue = %CustomerValidate(arg1)
 
             ;;Function return value
-            serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
+            serializer.ArgumentData(0,returnValue,FieldDataType.BooleanField,4,0,false)
 
             ;;--------------------------------------------------------------------------------
             ;;Argument 1 (REQUIRED INOUT Customer structure @StrCustomer)
@@ -550,7 +550,7 @@ namespace TraditionalBridge.Dispatchers.MyApi
 
                 ;;Argument 1 (REQUIRED IN Item structure @StrItem)
                 arg1DataObject,     @DataObjectBase
-                arg1,               StrItem
+                arg1,               strItem
                 returnValue,         I4
             endrecord
 
@@ -574,7 +574,7 @@ namespace TraditionalBridge.Dispatchers.MyApi
             returnValue = %ItemAdd(arg1)
 
             ;;Function return value
-            serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
+            serializer.ArgumentData(0,returnValue,FieldDataType.BooleanField,4,0,false)
         endmethod
 
     endclass
@@ -624,7 +624,7 @@ namespace TraditionalBridge.Dispatchers.MyApi
             returnValue = %ItemDelete(arg1)
 
             ;;Function return value
-            serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
+            serializer.ArgumentData(0,returnValue,FieldDataType.BooleanField,4,0,false)
         endmethod
 
     endclass
@@ -657,7 +657,7 @@ namespace TraditionalBridge.Dispatchers.MyApi
                 arg1,               d6
                 ;;Argument 2 (REQUIRED OUT Item structure @StrItem)
                 arg2DataObject,     @DataObjectBase
-                arg2,               StrItem
+                arg2,               strItem
                 returnValue,         I4
             endrecord
 
@@ -682,7 +682,7 @@ namespace TraditionalBridge.Dispatchers.MyApi
             returnValue = %ItemGet(arg1,arg2)
 
             ;;Function return value
-            serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
+            serializer.ArgumentData(0,returnValue,FieldDataType.BooleanField,4,0,false)
 
             ;;--------------------------------------------------------------------------------
             ;;Argument 2 (REQUIRED OUT Item structure @StrItem)
@@ -741,7 +741,7 @@ namespace TraditionalBridge.Dispatchers.MyApi
             returnValue = %ItemGetAll(arg1)
 
             ;;Function return value
-            serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
+            serializer.ArgumentData(0,returnValue,FieldDataType.BooleanField,4,0,false)
 
             ;;--------------------------------------------------------------------------------
             ;;Argument 1 (REQUIRED OUT Items ArrayList collection of structure @StrItem returned as DataTable)
@@ -777,7 +777,7 @@ namespace TraditionalBridge.Dispatchers.MyApi
 
                 ;;Argument 1 (REQUIRED IN Item structure @StrItem)
                 arg1DataObject,     @DataObjectBase
-                arg1,               StrItem
+                arg1,               strItem
                 returnValue,         I4
             endrecord
 
@@ -801,7 +801,7 @@ namespace TraditionalBridge.Dispatchers.MyApi
             returnValue = %ItemUpdate(arg1)
 
             ;;Function return value
-            serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
+            serializer.ArgumentData(0,returnValue,FieldDataType.BooleanField,4,0,false)
         endmethod
 
     endclass
@@ -832,7 +832,7 @@ namespace TraditionalBridge.Dispatchers.MyApi
 
                 ;;Argument 1 (REQUIRED INOUT Item structure @StrItem)
                 arg1DataObject,     @DataObjectBase
-                arg1,               StrItem
+                arg1,               strItem
                 returnValue,         I4
             endrecord
 
@@ -856,7 +856,7 @@ namespace TraditionalBridge.Dispatchers.MyApi
             returnValue = %ItemValidate(arg1)
 
             ;;Function return value
-            serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
+            serializer.ArgumentData(0,returnValue,FieldDataType.BooleanField,4,0,false)
 
             ;;--------------------------------------------------------------------------------
             ;;Argument 1 (REQUIRED INOUT Item structure @StrItem)
@@ -893,7 +893,7 @@ namespace TraditionalBridge.Dispatchers.MyApi
 
                 ;;Argument 1 (REQUIRED IN Order structure @StrOrder)
                 arg1DataObject,     @DataObjectBase
-                arg1,               StrOrder
+                arg1,               strOrder
                 returnValue,         I4
             endrecord
 
@@ -917,7 +917,7 @@ namespace TraditionalBridge.Dispatchers.MyApi
             returnValue = %OrderAdd(arg1)
 
             ;;Function return value
-            serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
+            serializer.ArgumentData(0,returnValue,FieldDataType.BooleanField,4,0,false)
         endmethod
 
     endclass
@@ -967,7 +967,7 @@ namespace TraditionalBridge.Dispatchers.MyApi
             returnValue = %OrderDelete(arg1)
 
             ;;Function return value
-            serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
+            serializer.ArgumentData(0,returnValue,FieldDataType.BooleanField,4,0,false)
         endmethod
 
     endclass
@@ -1000,7 +1000,7 @@ namespace TraditionalBridge.Dispatchers.MyApi
                 arg1,               d6
                 ;;Argument 2 (REQUIRED OUT Order structure @StrOrder)
                 arg2DataObject,     @DataObjectBase
-                arg2,               StrOrder
+                arg2,               strOrder
                 returnValue,         I4
             endrecord
 
@@ -1025,7 +1025,7 @@ namespace TraditionalBridge.Dispatchers.MyApi
             returnValue = %OrderGet(arg1,arg2)
 
             ;;Function return value
-            serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
+            serializer.ArgumentData(0,returnValue,FieldDataType.BooleanField,4,0,false)
 
             ;;--------------------------------------------------------------------------------
             ;;Argument 2 (REQUIRED OUT Order structure @StrOrder)
@@ -1084,7 +1084,7 @@ namespace TraditionalBridge.Dispatchers.MyApi
             returnValue = %OrderGetAll(arg1)
 
             ;;Function return value
-            serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
+            serializer.ArgumentData(0,returnValue,FieldDataType.BooleanField,4,0,false)
 
             ;;--------------------------------------------------------------------------------
             ;;Argument 1 (REQUIRED OUT Orders ArrayList collection of structure @StrOrder returned as DataTable)
@@ -1120,7 +1120,7 @@ namespace TraditionalBridge.Dispatchers.MyApi
 
                 ;;Argument 1 (REQUIRED IN OrderItem structure @StrOrderItem)
                 arg1DataObject,     @DataObjectBase
-                arg1,               StrOrderItem
+                arg1,               strOrderItem
                 returnValue,         I4
             endrecord
 
@@ -1144,7 +1144,7 @@ namespace TraditionalBridge.Dispatchers.MyApi
             returnValue = %OrderItemAdd(arg1)
 
             ;;Function return value
-            serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
+            serializer.ArgumentData(0,returnValue,FieldDataType.BooleanField,4,0,false)
         endmethod
 
     endclass
@@ -1200,7 +1200,7 @@ namespace TraditionalBridge.Dispatchers.MyApi
             returnValue = %OrderItemDelete(arg1,arg2)
 
             ;;Function return value
-            serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
+            serializer.ArgumentData(0,returnValue,FieldDataType.BooleanField,4,0,false)
         endmethod
 
     endclass
@@ -1235,7 +1235,7 @@ namespace TraditionalBridge.Dispatchers.MyApi
                 arg2,               d2
                 ;;Argument 3 (REQUIRED OUT OrderItem structure @StrOrderItem)
                 arg3DataObject,     @DataObjectBase
-                arg3,               StrOrderItem
+                arg3,               strOrderItem
                 returnValue,         I4
             endrecord
 
@@ -1264,7 +1264,7 @@ namespace TraditionalBridge.Dispatchers.MyApi
             returnValue = %OrderItemGet(arg1,arg2,arg3)
 
             ;;Function return value
-            serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
+            serializer.ArgumentData(0,returnValue,FieldDataType.BooleanField,4,0,false)
 
             ;;--------------------------------------------------------------------------------
             ;;Argument 3 (REQUIRED OUT OrderItem structure @StrOrderItem)
@@ -1329,7 +1329,7 @@ namespace TraditionalBridge.Dispatchers.MyApi
             returnValue = %OrderItemGetAll(arg1,arg2)
 
             ;;Function return value
-            serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
+            serializer.ArgumentData(0,returnValue,FieldDataType.BooleanField,4,0,false)
 
             ;;--------------------------------------------------------------------------------
             ;;Argument 2 (REQUIRED OUT OrderItems ArrayList collection of structure @StrOrderItem returned as DataTable)
@@ -1365,7 +1365,7 @@ namespace TraditionalBridge.Dispatchers.MyApi
 
                 ;;Argument 1 (REQUIRED IN OrderItem structure @StrOrderItem)
                 arg1DataObject,     @DataObjectBase
-                arg1,               StrOrderItem
+                arg1,               strOrderItem
                 returnValue,         I4
             endrecord
 
@@ -1389,7 +1389,7 @@ namespace TraditionalBridge.Dispatchers.MyApi
             returnValue = %OrderItemUpdate(arg1)
 
             ;;Function return value
-            serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
+            serializer.ArgumentData(0,returnValue,FieldDataType.BooleanField,4,0,false)
         endmethod
 
     endclass
@@ -1420,7 +1420,7 @@ namespace TraditionalBridge.Dispatchers.MyApi
 
                 ;;Argument 1 (REQUIRED INOUT OrderItem structure @StrOrderItem)
                 arg1DataObject,     @DataObjectBase
-                arg1,               StrOrderItem
+                arg1,               strOrderItem
                 returnValue,         I4
             endrecord
 
@@ -1444,7 +1444,7 @@ namespace TraditionalBridge.Dispatchers.MyApi
             returnValue = %OrderItemValidate(arg1)
 
             ;;Function return value
-            serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
+            serializer.ArgumentData(0,returnValue,FieldDataType.BooleanField,4,0,false)
 
             ;;--------------------------------------------------------------------------------
             ;;Argument 1 (REQUIRED INOUT OrderItem structure @StrOrderItem)
@@ -1481,7 +1481,7 @@ namespace TraditionalBridge.Dispatchers.MyApi
 
                 ;;Argument 1 (REQUIRED IN Order structure @StrOrder)
                 arg1DataObject,     @DataObjectBase
-                arg1,               StrOrder
+                arg1,               strOrder
                 returnValue,         I4
             endrecord
 
@@ -1505,7 +1505,7 @@ namespace TraditionalBridge.Dispatchers.MyApi
             returnValue = %OrderUpdate(arg1)
 
             ;;Function return value
-            serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
+            serializer.ArgumentData(0,returnValue,FieldDataType.BooleanField,4,0,false)
         endmethod
 
     endclass
@@ -1536,7 +1536,7 @@ namespace TraditionalBridge.Dispatchers.MyApi
 
                 ;;Argument 1 (REQUIRED INOUT Order structure @StrOrder)
                 arg1DataObject,     @DataObjectBase
-                arg1,               StrOrder
+                arg1,               strOrder
                 returnValue,         I4
             endrecord
 
@@ -1560,7 +1560,7 @@ namespace TraditionalBridge.Dispatchers.MyApi
             returnValue = %OrderValidate(arg1)
 
             ;;Function return value
-            serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
+            serializer.ArgumentData(0,returnValue,FieldDataType.BooleanField,4,0,false)
 
             ;;--------------------------------------------------------------------------------
             ;;Argument 1 (REQUIRED INOUT Order structure @StrOrder)
@@ -1597,7 +1597,7 @@ namespace TraditionalBridge.Dispatchers.MyApi
 
                 ;;Argument 1 (REQUIRED IN Vendor structure @StrVendor)
                 arg1DataObject,     @DataObjectBase
-                arg1,               StrVendor
+                arg1,               strVendor
                 returnValue,         I4
             endrecord
 
@@ -1621,7 +1621,7 @@ namespace TraditionalBridge.Dispatchers.MyApi
             returnValue = %VendorAdd(arg1)
 
             ;;Function return value
-            serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
+            serializer.ArgumentData(0,returnValue,FieldDataType.BooleanField,4,0,false)
         endmethod
 
     endclass
@@ -1671,7 +1671,7 @@ namespace TraditionalBridge.Dispatchers.MyApi
             returnValue = %VendorDelete(arg1)
 
             ;;Function return value
-            serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
+            serializer.ArgumentData(0,returnValue,FieldDataType.BooleanField,4,0,false)
         endmethod
 
     endclass
@@ -1704,7 +1704,7 @@ namespace TraditionalBridge.Dispatchers.MyApi
                 arg1,               d6
                 ;;Argument 2 (REQUIRED OUT Vendor structure @StrVendor)
                 arg2DataObject,     @DataObjectBase
-                arg2,               StrVendor
+                arg2,               strVendor
                 returnValue,         I4
             endrecord
 
@@ -1729,7 +1729,7 @@ namespace TraditionalBridge.Dispatchers.MyApi
             returnValue = %VendorGet(arg1,arg2)
 
             ;;Function return value
-            serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
+            serializer.ArgumentData(0,returnValue,FieldDataType.BooleanField,4,0,false)
 
             ;;--------------------------------------------------------------------------------
             ;;Argument 2 (REQUIRED OUT Vendor structure @StrVendor)
@@ -1788,7 +1788,7 @@ namespace TraditionalBridge.Dispatchers.MyApi
             returnValue = %VendorGetAll(arg1)
 
             ;;Function return value
-            serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
+            serializer.ArgumentData(0,returnValue,FieldDataType.BooleanField,4,0,false)
 
             ;;--------------------------------------------------------------------------------
             ;;Argument 1 (REQUIRED OUT Vendors ArrayList collection of structure @StrVendor returned as DataTable)
@@ -1824,7 +1824,7 @@ namespace TraditionalBridge.Dispatchers.MyApi
 
                 ;;Argument 1 (REQUIRED IN Vendor structure @StrVendor)
                 arg1DataObject,     @DataObjectBase
-                arg1,               StrVendor
+                arg1,               strVendor
                 returnValue,         I4
             endrecord
 
@@ -1848,7 +1848,7 @@ namespace TraditionalBridge.Dispatchers.MyApi
             returnValue = %VendorUpdate(arg1)
 
             ;;Function return value
-            serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
+            serializer.ArgumentData(0,returnValue,FieldDataType.BooleanField,4,0,false)
         endmethod
 
     endclass
@@ -1879,7 +1879,7 @@ namespace TraditionalBridge.Dispatchers.MyApi
 
                 ;;Argument 1 (REQUIRED INOUT Vendor structure @StrVendor)
                 arg1DataObject,     @DataObjectBase
-                arg1,               StrVendor
+                arg1,               strVendor
                 returnValue,         I4
             endrecord
 
@@ -1903,7 +1903,7 @@ namespace TraditionalBridge.Dispatchers.MyApi
             returnValue = %VendorValidate(arg1)
 
             ;;Function return value
-            serializer.ArgumentData(0,returnValue,FieldDataType.IntegerField,4,0,false)
+            serializer.ArgumentData(0,returnValue,FieldDataType.BooleanField,4,0,false)
 
             ;;--------------------------------------------------------------------------------
             ;;Argument 1 (REQUIRED INOUT Vendor structure @StrVendor)

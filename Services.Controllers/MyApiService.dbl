@@ -13,6 +13,7 @@
 
 import Harmony.Core
 import Harmony.Core.Context
+import Harmony.Core.Converters
 import Harmony.Core.Interface
 import Harmony.Core.EF.Extensions
 import Harmony.OData
@@ -22,6 +23,7 @@ import System
 import System.Collections.Generic
 import System.Text
 import Microsoft.AspNetCore.Mvc
+import Microsoft.AspNetCore.OData
 import Microsoft.AspNetCore.Authorization
 import Newtonsoft.Json.Linq
 import System.Linq
@@ -33,6 +35,7 @@ namespace Services.Controllers
     public partial class MyApiService extends DynamicCallProvider
 
         static IsInitialized, boolean
+
         static method MyApiService
         proc
             DataObjectMetadataBase.LookupType(^typeof(Customer))
@@ -60,7 +63,20 @@ namespace Services.Controllers
             DataObjectMetadataBase.LookupType(^typeof(Vendor))
             DataObjectMetadataBase.LookupType(^typeof(Vendor))
             DataObjectMetadataBase.LookupType(^typeof(Vendor))
+
+            ;;If there is a MyApiServiceCustom method, call it
+            MyApiServiceCustom()
+
             IsInitialized = true
+
+        endmethod
+
+        ;;; <summary>
+        ;;; Partial method to allow custom constrctor code.
+        ;;; </summary>
+        ;;; <param name="services"></param>
+        partial static method MyApiServiceCustom, void
+
         endmethod
 
         ;;; <summary>
