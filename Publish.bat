@@ -105,6 +105,7 @@ echo Publish complete
 popd
 
 rem Include the Traditional Bridge host program and startup script
+
 echo Copying traditional bridge files
 copy /y TraditionalBridge\EXE\host.dbr "%DeployDir%" > nul 2>&1
 copy /y TraditionalBridge\EXE\host.dbp "%DeployDir%" > nul 2>&1

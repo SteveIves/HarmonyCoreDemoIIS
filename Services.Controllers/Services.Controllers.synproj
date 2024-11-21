@@ -65,6 +65,7 @@
     <Compile Include="MyApiService.dbl" />
     <Compile Include="OrderItemsController.dbl" />
     <Compile Include="OrdersController.dbl" />
+    <Compile Include="TestController.dbl" />
     <Compile Include="VendorsController.dbl" />
   </ItemGroup>
   <ItemGroup>
