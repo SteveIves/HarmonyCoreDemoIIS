@@ -1,28 +1,33 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" DefaultTargets="restore;Build">
   <Import Project="$(SolutionDir)Common.props" />
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <DefaultLanguageSourceExtension>.dbl</DefaultLanguageSourceExtension>
     <EnableDefaultItems>false</EnableDefaultItems>
     <Name>Services.Isolated</Name>
     <ProjectGuid>{15223F07-0941-46E8-9C2F-9924D7FFA678}</ProjectGuid>
     <EnableCommonProperties>True</EnableCommonProperties>
     <Prefer32Bit>False</Prefer32Bit>
-  <GenerateMvcApplicationPartsAssemblyAttributes>false</GenerateMvcApplicationPartsAssemblyAttributes></PropertyGroup>
+    <GenerateMvcApplicationPartsAssemblyAttributes>false</GenerateMvcApplicationPartsAssemblyAttributes>
+  </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <OutputPath>$(EXE)</OutputPath>
-    <UnevaluatedOutputPath>$(EXE)</UnevaluatedOutputPath>
+    <OutputPath>bin\$(configuration)</OutputPath>
+    <UnevaluatedOutputPath>bin\$(configuration)</UnevaluatedOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <UnevaluatedOutputPath>$(EXE)</UnevaluatedOutputPath>
-    <OutputPath>$(EXE)</OutputPath>
+    <UnevaluatedOutputPath>bin\$(configuration)</UnevaluatedOutputPath>
+    <OutputPath>bin\$(configuration)</OutputPath>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Harmony.Core">
-      <Version>3.1.463</Version>
+      <Version>6.0.331</Version>
     </PackageReference>
-    <PackageReference Include="Synergex.SynergyDE.Build" Version="11.1.1070.3107" />
-    <PackageReference Include="Synergex.SynergyDE.synrnt" Version="11.1.1070" />
+    <PackageReference Include="Synergex.SynergyDE.Build">
+      <Version>23.4.1150</Version>
+    </PackageReference>
+    <PackageReference Include="Synergex.SynergyDE.synrnt">
+      <Version>12.2.1.1003</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IsolatedMethods.dbl" />

@@ -26,12 +26,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{
 		Templates\ODataSelfHost.tpl = Templates\ODataSelfHost.tpl
 		Templates\ODataSelfHostEnvironment.tpl = Templates\ODataSelfHostEnvironment.tpl
 		Templates\ODataStartup.tpl = Templates\ODataStartup.tpl
-		Templates\ODataSwaggerType.tpl = Templates\ODataSwaggerType.tpl
-		Templates\ODataSwaggerYaml.tpl = Templates\ODataSwaggerYaml.tpl
 		Templates\ODataTestConstantsProperties.tpl = Templates\ODataTestConstantsProperties.tpl
-		Templates\ODataTestConstantsValues.tpl = Templates\ODataTestConstantsValues.tpl
 		Templates\ODataTestDataLoader.tpl = Templates\ODataTestDataLoader.tpl
-		Templates\ODataTestEnvironment.tpl = Templates\ODataTestEnvironment.tpl
 		Templates\ODataUnitTestEnvironment.tpl = Templates\ODataUnitTestEnvironment.tpl
 		Templates\ODataUnitTestHost.tpl = Templates\ODataUnitTestHost.tpl
 		Templates\ODataUnitTests.tpl = Templates\ODataUnitTests.tpl
@@ -41,9 +37,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{29AEA4C4-62B2-4F46-9B80-5F061D950BE1}"
 	ProjectSection(SolutionItems) = preProject
+		DeployToIIS.bat = DeployToIIS.bat
+		DeployToIIS.Settings.bat = DeployToIIS.Settings.bat
 		ODataService.codegen = ODataService.codegen
-		publish.bat = publish.bat
+		Publish.bat = Publish.bat
+		Publish.Settings.bat = Publish.Settings.bat
 		regen.bat = regen.bat
+		regen_last.bat = regen_last.bat
 		UserDefinedTokens.tkn = UserDefinedTokens.tkn
 		web.config = web.config
 	EndProjectSection
@@ -80,9 +80,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TraditionalBridge", "Tradit
 		Templates\TraditionalBridge\ODataMetaData.tpl = Templates\TraditionalBridge\ODataMetaData.tpl
 		Templates\TraditionalBridge\ODataModel.tpl = Templates\TraditionalBridge\ODataModel.tpl
 		Templates\TraditionalBridge\OptionalParameterMethodDispatchers.tpl = Templates\TraditionalBridge\OptionalParameterMethodDispatchers.tpl
-		Templates\TraditionalBridge\TraditionalBridgeInterfaceServiceModels.tpl = Templates\TraditionalBridge\TraditionalBridgeInterfaceServiceModels.tpl
 		Templates\TraditionalBridge\TraditionalMetaData.tpl = Templates\TraditionalBridge\TraditionalMetaData.tpl
-		Services.Models\Templates\TraditionalBridge\TraditionalModel.tpl = Services.Models\Templates\TraditionalBridge\TraditionalModel.tpl
 		Templates\TraditionalBridge\TraditionalModel.tpl = Templates\TraditionalBridge\TraditionalModel.tpl
 	EndProjectSection
 EndProject

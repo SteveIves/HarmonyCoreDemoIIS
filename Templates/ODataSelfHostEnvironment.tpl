@@ -51,6 +51,7 @@ import Microsoft.AspNetCore
 import Microsoft.AspNetCore.Hosting
 import System.Collections.Generic
 import System.IO
+import System.Runtime.InteropServices
 import System.Text
 import <SERVICES_NAMESPACE>
 import <MODELS_NAMESPACE>
@@ -70,7 +71,10 @@ namespace <NAMESPACE>
         proc
             ;;Allows select to join when the keys in the file are not the same type as the keys in the code
             data status, int
-            xcall setlog("SYNSEL_NUMALPHA_KEYS", 1, status) 
+            xcall setlog("SYNSEL_NUMALPHA_KEYS", 1, status)
+
+            ;;Allows connections to older xfServer services
+            xcall setlog("SRV_COMPAT", 1, status)
 
             ;;Configure the test environment (set logicals, create files in a known state, etc.)
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance)
@@ -217,6 +221,7 @@ namespace <NAMESPACE>
             data fileExtension, a10
             xcall parse(dataFile.ToLower(),1,,,,,fileExtension)
             data textFile = dataFile.ToLower().Replace(%atrim(fileExtension),".txt")
+			EnsurePlatformSpecificLineEndings(textFile.Replace(":", System.IO.Path.DirectorySeparatorChar).Replace("dat", Environment.GetEnvironmentVariable("DAT")), <STRUCTURE_SIZE>)
             data <structureNoplural>Ch, int, 0
             data <structureNoplural>Rec, str<StructureNoplural>
             data <structurePlural>Data = new List<<StructureNoplural>>()
@@ -246,9 +251,62 @@ namespace <NAMESPACE>
                 if(Directory.Exists(Path.Combine(currentFolder, folderName))) then
                     mreturn Path.Combine(currentFolder, folderName)
                 else
-                    currentFolder = Path.GetFullPath(currentFolder + "..\")
+                begin
+                    if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) then
+                        currentFolder = Path.GetFullPath(currentFolder + "..\")
+                    else
+                        currentFolder = Path.GetFullPath(currentFolder + "../")
+                end
             end
             mreturn ^null
+        endmethod
+
+		public static method EnsurePlatformSpecificLineEndings, void
+            filePath, string
+            minLineLength, int
+        proc
+            data content = File.ReadAllBytes(filePath)
+            data allBytes, @List<byte>, new List<byte>()
+            data lineBytes, @List<byte>, new List<byte>()
+            data i = 1
+            while (i <= content.Length)
+            begin 
+                data c, char
+                c = %char(content[i])
+                if (c == %char(13) || c == %char(10)) then
+                begin
+                    allBytes.AddRange(lineBytes)
+
+                    if (lineBytes.Count >= minLineLength) then
+                    begin
+                        allBytes.AddRange(Encoding.ASCII.GetBytes(Environment.NewLine))
+                        if (c == %char(13) && i + 1 <= content.Length && %char(content[i + 1]) == %char(10))
+                            i = i + 1
+                    end
+                    else
+                    begin
+                        if (c == %char(13) && i + 1 <= content.Length && %char(content[i + 1]) == %char(10)) then
+                        begin
+                            allBytes.AddRange(Encoding.ASCII.GetBytes(Environment.NewLine))
+                            i = i + 1
+                        end
+                        else
+                        begin
+                            allBytes.Add(content[i])
+                        end
+                    end
+                    lineBytes.Clear()
+                end
+                else
+                begin
+                    lineBytes.Add(content[i])
+                end
+                
+                i = i + 1
+            end
+
+            allBytes.AddRange(lineBytes)
+            File.WriteAllBytes(filePath, allBytes.ToArray())
         endmethod
 
     endclass

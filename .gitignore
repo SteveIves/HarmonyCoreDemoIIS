@@ -35,10 +35,11 @@ OutputFiles
 # Ignore specific files
 
 /UpgradeLog.htm
-
-/ftp.tmp
-/HarmonyCoreDemoIIS_PUBLISH
-/HarmonyCoreDemoIIS/EXE
-/EXE/*.dbr
-/EXE/*.elb
+/PUBLISH
+/TraditionalBridge/EXE
 /regen_last.bat
+/Publish.Settings.bat
+/DeployToIIS.Settings.bat
+*.zip
+/TraditionalBridge/OpenVMS/SendToVms.Settings.bat
+/.vscode

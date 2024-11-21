@@ -45,8 +45,11 @@
 ;; Any changes you make will be lost of the file is re-generated.
 ;;*****************************************************************************
 
-import Microsoft.AspNet.OData
-import Microsoft.AspNet.OData.Routing
+import Microsoft.AspNetCore.OData.Routing.Controllers
+import Microsoft.AspNetCore.OData.Routing.Attributes
+import Microsoft.AspNetCore.OData.Query
+import Microsoft.AspNetCore.OData.Results
+import Microsoft.AspNetCore.OData.Formatter
 import Microsoft.AspNetCore.Http
 import Microsoft.AspNetCore.Mvc
 
@@ -66,7 +69,7 @@ namespace <NAMESPACE>
 ;//
         <IF STRUCTURE_ISAM AND STRUCTURE_HAS_UNIQUE_PK AND NOTPKSEGMENT>
           <PRIMARY_KEY>
-        {ODataRoute("(<IF SINGLE_SEGMENT>{key}<ELSE><SEGMENT_LOOP><IF NOT SEG_TAG_EQUAL><FieldSqlName>={a<FieldSqlName>}<SEGMENT_COMMA_NOT_LAST_NORMAL_FIELD></IF SEG_TAG_EQUAL></SEGMENT_LOOP></IF SINGLE_SEGMENT>)/<FieldSqlName>")}
+        {HttpGet("<StructurePlural>(<IF SINGLE_SEGMENT>{key}<ELSE><SEGMENT_LOOP><IF NOT SEG_TAG_EQUAL><FieldSqlName>={a<FieldSqlName>}<SEGMENT_COMMA_NOT_LAST_NORMAL_FIELD></IF SEG_TAG_EQUAL></SEGMENT_LOOP></IF SINGLE_SEGMENT>)/<FieldSqlName>")}
         {Produces("application/json")}
         {ProducesResponseType(StatusCodes.Status200OK)}
             <IF DEFINED_ENABLE_AUTHENTICATION>
@@ -94,7 +97,6 @@ namespace <NAMESPACE>
         public method Get<FieldSqlName>, @IActionResult
             <SEGMENT_LOOP>
               <IF SINGLE_SEGMENT>
-            {FromODataUri}
                 <IF CUSTOM_HARMONY_AS_STRING>
             required in key, string
                  <ELSE>
@@ -102,7 +104,6 @@ namespace <NAMESPACE>
                 </IF CUSTOM_HARMONY_AS_STRING>
               <ELSE>
                 <IF NOT SEG_TAG_EQUAL>
-            {FromODataUri}
                   <IF CUSTOM_HARMONY_AS_STRING>
             required in a<FieldSqlName>, string
                   <ELSE>
@@ -123,7 +124,7 @@ namespace <NAMESPACE>
 ;// RELATIVE
 ;//
         <IF STRUCTURE_RELATIVE>
-        {ODataRoute("({key})}
+        {HttpGet("<StructurePlural>({key})}
         {Produces("application/json")}
         {ProducesResponseType(StatusCodes.Status200OK)}
           <IF DEFINED_ENABLE_AUTHENTICATION>
@@ -141,7 +142,6 @@ namespace <NAMESPACE>
         ;;; Returns <IF ALPHA>a string</IF ALPHA><IF DECIMAL><IF PRECISION>a decimal<ELSE><IF CUSTOM_HARMONY_AS_STRING>a string<ELSE>an int</IF CUSTOM_HARMONY_AS_STRING></IF PRECISION></IF DECIMAL><IF DATE>a DateTime</IF DATE><IF TIME>a DateTime</IF TIME><IF INTEGER>an int</IF INTEGER> containing the value of the requested property.
         ;;;</returns>
         public method Get<FieldSqlName>, @IActionResult
-            {FromODataUri}
             required in key, int
         proc
             data result = _DbContext.<StructurePlural>.Find(key)

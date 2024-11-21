@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" DefaultTargets="restore;Build">
   <Import Project="$(SolutionDir)Common.props" />
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <DefaultLanguageSourceExtension>.dbl</DefaultLanguageSourceExtension>
     <EnableDefaultItems>false</EnableDefaultItems>
     <Name>Services.Controllers</Name>
@@ -11,62 +11,61 @@
     <GenerateMvcApplicationPartsAssemblyAttributes>false</GenerateMvcApplicationPartsAssemblyAttributes>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <OutputPath>$(EXE)</OutputPath>
-    <UnevaluatedOutputPath>$(EXE)</UnevaluatedOutputPath>
+    <OutputPath>bin\$(configuration)</OutputPath>
+    <UnevaluatedOutputPath>bin\$(configuration)</UnevaluatedOutputPath>
+    <DocumentationFile>bin\$(configuration)\Services.Controllers.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <UnevaluatedOutputPath>$(EXE)</UnevaluatedOutputPath>
-    <OutputPath>$(EXE)</OutputPath>
+    <UnevaluatedOutputPath>bin\$(configuration)</UnevaluatedOutputPath>
+    <OutputPath>bin\$(configuration)</OutputPath>
+    <DocumentationFile>bin\$(configuration)\Services.Controllers.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Harmony.Core">
-      <Version>3.1.463</Version>
+      <Version>6.0.331</Version>
     </PackageReference>
     <PackageReference Include="Harmony.Core.AspNetCore">
-      <Version>3.1.463</Version>
+      <Version>6.0.331</Version>
     </PackageReference>
     <PackageReference Include="Harmony.Core.EF">
-      <Version>3.1.463</Version>
+      <Version>6.0.331</Version>
     </PackageReference>
     <PackageReference Include="Harmony.Core.OData">
-      <Version>3.1.463</Version>
+      <Version>6.0.331</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions">
       <Version>2.2.0</Version>
     </PackageReference>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning">
-      <Version>4.1.1</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.AspNetCore.OData.Versioning.ApiExplorer">
-      <Version>4.1.1</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.AspNetCore.SignalR">
-      <Version>1.1.0</Version>
-    </PackageReference>
     <PackageReference Include="Microsoft.IdentityModel.Tokens">
-      <Version>5.5.0</Version>
+      <Version>6.16.0</Version>
     </PackageReference>
-    <PackageReference Include="Synergex.SynergyDE.Build" Version="11.1.1070.3107" />
-    <PackageReference Include="Synergex.SynergyDE.synrnt" Version="11.1.1070" />
     <PackageReference Include="Microsoft.AspNetCore.JsonPatch">
-      <Version>3.1.6</Version>
+      <Version>6.0.16</Version>
     </PackageReference>
     <PackageReference Include="IdentityServer4.AccessTokenValidation">
       <Version>3.0.1</Version>
     </PackageReference>
-    <PackageReference Include="SSH.NET" Version="2016.1.0" />
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
-    
+    <PackageReference Include="SSH.NET">
+      <Version>2020.0.2</Version>
+    </PackageReference>
+    <PackageReference Include="Synergex.SynergyDE.Build">
+      <Version>23.4.1150</Version>
+    </PackageReference>
+    <PackageReference Include="Synergex.SynergyDE.synrnt">
+      <Version>12.2.1.1003</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AuthTools.dbl" />
     <Compile Include="CustomersController.dbl" />
     <Compile Include="IsolatedMethodsBase.dbl" />
     <Compile Include="ItemsController.dbl" />
+    <Compile Include="MyApiController.dbl" />
+    <Compile Include="MyApiService.dbl" />
     <Compile Include="OrderItemsController.dbl" />
     <Compile Include="OrdersController.dbl" />
-    <Compile Include="TraditionalBridgeController.dbl" />
-    <Compile Include="TraditionalBridgeService.dbl" />
+    <Compile Include="TestController.dbl" />
     <Compile Include="VendorsController.dbl" />
   </ItemGroup>
   <ItemGroup>

@@ -1,16 +1,17 @@
 <CODEGEN_FILENAME>GenerateTestValues.dbl</CODEGEN_FILENAME>
 <REQUIRES_CODEGEN_VERSION>5.6.5</REQUIRES_CODEGEN_VERSION>
-<REQUIRES_USERTOKEN>UNIT_TESTS_NAMESPACE</REQUIRES_USERTOKEN>
+<REQUIRES_USERTOKEN>UNIT_TESTS_BASE_NAMESPACE</REQUIRES_USERTOKEN>
 
 import System
 import System.Text.Json
 import System.Text.Json.Serialization
 import System.IO
-import <UNIT_TESTS_NAMESPACE>
+import Harmony.Core.FileIO
+import <UNIT_TESTS_BASE_NAMESPACE>
 
 main GenerateTestValues
 proc
-    <UNIT_TESTS_NAMESPACE>.UnitTestEnvironment.AssemblyInitialize(^null)
+    <UNIT_TESTS_BASE_NAMESPACE>.UnitTestEnvironment.AssemblyInitialize(^null)
     new GenerateTestValues().SerializeValues()
 endmain
 
@@ -23,6 +24,15 @@ namespace <NAMESPACE>
         .include "<STRUCTURE_NOALIAS>" repository, record="<structureNoplural>", end
         </IF STRUCTURE_ISAM>
     </STRUCTURE_LOOP>
+
+        private ChannelManager, @IFileChannelManager
+        
+        public method GenerateTestValues
+        proc
+            CustomServiceInit()
+            if(ChannelManager == ^null)
+                ChannelManager = new FileChannelManager()
+        endmethod
 
     <STRUCTURE_LOOP>
         <IF STRUCTURE_ISAM>
@@ -41,7 +51,6 @@ namespace <NAMESPACE>
             data count, int
 <STRUCTURE_LOOP>
   <IF STRUCTURE_ISAM>
-
             ;------------------------------------------------------------
             ;Test data for <StructureNoplural>
 
@@ -52,8 +61,11 @@ namespace <NAMESPACE>
 
             ;Open the data file
             Console.WriteLine(" - Opening " + m<StructureNoplural>FileSpec + "...")
-            open(chin=0,i:i,m<StructureNoplural>FileSpec)
 
+            ;;------------------------------------------------------------
+            ;;Test data for <StructureNoplural>
+            chin = ChannelManager.GetChannel("<FILE_NAME>", FileOpenMode.InputIndexed)
+            
 ;//
 ;// ENABLE_GET_ALL
 ;//
@@ -136,16 +148,18 @@ namespace <NAMESPACE>
     </SEGMENT_LOOP>
   </PRIMARY_KEY>
 
-            close chin
+            ChannelManager.ReturnChannel(chin)
   </IF STRUCTURE_ISAM>
 </STRUCTURE_LOOP>
 
             ;Determine where to create the output file
-            data jsonFilePath = <UNIT_TESTS_NAMESPACE>.UnitTestEnvironment.FindRelativeFolderForAssembly("<UNIT_TESTS_NAMESPACE>")
+            data jsonFilePath = <UNIT_TESTS_BASE_NAMESPACE>.UnitTestEnvironment.FindRelativeFolderForAssembly("<UNIT_TESTS_BASE_NAMESPACE>")
+            File.WriteAllText(Path.Combine(jsonFilePath, "TestConstants.Values.json"), JsonSerializer.Serialize(TestConstants.Instance, new JsonSerializerOptions(){ WriteIndented = true }))
+        endmethod
 
-            ;Create the output file
-            File.WriteAllText(Path.Combine(jsonFilePath, "TestConstants.Values.json"), JsonSerializer.Serialize(TestConstants.Instance, new JsonSerializerOptions() { WriteIndented = true } ))
-
+        ;;It may be useful to set MultiTenantProvider.TenantId to a predefined tenantid if this is used inside your custom ChannelManager
+        ;;this is where ChannelManager should be set to a custom type
+        partial method CustomServiceInit, void
         endmethod
 
     endclass

@@ -80,13 +80,24 @@ namespace <NAMESPACE>
 			mreturn ^null
 		endmethod
 
+		public virtual method SetIntoArray, void
+            dataArea, a
+            arrayObject, @object
+            index, int
+		record
+			typedArrayObject, [#]str<StructureNoplural>
+        proc
+            typedArrayObject = ([#]str<StructureNoplural>)arrayObject
+			typedArrayObject[index] = dataArea
+        endmethod
+
 		public override method MakeNew, @DataObjectBase
 			required in dataArea, a
 			required in grfa, a
 			record
 				new<StructureNoplural>, @<NAMESPACE>.<StructureNoplural>
 		proc
-			new<StructureNoplural> = new <StructureNoplural>(dataArea) 
+			new<StructureNoplural> = new <NAMESPACE>.<StructureNoplural>(dataArea) 
 			new<StructureNoplural>.GlobalRFA = grfa
 			mreturn new<StructureNoplural>
 		endmethod

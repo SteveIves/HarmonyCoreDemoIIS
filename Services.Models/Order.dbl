@@ -269,7 +269,7 @@ namespace Services.Models
 
 .endregion
 
-.region "Relation validation"
+.region "Data validation"
 
         ;;; <summary>
         ;;; Validate data
@@ -282,6 +282,7 @@ namespace Services.Models
         proc
             ;;If we have a ValidateCustom method, call it
             ValidateCustom(vType,sp)
+
         endmethod
 
         private partial method ValidateCustom, void
@@ -300,11 +301,11 @@ namespace Services.Models
             method get
             proc
                 mreturn OrderNumber.ToString()
-                
+
             endmethod
             method set
             proc
-                
+
             endmethod
         endproperty
 
@@ -313,11 +314,11 @@ namespace Services.Models
             method get
             proc
                 mreturn CustomerNumber.ToString()
-                
+
             endmethod
             method set
             proc
-                
+
             endmethod
         endproperty
 
@@ -326,11 +327,11 @@ namespace Services.Models
             method get
             proc
                 mreturn DateOrdered.ToString()
-                
+
             endmethod
             method set
             proc
-                
+
             endmethod
         endproperty
 
@@ -339,11 +340,11 @@ namespace Services.Models
             method get
             proc
                 mreturn DateCompleted.ToString()
-                
+
             endmethod
             method set
             proc
-                
+
             endmethod
         endproperty
 
