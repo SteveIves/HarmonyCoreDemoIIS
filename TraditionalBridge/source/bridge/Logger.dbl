@@ -38,6 +38,13 @@ namespace Harmony.TraditionalBridge
             end
         endmethod
 
+        public property LogChannel, int
+            method get
+            proc
+                mreturn (mActiveSettings.OnDiskLogLevel >= 0) ? mLoggingChannel : 0
+            endmethod
+        endproperty
+
         public method LogHnd, void
             handleValue, D_HANDLE
         proc
@@ -67,7 +74,7 @@ namespace Harmony.TraditionalBridge
         proc
             if(mActiveSettings.LogToDisk || mActiveSettings.LogToMemory)
             begin
-                currentDateTime = %datetime()
+                currentDateTime = %datetime
                 xcall s_bld(timeString,timeStringLength, 
                 &    "%A/%A/%A %A:%A:%A: ", day, month, 
                 &    year, hour, minute, second)
@@ -75,8 +82,26 @@ namespace Harmony.TraditionalBridge
 
                 if(mActiveSettings.LogToDisk && mLoggingChannel)
                 begin
-                    if(resultLogString.Length > 65534) then
-                        writes(mLoggingChannel, resultLogString(1:65534))
+                    if(resultLogString.Length > 32000) then
+                    begin
+                        data index, int, 1
+                        data endIndex, int, 32000
+                        while(index < resultLogString.Length)
+                        begin
+                            writes(mLoggingChannel, resultLogString.Substring(index, (endIndex - index)))
+                            index = endIndex
+                            if(resultLogString.Length > endIndex + 32000) then
+                                endIndex += 32000
+                            else
+                                endIndex = resultLogString.Length
+
+                            if(index > 32000 && mActiveSettings.OnDiskLogLevel < 7)
+                            begin
+
+                                exitloop
+                            end
+                        end
+                    end
                     else
                         writes(mLoggingChannel, resultLogString)
 

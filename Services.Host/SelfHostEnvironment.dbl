@@ -306,7 +306,7 @@ namespace Services.Host
             data fileExtension, a10
             xcall parse(dataFile.ToLower(),1,,,,,fileExtension)
             data textFile = dataFile.ToLower().Replace(%atrim(fileExtension),".txt")
-			EnsurePlatformSpecificLineEndings(textFile.Replace(":", System.IO.Path.DirectorySeparatorChar).Replace("dat", Environment.GetEnvironmentVariable("DAT")), 161)
+			EnsurePlatformSpecificLineEndings(textFile.Replace(":", System.IO.Path.DirectorySeparatorChar).Replace("dat", Environment.GetEnvironmentVariable("DAT"), StringComparison.CurrentCultureIgnoreCase), 161)
             data customerCh, int, 0
             data customerRec, strCustomer
             data customersData = new List<Customer>()
@@ -328,7 +328,7 @@ namespace Services.Host
             data fileExtension, a10
             xcall parse(dataFile.ToLower(),1,,,,,fileExtension)
             data textFile = dataFile.ToLower().Replace(%atrim(fileExtension),".txt")
-			EnsurePlatformSpecificLineEndings(textFile.Replace(":", System.IO.Path.DirectorySeparatorChar).Replace("dat", Environment.GetEnvironmentVariable("DAT")), 151)
+			EnsurePlatformSpecificLineEndings(textFile.Replace(":", System.IO.Path.DirectorySeparatorChar).Replace("dat", Environment.GetEnvironmentVariable("DAT"), StringComparison.CurrentCultureIgnoreCase), 151)
             data itemCh, int, 0
             data itemRec, strItem
             data itemsData = new List<Item>()
@@ -350,7 +350,7 @@ namespace Services.Host
             data fileExtension, a10
             xcall parse(dataFile.ToLower(),1,,,,,fileExtension)
             data textFile = dataFile.ToLower().Replace(%atrim(fileExtension),".txt")
-			EnsurePlatformSpecificLineEndings(textFile.Replace(":", System.IO.Path.DirectorySeparatorChar).Replace("dat", Environment.GetEnvironmentVariable("DAT")), 100)
+			EnsurePlatformSpecificLineEndings(textFile.Replace(":", System.IO.Path.DirectorySeparatorChar).Replace("dat", Environment.GetEnvironmentVariable("DAT"), StringComparison.CurrentCultureIgnoreCase), 100)
             data orderCh, int, 0
             data orderRec, strOrder
             data ordersData = new List<Order>()
@@ -372,7 +372,7 @@ namespace Services.Host
             data fileExtension, a10
             xcall parse(dataFile.ToLower(),1,,,,,fileExtension)
             data textFile = dataFile.ToLower().Replace(%atrim(fileExtension),".txt")
-			EnsurePlatformSpecificLineEndings(textFile.Replace(":", System.IO.Path.DirectorySeparatorChar).Replace("dat", Environment.GetEnvironmentVariable("DAT")), 100)
+			EnsurePlatformSpecificLineEndings(textFile.Replace(":", System.IO.Path.DirectorySeparatorChar).Replace("dat", Environment.GetEnvironmentVariable("DAT"), StringComparison.CurrentCultureIgnoreCase), 100)
             data orderItemCh, int, 0
             data orderItemRec, strOrderItem
             data orderItemsData = new List<OrderItem>()
@@ -394,7 +394,7 @@ namespace Services.Host
             data fileExtension, a10
             xcall parse(dataFile.ToLower(),1,,,,,fileExtension)
             data textFile = dataFile.ToLower().Replace(%atrim(fileExtension),".txt")
-			EnsurePlatformSpecificLineEndings(textFile.Replace(":", System.IO.Path.DirectorySeparatorChar).Replace("dat", Environment.GetEnvironmentVariable("DAT")), 135)
+			EnsurePlatformSpecificLineEndings(textFile.Replace(":", System.IO.Path.DirectorySeparatorChar).Replace("dat", Environment.GetEnvironmentVariable("DAT"), StringComparison.CurrentCultureIgnoreCase), 135)
             data vendorCh, int, 0
             data vendorRec, strVendor
             data vendorsData = new List<Vendor>()
