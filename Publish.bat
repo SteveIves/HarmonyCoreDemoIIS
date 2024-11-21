@@ -34,10 +34,10 @@ rem A good way to set these environment variables is to create a batch
 rem file named Publish.Settings.bat in the main solution folder. If
 rem the file is present it will be executed when this script runs.
 
-setlocal EnableDelayedExpansion
+setlocal ENABLEEXTENSIONS ENABLEDELAYEDEXPANSION
 
 set SolutionDir=%~dp0
-set SYNCMPOPT=-wd=316
+rem set SYNCMPOPT=-wd=316
 
 pushd "%SolutionDir%"
 
@@ -48,6 +48,8 @@ set RPSMFIL=%SolutionDir%Repository\rpsmain.ism
 set RPSTFIL=%SolutionDir%Repository\rpstext.ism
 
 set DeployDir=%SolutionDir%PUBLISH
+
+set CONFIG=Release
 
 rem Select the platform we are publishing for
 if /i "%1" == "WINDOWS" goto publish_windows
@@ -61,7 +63,7 @@ if /i "%1" == "LINUX" goto publish_linux
 
 :publish_windows
 set PLATFORM=windows
-set RUNTIME=win7-x64
+set RUNTIME=win-x64
 goto do_publish
 
 :publish_linux
@@ -76,31 +78,49 @@ if exist "%DeployDir%\." (
   rmdir /S /Q "%DeployDir%" > nul 2>&1
 )
 
-rem The dotnet publish command will not build the TraditionalBridge project
-rem so first we'll build the solution to make sure its output is up to date.
+rem And create a new one
+mkdir "%DeployDir%"
 
-echo Building solution
-msbuild -nologo -p:platform="Any CPU" -p:configuration=Debug -verbosity:quiet
+rem Build the TraditionalBridge project
 
-if ERRORLEVEL 1 (
-  echo ERROR: Build failed!
-  goto done
+echo.
+echo Building Traditional Bridge code in %CONFIG% mode
+
+pushd TraditionalBridge
+
+msbuild -target:Rebuild -p:Platform=x64 -p:Configuration=%CONFIG% ^
+  -verbosity:minimal -nodeReuse:false -nologo TraditionalBridge.synproj
+
+if errorlevel 0 (
+    echo.
+    echo Traditional Bridge build complete
+    popd
+) else (
+    echo.
+    echo ERROR: Traditional Bridge build failed!
+    popd
+    goto done
 )
 
-rem Publish the application
-echo Publishing for %PLATFORM% to %DeployDir%
+echo.
+echo Building Harmony Core code in %CONFIG% mode
+echo.
 
 pushd Services.Host
 
-dotnet publish -nologo -p:platform=AnyCPU --configuration Debug --runtime %RUNTIME% --self-contained --output "%DeployDir%" --verbosity quiet
+dotnet publish -nologo -p:platform=AnyCPU --configuration %CONFIG% ^
+  --runtime %RUNTIME% --self-contained true --output "%DeployDir%" ^
+  --no-restore -p:PublishTrimmed=false --verbosity minimal
 
-if ERRORLEVEL 1 (
-  echo ERROR: Publish failed!
-  popd
-  goto done
+if errorlevel 0 (
+    echo.
+    echo Harmony Core build complete
+    echo.
+) else (
+    echo ERROR: Harmony Core build failed!
+    popd
+    goto done
 )
-
-echo Publish complete
 
 popd
 

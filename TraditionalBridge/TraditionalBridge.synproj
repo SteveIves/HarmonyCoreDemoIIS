@@ -19,7 +19,7 @@
     <DBL_qRelaxedParam>False</DBL_qRelaxedParam>
     <DBL_qRelaxedParamad>False</DBL_qRelaxedParamad>
     <DBL_DisWarnOptCheck>True</DBL_DisWarnOptCheck>
-    <DBL_DisWarnOpt>316</DBL_DisWarnOpt>
+    <DBL_DisWarnOpt>316,788,934</DBL_DisWarnOpt>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <IncludeDebugInformation>true</IncludeDebugInformation>

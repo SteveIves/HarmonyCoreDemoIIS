@@ -42,6 +42,17 @@ namespace Services.Controllers
         endmethod
 
         {HttpGet}
+        {Route("GetClrVersion")}
+        {Produces("application/json")}
+        ;;; <summary>
+        ;;; 
+        ;;; </summary>
+        public method GetClrVersion, @ActionResult<string>
+        proc
+            mreturn ok(Environment.Version)
+        endmethod
+
+        {HttpGet}
         {Route("GetEnvironmentVariable")}
         {Produces("application/json")}
         public method GetEnvironmentVariable, @ActionResult<string>
