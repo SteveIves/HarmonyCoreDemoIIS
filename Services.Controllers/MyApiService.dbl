@@ -273,11 +273,15 @@ namespace Services.Controllers
             ;;Define any temporary variables
             ;;Make the JSON-RPC call the traditional Synergy routine
             data resultTuple = await CallMethod("GetEnvironment"
+            &   ,ArgumentHelper.MaybeNull(response.EnvironmentString)
+            &   ,ArgumentHelper.MaybeNull(response.ErrorMessage)
             &   )
 
              ;;Set the return value in the return data
             ArgumentHelper.Argument(0, resultTuple, response.ReturnValue)
 
+            ArgumentHelper.Argument(1, resultTuple, response.EnvironmentString)
+            ArgumentHelper.Argument(2, resultTuple, response.ErrorMessage)
 
             ;;Return the response
             mreturn response

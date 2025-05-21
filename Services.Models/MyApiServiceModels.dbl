@@ -291,6 +291,20 @@ namespace MyApi
         ;;; </summary>
         public ReturnValue, string
 
+        {JsonProperty}
+        ;;; <summary>
+        ;;; Parameter 1 (REQUIRED OUT string)
+        ;;; No description found in method catalog
+        ;;; </summary>
+        public EnvironmentString, string
+
+        {JsonProperty}
+        ;;; <summary>
+        ;;; Parameter 2 (REQUIRED OUT string)
+        ;;; No description found in method catalog
+        ;;; </summary>
+        public ErrorMessage, string
+
     endclass
 
 

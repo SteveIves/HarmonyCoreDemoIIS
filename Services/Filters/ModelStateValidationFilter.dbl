@@ -13,24 +13,32 @@ import System.Linq
 
 namespace Services.Filters
 
-	;;; <summary>
-	;;; This ActionFilter can be plugged in to the ASP.NET pipeline
-	;;; to validate all inbound models. If a model is found to be
-	;;; invlaid then an HTTP 400 (Bad request) is returned to the client.
-	;;; </summary>
-	public class ModelStateValidationFilter extends ActionFilterAttribute
+    ;;; <summary>
+    ;;; This ActionFilter can be plugged in to the ASP.NET pipeline
+    ;;; to validate all inbound models. If a model is founnd to be
+    ;;; invlaid then an HTTP 400 (Bad request) is returned to the client.
+    ;;; </summary>
+    public class ModelStateValidationFilter extends ActionFilterAttribute
 
-		public override method OnActionExecutionAsync, @Task
-			context, @ActionExecutingContext 
-			next, @ActionExecutionDelegate 
-		proc
-			if (!context.ModelState.IsValid)
-			begin
-				context.Result = new BadRequestObjectResult(context.ModelState)
-			end
-			mreturn parent.OnActionExecutionAsync(context, next)
-		endmethod
+        public override method OnActionExecutionAsync, @Task
+            context, @ActionExecutingContext 
+            next, @ActionExecutionDelegate 
+        proc
+            ;;In some filters, some of this information can be useful, but it's not needed here.
+            ;data _httpContext, @HttpContext, context.HttpContext
+            ;data _request, @HttpRequest, _httpContext.Request
+            ;data _user, @ClaimsPrincipal, _httpContext.User
 
-	endclass
+            data modelState = context.ModelState
+            if (!modelState.IsValid)
+            begin
+                context.Result = new BadRequestObjectResult(modelState)
+            end
+
+            mreturn parent.OnActionExecutionAsync(context, next)
+
+        endmethod
+
+    endclass
 
 endnamespace

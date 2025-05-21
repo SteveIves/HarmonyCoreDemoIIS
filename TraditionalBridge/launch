@@ -1,41 +1,123 @@
 #!/bin/bash
-# 
-# launch (Launches a Harmony Core Traditional Bridge process)
-# 
-# Optional parameters:
 #
-#   $1 - Log level (1-6)
+# Launch the traditional bridge host program on Linux (local or remote)
 #
+# Parameters:
+#
+# $1    Traditional bridge logging level (-1 to 6, default 2)
+# $2    Remote debugger mode (NONE, TELNET or VS)
+# $3    Remote debugger port 
+# $4    Remote debugger delay
+# $5    Startup script to run (NONE or script, currently not in use)
+# $6    Enable stuck process detection (YES or NO)
+# $7    Stuck process detection seconds
+
 #------------------------------------------------------------------------------
 # Verify that we have a Synergy environment
 
-if [ -z $DBLDIR ]
-then
-	echo "ERROR: No DBL environment detected!"
-	return 2> /dev/null; exit
+if [ -z $DBLDIR ]; then
+  echo "ERROR: No DBL environment detected!"
+  return 2> /dev/null; exit
 fi
 
 #------------------------------------------------------------------------------
-# Put us in the same directory as this script
+# Put us in the TraditionalBridge directory
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 cd $SCRIPT_DIR
 
 #------------------------------------------------------------------------------
-# Process the optional parameters
+# Determine the environment name
 
-export HARMONY_LOG_LEVEL=2
-if [ ! -z $1 ]
-then
-	export HARMONY_LOG_LEVEL=$1
+if [ -e environment ]; then
+  ENVIRONMENT=`cat environment`
+  if [ -z "$ENVIRONMENT" ]; then
+    echo "ERROR: Failed to determine environment name. Check file 'environment'"
+    return 2> /dev/null; exit
+  fi
+else
+  echo "ERROR: Unable to determine environment. Define the environment name in file 'environment'"
+  return 2> /dev/null; exit
+fi
+
+#------------------------------------------------------------------------------
+# If we have an executable setup script, run it
+
+if [ -x startserver.$ENVIRONMENT.config ]; then
+  source startserver.$ENVIRONMENT.config
+fi
+
+#------------------------------------------------------------------------------
+# Set the logging level
+
+if [ -z $1 ]; then
+  export HARMONY_LOG_LEVEL=2
+else
+  export HARMONY_LOG_LEVEL=$1
+fi
+
+#------------------------------------------------------------------------------
+# run a startup script (Steve disabled this because no tiremax.config seems to exist anywhere? Check with Dan Ellis)
+
+#if [ -z $5 ]; then
+#  source tiremax.config
+#else
+#  source $5
+#fi
+
+#------------------------------------------------------------------------------
+# If specified, configure for remote debugging
+
+# No remote debugger support
+if [ -z $2 ] || [ "$2" == "NONE" ]; then
+  LAUNCH_COMMAND="dbs host.dbr"
+else
+  # TELNET or VS debug support
+  #Port number
+  if [ -z $3 ]; then
+    DEBUG_PORT=4444
+  else
+    DEBUG_PORT=$3
+  fi
+  #Connect window
+  if [ -z $4 ]; then
+    DEBUG_DELAY=30
+  else
+    DEBUG_DELAY=$4
+  fi
+fi
+
+if [ "${2,,}" == "telnet" ]; then
+  LAUNCH_COMMAND="dbr -rd $DEBUG_PORT:$DEBUG_DELAY host.dbr"
+elif [ "${2,,}" == "vs" ]; then
+  LAUNCH_COMMAND="dbr -dv -rd $DEBUG_PORT:$DEBUG_DELAY host.dbr"
+fi
+
+#------------------------------------------------------------------------------
+# Enable open file checking everywhere except production
+
+if [ "$ENVIRONMENT" != "Production" ]; then
+  export CHECK_OPEN_CHANNELS=YES
+fi
+
+#------------------------------------------------------------------------------
+# Enable stuck process detection
+
+if [ "${6,,}" == "yes" ]; then
+  if [ "$7" -gt 0 ]; then
+    export STUCK_PROCESS_SECONDS=$7
+  fi
 fi
 
 #------------------------------------------------------------------------------
 # Start the Traditional Bridge host program
 
-stty -echo -onlcr
+if [[ -t 0 ]]; then
+  stty -echo -onlcr
+fi
 
-dbs host.dbr
-#dbr -dv -rd 4444:60 host.dbr
+$LAUNCH_COMMAND
 
-stty echo onlcr
+if [[ -t 0 ]]; then
+  stty echo onlcr
+fi

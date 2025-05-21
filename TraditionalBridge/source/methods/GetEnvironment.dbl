@@ -9,7 +9,10 @@
 
 {xfMethod(interface="MyApi",elb="EXE:xfplMethods")}
 function GetEnvironment, string
-
+    required out EnvironmentString, string
+    required out ErrorMessage, string
 proc
-    freturn %versn
+    EnvironmentString = %versn
+    ErrorMessage = ""
+    freturn "OK"
 endfunction

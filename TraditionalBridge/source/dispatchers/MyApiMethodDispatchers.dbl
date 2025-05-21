@@ -452,6 +452,10 @@ namespace TraditionalBridge.Dispatchers.MyApi
                 arguments,          JSON_ELEMENT
                 argumentDefinition, @ArgumentDataDefinition
 
+                ;;Argument 1 (REQUIRED OUT EnvironmentString string)
+                arg1,               string
+                ;;Argument 2 (REQUIRED OUT ErrorMessage string)
+                arg2,               string
                 returnValue,         STRING
             endrecord
 
@@ -461,15 +465,31 @@ namespace TraditionalBridge.Dispatchers.MyApi
             ;;------------------------------------------------------------
             ;;Prepare variables for arguments
 
-            ;;There are no inbound arguments to process
+            arguments = callFrame.GetProperty("params")
+
+            ;;Argument 1 (REQUIRED OUT EnvironmentString string)
+
+
+            ;;Argument 2 (REQUIRED OUT ErrorMessage string)
+
 
             ;;------------------------------------------------------------
             ;; Call the underlying routine
 
-            returnValue = %GetEnvironment()
+            returnValue = %GetEnvironment(arg1,arg2)
 
             ;;Function return value
             serializer.ArgumentData(0,%atrim(returnValue),FieldDataType.StringField,,0,false)
+
+            ;;--------------------------------------------------------------------------------
+            ;;Argument 1 (REQUIRED OUT EnvironmentString string)
+            
+            serializer.ArgumentData(1,arg1,FieldDataType.StringField)
+
+            ;;--------------------------------------------------------------------------------
+            ;;Argument 2 (REQUIRED OUT ErrorMessage string)
+            
+            serializer.ArgumentData(2,arg2,FieldDataType.StringField)
         endmethod
 
     endclass

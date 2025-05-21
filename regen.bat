@@ -6,15 +6,8 @@ pushd "%SolutionDir%"
 
 echo rem CodeGen commands used for last regen > regen_last.bat
 
-if not defined RPSMFIL (
-    echo RPSMFIL is not defined!
-    goto error
-)
-
-if not defined RPSTFIL (
-    echo RPSTFIL is not defined!
-    goto error
-)
+set RPSMFIL="%SolutionDir%Repository\rpsmain.ism"
+set RPSTFIL="%SolutionDir%Repository\rpstext.ism"
 
 rem ================================================================================================================================
 rem Specify the names of the projects to generate code into:
